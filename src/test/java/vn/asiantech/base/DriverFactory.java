@@ -10,6 +10,7 @@ import java.net.URL;
 
 import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
+import static vn.asiantech.base.DriverType.CHROME;
 import static vn.asiantech.base.DriverType.FIREFOX;
 
 public class DriverFactory {
@@ -25,7 +26,7 @@ public class DriverFactory {
     private DriverType selectedDriverType;
 
     public DriverFactory() {
-        DriverType driverType = FIREFOX;
+        DriverType driverType = CHROME;
         String browser = System.getProperty("browser", driverType.toString()).toUpperCase();
         try {
             driverType = DriverType.valueOf(browser);
@@ -60,7 +61,6 @@ public class DriverFactory {
     }
 
     private void instantiateWebDriver(DriverType driverType) throws MalformedURLException {
-        //TODO add in a real logger instead of System.out
         System.out.println(" ");
         System.out.println("Local Operating System: " + operatingSystem);
         System.out.println("Local Architecture: " + systemArchitecture);
