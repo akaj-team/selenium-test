@@ -10,6 +10,7 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 
 import java.util.List;
+
 public class AuthenticateDefinitions extends DriverBase implements En {
     private WebElement usernameInput;
     private WebElement passwordInput;
