@@ -1,5 +1,6 @@
 package stepdefs;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -40,10 +41,35 @@ public class NotificationElementDefinitions extends DriverBase implements En {
 
         When("^I click on menu item", () -> notificationMenuElement.notificationMenuItemClick());
 
-        Then("^Navigate to correct page", () -> {
+        Then("^Navigate to correct detail page", () -> {
             new WebDriverWait(driver, 10).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             Assert.assertEquals(notificationMenuElement.getDestinationPath(), driver.getCurrentUrl());
+        });
+
+        When("^I click on reload text$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            throw new PendingException();
+        });
+
+        Then("^List notification should be reload$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            throw new PendingException();
+        });
+
+        Then("^First ten notifications displayed$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            throw new PendingException();
+        });
+
+        When("^I scroll to notification at ten$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            throw new PendingException();
+        });
+
+        Then("^Next page of notification should displayed$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            throw new PendingException();
         });
     }
 }
