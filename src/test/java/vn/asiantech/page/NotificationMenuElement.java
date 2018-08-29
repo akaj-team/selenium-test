@@ -11,24 +11,25 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     @FindBy(css = ".dropdown-menu.dropdown-alerts.size-lg.arrow-block.t-r")
     private WebElement notificationMenu;
 
-    @FindBy(className = "dropdown")
+    @FindBy(css = ".fa.fa-bell")
     private WebElement notificationMenuIcon;
 
-    @FindBy(css = ".text-center.link-block")
+    @FindBy(css = "div.text-center.link-block")
     private WebElement seeAllArea;
+
+    private WebElement notificationList;
+
+    private String destinationPath;
+
+    public void seeAll() {
+        WebElement seeAllTag = seeAllArea.findElement(By.tagName("a"));
+        setDestinationUrl(seeAllTag.getAttribute("href"));
+        seeAllArea.click();
+    }
 
     @Override
     public NotificationMenuElement navigateTo(WebDriver webDriver) {
         return this;
-    }
-
-    public NotificationMenuElement seeAll() {
-        seeAllArea.findElements(By.xpath(".//*")).get(0).click();
-        return this;
-    }
-
-    public void navigateToHomePage(WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn");
     }
 
     public void openNotification() {
@@ -36,6 +37,21 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     }
 
     public Boolean notificationElementIsDisplay() {
-        return notificationMenu.getRect().width != 0 && notificationMenu.getRect().height != 0;
+        return notificationMenu.isDisplayed();
+    }
+
+    public void notificationMenuItemClick() {
+        notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
+        WebElement firstItem = notificationList.findElements(By.tagName("li")).get(0);
+        setDestinationUrl(firstItem.findElement(By.tagName("a")).getAttribute("href"));
+        firstItem.click();
+    }
+
+    public String getDestinationPath() {
+        return destinationPath;
+    }
+
+    private void setDestinationUrl(String destinationPath) {
+        this.destinationPath = destinationPath;
     }
 }
