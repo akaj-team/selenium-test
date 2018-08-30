@@ -7,8 +7,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
-import java.util.List;
-
 import static vn.asiantech.base.DriverBase.getDriver;
 
 public class MenuPage extends BasePage<MenuPage> {
@@ -30,8 +28,8 @@ public class MenuPage extends BasePage<MenuPage> {
         return accountName.getText().equals(inputName);
     }
 
-    public boolean checkColorItemMenuIsWhite(String whiteColor) {
-        WebElement itemHome = getItemMenuInPosition(1);
+    public boolean checkColorItemHomeIsWhite(String whiteColor) {
+        WebElement itemHome = getItemMenuInPosition(2);
         String color = itemHome.findElement(By.tagName("a")).getCssValue("color");
         String[] hexValue = color.replace("rgb(", "").replace(")", "").split(",");
         String actualColor = String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
@@ -39,23 +37,23 @@ public class MenuPage extends BasePage<MenuPage> {
     }
 
     public boolean checkItemTimeSheetClose() {
-        WebElement itemTimeSheet = getItemMenuInPosition(2);
+        WebElement itemTimeSheet = getItemMenuInPosition(3);
         return itemTimeSheet.findElement(By.tagName("ul")).getRect().height == 0;
     }
 
     public void clickItemMenu() {
-        WebElement itemTimeSheet = getItemMenuInPosition(2);
+        WebElement itemTimeSheet = getItemMenuInPosition(3);
         itemTimeSheet.click();
     }
 
     public void hoverMouseToAccountName() {
-        WebElement itemProfile = getItemMenuInPosition(0);
+        WebElement itemProfile = getItemMenuInPosition(1);
         Actions builder = new Actions(getDriver());
         builder.moveToElement(itemProfile.findElement(By.className("dropdown-toggle")).findElement(By.className("font-bold"))).build().perform();
     }
 
     public boolean checkColorAccountNameWhenHover(String colorHover) {
-        WebElement itemProfile = getItemMenuInPosition(0);
+        WebElement itemProfile = getItemMenuInPosition(1);
         if (itemProfile.findElement(By.className("dropdown-toggle")).getCssValue("cursor").equals("pointer")) {
             String color = itemProfile.findElement(By.className("dropdown-toggle")).getCssValue("color");
             String[] hexValue = color.replace("rgb(", "").replace(")", "").split(",");
@@ -65,8 +63,75 @@ public class MenuPage extends BasePage<MenuPage> {
         return false;
     }
 
+    public void clickMyTimeSheet() {
+        WebElement itemTimeSheet = getItemMenuInPosition(3);
+        WebElement myTimeSheet = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        myTimeSheet.click();
+    }
+
+    public boolean checkMyTimeSheetColor(String whiteColor) {
+        WebElement itemTimeSheet = getItemMenuInPosition(3);
+        WebElement myTimeSheet = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        String color = myTimeSheet.findElement(By.tagName("a")).getCssValue("color");
+        String[] hexValue = color.replace("rgb(", "").replace(")", "").split(",");
+        String actualColor = String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
+        return actualColor.equals(whiteColor);
+    }
+
+    public void clickTimeSheetOfOthers() {
+        WebElement itemTimeSheet = getItemMenuInPosition(3);
+        WebElement myTimeSheetOfOthers = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
+        myTimeSheetOfOthers.click();
+    }
+
+    public boolean checkTimeSheetOfOtherColor(String whiteColor) {
+        WebElement itemTimeSheet = getItemMenuInPosition(3);
+        WebElement myTimeSheetOfOthers = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
+        String color = myTimeSheetOfOthers.findElement(By.tagName("a")).getCssValue("color");
+        String[] hexValue = color.replace("rgb(", "").replace(")", "").split(",");
+        String actualColor = String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
+        return actualColor.equals(whiteColor);
+    }
+
+    public void clickHomeItem() {
+        WebElement itemHome = getItemMenuInPosition(2);
+        itemHome.click();
+    }
+
+    public boolean checkItemLeaveClose() {
+        WebElement itemLeave = getItemMenuInPosition(4);
+        return itemLeave.findElement(By.tagName("ul")).getRect().height == 0;
+    }
+
+    public void clickItemLeave() {
+        WebElement itemLeave = getItemMenuInPosition(4);
+        itemLeave.click();
+    }
+
+    public boolean checkColorItemLeaveIsWhite(String whiteColor) {
+        WebElement itemLeave = getItemMenuInPosition(4);
+        String color = itemLeave.findElement(By.tagName("a")).getCssValue("color");
+        String[] hexValue = color.replace("rgb(", "").replace(")", "").split(",");
+        String actualColor = String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
+        return actualColor.equals(whiteColor);
+    }
+
+    public void clickMyLeave() {
+        WebElement itemLeave = getItemMenuInPosition(4);
+        WebElement myLeave = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        myLeave.click();
+    }
+
+    public boolean checkColorMyLeave(String whiteColor) {
+        WebElement itemLeave = getItemMenuInPosition(4);
+        WebElement myLeave = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        String color = myLeave.findElement(By.tagName("a")).getCssValue("color");
+        String[] hexValue = color.replace("rgb(", "").replace(")", "").split(",");
+        String actualColor = String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
+        return actualColor.equals(whiteColor);
+    }
+
     private WebElement getItemMenuInPosition(int position) {
-        List<WebElement> itemTimeSheet = sideMenu.findElements(By.tagName("li"));
-        return itemTimeSheet.get(position);
+        return sideMenu.findElement(By.xpath("/html/body/app-root/app-feature/div[1]/app-sidebar/nav/div/ul/li[" + position + "]"));
     }
 }
