@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
@@ -35,9 +36,8 @@ public class MenuPage extends BasePage<MenuPage> {
     public boolean checkColorItemHomeIsWhite(String whiteColor) {
         WebElement itemHome = getItemMenuInPosition(2);
         String color = itemHome.findElement(By.tagName("a")).getCssValue("color");
-        String[] hexValue = color.replace("rgb(", "").replace(")", "").split(",");
-        String actualColor = String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
-        return actualColor.equals(whiteColor);
+        String actualColor = getColorString(color);
+        return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
     public boolean checkItemTimeSheetClose() {
@@ -137,5 +137,15 @@ public class MenuPage extends BasePage<MenuPage> {
 
     private WebElement getItemMenuInPosition(int position) {
         return sideMenu.findElement(By.xpath("/html/body/app-root/app-feature/div[1]/app-sidebar/nav/div/ul/li[" + position + "]"));
+    }
+
+    private String getColorString(String color) {
+        if (color.contains("rgba")) {
+            return color;
+        } else if (color.contains("rgb")) {
+            String[] hexValue = color.replace("rgb(", "").replace(")", "").split(",");
+            return Color.fromString(String.format("#%02x%02x%02x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()))).asRgba();
+        }
+        return Color.fromString(color).asRgba();
     }
 }
