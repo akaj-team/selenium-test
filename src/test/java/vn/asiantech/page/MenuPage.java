@@ -15,6 +15,10 @@ public class MenuPage extends BasePage<MenuPage> {
     @FindBy(className = "font-bold")
     private WebElement accountName;
 
+    public MenuPage() {
+        //no-up
+    }
+
     @Override
     public MenuPage navigateTo(WebDriver webDriver) {
         return this;
