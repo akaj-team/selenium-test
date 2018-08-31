@@ -1,4 +1,4 @@
-@Notification
+@NotificationElement
 Feature: Open Notification
   I want to login my account and check my notification
 
@@ -25,7 +25,7 @@ Feature: Open Notification
 
   Scenario: I want to view next page on notification
     Given Notification menu is displayed
-    When I scroll to notification at ten
+    When I scroll to item at last of list notification
     Then Next page of notification should displayed
 
   Scenario: I want to refresh list notification

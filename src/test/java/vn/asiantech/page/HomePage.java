@@ -31,7 +31,7 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public void waitForWelcomeMessage(WebDriver driver) {
-        waitForElement(driver, welcomeText, 5);
+        waitForElementPresented(driver, welcomeText, 5);
     }
 
     public HomePage logout() {

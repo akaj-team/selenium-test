@@ -53,7 +53,7 @@ public class LoginPage extends BasePage<LoginPage> {
     }
 
     public LoginPage waitForErrorMessage(WebDriver driver, int timeOutInSecond) {
-        waitForElement(driver, errorText, timeOutInSecond);
+        waitForElementPresented(driver, errorText, timeOutInSecond);
         return this;
     }
 

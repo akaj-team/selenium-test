@@ -1,6 +1,7 @@
 package vn.asiantech.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,6 +17,9 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
 
     @FindBy(css = "div.text-center.link-block")
     private WebElement seeAllArea;
+
+    @FindBy(css = "span.pull-right.link-primary.text-normal.m-l-sm")
+    private WebElement reloadText;
 
     private WebElement notificationList;
 
@@ -42,13 +46,38 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
 
     public void notificationMenuItemClick() {
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
-        WebElement firstItem = notificationList.findElements(By.tagName("li")).get(0);
-        setDestinationUrl(firstItem.findElement(By.tagName("a")).getAttribute("href"));
-        firstItem.click();
+        WebElement firstElement = notificationList.findElements(By.tagName("li")).get(0);
+        setDestinationUrl(firstElement.findElement(By.cssSelector("a.msg-item")).getAttribute("href"));
+        firstElement.click();
     }
 
     public String getDestinationPath() {
         return destinationPath;
+    }
+
+    public void reload() {
+        reloadText.click();
+    }
+
+    public void waitForNotificationReload(WebDriver driver) {
+        waitForElementDisplay(driver, notificationMenu, 5);
+    }
+
+    public int getNotificationList(WebDriver driver) {
+        waitForElementDisplay(driver, notificationMenu, 5);
+        notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
+        return notificationList.findElements(By.cssSelector("li.ng-star-inserted")).size();
+    }
+
+    public void scrollToEndOfList(WebDriver driver) {
+        waitForElementDisplay(driver, notificationMenu, 5);
+        notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
+        By findCondition = By.cssSelector("li.ng-star-inserted");
+        int count = notificationList.findElements(findCondition).size();
+        int allChildCount = notificationList.findElements(findCondition).size();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);",
+                notificationList.findElements(findCondition).get(count - 1));
+        waitUntilCountChanges(driver, notificationList, findCondition, allChildCount);
     }
 
     private void setDestinationUrl(String destinationPath) {
