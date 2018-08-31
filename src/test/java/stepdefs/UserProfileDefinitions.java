@@ -30,7 +30,7 @@ public class UserProfileDefinitions extends DriverBase implements En {
             WebElement label = driver.findElement(By.xpath("//label[contains(text(), '" + key + "')]"));
             WebElement parent = label.findElement(By.xpath(".."));
             WebElement valueElement = parent.findElement(By.tagName("span"));
-//            System.out.println(valueElement.getText());
+            System.out.println(valueElement.getText());
             Assert.assertEquals(valueElement.getText(), value);
         });
     }

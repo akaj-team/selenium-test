@@ -10,7 +10,7 @@ Feature: Check my leave
   Scenario: Login successfully with correct account
     When I click on Leave in menu
     Then Menu Leave drop down
-    When I click on line My Leave
+    When I click on item My Leave
     Then My Leave page is displayed
     And "Status Menu" is "All Status"
     And "SYSID" is "4700"
@@ -26,13 +26,8 @@ Feature: Check my leave
     And "Paternal Leave" is "0"
     And Notification displayed a notification
 
-  Scenario: Login successfully with correct account
-    When I click on Leave in menu
-    Then Menu Leave drop down
-    When I click on line My Leave
-    Then My Leave page is displayed
-    When I click on menu Status
-    Then Menu drop down
+  Scenario: I want to check status Pending
+    Given My Leave page is displayed
     When I click on Pending in menu
     Then My Leave page with status Pending is displayed
     And "Status Menu" is "All Status"
@@ -48,72 +43,34 @@ Feature: Check my leave
     And "Overtime Leave" is "0"
     And "Paternal Leave" is "0"
 
-  Scenario: Login successfully with correct account
-    When I click on Leave in menu
-    Then Menu Leave drop down
-    When I click on line My Leave
-    Then My Leave page is displayed
-    When I click on menu Status
-    Then Menu drop down
+  Scenario: I want to check status Approved
+    Given My Leave page is displayed
     When I click on Approved in menu
     Then My Leave page with status Approved is displayed
     And My Leave page display No records found
 
-  Scenario: Login successfully with correct account
-    When I click on Leave in menu
-    Then Menu Leave drop down
-    When I click on line My Leave
-    Then My Leave page is displayed
-    When I click on menu Status
-    Then Menu drop down
+  Scenario: I want to check status Rejected
+    Given My Leave page is displayed
     When I click on Rejected in menu
     Then My Leave page with status Rejected is displayed
     And My Leave page display No records found
 
-  Scenario: Login successfully with correct account
-    When I click on Leave in menu
-    Then Menu Leave drop down
-    When I click on line My Leave
-    Then My Leave page is displayed
-    When I click on Leave in menu
-    Then Menu Leave drop down
-    When I click on line My Leave
-    Then My Leave page is displayed
+  Scenario: I want to check leave detail
+    Given My Leave page with status Pending is displayed
     When I click on a SYSID
     Then Leave Detail page is displayed
 
-  Scenario: Login successfully with correct account
-    When I click on Leave in menu
-    Then Menu Leave drop down
-    When I click on line My Leave
-    Then My Leave page is displayed
-    When I click on Leave in menu
-    Then Menu Leave drop down
-    When I click on line My Leave
-    Then My Leave page is displayed
+  Scenario: I want to check employee detail
+    Given My Leave page with status Pending is displayed
     When I click on a name Manager
     Then Employee Detail page is displayed
 
-  Scenario: Login successfully with correct account
-    When I click on Leave in menu
-    Then Menu Leave drop down
-    When I click on line My Leave
-    Then My Leave page is displayed
-    When I click on Leave in menu
-    Then Menu Leave drop down
-    When I click on line My Leave
-    Then My Leave page is displayed
+  Scenario: I want to click icon search
+    Given My Leave page with status Pending is displayed
     When I click on icon search under Action element
     Then Leave Detail page is displayed
 
   Scenario: Login successfully with correct account
-    When I click on Leave in menu
-    Then Menu Leave drop down
-    When I click on line My Leave
-    Then My Leave page is displayed
-    When I click on Leave in menu
-    Then Menu Leave drop down
-    When I click on line My Leave
-    Then My Leave page is displayed
+    Given My Leave page is displayed
     When I click on Leave Request button
     Then Leave Request page is displayed
