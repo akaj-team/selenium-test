@@ -1,5 +1,6 @@
 package stepdefs;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -58,6 +59,39 @@ public class MenuDefinitions extends DriverBase implements En {
         When("^I click my leave$", () -> menuPage.clickMyLeave());
         Then("^Item my leave change color to \"([^\"]*)\"$", (String color) -> Assert.assertTrue(menuPage.checkColorMyLeave(color)));
         And("^Should redirect to my leave page \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
+        When("^I click leave planners$", () -> menuPage.clickLeavePlanner());
+        Then("^Should redirect to leave planners page \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
+        When("^I click leave of others$", () -> menuPage.clickLeaveOfOther());
+        Then("^Should redirect to leave of others page \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
+        When("^I click leave balance$", () -> menuPage.clickLeaveBalance());
+        Then("^Should redirect to leave balance page \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
+
+
+        Given("^Item organisation close$", () -> Assert.assertTrue(menuPage.checkItemOrganisationClose()));
+        When("^I click item organisation$", () -> menuPage.clickItemOrganisation());
+        Then("^Open child organisation item$", () -> Assert.assertFalse(menuPage.checkItemOrganisationClose()));
+
+
+        When("^I click child item organisation with position \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemOrganisation(position));
+        Then("^if count child item is zero should redirect to page \"([^\"]*)\"$", (String path) -> {
+            if (menuPage.checkCountMyTeamIsZero()) {
+                redirectPageWhenClickChildItem(path);
+            }
+        });
+
+
+        Given("^I click item project management$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            throw new PendingException();
+        });
+        When("^I click child item project management with position \"([^\"]*)\"$", (String arg0) -> {
+            // Write code here that turns the phrase above into concrete actions
+            throw new PendingException();
+        });
+        Then("^Should redirect to page \"([^\"]*)\"$", (String arg0) -> {
+            // Write code here that turns the phrase above into concrete actions
+            throw new PendingException();
+        });
     }
 
     private void redirectPageWhenClickChildItem(String path) {

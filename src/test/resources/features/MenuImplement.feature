@@ -32,9 +32,6 @@ Feature: Login AT Portal
     When I click My TimeSheet
     Then Item my TimeSheet change color to "#ffffff"
     And Should redirect to "/timesheet/submission"
-
-  Scenario: Test click TimeSheet Of Other
-    Given I click in Timesheet item
     When I click TimeSheet Of Other
     Then Item TimeSheet Of Other change color to "#ffffff"
     And Should redirect to time sheet of other page "/timesheet/approval"
@@ -45,8 +42,40 @@ Feature: Login AT Portal
     Then Open child leave item
     And Item leave change color to "#ffffff"
 
-  Scenario: Test click My Leave
+  Scenario: Test click child Leave item
     Given I click item leave
     When I click my leave
     Then Item my leave change color to "#ffffff"
     And Should redirect to my leave page "/leave/my-leave"
+    When I click leave planners
+    Then Should redirect to leave planners page "/leave/planning"
+    When I click leave of others
+    Then Should redirect to leave of others page "/leave/tracking"
+    When I click leave balance
+    Then Should redirect to leave balance page "/leave/balance"
+
+  Scenario: Test item organisation
+    Given Item organisation close
+    When I click item organisation
+    Then Open child organisation item
+
+  Scenario Outline: Test click child item organisation
+    Given I click item organisation
+    When I click child item organisation with position "<position>"
+    Then if count child item is zero should redirect to page "<path>"
+    Examples:
+      | position | path                         |
+      | 0        | /organisation/employees      |
+      | 1        | /organisation/teams          |
+      | 2        | /organisation/teams/26       |
+      | 3        | /organisation/positions      |
+      | 4        | /organisation/positions/tree |
+      | 5        | /organisation/groups         |
+
+  Scenario Outline: Test click child item project management
+    Given I click item project management
+    When I click child item project management with position "<position>"
+    Then Should redirect to page "<path>"
+    Examples:
+      | position | path                         |
+      | 0        | /project-management/projects |
