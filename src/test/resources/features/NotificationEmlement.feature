@@ -32,3 +32,23 @@ Feature: Open Notification
     Given Notification menu is displayed
     When I click on reload text
     Then List notification should be reload
+
+  Scenario Outline: I want to login with account have my employee code is AT0506
+    Given I am an unauthenticated user
+    Given browser should redirect to "/auth/login"
+    When I enter my username with "<username>"
+    And I fill in password with "<password>"
+    And I click on login button
+    Then Employee code should be "<employee-code>"
+
+    Examples:
+      | username                     | password | employee-code |
+      | stg.tri.pham@asiantech.vn    | Abc123@@ | AT0501        |
+      | stg.thien.dang2@asiantech.vn | Abc123@@ | AT0498        |
+      | stg.lam.le2@asiantech.vn     | Abc123@@ | AT0514        |
+      | stg.tu.le.2@asiantech.vn     | Abc123@@ | AT0511        |
+      | stg.hang.nguyen@asiantech.vn | Abc123@@ | AT0506        |
+
+  Scenario: Login success with correct account
+    Given Check current account employee code is my employee code "AT0036"
+    Then Employee code should be "AT0036"

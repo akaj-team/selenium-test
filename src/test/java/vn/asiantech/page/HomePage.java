@@ -12,6 +12,10 @@ public class HomePage extends BasePage<HomePage> {
     @FindBy(className = "fa-sign-out")
     private WebElement logoutButton;
 
+    @FindBy(css = ".text-muted.text-xs.block")
+    private WebElement eployeeCodeTxt;
+
+
     @Override
     public HomePage navigateTo(WebDriver webDriver) {
         webDriver.get("http://portal-stg.asiantech.vn/homepage");
@@ -37,5 +41,14 @@ public class HomePage extends BasePage<HomePage> {
     public HomePage logout() {
         logoutButton.click();
         return this;
+    }
+
+    public String getEmployeeCode(WebDriver driver) {
+        waitForElementDisplay(driver, eployeeCodeTxt, 10);
+        String employeeCode = "";
+        if (eployeeCodeTxt.getText() != null && !eployeeCodeTxt.getText().equals("")) {
+            employeeCode = eployeeCodeTxt.getText().replace(" - Employee", "");
+        }
+        return employeeCode;
     }
 }
