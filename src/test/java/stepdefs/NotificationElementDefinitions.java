@@ -33,7 +33,7 @@ public class NotificationElementDefinitions extends DriverBase implements En {
 
         Then("^Should navigate to correct page", () -> {
             waitAjaxLoadSuccess();
-            Assert.assertEquals(notificationMenuElement.getDestinationPath(), "http://portal-stg.asiantech.vn/homepage");
+            Assert.assertEquals(notificationMenuElement.getDestinationPath(), Constant.HOME_PAGE_URL);
         });
 
         When("^I click on menu item$", () -> {

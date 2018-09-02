@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 public class LoginPage extends BasePage<LoginPage> {
     @FindBy(css = "input[formcontrolname=email]")
@@ -17,7 +18,7 @@ public class LoginPage extends BasePage<LoginPage> {
 
     @Override
     public LoginPage navigateTo(WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn/auth/login");
+        webDriver.get(Constant.LOGIN_PAGE_URL);
         return this;
     }
 

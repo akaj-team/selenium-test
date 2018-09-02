@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 public class HomePage extends BasePage<HomePage> {
     @FindBy(className = "welcome-message")
@@ -15,10 +16,9 @@ public class HomePage extends BasePage<HomePage> {
     @FindBy(css = ".text-muted.text-xs.block")
     private WebElement eployeeCodeTxt;
 
-
     @Override
     public HomePage navigateTo(WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn/homepage");
+        webDriver.get(Constant.HOME_PAGE_URL);
         return this;
     }
 
