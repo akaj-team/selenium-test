@@ -1,19 +1,24 @@
 package stepdefs;
 
-import cucumber.api.Pending;
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.MyLeavePage;
 
+import java.util.List;
+
 public class MyLeaveDefinitions extends DriverBase implements En {
     private WebDriver driver;
+    private WebElement usernameInput;
+    private WebElement passwordInput;
 
-    private MyLeavePage myLeavePage
+    private MyLeavePage myLeavePage;
 
     public MyLeaveDefinitions() {
         try {
@@ -22,8 +27,24 @@ public class MyLeaveDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
         Given("^I logged in with a employee account$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
+            driver.get("http://portal-stg.asiantech.vn");
+            new WebDriverWait(driver, 10).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            String url = driver.getCurrentUrl();
+            if (url.endsWith("/auth/login")) {
+                //Not logged in
+                List<WebElement> formInputs = driver.findElements(By.className("form-control"));
+                usernameInput = formInputs.get(0);
+                passwordInput = formInputs.get(1);
+                usernameInput.sendKeys("stg.tien.hoang@asiantech.vn");
+                passwordInput.sendKeys("Abc123@@");
+                driver.findElement(By.className("btn-primary")).click();
+                new WebDriverWait(driver, 5).until(
+                        webDriver -> webDriver.findElement(By.className("welcome-message")).isDisplayed());
+                Assert.assertTrue(driver.findElement(By.className("welcome-message")).isDisplayed());
+            } else {
+                Assert.assertTrue(true);
+            }
         });
         When("^I click on Leave in menu$", () -> {
             // Write code here that turns the phrase above into concrete actions
