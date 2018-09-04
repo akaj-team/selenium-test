@@ -36,16 +36,11 @@ jobs:
         key: deps1-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
         paths:
         - "venv"
-
+    - run: cd..
+    - run: ls
     - run:
         command: |
-
-          ls -p . | grep -v /$
           . venv/bin/activate
-
-          ls -p . | grep -v /$
-          os.chdir("..")
-          ls -p . | grep -v /$
           python manage.py test
     - store_artifacts:
         path: test-reports/
