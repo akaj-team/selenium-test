@@ -8,6 +8,17 @@
     <artifactId>vn.asiantech.portal</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <distributionManagement>
+        <repository>
+            <id>packagecloud-examplecorp</id>
+            <url>packagecloud+https://packagecloud.io/exampleCorp/core</url>
+        </repository>
+        <snapshotRepository>
+            <id>packagecloud-examplecorp</id>
+            <url>packagecloud+https://packagecloud.io/exampleCorp/core</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
