@@ -39,6 +39,7 @@ jobs:
     - run:
         command: |
           . venv/bin/activate
+          cd selenium-test
           python manage.py test
     - store_artifacts:
         path: test-reports/
