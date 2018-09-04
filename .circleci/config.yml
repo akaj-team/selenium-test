@@ -14,6 +14,8 @@ jobs:
     steps:
     - checkout
     - run: mkdir test-reports
+    - run: mkdir requirements
+    - run: touch log.txt
     - run:
         name: Download Selenium
         command: |
@@ -24,16 +26,16 @@ jobs:
           java -jar selenium-server-standalone-3.5.3.jar -log test-reports/selenium.log
         background: true
     - restore_cache:
-        key: deps1-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
+        key: deps1-{{ .Branch }}-{{ checksum "requirements/log.txt" }}
     - run:
         name: Install Python deps in a venv
         command: |
           python3 -m venv venv
           . venv/bin/activate
           pip install --upgrade pip
-          pip install -r requirements/dev.txt
+          pip install -r requirements/log.txt
     - save_cache:
-        key: deps1-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
+        key: deps1-{{ .Branch }}-{{ checksum "requirements/log.txt" }}
         paths:
         - "venv"
     - run:
