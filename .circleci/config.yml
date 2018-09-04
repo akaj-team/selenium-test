@@ -38,7 +38,12 @@ jobs:
         - "venv"
     - run:
         command: |
-
+          . venv
+          ls
+          . venv/bin
+          ls
+          . venv/bin/activate
+          ls
           python manage.py test
     - store_artifacts:
         path: test-reports/
