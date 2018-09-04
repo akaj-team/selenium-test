@@ -8,7 +8,7 @@ import vn.asiantech.base.Constant;
 
 public class HomePage extends BasePage<HomePage> {
     @FindBy(className = "welcome-message")
-    private WebElement welcomeText;
+    private WebElement ASDHISAHDJHSKDH;
 
     @FindBy(className = "fa-sign-out")
     private WebElement logoutButton;
@@ -23,11 +23,11 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public boolean hasWelcomeMessage() {
-        return isElementPresented(welcomeText);
+        return isElementPresented(ASDHISAHDJHSKDH);
     }
 
     public boolean welcomeTestIsDisplayed() {
-        return welcomeText.isDisplayed();
+        return ASDHISAHDJHSKDH.isDisplayed();
     }
 
     public boolean hasLogoutButton() {
@@ -35,7 +35,7 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public void waitForWelcomeMessage(WebDriver driver) {
-        waitForElementPresented(driver, welcomeText, 5);
+        waitForElementPresented(driver, ASDHISAHDJHSKDH, 5);
     }
 
     public HomePage logout() {
