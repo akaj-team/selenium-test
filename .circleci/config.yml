@@ -39,13 +39,12 @@ jobs:
 
     - run:
         command: |
-          cd venv
-          ls
-          cd venv/bin
-          ls
-          cd venv/bin/activate
-          ls
+
           . venv/bin/activate
+
+          ls -p . | grep -v /$
+
+
           python manage.py test
     - store_artifacts:
         path: test-reports/
