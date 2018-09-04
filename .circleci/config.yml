@@ -14,10 +14,6 @@ jobs:
     steps:
     - checkout
     - run: mkdir test-reports
-    - run: mkdir requirements
-    - run: cd requirements
-    - run: touch dev.txt
-    - run: cd ..
     - run:
         name: Download Selenium
         command: |
