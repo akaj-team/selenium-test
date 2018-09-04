@@ -3,14 +3,7 @@ jobs:
   build:
     steps:
     - checkout
-      - restore_cache:
-          key: gems-{{ checksum "Gemfile.lock" }}
-      - run: bundle install --path vendor/bundle
-      - save_cache:
-          paths:
-          - vendor/bundle
-          key: gems-{{ checksum "Gemfile.lock" }}
-      - run:
-          name: Report
-          command: scripts/saddler.sh
+    - run:
+        name: Report
+        command: scripts/saddler.sh
 
