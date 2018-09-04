@@ -42,4 +42,10 @@ workflows:
   version: 2
   build_and_deploy:
     jobs:
-    - check
+    - build
+      - deploy:
+          requires:
+          - build
+          filters:
+            branches:
+              only: sequential-branch-filter
