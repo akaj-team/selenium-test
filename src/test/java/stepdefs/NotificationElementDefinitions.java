@@ -98,6 +98,14 @@ public class NotificationElementDefinitions extends DriverBase implements En {
                     webDriver -> webDriver.getCurrentUrl().equals(Constant.HOME_PAGE_URL));
             Assert.assertEquals(homePage.getEmployeeCode(getDriver()), arg0);
         });
+        When("^I click on mark all as read text$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            notificationMenuElement.markAllAsRead();
+        });
+        Then("^List notification should be hide$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            Assert.assertFalse(notificationMenuElement.notificationElementIsDisplay());
+        });
     }
 
     private void waitAjaxLoadSuccess() {

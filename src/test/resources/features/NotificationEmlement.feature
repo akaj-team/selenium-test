@@ -52,3 +52,9 @@ Feature: Open Notification
   Scenario: Login success with correct account
     Given Check current account employee code is my employee code "AT0036"
     Then Employee code should be "AT0036"
+
+  Scenario: I want to make all notifications are as read
+    Given Notification menu is displayed
+    When I click on mark all as read text
+    Then List notification should be hide
+

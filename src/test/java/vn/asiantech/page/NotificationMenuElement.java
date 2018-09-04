@@ -21,6 +21,9 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     @FindBy(css = "span.pull-right.link-primary.text-normal.m-l-sm")
     private WebElement reloadText;
 
+    @FindBy(css = "span.pull-right.link-primary.text-normal")
+    private WebElement markAllAsReadText;
+
     private WebElement notificationList;
 
     private String destinationPath;
@@ -78,6 +81,10 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);",
                 notificationList.findElements(findCondition).get(count - 1));
         waitUntilCountChanges(driver, notificationList, findCondition, allChildCount);
+    }
+
+    public void markAllAsRead() {
+        markAllAsReadText.click();
     }
 
     private void setDestinationUrl(String destinationPath) {
