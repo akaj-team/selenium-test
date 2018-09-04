@@ -1,21 +1,10 @@
 version: 2
-
-#defaults: &defaults
-#  working_directory: ~/code
-#  docker:
-#  - image: circleci/android:api-26-alpha
-#  environment:
-#    JVM_OPTS: -Xmx3200m
-
 jobs:
   build: # runs not using Workflows must have a `build` job as entry point
-
-  environment:
-    JVM_OPTS: -Xmx3200m
     working_directory: ~/selenium-test # directory where steps will run
-    docker:
-    - image: circleci/android:api-26-alpha
-    - image: circleci/openjdk:8-jdk-browsers # ...with this image as the primary container; this is where all `steps` will run
+  docker:
+  - image: circleci/android:api-26-alpha
+  - image: circleci/openjdk:8-jdk-browsers # ...with this image as the primary container; this is where all `steps` will run
 
   steps: # a collection of executable commands
 
@@ -39,15 +28,3 @@ jobs:
   - store_artifacts: # store the uberjar as an artifact
       path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
   # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
-
-workflows:
-  version: 2
-  build_and_deploy:
-    jobs:
-    - build
-      - deploy:
-          requires:
-          - build
-          filters:
-            branches:
-              only: sequential-branch-filter

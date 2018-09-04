@@ -1,15 +1,6 @@
 version: 2
-
-#defaults: &defaults
-#  working_directory: ~/code
-#  docker:
-#  - image: circleci/android:api-26-alpha
-#  environment:
-#    JVM_OPTS: -Xmx3200m
-
 jobs:
   build: # runs not using Workflows must have a `build` job as entry point
-
   environment:
     JVM_OPTS: -Xmx3200m
     working_directory: ~/selenium-test # directory where steps will run
