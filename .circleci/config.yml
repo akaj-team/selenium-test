@@ -21,7 +21,7 @@ jobs: # a collection of steps
 
           wget http://dl.google.com/android/android-sdk_r24.2-linux.tgz
 
-          tar -xvf android-sdk_r24.2-linux.tgz -y
+          tar -xvf android-sdk_r24.2-linux.tgz
           cd android-sdk-linux/tools
 
           ./android update sdk --no-ui
