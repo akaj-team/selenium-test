@@ -22,12 +22,14 @@ jobs: # a collection of steps
         #          ./configure
         #          make
         #          sudo make install
-        command:  |
-          rm -rf /usr/local/lib/ruby/site_ruby/
-          brew uninstall ruby
-          brew install ruby
-          gem install psych
 
+        #          rm -rf /usr/local/lib/ruby/site_ruby/
+        #          brew uninstall ruby
+        #          brew install ruby
+        #          gem install psych
+        command:  |
+          rvm pkg install libyaml
+          rvm reinstall 1.9.3 --with-libyaml-dir=/home/rails/.rvm/usr
     - run:
         name: Install bundle
         command: gem install bundle
