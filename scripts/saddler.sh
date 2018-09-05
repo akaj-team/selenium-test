@@ -10,7 +10,7 @@ fi
 echo "********************"
 echo "* android lint     *"
 echo "********************"
-cat checkstyle-result.xml \
+cat target/checkstyle-result.xml \
     | bundle exec android_lint_translate_checkstyle_format translate \
     | bundle exec checkstyle_filter-git diff origin/master \
     | bundle exec saddler report --require saddler/reporter/github --reporter $REPORTER
