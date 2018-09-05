@@ -28,6 +28,12 @@ jobs: # a collection of steps
         name: Install bundle
         command: gem install bundle
 
+    - run: bundle install --path vendor/bundle
+      - save_cache:
+          paths:
+          - vendor/bundle
+          key: gems-{{ checksum "Gemfile.lock" }}
+
     - run:
         name: Check
         command: mvn validate
