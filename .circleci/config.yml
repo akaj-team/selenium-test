@@ -15,11 +15,13 @@ jobs: # a collection of steps
     - run:
         name: Install gem
         command:  |
-          tar zxf yaml-0.1.4.tar.gz
-          cd yaml-0.1.4
+          mkdir /tmp/ruby && cd /tmp/ruby
+          wget http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p327.tar.gz
+          tar xfvz ruby-1.9.3-p327.tar.gz
+          cd ruby-1.9.3-p327
           ./configure
           make
-          make install
+          sudo make install
 
     - run:
         name: Install bundle
