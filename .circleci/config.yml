@@ -24,7 +24,7 @@ jobs: # a collection of steps
           tar -xvf android-sdk_r24.2-linux.tgz
           cd android-sdk-linux/tools
 
-          ./android update sdk --yes-ui
+          ./android update sdk yes | sudo sdkmanager --licenses
 
           vi ~/.zshrc << EOT
 
