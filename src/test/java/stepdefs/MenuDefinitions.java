@@ -15,14 +15,12 @@ public class MenuDefinitions extends DriverBase implements En {
         menuPage = initPage(getDriver(), MenuPage.class);
 
         Then("^Show name of account$", () -> Assert.assertTrue(menuPage.checkShowAccountNameShown()));
-
         And("^Account name is \"([^\"]*)\"$", (String accountName) -> Assert.assertTrue(menuPage.checkTextAccountName(accountName)));
-
         And("^Home item with color text is \"([^\"]*)\"$", (String whiteColor) -> Assert.assertTrue(menuPage.checkColorItemHomeIsWhite(whiteColor)));
 
 
         When("^I hover mouse to account name$", () -> menuPage.hoverMouseToAccountName());
-        Then("^Account change color to \"([^\"]*)\"$", (String hoverAccountColor) -> Assert.assertTrue(menuPage.checkColorAccountNameWhenHover(hoverAccountColor)));
+
 
         Given("^Item Timesheet close$", () -> Assert.assertTrue(menuPage.checkItemTimeSheetClose()));
         When("^I click in Timesheet item$", () -> menuPage.clickItemMenu());
@@ -80,18 +78,28 @@ public class MenuDefinitions extends DriverBase implements En {
         });
 
 
-        Given("^I click item project management$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I click child item project management with position \"([^\"]*)\"$", (String arg0) -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^Should redirect to page \"([^\"]*)\"$", (String arg0) -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
+        Given("^I click item project management$", () -> menuPage.clickItemProjectManagement());
+        When("^I click child item project management with position \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemProjectManagement(position));
+        Then("^Should redirect to page \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
+
+
+        When("^I click item wiki$", () -> menuPage.clickItemWiki());
+        Then("^Should redirect to wiki page \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
+
+
+        Given("^I click item administration$", () -> menuPage.clickItemAdministration());
+        When("^I click child item administration with position \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemAdministration(position));
+
+
+        Given("^I click item device$", () -> menuPage.clickItemDevice());
+        When("^I click child item device with \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemDevice(position));
+
+
+        Given("^I click item tools$", () -> menuPage.clickItemTools());
+        When("^I click child item tools with \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemTools(position));
+
+        Given("^I click item career$", () -> menuPage.clickItemCareer());
+        When("^I click child item career with \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemCareer(position));
     }
 
     private void redirectPageWhenClickChildItem(String path) {

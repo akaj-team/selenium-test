@@ -15,7 +15,6 @@ Feature: Login AT Portal
 
   Scenario: Check account color
     When I hover mouse to account name
-    Then Account change color to "#bfac8a"
 
   Scenario: Test click Home
     When I click Home item
@@ -79,3 +78,56 @@ Feature: Login AT Portal
     Examples:
       | position | path                         |
       | 0        | /project-management/projects |
+
+  Scenario: Test click item wiki
+    When I click item wiki
+    Then Should redirect to wiki page "/wiki"
+
+  Scenario Outline: Test click item administration
+    Given I click item administration
+    When I click child item administration with position "<position>"
+    Then Should redirect to page "<path>"
+    Examples:
+      | position | path                  |
+      | 0        | /admin/acl            |
+      | 1        | /admin/public-holiday |
+      | 2        | /admin/email-settings |
+      | 3        | /admin/award-category |
+
+  Scenario Outline: Test click item device
+    Given I click item device
+    When I click child item device with "<position>"
+    Then Should redirect to page "<path>"
+    Examples:
+      | position | path                            |
+      | 0        | /equipments/inspection          |
+      | 1        | /equipments/inspection-approval |
+      | 2        | /equipments/dashboard           |
+      | 3        | /equipments                     |
+      | 4        | /equipments/assignments         |
+      | 5        | /equipments/categories          |
+      | 6        | /equipments/broken-status       |
+      | 7        | /equipments/my-equipment        |
+
+  Scenario Outline: Test click item tools
+    Given I click item tools
+    When I click child item tools with "<position>"
+    Then Should redirect to page "<path>"
+    Examples:
+      | position | path                               |
+      | 0        | /tools/announcement                |
+      | 1        | /tools/email-signature             |
+      | 2        | /tools/attendance-record           |
+      | 3        | /tools/project-report              |
+      | 4        | /tools/timesheet-report            |
+      | 5        | /tools/equipment-report            |
+      | 6        | /tools/equipment-inspection-report |
+
+  Scenario Outline: Test click item career
+    Given I click item career
+    When I click child item career with "<position>"
+    Then Should redirect to page "<path>"
+    Examples:
+      | position | path                  |
+      | 0        | /goals/my-goal        |
+      | 1        | /goals/goal-of-others |
