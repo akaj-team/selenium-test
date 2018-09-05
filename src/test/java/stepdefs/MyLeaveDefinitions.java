@@ -26,6 +26,7 @@ public class MyLeaveDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        myLeavePage = initPage(getDriver(), MyLeavePage.class);
         Given("^I logged in with a employee account$", () -> {
             driver.get("http://portal-stg.asiantech.vn");
             new WebDriverWait(driver, 10).until(
@@ -36,7 +37,7 @@ public class MyLeaveDefinitions extends DriverBase implements En {
                 List<WebElement> formInputs = driver.findElements(By.className("form-control"));
                 usernameInput = formInputs.get(0);
                 passwordInput = formInputs.get(1);
-                usernameInput.sendKeys("stg.tien.hoang@asiantech.vn");
+                usernameInput.sendKeys("stg.thien.dang2@asiantech.vn");
                 passwordInput.sendKeys("Abc123@@");
                 driver.findElement(By.className("btn-primary")).click();
                 new WebDriverWait(driver, 5).until(
@@ -46,33 +47,25 @@ public class MyLeaveDefinitions extends DriverBase implements En {
                 Assert.assertTrue(true);
             }
         });
-        When("^I click on Leave in menu$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^Menu Leave drop down$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
+        When("^I click on Leave in menu$", () -> myLeavePage.clickItemLeave());
+
+        Then("^Menu Leave drop down$", () -> Assert.assertFalse(myLeavePage.checkLeaveMenuDropDown()));
         When("^I click on line My Leave$", () -> {
             // Write code here that turns the phrase above into concrete actions
             throw new PendingException();
         });
-        Then("^My Leave page is displayed$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
+//        Then("^My Leave page is displayed$", () -> {
+//            // Write code here that turns the phrase above into concrete actions
+//            throw new PendingException();
+//        });
         And("^Notification displayed a notification$", () -> {
             // Write code here that turns the phrase above into concrete actions
             throw new PendingException();
         });
-        When("^I click on item My Leave$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I click on menu Status$", () -> {
-            myLeavePage.clickMenuStatus();
-        });
+        When("^I click on item My Leave$", () -> myLeavePage.clickMyLeave());
+
+        When("^I click on menu Status$", () -> myLeavePage.clickMenuStatus());
+
         Then("^Menu drop down$", () -> {
             Assert.assertTrue(myLeavePage.dropDownMenuStatus());
         });
@@ -131,5 +124,38 @@ public class MyLeaveDefinitions extends DriverBase implements En {
             // Write code here that turns the phrase above into concrete actions
             throw new PendingException();
         });
+        Then("^My Leave page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
+
+        And("^Status Menu is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkTextStatusMenu(status)));
+
+        And("^SYSID is \"([^\"]*)\"$", (String sysid) -> Assert.assertTrue(myLeavePage.checkTextSYSID(sysid)));
+
+        And("^Type of Leave is \"([^\"]*)\"$", (String type) -> Assert.assertTrue(myLeavePage.checkTextTypeOfLeave(type)));
+
+        And("^Status is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkTextStatus(status)));
+
+        And("^Date Request is \"([^\"]*)\"$", (String date) -> Assert.assertTrue(myLeavePage.checkTextDateRequest(date)));
+
+        And("^Quantity is \"([^\"]*)\"$", (String quatity) -> Assert.assertTrue(myLeavePage.checkTextQuantity(quatity)));
+
+        And("^Approver is \"([^\"]*)\"$", (String approver) -> Assert.assertTrue(myLeavePage.checkTextApprover(approver)));
+
+        And("^Manager is \"([^\"]*)\"$", (String manager) -> Assert.assertTrue(myLeavePage.checkTextManager(manager)));
+
+        And("^Annual Leave is \"([^\"]*)\"$", (String annualLeave) -> Assert.assertTrue(myLeavePage.checkTextAnnualLeave(annualLeave)));
+
+        And("^Marriage Leave is \"([^\"]*)\"$", (String marriage) -> Assert.assertTrue(myLeavePage.checkTextMarriageLeave(marriage)));
+
+        And("^Overtime Leave is \"([^\"]*)\"$", (String overtime) -> Assert.assertTrue(myLeavePage.checkTextOvertimeLeave(overtime)));
+
+        And("^Paternal Leave is \"([^\"]*)\"$", (String paternal) -> Assert.assertTrue(myLeavePage.checkTextPaternalLeave(paternal)));
+    }
+
+    private void redirectPageWhenClickChildItem(String path) {
+        new WebDriverWait(getDriver(), 10).until(
+                webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
+        );
+        String url = getDriver().getCurrentUrl();
+        Assert.assertEquals(path, url.substring(url.length() - path.length()));
     }
 }

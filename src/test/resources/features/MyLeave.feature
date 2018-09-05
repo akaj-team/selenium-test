@@ -11,46 +11,45 @@ Feature: Check my leave
     When I click on Leave in menu
     Then Menu Leave drop down
     When I click on item My Leave
-    Then My Leave page is displayed
-    And "Status Menu" is "All Status"
-    And "SYSID" is "4700"
-    And "Type of Leave" is "None Paid"
-    And "Status" is "Pending"
-    And "Date Request" is "Aug 06, 2018"
-    And "Quantity" is "1"
-    And "Approver" is "Empty"
-    And "Manager" is "Toan Nguyen T."
-    And "Annual Leave" is "0"
-    And "Marriage Leave" is "0"
-    And "Overtime Leave" is "0"
-    And "Paternal Leave" is "0"
-    And Notification displayed a notification
+    Then My Leave page is displayed "/leave/my-leave"
+    And Status Menu is "All Status"
+    And SYSID is "4703"
+    And Type of Leave is "None Paid"
+    And Status is "Pending"
+    And Date Request is "Sep 05, 2018"
+    And Quantity is "1"
+    And Approver is "Empty"
+    And Manager is "Toan Nguyen T."
+    And Annual Leave is "0"
+    And Marriage Leave is "0"
+    And Overtime Leave is "0"
+    And Paternal Leave is "0"
 
   Scenario: I want to check status Pending
-    Given My Leave page is displayed
+    Given My Leave page is displayed "/leave/my-leave"
     When I click on Pending in menu
     Then My Leave page with status Pending is displayed
-    And "Status Menu" is "All Status"
-    And "SYSID" is "4700"
-    And "Type of Leave" is "None Paid"
-    And "Status" is "Pending"
-    And "Date Request" is "Aug 06, 2018"
-    And "Quantity" is "1"
-    And "Approver" is "Empty"
-    And "Manager" is "Toan Nguyen T."
-    And "Annual Leave" is "0"
-    And "Marriage Leave" is "0"
-    And "Overtime Leave" is "0"
-    And "Paternal Leave" is "0"
+    And Status Menu is "All Status"
+    And SYSID is "4700"
+    And Type of Leave is "None Paid"
+    And Status is "Pending"
+    And Date Request is "Aug 06, 2018"
+    And Quantity is "1"
+    And Approver is "Empty"
+    And Manager is "Toan Nguyen T."
+    And Annual Leave is "0"
+    And Marriage Leave is "0"
+    And Overtime Leave is "0"
+    And Paternal Leave is "0"
 
   Scenario: I want to check status Approved
-    Given My Leave page is displayed
+    Given My Leave page is displayed "/leave/my-leave"
     When I click on Approved in menu
     Then My Leave page with status Approved is displayed
     And My Leave page display No records found
 
   Scenario: I want to check status Rejected
-    Given My Leave page is displayed
+    Given My Leave page is displayed "/leave/my-leave"
     When I click on Rejected in menu
     Then My Leave page with status Rejected is displayed
     And My Leave page display No records found
@@ -71,6 +70,6 @@ Feature: Check my leave
     Then Leave Detail page is displayed
 
   Scenario: Login successfully with correct account
-    Given My Leave page is displayed
+    Given My Leave page is displayed "/leave/my-leave"
     When I click on Leave Request button
     Then Leave Request page is displayed
