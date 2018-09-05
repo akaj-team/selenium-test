@@ -19,10 +19,12 @@ jobs: # a collection of steps
 
           sudo apt-get update -y
 
-          wget http://dl.google.com/android/android-sdk_r24.2-linux.tgz -y
+          wget http://dl.google.com/android/android-sdk_r24.2-linux.tgz
 
           tar -xvf android-sdk_r24.2-linux.tgz -y
           cd android-sdk-linux/tools
+
+          ./android update sdk --no-ui
 
           vi ~/.zshrc << EOT
 
