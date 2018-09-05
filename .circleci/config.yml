@@ -28,8 +28,10 @@ jobs: # a collection of steps
         name: Install bundle
         command: gem install bundle
 
-    - run: Install bundle
+    - run:
+        name: Install bundle
         command: bundle install --path vendor/bundle
+
     - save_cache:
         paths:
           - vendor/bundle
