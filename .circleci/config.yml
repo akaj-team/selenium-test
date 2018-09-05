@@ -30,11 +30,13 @@ jobs: # a collection of steps
 
     - run:
         name: Install bundle
-        command: bundle install --path vendor/bundle
+        command: |
+          bundle update danger
+          bundle install --path vendor/bundle
 
-    - run:
-        name: Update Danger to latest version
-        command: bundle update danger
+#    - run:
+#        name: Update Danger to latest version
+#        command:
 
     #    - save_cache:
     #        paths:
