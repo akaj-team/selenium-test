@@ -10,7 +10,7 @@ checkstyle_format.base_path = File.basename(Dir.getwd)
 checkstyle_format.report 'target/checkstyle-result.xml'
 
 # # Android Lint
- checkstyle_format.base_path = Dir.pwd
- require 'android_lint_translate_checkstyle_format'
- android_lint_xml = ::AndroidLintTranslateCheckstyleFormat::Script.translate(File.read('target/checkstyle-result.xml'))
- checkstyle_format.report_by_text android_lint_xml
+# checkstyle_format.base_path = Dir.pwd
+# require 'android_lint_translate_checkstyle_format'
+# android_lint_xml = ::AndroidLintTranslateCheckstyleFormat::Script.translate(File.read('target/checkstyle-result.xml'))
+# checkstyle_format.report_by_text android_lint_xml
