@@ -28,20 +28,14 @@ jobs: # a collection of steps
         name: Install bundle
         command: gem install bundle
 
+    - restore_cache:
+        key: gems-{{ checksum "Gemfile.lock" }}
+
     - run:
-        name: Install bundle
+        name: Install and update danger
         command: |
           bundle update danger
           bundle install --path vendor/bundle
-
-#    - run:
-#        name: Update Danger to latest version
-#        command:
-
-    #    - save_cache:
-    #        paths:
-    #          - vendor/bundle
-    #        key: gems-{{ checksum "Gemfile.lock" }}
 
     - run:
         name: Check
