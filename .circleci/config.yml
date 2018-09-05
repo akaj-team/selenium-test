@@ -14,19 +14,14 @@ jobs: # a collection of steps
 
     - run:
         name: Install gem
-        #        command:  |
-        #          mkdir /tmp/ruby && cd /tmp/ruby
-        #          wget http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p327.tar.gz
-        #          tar xfvz ruby-1.9.3-p327.tar.gz
-        #          cd ruby-1.9.3-p327
-        #          ./configure
-        #          make
-        #          sudo make install
         command:  |
-          rm -rf /usr/local/lib/ruby/site_ruby/
-          brew uninstall ruby
-          brew install ruby
-          gem install psych
+          mkdir /tmp/ruby && cd /tmp/ruby
+          wget http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p327.tar.gz
+          tar xfvz ruby-1.9.3-p327.tar.gz
+          cd ruby-1.9.3-p327
+          ./configure
+          make
+          sudo make install
 
     - run:
         name: Install bundle
