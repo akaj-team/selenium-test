@@ -61,19 +61,6 @@
     </build>
 
     <properties>
-        <settings>
-            <profiles>
-                <profile>
-                    <id>android-settings</id>
-                    <properties>
-                        <android.sdk.path>/path/to/android/sdk</android.sdk.path>
-                    </properties>
-                </profile>
-            </profiles>
-            <activeProfiles>
-                <activeProfile>android-settings</activeProfile>
-            </activeProfiles>
-        </settings>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -159,7 +146,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <!-- your lint config here-->
+                            <!-- your lint config here-->'
                             <lint>
                                 <skip>false</skip>
                                 <failOnError>true</failOnError>
