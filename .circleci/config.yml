@@ -32,10 +32,10 @@ jobs: # a collection of steps
         name: Install bundle
         command: bundle install --path vendor/bundle
 
-    - save_cache:
-        paths:
-          - vendor/bundle
-        key: gems-{{ checksum "Gemfile.lock" }}
+#    - save_cache:
+#        paths:
+#          - vendor/bundle
+#        key: gems-{{ checksum "Gemfile.lock" }}
 
     - run:
         name: Check
