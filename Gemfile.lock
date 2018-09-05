@@ -79,8 +79,6 @@ DEPENDENCIES
   danger
   danger-android_lint
   danger-checkstyle_format
-  danger-junit
-  nokogiri
 
 BUNDLED WITH
    1.16.1
