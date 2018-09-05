@@ -6,7 +6,7 @@ jobs: # a collection of steps
 
     docker: # run the steps with Docker
 
-    - image: circleci/ruby:2.3-node-browsers # ...with this image as the primary container; this is where all `steps` will run
+    - image: circleci/android:api-26-alpha # ...with this image as the primary container; this is where all `steps` will run
 
     steps: # a collection of executable commands
 

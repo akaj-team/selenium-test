@@ -28,6 +28,31 @@
         </plugins>
     </reporting>
 
+    <settings>
+        <profiles>
+            <profile>
+                <id>android-settings</id>
+                <properties>
+                    <android.sdk.path>/path/to/android/sdk</android.sdk.path>
+                </properties>
+            </profile>
+        </profiles>
+        <activeProfiles>
+            <activeProfile>android-settings</activeProfile>
+        </activeProfiles>
+    </settings>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>oss.sonatype.org-jayway-snapshots</id>
+            <name>Jayway OpenSource SNAPSHOTs on Sonatype.org</name>
+            <url>http://oss.sonatype.org/content/repositories/jayway-snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
     <distributionManagement>
         <repository>
             <id>packagecloud-examplecorp</id>
@@ -121,6 +146,28 @@
             </activation>
             <build>
                 <plugins>
+
+                    <plugin>
+                        <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                        <artifactId>android-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>lint</id>
+                                <goals>
+                                    <goal>lint</goal>
+                                </goals>
+                                <phase>validate</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <!-- your lint config here-->
+                            <lint>
+                                <skip>false</skip>
+                                <failOnError>true</failOnError>
+                            </lint>
+                        </configuration>
+                    </plugin>
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-checkstyle-plugin</artifactId>
