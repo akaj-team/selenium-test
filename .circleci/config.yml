@@ -15,13 +15,13 @@ jobs: # a collection of steps
   - run:
       name: Install android sdk
       command: |
-        wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
-        unzip sdk-tools-linux-3859397.zip -d android-sdk
-        mv android-sdk /usr/local/android-sdk
-        rm sdk-tools-linux-3859397.zip
+        RUN wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
+        RUN unzip sdk-tools-linux-3859397.zip -d android-sdk
+        RUN mv android-sdk /usr/local/android-sdk
+        RUN rm sdk-tools-linux-3859397.zip
 
-        yes | /usr/local/android-sdk/tools/bin/sdkmanager --licenses
-        yes | /usr/local/android-sdk/tools/bin/sdkmanager \
+        RUN yes | /usr/local/android-sdk/tools/bin/sdkmanager --licenses
+        RUN yes | /usr/local/android-sdk/tools/bin/sdkmanager \
         "platform-tools" \
         "platforms;android-26" \
         "build-tools;26.0.2"
