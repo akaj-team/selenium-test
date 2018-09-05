@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
 public class LoginPage extends BasePage<LoginPage> {
-
     @FindBy(css = "input[formcontrolname=email]")
     private WebElement usernameInput;
     @FindBy(css = "input[formcontrolname=password]")
