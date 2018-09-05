@@ -12,5 +12,20 @@ checkstyle_format.report 'target/checkstyle-result.xml'
 # Android Lint
  checkstyle_format.base_path = Dir.pwd
 # require 'android_lint_translate_checkstyle_format'
-# android_lint_xml = ::AndroidLintTranslateCheckstyleFormat::Script.translate(File.read('target/checkstyle-result.xml'))
- checkstyle_format.report_by_text
+ android_lint_xml = ::AndroidLintTranslateCheckstyleFormat::Script.translate(File.read('target/checkstyle-result.xml'))
+ checkstyle_format.report_by_text android_lint_xml
+
+# Findbugs
+require 'findbugs_translate_checkstyle_format'
+findbugs_xml = ::FindbugsTranslateCheckstyleFormat::Script.translate(File.read('target/checkstyle-result.xml'))
+checkstyle_format.report_by_text findbugs_xml
+
+# PMD
+require 'pmd_translate_checkstyle_format'
+pmd_xml = ::PmdTranslateCheckstyleFormat::Script.translate(File.read('target/checkstyle-result.xml'))
+checkstyle_format.report_by_text pmd_xml
+
+# PMD-CPD
+require 'pmd_translate_checkstyle_format'
+pmd_cpd_xml = ::PmdTranslateCheckstyleFormat::Script.translate_cpd(File.read('target/checkstyle-result.xml'))
+checkstyle_format.report_by_text pmd_cpd_xml
