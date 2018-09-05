@@ -24,11 +24,12 @@ jobs: # a collection of steps
           tar -xvf android-sdk_r24.2-linux.tgz
           cd android-sdk-linux/tools
 
-          ./android update sdk
+          android update sdk --no-ui
 
           ./sdkmanager --licenses
 
           yes | sudo sdkmanager --licenses
+
     - run:
         name: Search maven package
         command: apt-cache search maven
