@@ -32,10 +32,7 @@ jobs: # a collection of steps
 
           EOT
 
-          source ~/.zshrc
-
-          sudo apt-get install libc6:i386 libstdc++6:i386 -y
-          sudo apt-get install zlib1g:i386 -y
+          yes | sdkmanager --licenses
 
     - run:
         name: Search maven package
