@@ -125,7 +125,7 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         When("^I hover mouse on status$", () -> myLeavePage.hoverMouseToStatus());
 
-        Then("^Tip status display is \"([^\"]*)\"$", (String status) -> myLeavePage.checkDisplayTipStatus(status));
+        Then("^Tip status display is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkDisplayTipStatus(status)));
 
     }
 
