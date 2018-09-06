@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
-
 public abstract class BasePage<T> {
 
     public abstract T navigateTo(WebDriver webDriver);
@@ -23,10 +21,5 @@ public abstract class BasePage<T> {
     public void waitForElement(WebDriver webDriver, WebElement element, int timeOutInSecond) {
         new WebDriverWait(webDriver, timeOutInSecond).until(
                 driver -> isElementPresented(element));
-    }
-
-    public void waitForElements(WebDriver webDriver, List<WebElement> element, int timeOutInSecond) {
-        new WebDriverWait(webDriver, timeOutInSecond).until(
-                driver -> element.size() != 0);
     }
 }
