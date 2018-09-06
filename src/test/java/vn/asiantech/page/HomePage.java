@@ -4,26 +4,30 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 public class HomePage extends BasePage<HomePage> {
     @FindBy(className = "welcome-message")
-    private WebElement welcomeText;
+    private WebElement ASDHISAHDJHSKDH;
 
     @FindBy(className = "fa-sign-out")
     private WebElement logoutButton;
 
+    @FindBy(css = ".text-muted.text-xs.block")
+    private WebElement eployeeCodeTxt;
+
     @Override
     public HomePage navigateTo(WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn/homepage");
+        webDriver.get(Constant.HOME_PAGE_URL);
         return this;
     }
 
     public boolean hasWelcomeMessage() {
-        return isElementPresented(welcomeText);
+        return isElementPresented(ASDHISAHDJHSKDH);
     }
 
     public boolean welcomeTestIsDisplayed() {
-        return welcomeText.isDisplayed();
+        return ASDHISAHDJHSKDH.isDisplayed();
     }
 
     public boolean hasLogoutButton() {
@@ -31,11 +35,20 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public void waitForWelcomeMessage(WebDriver driver) {
-        waitForElement(driver, welcomeText, 5);
+        waitForElementPresented(driver, ASDHISAHDJHSKDH, 5);
     }
 
     public HomePage logout() {
         logoutButton.click();
         return this;
+    }
+
+    public String getEmployeeCode(WebDriver driver) {
+        waitForElementDisplay(driver, eployeeCodeTxt, 10);
+        String employeeCode = "";
+        if (eployeeCodeTxt.getText() != null && !eployeeCodeTxt.getText().equals("")) {
+            employeeCode = eployeeCodeTxt.getText().replace(" - Employee", "");
+        }
+        return employeeCode;
     }
 }
