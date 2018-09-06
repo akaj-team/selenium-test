@@ -1,11 +1,11 @@
 package stepdefs;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
@@ -26,7 +26,9 @@ public class MyLeaveDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         myLeavePage = initPage(getDriver(), MyLeavePage.class);
+
         Given("^I logged in with a employee account$", () -> {
             driver.get("http://portal-stg.asiantech.vn");
             new WebDriverWait(driver, 10).until(
@@ -47,84 +49,60 @@ public class MyLeaveDefinitions extends DriverBase implements En {
                 Assert.assertTrue(true);
             }
         });
+
         When("^I click on Leave in menu$", () -> myLeavePage.clickItemLeave());
 
         Then("^Menu Leave drop down$", () -> Assert.assertFalse(myLeavePage.checkLeaveMenuDropDown()));
-        When("^I click on line My Leave$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
+
+        Then("^My Leave page is displayed$", () -> {
+            myLeavePage = initPage(getDriver(), MyLeavePage.class);
+            driver.get("http://portal-stg.asiantech.vn/leave/my-leave");
+            new WebDriverWait(driver, 10).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+            Assert.assertEquals("http://portal-stg.asiantech.vn/leave/my-leave", driver.getCurrentUrl());
         });
-//        Then("^My Leave page is displayed$", () -> {
-//            // Write code here that turns the phrase above into concrete actions
-//            throw new PendingException();
-//        });
-        And("^Notification displayed a notification$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
+
         When("^I click on item My Leave$", () -> myLeavePage.clickMyLeave());
 
         When("^I click on menu Status$", () -> myLeavePage.clickMenuStatus());
 
-        Then("^Menu drop down$", () -> {
-            Assert.assertTrue(myLeavePage.dropDownMenuStatus());
-        });
-        When("^I click on Pending in menu$", () -> {
-            myLeavePage.clickItemMenuStatus("Pending");
-        });
-        Then("^My Leave page with status Pending is displayed$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I click on Approved in menu$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^My Leave page with status Approved is displayed$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        And("^My Leave page display No records found$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I click on Rejected in menu$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^My Leave page with status Rejected is displayed$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I click on a SYSID$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^Leave Detail page is displayed$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I click on a name Manager$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^Employee Detail page is displayed$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I click on icon search under Action element$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I click on Leave Request button$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
+        Then("^Menu drop down$", () -> Assert.assertTrue(myLeavePage.dropDownMenuStatus()));
+
+        When("^I click on Pending in menu$", () -> myLeavePage.clickItemMenuStatus("Pending"));
+
+        Then("^My Leave page with status Pending is displayed$", () ->
+                redirectPageWhenClickElement("/leave/my-leave;status_eq=pending"));
+
+        When("^I click on Approved in menu$", () -> myLeavePage.clickItemMenuStatus("Approved"));
+
+        Then("^My Leave page with status Approved is displayed$", () ->
+                redirectPageWhenClickElement("/leave/my-leave;status_eq=approved"));
+
+        And("^My Leave page display No records found$", () -> Assert.assertTrue(myLeavePage.checkNoRecordsFound()));
+
+        When("^I click on Rejected in menu$", () -> myLeavePage.clickItemMenuStatus("Rejected"));
+
+        Then("^My Leave page with status Rejected is displayed$", () ->
+                redirectPageWhenClickElement("/leave/my-leave;status_eq=rejected"));
+
+        When("^I click on a name Manager$", () -> myLeavePage.clickNameManager());
+
+        Then("^Employee Detail page is displayed$", () ->
+                redirectPageWhenClickElement("/organisation/employees/189"));
+
+        When("^I click on Leave Request button$", () -> myLeavePage.clickBtnLeaveRequest());
+
         Then("^Leave Request page is displayed$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
+            myLeavePage = initPage(getDriver(), MyLeavePage.class);
+            driver.get("http://portal-stg.asiantech.vn/leave/request");
+            new WebDriverWait(driver, 10).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+            Assert.assertEquals("http://portal-stg.asiantech.vn/leave/request", driver.getCurrentUrl());
         });
-        Then("^My Leave page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
+
+        Then("^My Leave page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickElement);
 
         And("^Status Menu is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkTextStatusMenu(status)));
 
@@ -149,9 +127,18 @@ public class MyLeaveDefinitions extends DriverBase implements En {
         And("^Overtime Leave is \"([^\"]*)\"$", (String overtime) -> Assert.assertTrue(myLeavePage.checkTextOvertimeLeave(overtime)));
 
         And("^Paternal Leave is \"([^\"]*)\"$", (String paternal) -> Assert.assertTrue(myLeavePage.checkTextPaternalLeave(paternal)));
+
+        Then("^Menu status drop down$", () -> Assert.assertTrue(myLeavePage.checkMenuStatusDropDown()));
+
+        When("^I click on SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickSYSID());
+
+        Then("^Leave Detail SYSID \"([^\"]*)\" page is displayed$", (String sysid) ->
+                redirectPageWhenClickElement("/leave/" + sysid));
+
+        When("^I click on icon search with SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickIconSearch());
     }
 
-    private void redirectPageWhenClickChildItem(String path) {
+    private void redirectPageWhenClickElement(String path) {
         new WebDriverWait(getDriver(), 10).until(
                 webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
         );

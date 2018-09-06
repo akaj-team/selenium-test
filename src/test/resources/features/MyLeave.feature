@@ -26,14 +26,16 @@ Feature: Check my leave
     And Paternal Leave is "0"
 
   Scenario: I want to check status Pending
-    Given My Leave page is displayed "/leave/my-leave"
+    Given My Leave page is displayed
+    When I click on menu Status
+    Then Menu status drop down
     When I click on Pending in menu
     Then My Leave page with status Pending is displayed
-    And Status Menu is "All Status"
-    And SYSID is "4700"
+    And Status Menu is "Pending"
+    And SYSID is "4703"
     And Type of Leave is "None Paid"
     And Status is "Pending"
-    And Date Request is "Aug 06, 2018"
+    And Date Request is "Sep 05, 2018"
     And Quantity is "1"
     And Approver is "Empty"
     And Manager is "Toan Nguyen T."
@@ -43,33 +45,37 @@ Feature: Check my leave
     And Paternal Leave is "0"
 
   Scenario: I want to check status Approved
-    Given My Leave page is displayed "/leave/my-leave"
+    Given My Leave page is displayed
+    When I click on menu Status
+    Then Menu status drop down
     When I click on Approved in menu
     Then My Leave page with status Approved is displayed
     And My Leave page display No records found
 
   Scenario: I want to check status Rejected
-    Given My Leave page is displayed "/leave/my-leave"
+    Given My Leave page is displayed
+    When I click on menu Status
+    Then Menu status drop down
     When I click on Rejected in menu
     Then My Leave page with status Rejected is displayed
     And My Leave page display No records found
 
   Scenario: I want to check leave detail
-    Given My Leave page with status Pending is displayed
-    When I click on a SYSID
-    Then Leave Detail page is displayed
+    Given My Leave page is displayed
+    When I click on SYSID "4703"
+    Then Leave Detail SYSID "4703" page is displayed
 
   Scenario: I want to check employee detail
-    Given My Leave page with status Pending is displayed
+    Given My Leave page is displayed
     When I click on a name Manager
     Then Employee Detail page is displayed
 
   Scenario: I want to click icon search
-    Given My Leave page with status Pending is displayed
-    When I click on icon search under Action element
-    Then Leave Detail page is displayed
+    Given My Leave page is displayed
+    When I click on icon search with SYSID "4703"
+    Then Leave Detail SYSID "4703" page is displayed
 
-  Scenario: Login successfully with correct account
-    Given My Leave page is displayed "/leave/my-leave"
+  Scenario: I want to click button leave request
+    Given My Leave page is displayed
     When I click on Leave Request button
     Then Leave Request page is displayed
