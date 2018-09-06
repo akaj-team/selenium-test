@@ -118,6 +118,15 @@ public class MyLeaveDefinitions extends DriverBase implements En {
         Then("^Leave Detail SYSID \"([^\"]*)\" page is displayed$", (String sysid) -> displayPage("/leave/" + sysid));
 
         When("^I click on icon search with SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickIconSearch());
+
+        Given("^My Leave page with status Pending displayed$", () -> displayPage("/leave/my-leave;status_eq=pending"));
+
+        When("^I click on All Status in menu$", () -> myLeavePage.clickItemMenuStatus("All Status"));
+
+        When("^I hover mouse on status$", () -> myLeavePage.hoverMouseToStatus());
+
+        Then("^Tip status display is \"([^\"]*)\"$", (String status) -> myLeavePage.checkDisplayTipStatus(status));
+
     }
 
     private void redirectPageWhenClickElement(String path) {

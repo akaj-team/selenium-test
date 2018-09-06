@@ -44,6 +44,13 @@ Feature: Check my leave
     And Overtime Leave is "0"
     And Paternal Leave is "0"
 
+  Scenario: I want to check status All Status
+    Given My Leave page with status Pending displayed
+    When I click on menu Status
+    Then Menu status drop down
+    When I click on All Status in menu
+    Then My Leave page is displayed
+
   Scenario: I want to check status Approved
     Given My Leave page is displayed
     When I click on menu Status
@@ -79,3 +86,8 @@ Feature: Check my leave
     Given My Leave page is displayed
     When I click on Leave Request button
     Then Leave Request page is displayed
+
+  Scenario: I want to check tip status
+    Given My Leave page is displayed
+    When I hover mouse on status
+    Then Tip status display is "Pending"

@@ -3,11 +3,14 @@ package vn.asiantech.page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static vn.asiantech.base.DriverBase.getDriver;
 
 public class MyLeavePage extends BasePage<MyLeavePage> {
     @FindBy(id = "side-menu")
@@ -27,6 +30,9 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
 
     @FindBy(css = ".btn.btn-default.btn-sm.btn-add")
     private WebElement btnLeaveRequest;
+
+    @FindBy(css = ".ui-tooltip-text.ui-shadow.ui-corner-all")
+    private WebElement toolTip;
 
     @Override
     public MyLeavePage navigateTo(WebDriver webDriver) {
@@ -142,6 +148,15 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
 
     public void clickBtnLeaveRequest() {
         btnLeaveRequest.click();
+    }
+
+    public void hoverMouseToStatus() {
+        Actions builder = new Actions(getDriver());
+        builder.moveToElement(findDataLeave(0, 2)).build().perform();
+    }
+
+    public boolean checkDisplayTipStatus(String status) {
+        return toolTip.isDisplayed() && toolTip.getText().equals(status);
     }
 
     private WebElement findDataLeave(int row, int col) {
