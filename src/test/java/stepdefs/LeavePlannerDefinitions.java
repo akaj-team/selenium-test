@@ -33,19 +33,19 @@ public class LeavePlannerDefinitions extends DriverBase implements En {
         });
 
         Then("Can not click this week button", () -> {
-            Assert.assertFalse(false, leavePlanerPage.getClickable().toString());
+            Assert.assertFalse(false, leavePlanerPage.getClickable(driver).toString());
         });
 
         When("Click on back button", () -> {
-            leavePlanerPage.clickBackButton();
+            leavePlanerPage.clickBackButton(driver);
         });
 
         Then("Can click this week button", () -> {
-            Assert.assertTrue(true, leavePlanerPage.getClickable().toString());
+            Assert.assertTrue(true, leavePlanerPage.getClickable(driver).toString());
         });
 
         When("Click on next button", () -> {
-            leavePlanerPage.clickNextButton();
+            leavePlanerPage.clickNextButton(driver);
         });
 
         When("Click username", () -> {
@@ -68,11 +68,11 @@ public class LeavePlannerDefinitions extends DriverBase implements En {
         });
 
         Then("Display full seven columns", () -> {
-            Assert.assertTrue(true, leavePlanerPage.isDisplayFullColumns().toString());
+            Assert.assertTrue(true, leavePlanerPage.isDisplayFullColumns(driver).toString());
         });
 
         Then("Display time correctly", () -> {
-            Assert.assertEquals(leavePlanerPage.getTableTime(), leavePlanerPage.getHeaderTime());
+            Assert.assertEquals(leavePlanerPage.getTableTime(driver), leavePlanerPage.getHeaderTime());
         });
     }
 }
