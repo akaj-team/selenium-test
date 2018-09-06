@@ -14,6 +14,10 @@ import java.util.List;
  */
 public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
 
+    private static final int USER_NAME = 1;
+    private static final int PROFILE_LINK = 2;
+    private static final int AVATAR = 3;
+
     @FindBy(css = ".btn.btn-sm.btn-white")
     private WebElement btnThisWeek;
 
@@ -125,47 +129,39 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
     }
 
     private WebElement getUserName(Integer column, Integer position) {
-        if (existsUserName(column, position)) {
+        if (isElementExisted(getItemInfor(column, position), USER_NAME)) {
             return getItemInfor(column, position).findElement(By.tagName("a")).findElement(By.tagName("h4"));
         }
         return null;
     }
 
-    private boolean existsUserName(Integer column, Integer position) {
-        try {
-            getItemInfor(column, position).findElement(By.tagName("a")).findElement(By.tagName("h4"));
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            return false;
-        }
-        return true;
-    }
-
     private String getUserProfileLink(Integer column, Integer position) {
-        if (existsUserProfile(column, position)) {
+        if (isElementExisted(getItemInfor(column, position), PROFILE_LINK)) {
             return getItemInfor(column, position).findElement(By.tagName("a")).getAttribute("href");
         }
         return "";
     }
 
-    private boolean existsUserProfile(Integer column, Integer position) {
-        try {
-            getItemInfor(column, position).findElement(By.tagName("a"));
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            return false;
-        }
-        return true;
-    }
-
     private WebElement getAvatar(Integer column, Integer position) {
-        if (existsAvatar(column, position)) {
+        if (isElementExisted(getItemInfor(column, position), AVATAR)) {
             return getItemInfor(column, position).findElement(By.tagName("a")).findElement(By.tagName("img"));
         }
         return null;
     }
 
-    private boolean existsAvatar(Integer column, Integer position) {
+    private boolean isElementExisted(WebElement parentElement, Integer findTye) {
         try {
-            getItemInfor(column, position).findElement(By.tagName("a")).findElement(By.tagName("img"));
+            switch (findTye) {
+                case USER_NAME:
+                    parentElement.findElement(By.tagName("a")).findElement(By.tagName("h4"));
+                    break;
+                case PROFILE_LINK:
+                    parentElement.findElement(By.tagName("a")).getAttribute("href");
+                    break;
+                case AVATAR:
+                    parentElement.findElement(By.tagName("a")).findElement(By.tagName("img"));
+                    break;
+            }
         } catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
         }
