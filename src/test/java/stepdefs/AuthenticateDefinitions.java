@@ -7,9 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 
 import java.util.List;
+
 public class AuthenticateDefinitions extends DriverBase implements En {
     private WebElement usernameInput;
     private WebElement passwordInput;
@@ -23,7 +25,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
         Given("^I am logged in as an android team manager$", () -> {
-            driver.get("http://portal-stg.asiantech.vn");
+            driver.get(Constant.PORTAL_URL);
             new WebDriverWait(driver, 10).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             String url = driver.getCurrentUrl();
