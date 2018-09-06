@@ -7,7 +7,7 @@ jobs: # a collection of steps
     docker: # run the steps with Docker
 
     #    - image: circleci/android:api-26-alpha # ...with this image as the primary container; this is where all `steps` will run
-    - image: circleci/openjdk:8-jdk-browsers
+    - image: circleci/ruby:2.3-node-browsers
     steps: # a collection of executable commands
 
     - checkout # check out source code to working directory
@@ -29,16 +29,6 @@ jobs: # a collection of steps
     #          ./sdkmanager --licenses
     #
     #          yes | sudo sdkmanager --licenses
-    - run:
-        name: Install Gem
-        command: |
-          mkdir /tmp/ruby && cd /tmp/ruby
-          wget http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p327.tar.gz
-          tar xfvz ruby-1.9.3-p327.tar.gz
-          cd ruby-1.9.3-p327
-          ./configure
-          make
-          sudo make install
 
     - run:
         name: Search maven package
