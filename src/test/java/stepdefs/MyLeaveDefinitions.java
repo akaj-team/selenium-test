@@ -54,14 +54,7 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         Then("^Menu Leave drop down$", () -> Assert.assertFalse(myLeavePage.checkLeaveMenuDropDown()));
 
-        Then("^My Leave page is displayed$", () -> {
-            myLeavePage = initPage(getDriver(), MyLeavePage.class);
-            driver.get("http://portal-stg.asiantech.vn/leave/my-leave");
-            new WebDriverWait(driver, 10).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-            Assert.assertEquals("http://portal-stg.asiantech.vn/leave/my-leave", driver.getCurrentUrl());
-        });
+        Then("^My Leave page is displayed$", () -> displayPage("/leave/my-leave"));
 
         When("^I click on item My Leave$", () -> myLeavePage.clickMyLeave());
 
@@ -88,21 +81,11 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         When("^I click on a name Manager$", () -> myLeavePage.clickNameManager());
 
-        Then("^Employee Detail page is displayed$", () ->
-                redirectPageWhenClickElement("/organisation/employees/189"));
+        Then("^Employee Detail page is displayed$", () -> displayPage("/organisation/employees/189"));
 
         When("^I click on Leave Request button$", () -> myLeavePage.clickBtnLeaveRequest());
 
-        Then("^Leave Request page is displayed$", () -> {
-            myLeavePage = initPage(getDriver(), MyLeavePage.class);
-            driver.get("http://portal-stg.asiantech.vn/leave/request");
-            new WebDriverWait(driver, 10).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-            Assert.assertEquals("http://portal-stg.asiantech.vn/leave/request", driver.getCurrentUrl());
-        });
-
-        Then("^My Leave page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickElement);
+        Then("^Leave Request page is displayed$", () -> displayPage("/leave/request"));
 
         And("^Status Menu is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkTextStatusMenu(status)));
 
@@ -132,8 +115,7 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         When("^I click on SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickSYSID());
 
-        Then("^Leave Detail SYSID \"([^\"]*)\" page is displayed$", (String sysid) ->
-                redirectPageWhenClickElement("/leave/" + sysid));
+        Then("^Leave Detail SYSID \"([^\"]*)\" page is displayed$", (String sysid) -> displayPage("/leave/" + sysid));
 
         When("^I click on icon search with SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickIconSearch());
     }
@@ -144,5 +126,13 @@ public class MyLeaveDefinitions extends DriverBase implements En {
         );
         String url = getDriver().getCurrentUrl();
         Assert.assertEquals(path, url.substring(url.length() - path.length()));
+    }
+
+    private void displayPage(String path) {
+        driver.get("http://portal-stg.asiantech.vn" + path);
+        new WebDriverWait(driver, 10).until(
+                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+        Assert.assertEquals("http://portal-stg.asiantech.vn" + path, driver.getCurrentUrl());
     }
 }

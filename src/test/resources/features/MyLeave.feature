@@ -11,7 +11,7 @@ Feature: Check my leave
     When I click on Leave in menu
     Then Menu Leave drop down
     When I click on item My Leave
-    Then My Leave page is displayed "/leave/my-leave"
+    Then My Leave page is displayed
     And Status Menu is "All Status"
     And SYSID is "4703"
     And Type of Leave is "None Paid"
