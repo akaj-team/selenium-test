@@ -16,18 +16,6 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     @FindBy(id = "side-menu")
     private WebElement sideMenu;
 
-    @FindBy(css = ".toolbox-item.dropdown-md")
-    private WebElement menuStatus;
-
-    @FindBy(className = "ui-dropdown-items-wrapper")
-    private WebElement itemMenuStatus;
-
-    @FindBy(className = "ui-datatable-scrollable-table-wrapper")
-    private WebElement data;
-
-    @FindBy(css = ".dl-horizontal.m-t-xs.ng-star-inserted")
-    private WebElement leaveBalance;
-
     @FindBy(css = ".directional-toolbox")
     private WebElement toolbox;
 
@@ -52,6 +40,9 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     @FindBy(css = ".task-record.create-task.panel-left.ng-star-inserted")
     private WebElement btnAddTimeSheet;
 
+    @FindBy(css = ".ng-tns-c1-0")
+    private WebElement dialogTimeSheet;
+
     @Override
     public TimeSheetPage navigateTo(WebDriver webDriver) {
         return this;
@@ -70,24 +61,13 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
 
-    public void moveToAvatar(WebDriver driver) {
+    public void moveRowTimeSheet(WebDriver driver) {
         Actions action = new Actions(driver);
         waitForElement(driver, btnSubmit, 10);
-        List<WebElement> avatar = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
-        for (WebElement anAvatar : avatar) {
+        List<WebElement> elementCalendar = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        for (WebElement anAvatar : elementCalendar) {
             action.moveToElement(anAvatar).build().perform();
         }
-    }
-
-
-    private WebElement getItemInfor(Integer column) {
-        List<WebElement> columns = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
-        if (columns.size() != 0 && column < columns.size()) {
-            List<WebElement> columnsItems = columns.get(column).findElements(By.cssSelector(".cell-content>div"));
-            System.out.println(columnsItems.size() + "xxx" + columnsItems.get(0));
-            return columnsItems.get(column).findElement(By.cssSelector(".cell-info"));
-        }
-        return columns.get(0);
     }
 
     public boolean checkTextStatusMenu(String status) {
@@ -148,6 +128,43 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
             }
         }
         return itemMenus.get(2);
+    }
+
+    public Boolean getAddTimeSheetsClickable() {
+        List<WebElement> listItems = calendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
+        for (WebElement item : listItems) {
+            if (item.isEnabled()) return true;
+        }
+        return false;
+    }
+
+    public void clickAddTimeSheets(WebDriver driver) {
+        Actions action = new Actions(driver);
+        waitForElement(driver, calendarBody, 10);
+        List<WebElement> elementCalendar = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        for (WebElement anAvatar : elementCalendar) {
+            action.moveToElement(anAvatar).build().perform();
+        }
+        List<WebElement> listItems = calendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
+        for (WebElement listItem : listItems) {
+            listItem.click();
+        }
+    }
+
+    public void clickFirstItemAddTimeSheet(WebDriver driver) {
+        Actions action = new Actions(driver);
+        waitForElement(driver, calendarBody, 10);
+        List<WebElement> elementCalendar = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        for (WebElement anAvatar : elementCalendar) {
+            action.moveToElement(anAvatar).build().perform();
+        }
+        List<WebElement> listItems = calendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
+        listItems.get(0).click();
+    }
+
+    public Boolean isTimeSheetShowing(WebDriver driver) {
+        waitForElement(driver, dialogTimeSheet, 10);
+        return dialogTimeSheet.isDisplayed();
     }
 
 }

@@ -30,3 +30,9 @@ Feature: Check TimeSheet
     Given I open my timesheet page
     When Move to columns timesheet
     Then Display button add new timesheet
+
+  Scenario: Display dialog create timesheet after click button add timesheet
+    Given I open my timesheet page
+    When Click on button timesheet
+    When Click first button add new timesheet
+    Then Display dialog timesheet

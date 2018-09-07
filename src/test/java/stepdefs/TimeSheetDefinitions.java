@@ -79,10 +79,17 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         });
 
         When("^Move to columns timesheet$", () -> {
-            myTimeSheet.moveToAvatar(driver);
+            myTimeSheet.moveRowTimeSheet(driver);
         });
         Then("^Display button add new timesheet$", () -> {
             Assert.assertTrue(true, myTimeSheet.getAddTimeSheetClickable(driver).toString());
+        });
+
+        When("^Display dialog create timesheet after click button add timesheet$", () -> myTimeSheet.getAddTimeSheetsClickable());
+        When("^Click on button timesheet$", () -> myTimeSheet.clickAddTimeSheets(driver));
+        When("^Click first button add new timesheet$", () -> myTimeSheet.clickFirstItemAddTimeSheet(driver));
+        Then("^Display dialog timesheet$", () -> {
+            Assert.assertTrue(true, myTimeSheet.isTimeSheetShowing(driver).toString());
         });
 
     }
