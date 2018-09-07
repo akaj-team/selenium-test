@@ -51,3 +51,4 @@ jobs: # a collection of steps
     - run:
         name: Run danger
         command: bundle exec danger
+        when: always
