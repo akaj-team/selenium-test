@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
-public class NotificationPage extends BasePage<HomePage> {
+public class NotificationPage extends BasePage<NotificationPage> {
 
     @FindBy(className = "welcome-message")
     private WebElement welcomeText;
@@ -14,7 +14,7 @@ public class NotificationPage extends BasePage<HomePage> {
     private WebElement logoutButton;
 
     @Override
-    public HomePage navigateTo(WebDriver webDriver) {
+    public NotificationPage navigateTo(WebDriver webDriver) {
         webDriver.get("http://portal-stg.asiantech.vn/homepage");
         return this;
     }
