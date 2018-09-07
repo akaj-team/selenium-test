@@ -46,6 +46,8 @@ jobs: # a collection of steps
         name: Check
         halt_build_on_fail: false
         command: mvn validate
+        when: on_fail
+
 
     - run:
         name: Run danger
