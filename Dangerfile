@@ -13,7 +13,7 @@ warn("Big PR, try to keep changes smaller if you can") if git.lines_of_code > 50
 
 # Android Lint
  require 'android_lint_translate_checkstyle_format'
- target_java_check_style = ::AndroidLintTranslateCheckstyleFormat::Script.translate(File.read('/selenium-test/target/checkstyle-result.xml'))
+ target_java_check_style = ::AndroidLintTranslateCheckstyleFormat::Script.translate(File.read('/target/checkstyle-result.xml'))
  checkstyle_format.report_by_text target_java_check_style
 
 # Findbugs
