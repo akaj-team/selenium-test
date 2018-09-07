@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
-public class NotificationPage extends BasePage<NotificationPage> {
+public class TestCIPage extends BasePage<TestCIPage> {
 
     @FindBy(className = "welcome-message")
     private WebElement welcomeText;
@@ -14,7 +14,7 @@ public class NotificationPage extends BasePage<NotificationPage> {
     private WebElement logoutButton;
 
     @Override
-    public NotificationPage navigateTo(WebDriver webDriver) {
+    public TestCIPage navigateTo(WebDriver webDriver) {
         webDriver.get("http://portal-stg.asiantech.vn/homepage");
         return this;
     }
@@ -35,7 +35,7 @@ public class NotificationPage extends BasePage<NotificationPage> {
         waitForElement(driver, welcomeText, 5);
     }
 
-    public NotificationPage logout() {
+    public TestCIPage logout() {
         logoutButton.click();
         return this;
     }
