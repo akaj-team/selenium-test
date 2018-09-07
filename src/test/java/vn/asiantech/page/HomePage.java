@@ -8,13 +8,13 @@ import vn.asiantech.base.Constant;
 
 public class HomePage extends BasePage<HomePage> {
     @FindBy(className = "welcome-message")
-    private WebElement ASDHISAHDJHSKDH;
+    private WebElement welcomeText;
 
     @FindBy(className = "fa-sign-out")
     private WebElement logoutButton;
 
     @FindBy(css = ".text-muted.text-xs.block")
-    private WebElement eployeeCodeTxt;
+    private WebElement employeeCodeText;
 
     @Override
     public HomePage navigateTo(WebDriver webDriver) {
@@ -23,11 +23,11 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public boolean hasWelcomeMessage() {
-        return isElementPresented(ASDHISAHDJHSKDH);
+        return isElementPresented(welcomeText);
     }
 
     public boolean welcomeTestIsDisplayed() {
-        return ASDHISAHDJHSKDH.isDisplayed();
+        return welcomeText.isDisplayed();
     }
 
     public boolean hasLogoutButton() {
@@ -35,7 +35,7 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public void waitForWelcomeMessage(WebDriver driver) {
-        waitForElementPresented(driver, ASDHISAHDJHSKDH, 5);
+        waitForElementPresented(driver, welcomeText, 5);
     }
 
     public HomePage logout() {
@@ -44,11 +44,7 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public String getEmployeeCode(WebDriver driver) {
-        waitForElementDisplay(driver, eployeeCodeTxt, 10);
-        String employeeCode = "";
-        if (eployeeCodeTxt.getText() != null && !eployeeCodeTxt.getText().equals("")) {
-            employeeCode = eployeeCodeTxt.getText().replace(" - Employee", "");
-        }
-        return employeeCode;
+        waitForElementDisplay(driver, employeeCodeText, 10);
+        return employeeCodeText.getText().split("-")[0].trim();
     }
 }

@@ -16,7 +16,7 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     private WebElement notificationMenuIcon;
 
     @FindBy(css = "div.text-center.link-block")
-    private WebElement seeAllArea;
+    private WebElement seeAllButton;
 
     @FindBy(css = "span.pull-right.link-primary.text-normal.m-l-sm")
     private WebElement reloadText;
@@ -25,13 +25,14 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     private WebElement markAllAsReadText;
 
     private WebElement notificationList;
+    private WebElement firstItemNotification;
 
     private String destinationPath;
 
     public void seeAll() {
-        WebElement seeAllTag = seeAllArea.findElement(By.tagName("a"));
+        WebElement seeAllTag = seeAllButton.findElement(By.tagName("a"));
         setDestinationUrl(seeAllTag.getAttribute("href"));
-        seeAllArea.click();
+        seeAllButton.click();
     }
 
     @Override
@@ -47,11 +48,13 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
         return notificationMenu.isDisplayed();
     }
 
-    public void notificationMenuItemClick() {
+    public void notificationMenuItemClick(WebDriver driver) {
+        waitForElementDisplay(driver, notificationMenu, 10);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
-        WebElement firstElement = notificationList.findElements(By.tagName("li")).get(0);
-        setDestinationUrl(firstElement.findElement(By.cssSelector("a.msg-item")).getAttribute("href"));
-        firstElement.click();
+        firstItemNotification = notificationList.findElements(By.tagName("li")).get(0);
+        waitForElementDisplay(driver, firstItemNotification, 10);
+        setDestinationUrl(firstItemNotification.findElement(By.cssSelector("a.msg-item")).getAttribute("href"));
+        firstItemNotification.click();
     }
 
     public String getDestinationPath() {
@@ -67,13 +70,13 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     }
 
     public int getNotificationList(WebDriver driver) {
-        waitForElementDisplay(driver, notificationMenu, 5);
+        waitForElementDisplay(driver, notificationMenu, 10);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
         return notificationList.findElements(By.cssSelector("li.ng-star-inserted")).size();
     }
 
     public void scrollToEndOfList(WebDriver driver) {
-        waitForElementDisplay(driver, notificationMenu, 5);
+        waitForElementDisplay(driver, notificationMenu, 10);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
         By findCondition = By.cssSelector("li.ng-star-inserted");
         int count = notificationList.findElements(findCondition).size();

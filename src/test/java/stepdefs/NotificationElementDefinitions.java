@@ -37,7 +37,7 @@ public class NotificationElementDefinitions extends DriverBase implements En {
         });
 
         When("^I click on menu item$", () -> {
-            notificationMenuElement.notificationMenuItemClick();
+            notificationMenuElement.notificationMenuItemClick(getDriver());
             waitAjaxLoadSuccess();
         });
 
