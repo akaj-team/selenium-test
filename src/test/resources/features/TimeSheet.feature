@@ -1,7 +1,7 @@
 Feature: Check TimeSheet
-  I want to login my account and check my  plan leave
+  I want to login my account and check  My TimeSheet page
 
-  Background: User navigation to My leave page
+  Background: User navigation to My TimeSheet page
     Given I logged in with a employee account
 #    Given I am logged in as an android team manager
 
