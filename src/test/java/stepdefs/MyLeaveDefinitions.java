@@ -58,7 +58,7 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         When("^I click on item My Leave$", () -> myLeavePage.clickMyLeave());
 
-        When("^I click on menu Status$", () -> myLeavePage.clickMenuStatus());
+        When("^I click on menu Status$", () -> myLeavePage.clickMenuStatus(getDriver()));
 
         Then("^Menu drop down$", () -> Assert.assertTrue(myLeavePage.dropDownMenuStatus()));
 
@@ -79,15 +79,15 @@ public class MyLeaveDefinitions extends DriverBase implements En {
         Then("^My Leave page with status Rejected is displayed$", () ->
                 redirectPageWhenClickElement("/leave/my-leave;status_eq=rejected"));
 
-        When("^I click on a name Manager$", () -> myLeavePage.clickNameManager());
+        When("^I click on a name Manager$", () -> myLeavePage.clickNameManager(getDriver()));
 
         Then("^Employee Detail page is displayed$", () -> displayPage("/organisation/employees/189"));
 
-        When("^I click on Leave Request button$", () -> myLeavePage.clickBtnLeaveRequest());
+        When("^I click on Leave Request button$", () -> myLeavePage.clickBtnLeaveRequest(getDriver()));
 
         Then("^Leave Request page is displayed$", () -> displayPage("/leave/request"));
 
-        And("^Status Menu is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkTextStatusMenu(status)));
+        And("^Status Menu is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkTextStatusMenu(status, getDriver())));
 
         And("^SYSID is \"([^\"]*)\"$", (String sysid) -> Assert.assertTrue(myLeavePage.checkTextSYSID(sysid)));
 
@@ -113,11 +113,11 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         Then("^Menu status drop down$", () -> Assert.assertTrue(myLeavePage.checkMenuStatusDropDown()));
 
-        When("^I click on SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickSYSID());
+        When("^I click on SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickSYSID(getDriver()));
 
         Then("^Leave Detail SYSID \"([^\"]*)\" page is displayed$", (String sysid) -> displayPage("/leave/" + sysid));
 
-        When("^I click on icon search with SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickIconSearch());
+        When("^I click on icon search with SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickIconSearch(getDriver()));
 
         Given("^My Leave page with status Pending displayed$", () -> displayPage("/leave/my-leave;status_eq=pending"));
 

@@ -22,4 +22,9 @@ public abstract class BasePage<T> {
         new WebDriverWait(webDriver, timeOutInSecond).until(
                 driver -> isElementPresented(element));
     }
+
+    public void waitForElementDisplay(WebDriver webDriver, WebElement element, int timeOutInSecond) {
+        new WebDriverWait(webDriver, timeOutInSecond).until(
+                driver -> element.isDisplayed());
+    }
 }

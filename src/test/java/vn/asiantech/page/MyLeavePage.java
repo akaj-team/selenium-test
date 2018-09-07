@@ -51,7 +51,8 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         myLeave.click();
     }
 
-    public void clickMenuStatus() {
+    public void clickMenuStatus(WebDriver driver) {
+        waitForElementDisplay(driver, menuStatus, 10);
         menuStatus.click();
     }
 
@@ -73,7 +74,8 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         itemStatus.click();
     }
 
-    public boolean checkTextStatusMenu(String status) {
+    public boolean checkTextStatusMenu(String status, WebDriver driver) {
+        waitForElementDisplay(driver, menuStatus, 10);
         return menuStatus.findElement(By.tagName("label")).getText().equals(status);
     }
 
@@ -134,19 +136,23 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         return findDataLeave(0, 0).getText().equals("No records found");
     }
 
-    public void clickSYSID() {
+    public void clickSYSID(WebDriver driver) {
+        waitForElementDisplay(driver, menuStatus, 10);
         findDataLeave(0, 0).click();
     }
 
-    public void clickNameManager() {
+    public void clickNameManager(WebDriver driver) {
+        waitForElementDisplay(driver, menuStatus, 10);
         findDataLeave(0, 6).click();
     }
 
-    public void clickIconSearch() {
+    public void clickIconSearch(WebDriver driver) {
+        waitForElementDisplay(driver, menuStatus, 10);
         findDataLeave(0, 7).click();
     }
 
-    public void clickBtnLeaveRequest() {
+    public void clickBtnLeaveRequest(WebDriver driver) {
+        waitForElementDisplay(driver, menuStatus, 10);
         btnLeaveRequest.click();
     }
 
