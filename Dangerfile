@@ -4,17 +4,17 @@ github.dismiss_out_of_range_messages
 # Warn when there is a big PR
 warn("Big PR, try to keep changes smaller if you can") if git.lines_of_code > 500
 
- checkstyle_format.base_path = Dir.pwd
+ checkstyle_format.base_path = File.basename(Dir.getwd)
 
 
 # detekt
 # Detekt 1.0.0.RC5-6 include root project folder in file name
- checkstyle_format.report '/target/checkstyle.xml'
+ checkstyle_format.report 'target/checkstyle.xml'
 
 # Android Lint
- require 'android_lint_translate_checkstyle_format'
- target_java_check_style = ::AndroidLintTranslateCheckstyleFormat::Script.translate(File.read('/target/checkstyle.xml'))
- checkstyle_format.report_by_text target_java_check_style
+# require 'android_lint_translate_checkstyle_format'
+# target_java_check_style = ::AndroidLintTranslateCheckstyleFormat::Script.translate(File.read('/target/checkstyle.xml'))
+# checkstyle_format.report_by_text target_java_check_style
 
 # Findbugs
 #require 'findbugs_translate_checkstyle_format'
