@@ -46,9 +46,7 @@ jobs: # a collection of steps
         name: Check
         halt_build_on_fail: false
         command: mvn validate
-        when: always
 
     - run:
         name: Run danger
         command: bundle exec danger
-        when: always
