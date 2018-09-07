@@ -65,19 +65,19 @@ public class MyLeaveDefinitions extends DriverBase implements En {
         When("^I click on Pending in menu$", () -> myLeavePage.clickItemMenuStatus("Pending"));
 
         Then("^My Leave page with status Pending is displayed$", () ->
-                redirectPageWhenClickElement("/leave/my-leave;status_eq=pending"));
+                displayPage("/leave/my-leave;status_eq=pending"));
 
         When("^I click on Approved in menu$", () -> myLeavePage.clickItemMenuStatus("Approved"));
 
         Then("^My Leave page with status Approved is displayed$", () ->
-                redirectPageWhenClickElement("/leave/my-leave;status_eq=approved"));
+                displayPage("/leave/my-leave;status_eq=approved"));
 
         And("^My Leave page display No records found$", () -> Assert.assertTrue(myLeavePage.checkNoRecordsFound()));
 
         When("^I click on Rejected in menu$", () -> myLeavePage.clickItemMenuStatus("Rejected"));
 
         Then("^My Leave page with status Rejected is displayed$", () ->
-                redirectPageWhenClickElement("/leave/my-leave;status_eq=rejected"));
+                displayPage("/leave/my-leave;status_eq=rejected"));
 
         When("^I click on a name Manager$", () -> myLeavePage.clickNameManager(getDriver()));
 
@@ -127,14 +127,6 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         Then("^Tip status display is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkDisplayTipStatus(status)));
 
-    }
-
-    private void redirectPageWhenClickElement(String path) {
-        new WebDriverWait(getDriver(), 10).until(
-                webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
-        );
-        String url = getDriver().getCurrentUrl();
-        Assert.assertEquals(path, url.substring(url.length() - path.length()));
     }
 
     private void displayPage(String path) {
