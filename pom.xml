@@ -203,10 +203,10 @@
                                 <phase>validate</phase>
                                 <configuration>
                                     <outputFile>${project.build.directory}/checkstyle.xml</outputFile>
-                                    <configLocation>google_checks.xml</configLocation>
+                                    <configLocation>sun_checks.xml</configLocation>
                                     <encoding>UTF-8</encoding>
-                                    <consoleOutput>true</consoleOutput>
-                                    <failsOnError>true</failsOnError>
+                                    <consoleOutput>false</consoleOutput>
+                                    <failsOnError>false</failsOnError>
                                     <sourceDirectories>
                                         <sourceDirectory>src/test/java/</sourceDirectory>
                                     </sourceDirectories>
