@@ -26,8 +26,6 @@ Feature: Open home page
   Scenario Outline: Check function search
     When I enter in toolbox search with string value is "<valueSearch>"
     Then I should see data corresponding
-    Then sdsd corresponding
-    Then  23232 corresponding
     Examples:
       | valueSearch |
       | vi          |
@@ -56,3 +54,8 @@ Feature: Open home page
   Scenario: Check click avatar on right sideBar and open successfully profile page
     When I click on avatar in right sideBar
     Then I should see User profile is displayed
+
+  Scenario: Check click on Flowers and Congrats
+    When I click on btn Flowers
+    When I click on btn Congrats
+    Then I should see Flowers

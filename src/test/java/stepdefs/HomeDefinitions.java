@@ -62,7 +62,7 @@ public class HomeDefinitions extends DriverBase implements En {
         And("^Title New Feeds is displayed$", () -> Assert.assertTrue(driver.findElement(By.className("m-b-xs")).isDisplayed()));
         And("^ToolBox Search is displayed$", () -> Assert.assertTrue(driver.findElement(By.className("toolbox-search")).isDisplayed()));
         When("^I enter in toolbox search with string value is \"([^\"]*)\"$", (String valueSearch) -> homePage.withValueSearch(valueSearch));
-        Then(".* corresponding", () -> {
+        Then("^I should see data corresponding$", () -> {
 
         });
 
