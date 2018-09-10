@@ -82,9 +82,13 @@
 
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
-        <module name="JavadocMethod"/>
+        <module name="JavadocMethod">
+            <property name="scope" value="public"/>
+        </module>
         <module name="JavadocType"/>
-        <module name="JavadocVariable"/>
+        <!--Disable check java doc for variable -->
+        <!--<module name="JavadocVariable"/>-->
+
         <module name="JavadocStyle"/>
 
         <!-- Checks for Naming Conventions.                  -->
