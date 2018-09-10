@@ -27,11 +27,11 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
     @FindBy(css = ".btn.control-item.next")
     private WebElement btnNext;
 
-    @FindBy(css = ".calendar-body")
-    private WebElement calendarBody;
-
     @FindBy(css = ".calendar-grid")
     private WebElement calendar;
+
+    @FindBy(css = ".calendar-body")
+    private WebElement calendarBody;
 
     @FindBy(css = ".calendar-head")
     private WebElement calenderHead;
