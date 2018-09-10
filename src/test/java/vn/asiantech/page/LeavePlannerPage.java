@@ -14,9 +14,11 @@ import java.util.List;
  */
 public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
 
+    public static final int TIME_OUT_SECOND = 10;
     private static final int USER_NAME = 1;
     private static final int PROFILE_LINK = 2;
     private static final int AVATAR = 3;
+    private static final int COLUMN_NUMBER = 7;
 
     @FindBy(css = ".btn.btn-sm.btn-white")
     private WebElement btnThisWeek;
@@ -46,23 +48,23 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
     }
 
     public Boolean getClickable(WebDriver driver) {
-        waitForElement(driver, btnThisWeek, 10);
+        waitForElement(driver, btnThisWeek, TIME_OUT_SECOND);
         return btnThisWeek.isEnabled();
     }
 
     public void clickBackButton(WebDriver driver) {
-        waitForElement(driver, btnThisWeek, 10);
+        waitForElement(driver, btnThisWeek, TIME_OUT_SECOND);
         btnBack.click();
     }
 
     public void clickNextButton(WebDriver driver) {
-        waitForElement(driver, btnThisWeek, 10);
+        waitForElement(driver, btnThisWeek, TIME_OUT_SECOND);
         btnNext.click();
     }
 
     public String clickUserName() {
-        for (int column = 0; column < 7; column++) {
-            for (int cell = 0; cell < 7; cell++) {
+        for (int column = 0; column < COLUMN_NUMBER; column++) {
+            for (int cell = 0; cell < COLUMN_NUMBER; cell++) {
                 String link = getUserProfileLink(column, cell);
                 WebElement userName = getUserName(column, cell);
                 if (!link.equals("") && userName != null) {
@@ -76,8 +78,8 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
 
     public void moveToAvatar(WebDriver driver) {
         Actions action = new Actions(driver);
-        for (int column = 0; column < 7; column++) {
-            for (int cell = 0; cell < 7; cell++) {
+        for (int column = 0; column < COLUMN_NUMBER; column++) {
+            for (int cell = 0; cell < COLUMN_NUMBER; cell++) {
                 WebElement avatar = getAvatar(column, cell);
                 if (avatar != null) {
                     action.moveToElement(avatar).build().perform();
@@ -93,7 +95,7 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
 
     public Boolean isDisplayFullColumns(WebDriver driver) {
         boolean isFull = true;
-        waitForElement(driver, calendar, 10);
+        waitForElement(driver, calendar, TIME_OUT_SECOND);
         List<WebElement> divs = calendar.findElements(By.tagName("div"));
         for (WebElement div : divs) {
             int columns = div.findElements(By.tagName("div")).size();
@@ -109,11 +111,11 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
     }
 
     public String getTableTime(WebDriver driver) {
-        return getColumnTime(driver, 0) + " - " + getColumnTime(driver, 6);
+        return getColumnTime(driver, 0) + " - " + getColumnTime(driver, COLUMN_NUMBER - 1);
     }
 
     private String getColumnTime(WebDriver driver, Integer column) {
-        waitForElement(driver, calenderHead, 10);
+        waitForElement(driver, calenderHead, TIME_OUT_SECOND);
         return calenderHead.findElements(By.cssSelector(".calendar-cell.ng-star-inserted")).get(column).findElement(By.tagName("i")).getText();
     }
 

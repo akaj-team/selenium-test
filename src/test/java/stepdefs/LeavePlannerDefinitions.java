@@ -10,6 +10,8 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.LeavePlannerPage;
 
+import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
+
 public class LeavePlannerDefinitions extends DriverBase implements En {
 
     private LeavePlannerPage leavePlanerPage;
@@ -26,9 +28,9 @@ public class LeavePlannerDefinitions extends DriverBase implements En {
         Given("^Display leave planner page$", () -> {
             driver.get("http://portal-stg.asiantech.vn/leave/planning");
             leavePlanerPage = initPage(getDriver(), LeavePlannerPage.class);
-            new WebDriverWait(driver, 10).until(
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
             Assert.assertEquals("http://portal-stg.asiantech.vn/leave/planning", driver.getCurrentUrl());
         });
 
@@ -53,9 +55,9 @@ public class LeavePlannerDefinitions extends DriverBase implements En {
         });
 
         Then("^Open successfully profile page of that user$", () -> {
-            new WebDriverWait(driver, 10).until(
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
             Assert.assertEquals(profileLink, driver.getCurrentUrl());
         });
 
