@@ -82,9 +82,13 @@
 
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
-        <module name="JavadocMethod"/>
+        <module name="JavadocMethod">
+            <property name="scope" value="public"/>
+        </module>
         <module name="JavadocType"/>
-        <module name="JavadocVariable"/>
+        <!--Disable check java doc for variable -->
+        <!--<module name="JavadocVariable"/>-->
+
         <module name="JavadocStyle"/>
 
         <!-- Checks for Naming Conventions.                  -->
@@ -110,9 +114,9 @@
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <module name="LineLength"/>
-        <module name="MethodLength"/>
-        <module name="ParameterNumber"/>
+        <!--<module name="LineLength"/>-->
+        <!--<module name="MethodLength"/>-->
+        <!--<module name="ParameterNumber"/>-->
 
         <!-- Checks for whitespace                               -->
         <!-- See http://checkstyle.sf.net/config_whitespace.html -->
