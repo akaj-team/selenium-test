@@ -23,7 +23,7 @@ public class LeavePlannerDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
 
-        Given("Display leave planner page", () -> {
+        Given("^Display leave planner page$", () -> {
             driver.get("http://portal-stg.asiantech.vn/leave/planning");
             leavePlanerPage = initPage(getDriver(), LeavePlannerPage.class);
             new WebDriverWait(driver, 10).until(
@@ -32,46 +32,46 @@ public class LeavePlannerDefinitions extends DriverBase implements En {
             Assert.assertEquals("http://portal-stg.asiantech.vn/leave/planning", driver.getCurrentUrl());
         });
 
-        Then("Can not click this week button", () -> {
+        Then("^Can not click this week button$", () -> {
             Assert.assertFalse(false, leavePlanerPage.getClickable(driver).toString());
         });
 
-        When("Click on back button", () -> {
+        When("^Click on back button$", () -> {
             leavePlanerPage.clickBackButton(driver);
         });
 
-        Then("Can click this week button", () -> {
+        Then("^Can click this week button$", () -> {
             Assert.assertTrue(true, leavePlanerPage.getClickable(driver).toString());
         });
 
-        When("Click on next button", () -> {
+        When("^Click on next button$", () -> {
             leavePlanerPage.clickNextButton(driver);
         });
 
-        When("Click username", () -> {
+        When("^Click username$", () -> {
             profileLink = leavePlanerPage.clickUserName();
         });
 
-        Then("Open successfully profile page of that user", () -> {
+        Then("^Open successfully profile page of that user$", () -> {
             new WebDriverWait(driver, 10).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
             Assert.assertEquals(profileLink, driver.getCurrentUrl());
         });
 
-        When("Move to avatar user", () -> {
+        When("^Move to avatar user$", () -> {
             leavePlanerPage.moveToAvatar(driver);
         });
 
-        Then("Display leave message", () -> {
+        Then("^Display leave message$", () -> {
             Assert.assertTrue(true, leavePlanerPage.isShowLeaveMessage(driver).toString());
         });
 
-        Then("Display full seven columns", () -> {
+        Then("^Display full seven columns$", () -> {
             Assert.assertTrue(true, leavePlanerPage.isDisplayFullColumns(driver).toString());
         });
 
-        Then("Display time correctly", () -> {
+        Then("^Display time correctly$", () -> {
             Assert.assertEquals(leavePlanerPage.getTableTime(driver), leavePlanerPage.getHeaderTime());
         });
     }
