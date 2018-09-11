@@ -31,7 +31,6 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     private WebElement markAllAsReadText;
 
     private WebElement notificationList;
-    private WebElement firstItemNotification;
 
     private String destinationPath;
 
@@ -57,13 +56,13 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     public final void notificationMenuItemClick(final WebDriver driver) {
         waitForElementDisplay(driver, notificationMenu, Constant.DEFAULT_TIME_OUT);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
-        firstItemNotification = notificationList.findElements(By.tagName("li")).get(0);
+        WebElement firstItemNotification = notificationList.findElements(By.tagName("li")).get(0);
         waitForElementDisplay(driver, firstItemNotification, Constant.DEFAULT_TIME_OUT);
         setDestinationUrl(firstItemNotification.findElement(By.cssSelector("a.msg-item")).getAttribute("href"));
         firstItemNotification.click();
     }
 
-    public String getDestinationPath() {
+    public final String getDestinationPath() {
         return destinationPath;
     }
 
@@ -96,7 +95,7 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
         markAllAsReadText.click();
     }
 
-    private final void setDestinationUrl(final String destinationPath) {
+    private void setDestinationUrl(final String destinationPath) {
         this.destinationPath = destinationPath;
     }
 }
