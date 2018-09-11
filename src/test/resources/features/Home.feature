@@ -25,7 +25,6 @@ Feature: Open home page
 
   Scenario Outline: Check function search
     When I enter in toolbox search with string value is "<valueSearch>"
-    Then I should see data corresponding
     Examples:
       | valueSearch |
       | vi          |
@@ -57,5 +56,15 @@ Feature: Open home page
 
   Scenario: Check click on Flowers and Congrats
     When I click on btn Flowers
+    Then I should see Flowers is displayed
     When I click on btn Congrats
-    Then I should see Flowers
+    Then I should see Congrats is displayed
+
+  Scenario: Check scrollview on homeContent
+    When I scroll down homeContent
+    Then I scroll up homeContent
+
+  Scenario: Check scrollview on right sideBar
+    When I scroll down right sideBar
+    Then I scroll up right sideBar
+

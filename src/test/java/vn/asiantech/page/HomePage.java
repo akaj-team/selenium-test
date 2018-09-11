@@ -1,17 +1,22 @@
 package vn.asiantech.page;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
 
-import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Copyright © 2018 Asian Tech Co., Ltd.
+ * Created by at-vietphan on 02/09.
+ */
 public class HomePage extends BasePage<HomePage> {
+    public static final int TIME_OUT_IN_SECONDS_5 = 5;
+    public static final int TIME_OUT_IN_SECONDS_10 = 10;
+    private static final int TIME_OUT_IN_SECONDS_20 = 20;
+    private static final int TIME_SLEEP_MILLISECONDS_3000 = 3000;
     @FindBy(className = "welcome-message")
     private WebElement welcomeText;
     @FindBy(className = "fa-sign-out")
@@ -44,10 +49,6 @@ public class HomePage extends BasePage<HomePage> {
         return welcomeText.isDisplayed();
     }
 
-    public boolean hasLogoutButton() {
-        return isElementPresented(logoutButton);
-    }
-
     public void waitForWelcomeMessage(WebDriver driver) {
         waitForElement(driver, welcomeText, 5);
     }
@@ -60,38 +61,40 @@ public class HomePage extends BasePage<HomePage> {
         return rightSideBar.isDisplayed() && homeContent.isDisplayed();
     }
 
-    public void waitForElementsVisibility(WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+    public void waitForElementsVisibility(final WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, TIME_OUT_IN_SECONDS_20);
         wait.until(ExpectedConditions.visibilityOfAllElements(homeContent, rightSideBar));
     }
 
-    public void onClickTabItems(String tabName) {
+    public void onClickTabItems(final String tabName) {
         homeContentChild = homeContent.findElement(By.className("ui-buttonset-3"));
+        List<WebElement> btnItems = homeContentChild.findElements(By.className("ui-button-text-only"));
         if (tabName.equals(ItemTabNavigation.AllNews.name())) {
-            elementItemBtn = homeContentChild.findElements(By.className("ui-button-text-only")).get(ItemTabNavigation.AllNews.ordinal());
+            elementItemBtn = btnItems.get(ItemTabNavigation.AllNews.ordinal());
         } else if (tabName.equals(ItemTabNavigation.Announcerment.name())) {
-            elementItemBtn = homeContentChild.findElements(By.className("ui-button-text-only")).get(ItemTabNavigation.Announcerment.ordinal());
+            elementItemBtn = btnItems.get(ItemTabNavigation.Announcerment.ordinal());
         } else {
-            elementItemBtn = homeContentChild.findElements(By.className("ui-button-text-only")).get(ItemTabNavigation.Notification.ordinal());
+            elementItemBtn = btnItems.get(ItemTabNavigation.Notification.ordinal());
         }
         if (elementItemBtn != null && isElementPresented(elementItemBtn)) {
             elementItemBtn.click();
         }
     }
 
-    public boolean checkColorForTabItems(String color, String tabName) {
+    public boolean checkColorForTabItems(final String color, final String tabName) {
         homeContentChild = homeContent.findElement(By.className("ui-buttonset-3"));
+        List<WebElement> btnItems = homeContentChild.findElements(By.className("ui-button-text-only"));
         if (tabName.equals(ItemTabNavigation.AllNews.name())) {
-            elementItemBtn = homeContentChild.findElements(By.className("ui-button-text-only")).get(ItemTabNavigation.AllNews.ordinal());
+            elementItemBtn = btnItems.get(ItemTabNavigation.AllNews.ordinal());
         } else if (tabName.equals(ItemTabNavigation.Announcerment.name())) {
-            elementItemBtn = homeContentChild.findElements(By.className("ui-button-text-only")).get(ItemTabNavigation.Announcerment.ordinal());
+            elementItemBtn = btnItems.get(ItemTabNavigation.Announcerment.ordinal());
         } else {
-            elementItemBtn = homeContentChild.findElements(By.className("ui-button-text-only")).get(ItemTabNavigation.Notification.ordinal());
+            elementItemBtn = btnItems.get(ItemTabNavigation.Notification.ordinal());
         }
         return getActualColor(elementItemBtn).equals(color);
     }
 
-    public boolean checkColorForOtherTabItems(String color, String tabName) {
+    public boolean checkColorForOtherTabItems(final String color, final String tabName) {
         int position;
         if (tabName.equals(ItemTabNavigation.AllNews.name())) {
             position = ItemTabNavigation.AllNews.ordinal();
@@ -101,42 +104,45 @@ public class HomePage extends BasePage<HomePage> {
             position = ItemTabNavigation.Notification.ordinal();
         }
         homeContentChild = homeContent.findElement(By.className("ui-buttonset-3"));
-        for (int i = 0; i < homeContentChild.findElements(By.className("ui-button-text-only")).size(); i++) {
+        List<WebElement> btnItems = homeContentChild.findElements(By.className("ui-button-text-only"));
+        for (int i = 0; i < btnItems.size(); i++) {
             if (i != position) {
-                elementItemBtn = homeContentChild.findElements(By.className("ui-button-text-only")).get(i);
+                elementItemBtn = btnItems.get(i);
                 return getActualColor(elementItemBtn).equals(color);
             }
         }
         return false;
     }
 
-    public void onClickTabItemsInRightSideBar(String tabName) {
+    public void onClickTabItemsInRightSideBar(final String tabName) {
         rightSideBarChild = rightSideBar.findElement(By.className("ui-buttonset-3"));
+        List<WebElement> btnItems = rightSideBarChild.findElements(By.className("ui-button-text-only"));
         if (tabName.equals(ItemTabOnRightSidebar.AllEvents.name())) {
-            elementItemBtn = rightSideBarChild.findElements(By.className("ui-button-text-only")).get(ItemTabOnRightSidebar.AllEvents.ordinal());
+            elementItemBtn = btnItems.get(ItemTabOnRightSidebar.AllEvents.ordinal());
         } else if (tabName.equals(ItemTabOnRightSidebar.Birthday.name())) {
-            elementItemBtn = rightSideBarChild.findElements(By.className("ui-button-text-only")).get(ItemTabOnRightSidebar.Birthday.ordinal());
+            elementItemBtn = btnItems.get(ItemTabOnRightSidebar.Birthday.ordinal());
         } else {
-            elementItemBtn = rightSideBarChild.findElements(By.className("ui-button-text-only")).get(ItemTabOnRightSidebar.Anniversary.ordinal());
+            elementItemBtn = btnItems.get(ItemTabOnRightSidebar.Anniversary.ordinal());
         }
         if (elementItemBtn != null && isElementPresented(elementItemBtn)) {
             elementItemBtn.click();
         }
     }
 
-    public boolean checkColorForTabItemsInRightSideBar(String tabName, String colorActive) {
+    public boolean checkColorForTabItemsInRightSideBar(final String tabName, final String colorActive) {
         rightSideBarChild = rightSideBar.findElement(By.className("ui-buttonset-3"));
+        List<WebElement> btnItems = rightSideBarChild.findElements(By.className("ui-button-text-only"));
         if (tabName.equals(ItemTabOnRightSidebar.AllEvents.name())) {
-            elementItemBtn = rightSideBarChild.findElements(By.className("ui-button-text-only")).get(ItemTabOnRightSidebar.AllEvents.ordinal());
+            elementItemBtn = btnItems.get(ItemTabOnRightSidebar.AllEvents.ordinal());
         } else if (tabName.equals(ItemTabOnRightSidebar.Birthday.name())) {
-            elementItemBtn = rightSideBarChild.findElements(By.className("ui-button-text-only")).get(ItemTabOnRightSidebar.Birthday.ordinal());
+            elementItemBtn = btnItems.get(ItemTabOnRightSidebar.Birthday.ordinal());
         } else {
-            elementItemBtn = rightSideBarChild.findElements(By.className("ui-button-text-only")).get(ItemTabOnRightSidebar.Anniversary.ordinal());
+            elementItemBtn = btnItems.get(ItemTabOnRightSidebar.Anniversary.ordinal());
         }
         return getActualColor(elementItemBtn).equals(colorActive);
     }
 
-    public boolean checkColorForOtherTabItemsOnRightSideBar(String tabName, String colorDefault) {
+    public boolean checkColorForOtherTabItemsOnRightSideBar(final String tabName, final String colorDefault) {
         int position;
         if (tabName.equals(ItemTabOnRightSidebar.AllEvents.name())) {
             position = ItemTabOnRightSidebar.AllEvents.ordinal();
@@ -146,20 +152,22 @@ public class HomePage extends BasePage<HomePage> {
             position = ItemTabOnRightSidebar.Anniversary.ordinal();
         }
         rightSideBarChild = rightSideBar.findElement(By.className("ui-buttonset-3"));
-        for (int i = 0; i < rightSideBarChild.findElements(By.className("ui-button-text-only")).size(); i++) {
+        List<WebElement> btnItems = rightSideBarChild.findElements(By.className("ui-button-text-only"));
+        for (int i = 0; i < btnItems.size(); i++) {
             if (i != position) {
-                elementItemBtn = rightSideBarChild.findElements(By.className("ui-button-text-only")).get(i);
-                return getActualColor(elementItemBtn).equals(colorDefault);
+                return getActualColor(btnItems.get(i)).equals(colorDefault);
             }
         }
         return false;
     }
 
     public boolean checkShowHaveOrNoDataInHomeContent() {
-        if (isPresentAndDisplayed(homeContentHasData) && homeContentHasData.findElements(By.className("social-feed-box")).size() > 0) {
+        By byFeedBox = By.className("social-feed-box");
+        By byMessageNoData = By.tagName("h2");
+        if (isPresentAndDisplayed(homeContentHasData) && homeContentHasData.findElements(byFeedBox).size() > 0) {
             return true;
         } else {
-            return isPresentAndDisplayed(homeContentNoData) && isPresentAndDisplayed(homeContentNoData.findElement(By.tagName("h2")));
+            return isPresentAndDisplayed(homeContentNoData) && isPresentAndDisplayed(homeContentNoData.findElement(byMessageNoData));
         }
     }
 
@@ -168,36 +176,98 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public boolean checkShowHaveOrNoDataOnRightSideBar() {
-        ArrayList<WebElement> elements = (ArrayList<WebElement>) rightSideBar.findElements(By.className("event-block"));
+        List<WebElement> elements = rightSideBar.findElements(By.className("event-block"));
         //noinspection LoopStatementThatDoesntLoop
         for (WebElement element : elements) {
-            if (element.findElement(By.tagName("h3")).isDisplayed() && element.findElements(By.className("feed-element")).size() > 0) {
+            WebElement title = element.findElement(By.tagName("h3"));
+            List<WebElement> feeds = element.findElements(By.className("feed-element"));
+            WebElement messageNoData = element.findElement(By.className("text-na"));
+            if (title.isDisplayed() && feeds.size() > 0) {
                 return true;
             } else
-                return element.findElement(By.tagName("h3")).isDisplayed() && isPresentAndDisplayed(element.findElement(By.className("text-na")));
+                return title.isDisplayed() && isPresentAndDisplayed(messageNoData);
         }
         return false;
     }
 
     public void onClickUserNameOnHomeContent() {
-        ArrayList<WebElement> elements = (ArrayList<WebElement>) homeContent.findElements(By.cssSelector("span.name"));
+        List<WebElement> elements = homeContent.findElements(By.cssSelector("span.name"));
         elements.get(0).click();
     }
 
     public void onClickAvatarOnHomeContent() {
-        ArrayList<WebElement> elements = (ArrayList<WebElement>) homeContentHasData.findElements(By.cssSelector("img.img-circle.pull-left"));
+        By byImgAvatar = By.cssSelector("img.img-circle.pull-left");
+        List<WebElement> elements = homeContentHasData.findElements(byImgAvatar);
         elements.get(0).click();
     }
 
     public void onClickAvatarOnRightSideBar() {
-        ArrayList<WebElement> elements = (ArrayList<WebElement>) rightSideBar.findElements(By.cssSelector("img.img-circle"));
+        By byImgAvatar = By.cssSelector("img.img-circle");
+        List<WebElement> elements = rightSideBar.findElements(byImgAvatar);
         elements.get(0).click();
+    }
+
+    public void onClickBtnReactionFlowers() {
+        By byEventBlock = By.className("event-block");
+        List<WebElement> elements = rightSideBar.findElements(byEventBlock);
+        if (elements.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).size() > 0) {
+            elements.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).get(0).click();
+        }
+        try {
+            Thread.sleep(TIME_SLEEP_MILLISECONDS_3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onClickBtnReactionCongrats() {
+        By byEventBlock = By.className("event-block");
+        List<WebElement> elements = rightSideBar.findElements(byEventBlock);
+        if (elements.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).size() > 0) {
+            elements.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).get(1).click();
+        }
+        try {
+            Thread.sleep(TIME_SLEEP_MILLISECONDS_3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void scrollDownHomeContent(WebDriver driver) {
+        By socialFeed = By.cssSelector("div.social-feed-box.ng-star-inserted");
+        int count = homeContentHasData.findElements(socialFeed).size();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", homeContentHasData.findElements(socialFeed).get(count - 1));
+    }
+
+    public void scrollUpHomeContent(WebDriver driver) {
+        By socialFeed = By.cssSelector("div.social-feed-box.ng-star-inserted");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", homeContentHasData.findElements(socialFeed).get(0));
+    }
+
+    public void scrollDownRightSideBar(WebDriver driver) {
+        By feed = By.cssSelector("div.feed-element.ng-star-inserted");
+        int count = rightSideBar.findElements(feed).size();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", rightSideBar.findElements(feed).get(count - 1));
+    }
+
+    public void scrollUpRightSideBar(WebDriver driver) {
+        By feed = By.cssSelector("div.feed-element.ng-star-inserted");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", rightSideBar.findElements(feed).get(0));
     }
 
     private String getActualColor(WebElement element) {
         String colorCss = element.findElement(By.tagName("span")).getCssValue("color");
-        String[] hexValue = colorCss.replace("rgb(", "").replace(")", "").split(",");
-        return String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
+        String[] hexValue = colorCss.replace("rgb(", "")
+                .replace(")", "")
+                .split(",");
+        return String.format("#%01x%01x%01x",
+                Integer.parseInt(hexValue[0].trim()),
+                Integer.parseInt(hexValue[1].trim()),
+                Integer.parseInt(hexValue[2].trim()));
     }
 
     private static boolean isPresentAndDisplayed(final WebElement element) {
@@ -208,13 +278,13 @@ public class HomePage extends BasePage<HomePage> {
         }
     }
 
-    public enum ItemTabNavigation {
+    private enum ItemTabNavigation {
         AllNews,
         Announcerment,
         Notification
     }
 
-    public enum ItemTabOnRightSidebar {
+    private enum ItemTabOnRightSidebar {
         AllEvents,
         Birthday,
         Anniversary
