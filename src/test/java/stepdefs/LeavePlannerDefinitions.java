@@ -12,6 +12,9 @@ import vn.asiantech.page.LeavePlannerPage;
 
 import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
 
+/**
+ * @author at-hangtran
+ */
 public class LeavePlannerDefinitions extends DriverBase implements En {
 
     private LeavePlannerPage leavePlanerPage;
