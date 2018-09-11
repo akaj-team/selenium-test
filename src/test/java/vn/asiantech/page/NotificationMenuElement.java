@@ -9,7 +9,7 @@ import vn.asiantech.base.BasePage;
 import vn.asiantech.base.Constant;
 
 /**
- * NotificationMenuElement class
+ * Notification Menu Element class
  *
  * @author at-vinh.huynh
  */
@@ -66,7 +66,7 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
         return destinationPath;
     }
 
-    public void reload() {
+    public final void reload() {
         reloadText.click();
     }
 
