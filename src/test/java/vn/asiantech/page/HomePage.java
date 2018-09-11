@@ -171,7 +171,7 @@ public class HomePage extends BasePage<HomePage> {
         }
     }
 
-    public void withValueSearch(String valueSearch) {
+    public void withValueSearch(final String valueSearch) {
         inputSearch.sendKeys(valueSearch);
     }
 
@@ -184,8 +184,9 @@ public class HomePage extends BasePage<HomePage> {
             WebElement messageNoData = element.findElement(By.className("text-na"));
             if (title.isDisplayed() && feeds.size() > 0) {
                 return true;
-            } else
+            } else {
                 return title.isDisplayed() && isPresentAndDisplayed(messageNoData);
+            }
         }
         return false;
     }
@@ -196,14 +197,12 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public void onClickAvatarOnHomeContent() {
-        By byImgAvatar = By.cssSelector("img.img-circle.pull-left");
-        List<WebElement> elements = homeContentHasData.findElements(byImgAvatar);
+        List<WebElement> elements = homeContentHasData.findElements(By.cssSelector("img.img-circle.pull-left"));
         elements.get(0).click();
     }
 
     public void onClickAvatarOnRightSideBar() {
-        By byImgAvatar = By.cssSelector("img.img-circle");
-        List<WebElement> elements = rightSideBar.findElements(byImgAvatar);
+        List<WebElement> elements = rightSideBar.findElements(By.cssSelector("img.img-circle"));
         elements.get(0).click();
     }
 
@@ -221,8 +220,7 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public void onClickBtnReactionCongrats() {
-        By byEventBlock = By.className("event-block");
-        List<WebElement> elements = rightSideBar.findElements(byEventBlock);
+        List<WebElement> elements = rightSideBar.findElements(By.className("event-block"));
         if (elements.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).size() > 0) {
             elements.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).get(1).click();
         }
@@ -233,37 +231,35 @@ public class HomePage extends BasePage<HomePage> {
         }
     }
 
-    public void scrollDownHomeContent(WebDriver driver) {
+    public void scrollDownHomeContent(final WebDriver driver) {
         By socialFeed = By.cssSelector("div.social-feed-box.ng-star-inserted");
         int count = homeContentHasData.findElements(socialFeed).size();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", homeContentHasData.findElements(socialFeed).get(count - 1));
     }
 
-    public void scrollUpHomeContent(WebDriver driver) {
+    public void scrollUpHomeContent(final WebDriver driver) {
         By socialFeed = By.cssSelector("div.social-feed-box.ng-star-inserted");
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", homeContentHasData.findElements(socialFeed).get(0));
     }
 
-    public void scrollDownRightSideBar(WebDriver driver) {
+    public void scrollDownRightSideBar(final WebDriver driver) {
         By feed = By.cssSelector("div.feed-element.ng-star-inserted");
         int count = rightSideBar.findElements(feed).size();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", rightSideBar.findElements(feed).get(count - 1));
     }
 
-    public void scrollUpRightSideBar(WebDriver driver) {
+    public void scrollUpRightSideBar(final WebDriver driver) {
         By feed = By.cssSelector("div.feed-element.ng-star-inserted");
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", rightSideBar.findElements(feed).get(0));
     }
 
-    private String getActualColor(WebElement element) {
+    private String getActualColor(final WebElement element) {
         String colorCss = element.findElement(By.tagName("span")).getCssValue("color");
-        String[] hexValue = colorCss.replace("rgb(", "")
-                .replace(")", "")
-                .split(",");
+        String[] hexValue = colorCss.replace("rgb(", "").replace(")", "").split(",");
         return String.format("#%01x%01x%01x",
                 Integer.parseInt(hexValue[0].trim()),
                 Integer.parseInt(hexValue[1].trim()),
@@ -278,12 +274,18 @@ public class HomePage extends BasePage<HomePage> {
         }
     }
 
+    /**
+     * enum for ite tab on navigation on home content
+     */
     private enum ItemTabNavigation {
         AllNews,
         Announcerment,
         Notification
     }
 
+    /**
+     * enum for Item tab on right side bar
+     */
     private enum ItemTabOnRightSidebar {
         AllEvents,
         Birthday,
