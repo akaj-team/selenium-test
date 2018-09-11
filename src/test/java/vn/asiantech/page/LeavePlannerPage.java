@@ -41,6 +41,9 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
     @FindBy(css = ".directional-toolbox")
     private WebElement toolBox;
 
+    public LeavePlannerPage() {
+    }
+
     @Override
     public final LeavePlannerPage navigateTo(final WebDriver webDriver) {
         webDriver.get("http://portal-stg.asiantech.vn/leave/planning");
@@ -114,7 +117,7 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
         return getColumnTime(driver, 0) + " - " + getColumnTime(driver, COLUMN_NUMBER - 1);
     }
 
-    private final String getColumnTime(final WebDriver driver, final Integer column) {
+    private String getColumnTime(final WebDriver driver, final Integer column) {
         waitForElement(driver, calenderHead, TIME_OUT_SECOND);
         return calenderHead.findElements(By.cssSelector(".calendar-cell.ng-star-inserted")).get(column).findElement(By.tagName("i")).getText();
     }
