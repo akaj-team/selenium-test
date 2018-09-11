@@ -18,7 +18,7 @@ public class PortalLoginDefinitions extends DriverBase implements En {
         Given("^I open home page$", () -> getDriver().get(Constant.PORTAL_URL));
 
         Then("^browser should redirect to \"([^\"]*)\"$", (String path) -> {
-            new WebDriverWait(getDriver(), 10).until(
+            new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                     webDriver -> webDriver.getCurrentUrl().equals(Constant.LOGIN_PAGE_URL));
 
             String url = getDriver().getCurrentUrl();
@@ -37,7 +37,7 @@ public class PortalLoginDefinitions extends DriverBase implements En {
 
         When("^I click on login button$", () -> {
             loginPage.login();
-            new WebDriverWait(getDriver(), 10).until(
+            new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         });
 
@@ -51,7 +51,7 @@ public class PortalLoginDefinitions extends DriverBase implements En {
         Then("^Login button will be disabled$", () -> Assert.assertFalse(loginPage.getLoginButton().isEnabled()));
 
         Then("^Error message should display and show \"([^\"]*)\"$", (String warning) -> {
-            loginPage.waitForErrorMessage(getDriver(), 5);
+            loginPage.waitForErrorMessage(getDriver(), Constant.DEFAULT_TIME_OUT / 2);
             Assert.assertTrue(loginPage.errorMessageIsDisplayed());
             Assert.assertEquals(warning, loginPage.getErrorMessage());
         });

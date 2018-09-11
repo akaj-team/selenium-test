@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 /**
  * NotificationMenuElement class
@@ -54,10 +55,10 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     }
 
     public final void notificationMenuItemClick(final WebDriver driver) {
-        waitForElementDisplay(driver, notificationMenu, DEFAULT_TIME_OUT);
+        waitForElementDisplay(driver, notificationMenu, Constant.DEFAULT_TIME_OUT);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
         firstItemNotification = notificationList.findElements(By.tagName("li")).get(0);
-        waitForElementDisplay(driver, firstItemNotification, DEFAULT_TIME_OUT);
+        waitForElementDisplay(driver, firstItemNotification, Constant.DEFAULT_TIME_OUT);
         setDestinationUrl(firstItemNotification.findElement(By.cssSelector("a.msg-item")).getAttribute("href"));
         firstItemNotification.click();
     }
@@ -71,17 +72,17 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     }
 
     public final void waitForNotificationReload(final WebDriver driver) {
-        waitForElementDisplay(driver, notificationMenu, DEFAULT_TIME_OUT / 2);
+        waitForElementDisplay(driver, notificationMenu, Constant.DEFAULT_TIME_OUT / 2);
     }
 
     public final int getNotificationList(final WebDriver driver) {
-        waitForElementDisplay(driver, notificationMenu, DEFAULT_TIME_OUT);
+        waitForElementDisplay(driver, notificationMenu, Constant.DEFAULT_TIME_OUT);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
         return notificationList.findElements(By.cssSelector("li.ng-star-inserted")).size();
     }
 
     public final void scrollToEndOfList(final WebDriver driver) {
-        waitForElementDisplay(driver, notificationMenu, DEFAULT_TIME_OUT);
+        waitForElementDisplay(driver, notificationMenu, Constant.DEFAULT_TIME_OUT);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
         By findCondition = By.cssSelector("li.ng-star-inserted");
         int count = notificationList.findElements(findCondition).size();
@@ -95,7 +96,7 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
         markAllAsReadText.click();
     }
 
-    private void setDestinationUrl(final String destinationPath) {
+    private final void setDestinationUrl(final String destinationPath) {
         this.destinationPath = destinationPath;
     }
 }
