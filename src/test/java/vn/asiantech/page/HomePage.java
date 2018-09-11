@@ -275,7 +275,7 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     /**
-     * enum for ite tab on navigation on home content
+     * enum for ite tab on navigation on home content.
      */
     private enum ItemTabNavigation {
         AllNews,
@@ -284,7 +284,7 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     /**
-     * enum for Item tab on right side bar
+     * enum for Item tab on right side bar.
      */
     private enum ItemTabOnRightSidebar {
         AllEvents,
