@@ -51,34 +51,28 @@ public class HomeDefinitions extends DriverBase implements En {
             }
             homePage.waitForElementsVisibility(getDriver());
         });
-        And("^Header navigation is displayed$", () ->
-                Assert.assertTrue(homePage.checkHeaderIsShown()));
+        And("^Header navigation is displayed$", () -> Assert.assertTrue(homePage.checkHeaderIsShown()));
 
 //        Check status button and data when click on tab navigation header
-        When("^I click on tab item \"([^\"]*)\"$", (String tabName) ->
-                homePage.onClickTabItems(tabName));
+        When("^I click on tab item \"([^\"]*)\"$", (String tabName) -> homePage.onClickTabItems(tabName));
         Then("^Color of tab \"([^\"]*)\" is \"([^\"]*)\"$", (String tabName, String colorActive) ->
                 Assert.assertTrue(homePage.checkColorForTabItems(colorActive, tabName)));
         And("^Color other tab \"([^\"]*)\" is \"([^\"]*)\"$", (String tabName, String colorDefault) ->
                 Assert.assertTrue(homePage.checkColorForOtherTabItems(colorDefault, tabName)));
-        And("^I Should see data when has or no$", () ->
-                Assert.assertTrue(homePage.checkShowHaveOrNoDataInHomeContent()));
+        And("^I Should see data when has or no$", () -> Assert.assertTrue(homePage.checkShowHaveOrNoDataInHomeContent()));
 
 //        Check function search
         And("^ToolBox Search is displayed$", () ->
                 Assert.assertTrue(driver.findElement(By.className("toolbox-search")).isDisplayed()));
-        When("^I enter in toolbox search with string value is \"([^\"]*)\"$", (String valueSearch) ->
-                homePage.withValueSearch(valueSearch));
+        When("^I enter in toolbox search with string value is \"([^\"]*)\"$", (String valueSearch) -> homePage.withValueSearch(valueSearch));
 
 //        Check status button and data when click on item in right sideBar
-        When("^I click on tab item \"([^\"]*)\" in right sideBar$", (String tabName) ->
-                homePage.onClickTabItemsInRightSideBar(tabName));
+        When("^I click on tab item \"([^\"]*)\" in right sideBar$", (String tabName) -> homePage.onClickTabItemsInRightSideBar(tabName));
         Then("^Color of tab \"([^\"]*)\" is \"([^\"]*)\" in right sideBar$", (String tabName, String colorActive) ->
                 Assert.assertTrue(homePage.checkColorForTabItemsInRightSideBar(tabName, colorActive)));
         And("^Color other tab \"([^\"]*)\" is \"([^\"]*)\" in right sideBar$", (String tabName, String colorDefault) ->
                 Assert.assertTrue(homePage.checkColorForOtherTabItemsOnRightSideBar(tabName, colorDefault)));
-        And("^Title New Feeds is displayed$", () ->
-                Assert.assertTrue(driver.findElement(By.className("m-b-xs")).isDisplayed()));
+        And("^Title New Feeds is displayed$", () -> Assert.assertTrue(driver.findElement(By.className("m-b-xs")).isDisplayed()));
         And("^I should see data Today's Event and Upcoming Event on right sideBar$", () ->
                 Assert.assertTrue(homePage.checkShowHaveOrNoDataOnRightSideBar()));
 
