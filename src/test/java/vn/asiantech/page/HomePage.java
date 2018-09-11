@@ -49,7 +49,7 @@ public class HomePage extends BasePage<HomePage> {
         return welcomeText.isDisplayed();
     }
 
-    public final void waitForWelcomeMessage(WebDriver driver) {
+    public final void waitForWelcomeMessage(final WebDriver driver) {
         waitForElement(driver, welcomeText, 5);
     }
 
