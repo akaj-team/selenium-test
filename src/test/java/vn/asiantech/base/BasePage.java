@@ -9,9 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage<T> {
 
+    public static int DEFAULT_TIME_OUT = 10;
+
     public abstract T navigateTo(WebDriver webDriver);
 
-    protected boolean isElementPresented(WebElement element) {
+    protected boolean isElementPresented(final WebElement element) {
         try {
             element.isDisplayed();
         } catch (NoSuchElementException e) {
@@ -20,18 +22,18 @@ public abstract class BasePage<T> {
         return true;
     }
 
-    protected void waitForElementPresented(WebDriver webDriver, WebElement element, int timeOutInSecond) {
+    protected final void waitForElementPresented(final WebDriver webDriver, final WebElement element, final int timeOutInSecond) {
         new WebDriverWait(webDriver, timeOutInSecond).until(
                 driver -> isElementPresented(element));
     }
 
-    protected void waitForElementDisplay(WebDriver webDriver, WebElement element, int timeOutInSecond) {
+    protected final void waitForElementDisplay(final WebDriver webDriver, final WebElement element, final int timeOutInSecond) {
         new WebDriverWait(webDriver, timeOutInSecond).until(
                 driver -> element.isDisplayed());
     }
 
-    protected void waitUntilCountChanges(WebDriver webDriver, WebElement element, By by, int count) {
-        new WebDriverWait(webDriver, 5).until((ExpectedCondition<Boolean>) driver -> {
+    protected final void waitUntilCountChanges(final WebDriver webDriver, final WebElement element, final By by, final int count) {
+        new WebDriverWait(webDriver, DEFAULT_TIME_OUT).until((ExpectedCondition<Boolean>) driver -> {
             int elementCount = element.findElements(by).size();
             return elementCount > count;
         });

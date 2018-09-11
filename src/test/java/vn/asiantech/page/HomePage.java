@@ -34,8 +34,8 @@ public class HomePage extends BasePage<HomePage> {
         return isElementPresented(logoutButton);
     }
 
-    public void waitForWelcomeMessage(WebDriver driver) {
-        waitForElementPresented(driver, welcomeText, 5);
+    public void waitForWelcomeMessage(final WebDriver driver) {
+        waitForElementPresented(driver, welcomeText, DEFAULT_TIME_OUT / 2);
     }
 
     public HomePage logout() {
@@ -43,8 +43,8 @@ public class HomePage extends BasePage<HomePage> {
         return this;
     }
 
-    public String getEmployeeCode(WebDriver driver) {
-        waitForElementDisplay(driver, employeeCodeText, 10);
+    public final String getEmployeeCode(final WebDriver driver) {
+        waitForElementDisplay(driver, employeeCodeText, DEFAULT_TIME_OUT);
         return employeeCodeText.getText().split("-")[0].trim();
     }
 }

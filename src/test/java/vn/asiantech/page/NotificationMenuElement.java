@@ -7,6 +7,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
+/**
+ * NotificationMenuElement class
+ *
+ * @author at-vinh.huynh
+ */
 public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
 
     @FindBy(css = ".dropdown-menu.dropdown-alerts.size-lg.arrow-block.t-r")
@@ -29,30 +34,30 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
 
     private String destinationPath;
 
-    public void seeAll() {
+    public final void seeAll() {
         WebElement seeAllTag = seeAllButton.findElement(By.tagName("a"));
         setDestinationUrl(seeAllTag.getAttribute("href"));
         seeAllButton.click();
     }
 
     @Override
-    public NotificationMenuElement navigateTo(WebDriver webDriver) {
+    public final NotificationMenuElement navigateTo(final WebDriver webDriver) {
         return this;
     }
 
-    public void openNotification() {
+    public final void openNotification() {
         notificationMenuIcon.click();
     }
 
-    public Boolean notificationElementIsDisplay() {
+    public final Boolean notificationElementIsDisplay() {
         return notificationMenu.isDisplayed();
     }
 
-    public void notificationMenuItemClick(WebDriver driver) {
-        waitForElementDisplay(driver, notificationMenu, 10);
+    public final void notificationMenuItemClick(final WebDriver driver) {
+        waitForElementDisplay(driver, notificationMenu, DEFAULT_TIME_OUT);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
         firstItemNotification = notificationList.findElements(By.tagName("li")).get(0);
-        waitForElementDisplay(driver, firstItemNotification, 10);
+        waitForElementDisplay(driver, firstItemNotification, DEFAULT_TIME_OUT);
         setDestinationUrl(firstItemNotification.findElement(By.cssSelector("a.msg-item")).getAttribute("href"));
         firstItemNotification.click();
     }
@@ -65,18 +70,18 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
         reloadText.click();
     }
 
-    public void waitForNotificationReload(WebDriver driver) {
-        waitForElementDisplay(driver, notificationMenu, 5);
+    public final void waitForNotificationReload(final WebDriver driver) {
+        waitForElementDisplay(driver, notificationMenu, DEFAULT_TIME_OUT / 2);
     }
 
-    public int getNotificationList(WebDriver driver) {
-        waitForElementDisplay(driver, notificationMenu, 10);
+    public final int getNotificationList(final WebDriver driver) {
+        waitForElementDisplay(driver, notificationMenu, DEFAULT_TIME_OUT);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
         return notificationList.findElements(By.cssSelector("li.ng-star-inserted")).size();
     }
 
-    public void scrollToEndOfList(WebDriver driver) {
-        waitForElementDisplay(driver, notificationMenu, 10);
+    public final void scrollToEndOfList(final WebDriver driver) {
+        waitForElementDisplay(driver, notificationMenu, DEFAULT_TIME_OUT);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
         By findCondition = By.cssSelector("li.ng-star-inserted");
         int count = notificationList.findElements(findCondition).size();
@@ -86,11 +91,11 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
         waitUntilCountChanges(driver, notificationList, findCondition, allChildCount);
     }
 
-    public void markAllAsRead() {
+    public final void markAllAsRead() {
         markAllAsReadText.click();
     }
 
-    private void setDestinationUrl(String destinationPath) {
+    private void setDestinationUrl(final String destinationPath) {
         this.destinationPath = destinationPath;
     }
 }

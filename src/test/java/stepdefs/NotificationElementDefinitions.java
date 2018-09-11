@@ -4,17 +4,29 @@ import cucumber.api.java8.En;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.BasePage;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.HomePage;
 import vn.asiantech.page.LoginPage;
 import vn.asiantech.page.NotificationMenuElement;
 
+/**
+ * NotificationElementDefinition
+ *
+ * @author at-vinh.huynh
+ */
 public class NotificationElementDefinitions extends DriverBase implements En {
+    private static int NOTIFICATION_PER_PAGE = 10;
+
+
     private NotificationMenuElement notificationMenuElement;
     private HomePage homePage;
     private LoginPage loginPage;
 
+    /**
+     * Default constructor method
+     */
     public NotificationElementDefinitions() {
         notificationMenuElement = initPage(getDriver(), NotificationMenuElement.class);
         homePage = initPage(getDriver(), HomePage.class);
@@ -52,7 +64,7 @@ public class NotificationElementDefinitions extends DriverBase implements En {
             Assert.assertTrue(notificationMenuElement.notificationElementIsDisplay());
         });
 
-        Then("^First ten notifications displayed$", () -> Assert.assertEquals(notificationMenuElement.getNotificationList(getDriver()), 10));
+        Then("^First ten notifications displayed$", () -> Assert.assertEquals(notificationMenuElement.getNotificationList(getDriver()), NOTIFICATION_PER_PAGE));
 
         When("^I scroll to item at last of list notification$", () -> {
             // Write code here that turns the phrase above into concrete actions
@@ -60,7 +72,7 @@ public class NotificationElementDefinitions extends DriverBase implements En {
         });
 
         Then("^Next page of notification should displayed$", () -> {
-            Assert.assertEquals(notificationMenuElement.getNotificationList(getDriver()), 20);
+            Assert.assertEquals(notificationMenuElement.getNotificationList(getDriver()), NOTIFICATION_PER_PAGE * 2);
         });
 
         Given("^I open portal page$", () -> {
@@ -72,11 +84,9 @@ public class NotificationElementDefinitions extends DriverBase implements En {
             // Write code here that turns the phrase above into concrete actions
             switch (getDriver().getCurrentUrl()) {
                 case Constant.HOME_PAGE_URL:
-                    if (homePage.getEmployeeCode(getDriver()).equals(arg0)) {
-                        // Do nothing
-                    } else {
+                    if (!homePage.getEmployeeCode(getDriver()).equals(arg0)) {
                         homePage.logout();
-                        new WebDriverWait(getDriver(), 10).until(
+                        new WebDriverWait(getDriver(), BasePage.DEFAULT_TIME_OUT).until(
                                 webDriver -> webDriver.getCurrentUrl().equals(Constant.LOGIN_PAGE_URL));
 
                         loginPage.withUsername("stg.tien.hoang@asiantech.vn");
@@ -89,12 +99,14 @@ public class NotificationElementDefinitions extends DriverBase implements En {
                     loginPage.withPassword("Abc123@@");
                     loginPage.login();
                     break;
+                default:
+                    break;
             }
         });
 
         Then("^Employee code should be \"([^\"]*)\"$", (String arg0) -> {
             // Write code here that turns the phrase above into concrete actions
-            new WebDriverWait(getDriver(), 10).until(
+            new WebDriverWait(getDriver(), BasePage.DEFAULT_TIME_OUT).until(
                     webDriver -> webDriver.getCurrentUrl().equals(Constant.HOME_PAGE_URL));
             Assert.assertEquals(homePage.getEmployeeCode(getDriver()), arg0);
         });
@@ -109,7 +121,7 @@ public class NotificationElementDefinitions extends DriverBase implements En {
     }
 
     private void waitAjaxLoadSuccess() {
-        new WebDriverWait(getDriver(), 10).until(
+        new WebDriverWait(getDriver(), BasePage.DEFAULT_TIME_OUT).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
     }
 }
