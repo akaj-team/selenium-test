@@ -55,7 +55,7 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
         return btnThisWeek.isEnabled();
     }
 
-    public final void clickBackButton( WebDriver driver) {
+    public final void clickBackButton(final WebDriver driver) {
         waitForElement(driver, btnThisWeek, TIME_OUT_SECOND);
         btnBack.click();
     }
