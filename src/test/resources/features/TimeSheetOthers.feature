@@ -21,6 +21,25 @@ Feature: I want to see timesheet of others members
 
   Scenario: Check status dropdown
     Then I see dropdown status with "All Status" is default value
+    When I click on dropdown status
+    And I click on "Pending" checkbox
+    Then I see checkbox "Pending" is selected
+    And I see dropdown status change to "Pending"
 
   Scenario: Check subordinator dropdown
     Then I see dropdown subordinator with "All Subordinator" is default value
+
+  Scenario: Check status button this week
+    When I click on pre button
+    Then I see button this week is enable
+
+  Scenario: Check status button next
+    When I click button next two times
+    Then I see button next is disable
+    And I see button this week is enable
+
+  Scenario: Check tab status
+    When I click on tab "Line Manager"
+    Then I see tab "Line Manager" is selected
+    When I click on tab "Project"
+    Then I see tab "Project" is selected

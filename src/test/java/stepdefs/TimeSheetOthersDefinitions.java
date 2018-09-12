@@ -1,12 +1,9 @@
 package stepdefs;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.en.Given;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -68,6 +65,43 @@ public class TimeSheetOthersDefinitions extends DriverBase implements En {
         Then("^I see dropdown subordinator with \"([^\"]*)\" is default value$", (String arg0) -> {
             Assert.assertEquals(timeSheetOthers.getDropDownSubordinator(driver).getText(), arg0);
 
+        });
+
+        When("^I click on dropdown status$", () -> {
+            timeSheetOthers.getDropDownStatus(driver).click();
+        });
+
+        When("^I click on pre button$", () -> {
+            timeSheetOthers.getPreButton(driver).click();
+        });
+
+        Then("^I see button this week is enable$", () -> {
+            Assert.assertTrue(timeSheetOthers.getThisWeekButton(driver).isEnabled());
+        });
+
+        When("^I click button next two times$", () -> {
+            timeSheetOthers.getNextButton(driver).click();
+            timeSheetOthers.getNextButton(driver).click();
+        });
+
+        Then("^I see button next is disable$", () -> {
+            Assert.assertFalse(timeSheetOthers.getNextButton(driver).isEnabled());
+        });
+
+        When("^I click on tab \"([^\"]*)\"$", (String arg0) -> {
+            timeSheetOthers.getTabNotSelected(driver).click();
+        });
+
+        And("^I see dropdown status change to \"([^\"]*)\"$", (String arg0) -> {
+            Assert.assertEquals(timeSheetOthers.getDropDownStatus(driver).getText(), arg0);
+        });
+
+        And("^I click on \"([^\"]*)\" checkbox$", (String arg0) -> {
+            timeSheetOthers.getListCheckBox(driver).get(0).click();
+        });
+
+        Then("^I see checkbox \"([^\"]*)\" is selected$", (String arg0) -> {
+            Assert.assertTrue(timeSheetOthers.findCheckboxPending(driver).isSelected());
         });
     }
 }

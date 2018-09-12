@@ -1,5 +1,6 @@
 package vn.asiantech.page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,8 +21,6 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
     private WebElement dropDownSubordinator;
     @FindBy(xpath = "//div[contains(@class, 'ui-multiselect-label-container') and contains(@title, 'All Status')]")
     private WebElement dropDownStatus;
-    @FindBy(className = "ui-multiselect-items-wrapper")
-    private WebElement CheckBoxGroupStatus;
     @FindBy(xpath = "//div[contains(@class, 'ui-state-default') and contains(@class ,'ui-state-active')]")
     private WebElement selectedTab;
     @FindBy(className = "label-normal")
@@ -32,8 +31,12 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
     private WebElement labelRejected;
     @FindBy(tagName = "h2")
     private WebElement timeSheetTile;
-    @FindBy(id = "page-wrapper")
-    private WebElement pageWrapper;
+    @FindBy(css = ".ui-multiselect-item.ui-corner-all.ng-star-inserted")
+    private List<WebElement> listStatus;
+    @FindBy(css = ".ui-button.ui-widget.ui-state-default.ui-button-text-only.ng-star-inserted")
+    private WebElement tabNotSelected;
+    @FindBy(css = ".ui-chkbox-box.ui-widget.ui-corner-all.ui-state-default")
+    private List<WebElement> listCheckBox;
 
 
     @Override
@@ -65,10 +68,6 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
     public WebElement getDropDownStatus(WebDriver driver) {
         waitForElement(driver, dropDownStatus, 10);
         return dropDownStatus;
-    }
-
-    public WebElement getCheckBoxGroupStatus() {
-        return CheckBoxGroupStatus;
     }
 
     public TimeSheetOthers clickThisWeek() {
@@ -114,5 +113,25 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
     public WebElement getTimeSheetTile(WebDriver driver) {
         waitForElement(driver, timeSheetTile, 10);
         return timeSheetTile;
+    }
+
+    public List<WebElement> getListStatus(WebDriver driver) {
+        waitForListElement(driver, listStatus, 10);
+        return listStatus;
+    }
+
+    public WebElement getTabNotSelected(WebDriver driver) {
+        waitForElement(driver, tabNotSelected, 10);
+        return tabNotSelected;
+    }
+
+    public WebElement findCheckboxPending(WebDriver driver) {
+        waitForListElement(driver, listStatus, 10);
+        return listStatus.get(0);
+    }
+
+    public List<WebElement> getListCheckBox(WebDriver driver) {
+        waitForListElement(driver, listCheckBox, 10);
+        return listCheckBox;
     }
 }
