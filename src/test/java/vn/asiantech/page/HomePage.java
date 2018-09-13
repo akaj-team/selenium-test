@@ -259,7 +259,12 @@ public class HomePage extends BasePage<HomePage> {
 
     private String getActualColor(final WebElement element) {
         String colorCss = element.findElement(By.tagName("span")).getCssValue("color");
-        String[] hexValue = colorCss.replace("rgb(", "").replace(")", "").split(",");
+        String[] hexValue = new String[0];
+        if (colorCss.contains("rgba")) {
+            hexValue = colorCss.replace("rgba(", "").replace(")", "").split(",");
+        } else if (colorCss.contains("rgb")) {
+            hexValue = colorCss.replace("rgb(", "").replace(")", "").split(",");
+        }
         return String.format("#%01x%01x%01x",
                 Integer.parseInt(hexValue[0].trim()),
                 Integer.parseInt(hexValue[1].trim()),
