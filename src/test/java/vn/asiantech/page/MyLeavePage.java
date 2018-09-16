@@ -177,8 +177,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
                     if (j == col) {
                         item = columns.get(j).findElement(By.tagName("span"));
                         if (j == 2) {
-                            List<WebElement> items = columns.get(2).findElements(By.tagName("span"));
-                            item = items.get(1);
+                            item = columns.get(2).findElement(By.className("ui-cell-data")).findElement(By.tagName("span"));
                         }
                         break;
                     }
