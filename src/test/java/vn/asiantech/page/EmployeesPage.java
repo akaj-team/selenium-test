@@ -14,11 +14,17 @@ import java.util.List;
 public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public static final int TIME_OUT_SECOND = 10;
-    public static final int MAXIMUM_CELL = 50;
+    private static final int MAXIMUM_CELL = 50;
     private static final int NEXT_INDICATOR_CLICK = 0;
     private static final int BACK_INDICATOR_CLICK = 1;
     private static final int FIST_INDICATOR_CLICK = 2;
     private static final int LAST_INDICATOR_CLICK = 3;
+    private static final int EMPLOYEE_NAME_COLUMN_INDEX = 0;
+    private static final int EMPLOYEE_CODE_COLUMN_INDEX = 1;
+    private static final int EMPLOYEE_MANAGER_COLUMN_INDEX = 3;
+    private static final int EMPLOYEE_TEAM_COLUMN_INDEX = 4;
+    private static final int EMPLOYEE_GROUP_COLUMN_INDEX = 5;
+    private static final int EMPLOYEE_ACTION_COLUMN_INDEX = 6;
 
     @FindBy(css = ".ui-datatable-data.ui-widget-content")
     private WebElement tableBody;
@@ -47,6 +53,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private WebElement lastIndicator;
     private WebElement typeList;
     private WebElement positionList;
+    private WebElement statusList;
     private int typeClick;
 
     @Override
@@ -55,91 +62,92 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return this;
     }
 
-    public String clickEmployeeName() {
-        WebElement employee = getEmployeeInfor(0, 0);
+    public final String clickEmployeeName() {
+        WebElement employee = getEmployeeInfor(0, EMPLOYEE_NAME_COLUMN_INDEX);
         WebElement employeeName = employee.findElement(By.tagName("span")).findElement(By.tagName("span"));
         employeeName.click();
         return employee.getAttribute("href");
     }
 
-    public String clickEmployeeCode() {
-        WebElement employee = getEmployeeInfor(0, 1);
+    public final String clickEmployeeCode() {
+        WebElement employee = getEmployeeInfor(0, EMPLOYEE_CODE_COLUMN_INDEX);
+        System.out.println(employee.getAttribute("class"));
         employee.click();
         return employee.getAttribute("href");
     }
 
-    public String clickEmployeeAvatar() {
-        WebElement employee = getEmployeeInfor(0, 0);
+    public final String clickEmployeeAvatar() {
+        WebElement employee = getEmployeeInfor(0, EMPLOYEE_NAME_COLUMN_INDEX);
         employee.findElement(By.tagName("span")).findElement(By.tagName("img")).click();
         return employee.getAttribute("href");
     }
 
-    public String clickManagerName() {
+    public final String clickManagerName() {
         List<WebElement> cells = tableBody.findElements(By.tagName("tr"));
-        WebElement manager = cells.get(0).findElements(By.tagName("td")).get(3).findElement(By.tagName("span")).findElement(By.tagName("span")).findElement(By.tagName("a"));
+        WebElement manager = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_MANAGER_COLUMN_INDEX).findElement(By.tagName("span")).findElement(By.tagName("span")).findElement(By.tagName("a"));
         manager.click();
         return manager.getAttribute("href");
     }
 
-    public String clickTeamName() {
-        WebElement team = getEmployeeInfor(0, 4);
+    public final String clickTeamName() {
+        WebElement team = getEmployeeInfor(0, EMPLOYEE_TEAM_COLUMN_INDEX);
         team.click();
         return team.getAttribute("href");
     }
 
-    public String clickGroupName() {
-        WebElement group = getEmployeeInfor(0, 5);
+    public final String clickGroupName() {
+        WebElement group = getEmployeeInfor(0, EMPLOYEE_GROUP_COLUMN_INDEX);
         group.click();
         return group.getAttribute("href");
     }
 
-    public String clickEditButton() {
-        WebElement editEmployee = getEmployeeInfor(0, 6);
+    public final String clickEditButton() {
+        WebElement editEmployee = getEmployeeInfor(0, EMPLOYEE_ACTION_COLUMN_INDEX);
         editEmployee.click();
         return editEmployee.getAttribute("href");
     }
 
-    public void clickPromotionButton() {
-        actionTitle.findElements(By.cssSelector(".btn.btn-sm.btn-default")).get(0).click();
+    public final void clickPromotionButton() {
+        actionTitle.findElements(By.xpath(".btn.btn-sm.btn-default")).get(0).click();
     }
 
-    public Boolean isAlertShowed(String title) {
+    public final Boolean isAlertShowed(final String title) {
         hiddenbody.isDisplayed();
         return hiddenbody.findElement(By.tagName("p-header")).getText().equals(title);
     }
 
-    public void clickAwardCategory() {
+    public final void clickAwardCategory() {
         actionTitle.findElements(By.cssSelector(".btn.btn-sm.btn-default")).get(1).click();
     }
 
-    public String clickNewEmployee() {
+    public final String clickNewEmployee() {
         WebElement newEmployee = actionTitle.findElement(By.cssSelector(".btn.btn-sm.btn-default.btn-add"));
         newEmployee.click();
         return newEmployee.getAttribute("href");
     }
 
-    public Integer getCellSum() {
+    public final Integer getCellSum() {
         return tableBody.findElements(By.tagName("tr")).size();
     }
 
-    public Boolean isOneIndicatorActive() {
+    public final Boolean isOneIndicatorActive() {
         String oneIndicator = indicatorPage.findElement(By.xpath("//a[text()='1']")).getAttribute("class");
         return oneIndicator.contains("ui-state-active");
     }
 
-    public Boolean isFirstAndBackIndicatorClickable() {
+    public final Boolean isFirstAndBackIndicatorClickable() {
         firstIndicator = bottomIndicator.findElement(By.xpath("//a[contains(@class,'ui-paginator-first')]"));
         backIndicator = bottomIndicator.findElement(By.xpath("//a[contains(@class,'ui-paginator-prev')]"));
         return !firstIndicator.getAttribute("class").contains("ui-state-disabled") && !backIndicator.getAttribute("class").contains("ui-state-disabled");
     }
 
-    public Boolean isNextAndLastIndicatorClickable() {
+    public final Boolean isNextAndLastIndicatorClickable() {
         nextIndicator = bottomIndicator.findElement(By.xpath("//a[contains(@class,'ui-paginator-next')]"));
         lastIndicator = bottomIndicator.findElement(By.xpath("//a[contains(@class,'ui-paginator-last')]"));
         return !nextIndicator.getAttribute("class").contains("ui-state-disabled") && !lastIndicator.getAttribute("class").contains("ui-state-disabled");
     }
 
-    public void clickNextIndicator() {
+    public final void clickNextIndicator() {
         if (!isNextAndLastIndicatorClickable()) {
             typeClick = NEXT_INDICATOR_CLICK;
             indicatorIndex = findIndicatorIndex();
@@ -147,7 +155,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         }
     }
 
-    public void clickBackIndicator() {
+    public final void clickBackIndicator() {
         if (isFirstAndBackIndicatorClickable()) {
             typeClick = BACK_INDICATOR_CLICK;
             indicatorIndex = findIndicatorIndex();
@@ -155,7 +163,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         }
     }
 
-    public void clickFirstIndicator() {
+    public final void clickFirstIndicator() {
         if (isFirstAndBackIndicatorClickable()) {
             typeClick = FIST_INDICATOR_CLICK;
             indicatorIndex = findIndicatorIndex();
@@ -163,7 +171,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         }
     }
 
-    public void clickLastIndicator() {
+    public final void clickLastIndicator() {
         if (isNextAndLastIndicatorClickable()) {
             typeClick = LAST_INDICATOR_CLICK;
             indicatorIndex = findIndicatorIndex();
@@ -171,7 +179,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         }
     }
 
-    public Boolean isIndicatorActive() {
+    public final Boolean isIndicatorActive() {
         switch (typeClick) {
             case NEXT_INDICATOR_CLICK:
                 return indicatorIndex + 1 == findIndicatorIndex();
@@ -188,7 +196,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         }
     }
 
-    public Boolean compareLeftContentWithPageIndicator() {
+    public final Boolean compareLeftContentWithPageIndicator() {
         String content = leftContent.findElement(By.tagName("small")).getText();
         String firstSub = content.substring(7, content.length() - 7);
         String secondSub = firstSub.split("of")[0];
@@ -197,12 +205,12 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return findIndicatorIndex() * MAXIMUM_CELL == endCell && (findIndicatorIndex() - 1) * MAXIMUM_CELL + 1 == topCell;
     }
 
-    public void searchEmployee(String name) {
+    public final void searchEmployee(final String name) {
         WebElement search = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(1).findElement(By.tagName("input"));
         search.sendKeys(name);
     }
 
-    public Boolean isEmployeeListEmpty() {
+    public final Boolean isEmployeeListEmpty() {
         String emptyCell = tableBody.findElements(By.tagName("tr")).get(0).getAttribute("class");
         if (emptyCell.contains("ui-datatable-emptymessage-row")) {
             return true;
@@ -210,14 +218,14 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return tableBody.findElements(By.tagName("tr")).size() == 0;
     }
 
-    public Boolean clickPositionView() {
+    public final Boolean clickPositionView() {
         WebElement positionView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(3);
         positionView.click();
         positionList = positionView.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
         return positionList.getAttribute("class").contains("ui-dropdown-open");
     }
 
-    public Boolean isPositionSelected(String positionName) {
+    public final Boolean isPositionSelected(final String positionName) {
         List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
         for (WebElement position : positions) {
             if (position.getAttribute("class").contains("ui-state-highlight")) {
@@ -228,7 +236,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return false;
     }
 
-    public Boolean isShowCorrectPositionList(String positionName) {
+    public final Boolean isShowCorrectPositionList(final String positionName) {
         List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
         for (WebElement position : positions) {
             String positionItemName = position.findElement(By.tagName("span")).getText();
@@ -239,18 +247,18 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return true;
     }
 
-    public void searchPosition(String positionName, WebDriver driver) {
+    public final void searchPosition(final String positionName, final WebDriver driver) {
         WebElement searchPosition = positionList.findElement(By.cssSelector(".ui-dropdown-filter.ui-inputtext.ui-widget.ui-state-default.ui-corner-all"));
         waitForElement(driver, searchPosition, TIME_OUT_SECOND);
         searchPosition.sendKeys(positionName);
     }
 
-    public Boolean isShowNoResultMessage(String message) {
+    public final Boolean isShowNoResultMessage(final String message) {
         List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
         return positions.size() == 1 && positions.get(0).getText().equals(message);
     }
 
-    public void selectPosition(WebDriver driver) {
+    public final void selectPosition(final WebDriver driver) {
         List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
         for (WebElement position : positions) {
             waitForElement(driver, position, TIME_OUT_SECOND);
@@ -259,14 +267,14 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         }
     }
 
-    public Boolean clickType() {
+    public final Boolean clickType() {
         WebElement typeView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(5);
         typeView.click();
         typeList = typeView.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
         return typeList.getAttribute("class").contains("ui-dropdown-open");
     }
 
-    public String selectType() {
+    public final String selectType() {
         String typeName = "";
         List<WebElement> types = typeList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
         for (WebElement type : types) {
@@ -277,8 +285,30 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return typeName;
     }
 
-    public Boolean isTypeChoosed(String type) {
+    public final Boolean isTypeChoosed(String type) {
         return typeList.findElement(By.tagName("label")).getText().equals(type);
+    }
+
+    public final Boolean clickStatus() {
+        WebElement statusView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(7);
+        statusView.click();
+        statusList = statusView.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
+        return statusList.getAttribute("class").contains("ui-dropdown-open");
+    }
+
+    public final String selectStatus() {
+        String statusName = "";
+        List<WebElement> statuses = statusList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
+        for (WebElement status : statuses) {
+            statusName = status.findElement(By.tagName("span")).getText();
+            status.click();
+            break;
+        }
+        return statusName;
+    }
+
+    public final Boolean isStatusChoosed(final String status) {
+        return statusList.findElement(By.tagName("label")).getText().equals(status);
     }
 
     private WebElement getEmployeeInfor(Integer cellPosition, Integer columnPosition) {

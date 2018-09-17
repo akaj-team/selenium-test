@@ -27,8 +27,10 @@ public class EmployeesDefinitions extends DriverBase implements En {
     private String newEmployeeUrl;
     private Boolean isShowPositionList;
     private Boolean isShowTypeList;
-    private String positionName;
-    private String typeName;
+    private Boolean isShowStatusList;
+    private String employeePosition;
+    private String employeeType;
+    private String employeeStatus;
 
     public EmployeesDefinitions() {
         try {
@@ -64,7 +66,6 @@ public class EmployeesDefinitions extends DriverBase implements En {
             new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
             Assert.assertEquals(employeeProfileUrl, driver.getCurrentUrl());
         });
-
 
         When("^Click on manager name$", () -> {
             managerUrl = employeesPage.clickManagerName();
@@ -207,13 +208,13 @@ public class EmployeesDefinitions extends DriverBase implements En {
 
         When("^Search position with \"([^\"]*)\"$", (String position) -> {
             if (isShowPositionList) {
-                positionName = position;
+                employeePosition = position;
                 employeesPage.searchPosition(position, driver);
             }
         });
 
         Then("^Display a position list corresponding with that position$", () -> {
-            Assert.assertTrue(employeesPage.isShowCorrectPositionList(positionName));
+            Assert.assertTrue(employeesPage.isShowCorrectPositionList(employeePosition));
         });
 
         Then("^Display \"([^\"]*)\" message$", (String message) -> {
@@ -234,14 +235,28 @@ public class EmployeesDefinitions extends DriverBase implements En {
             isShowTypeList = employeesPage.clickType();
         });
 
-        When("^Select any item in that list$", () -> {
+        When("^Select any item in that type list$", () -> {
             if (isShowTypeList) {
-                typeName = employeesPage.selectType();
+                employeeType = employeesPage.selectType();
             }
         });
 
         Then("^Employee type is choosed$", () -> {
-            Assert.assertTrue(employeesPage.isTypeChoosed(typeName));
+            Assert.assertTrue(employeesPage.isTypeChoosed(employeeType));
+        });
+
+        Given("^Click on status view$", () -> {
+            isShowStatusList = employeesPage.clickStatus();
+        });
+
+        When("^Select any item in that status list$", () -> {
+            if (isShowStatusList) {
+                employeeStatus = employeesPage.selectStatus();
+            }
+        });
+
+        Then("^An status item is choosed$", () -> {
+            Assert.assertTrue(employeesPage.isStatusChoosed(employeeStatus));
         });
     }
 }

@@ -106,7 +106,7 @@ Feature: Check display views and handle events
   Scenario Outline: Search employees with position and having a result list
     Given Click on position view
     When Search position with "<position>"
-    Then Display a position list correspondinggit with that position
+    Then  Display an employee list corresponding
     Examples:
       | position |
       | CEO      |
@@ -130,6 +130,12 @@ Feature: Check display views and handle events
 
   Scenario: Filter employees with employee type
     Given Click on employee type view
-    When Select any item in that list
+    When Select any item in that type list
     Then Employee type is choosed
+    Then Display an employee list corresponding
+
+  Scenario: Filter employees with status
+    Given Click on status view
+    When Select any item in that status list
+    Then An status item is choosed
     Then Display an employee list corresponding
