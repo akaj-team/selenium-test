@@ -86,5 +86,13 @@ public class PositionsDefinitions extends DriverBase implements En {
             new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-submit")));
             Assert.assertEquals(driver.getCurrentUrl(), positionsPage.getUpdatePositionUrl());
         });
+
+        When("^I click on delete button in a row$", () -> {
+            positionsPage.getCellDeleteInTable(driver, 1, 1).click();
+        });
+
+        Then("^I see dialog confirm delete position is display$", () -> {
+            Assert.assertTrue(positionsPage.isDialogConfirmDeleteDisplay(driver));
+        });
     }
 }

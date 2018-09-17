@@ -27,3 +27,7 @@ Feature: See, create, edit, search position
   Scenario: Check update position page
     When I click on update button in a row
     Then I move to update position page
+
+  Scenario: Check dialog confirm delete position
+    When I click on delete button in a row
+    Then I see dialog confirm delete position is display

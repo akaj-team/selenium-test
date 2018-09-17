@@ -25,6 +25,8 @@ public class PositionsPage extends BasePage<PositionsPage> {
     private WebElement searchBox;
     @FindBy(className = "ui-datatable")
     private WebElement dataTable;
+    @FindBy(className = "ui-dialog")
+    private WebElement dialogConfirmDelete;
     private String positionDetailUrl;
     private String updatePositionUrl;
 
@@ -98,7 +100,32 @@ public class PositionsPage extends BasePage<PositionsPage> {
         }
     }
 
+    public WebElement getCellDeleteInTable(WebDriver driver, int row, int col) {
+        WebElement element = getDataTable(driver);
+        List<WebElement> rows = element.findElements(By.className("ui-datatable-even"));
+        if (rows.size() > row - 1) {
+            List<WebElement> cols = rows.get(row - 1).findElements(By.className("ui-cell-data"));
+            if (cols.size() > col - 1) {
+                return cols.get(col + 2).findElement(By.className("delete"));
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
     public String getUpdatePositionUrl() {
         return updatePositionUrl;
+    }
+
+    public boolean isDialogConfirmDeleteDisplay(WebDriver driver) {
+        String style = getDialogConfirmDelete(driver).getAttribute("style");
+        return style.contains("display: block");
+    }
+
+    private WebElement getDialogConfirmDelete(WebDriver driver) {
+        waitForElement(driver, dialogConfirmDelete, TIME_OUT_SECOND);
+        return dialogConfirmDelete;
     }
 }
