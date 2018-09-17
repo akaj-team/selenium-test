@@ -10,7 +10,8 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.EmployeesPage;
 
-import static vn.asiantech.page.EmployeesPage.*;
+import static vn.asiantech.page.EmployeesPage.TIME_OUT_SECOND;
+import static vn.asiantech.page.EmployeesPage.MAXIMUM_CELL;
 
 /**
  * @author at-hangtran
@@ -42,7 +43,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
         Given("Display employees page", () -> {
             driver.get("http://portal-stg.asiantech.vn/organisation/employees");
             employeesPage = initPage(getDriver(), EmployeesPage.class);
-            new WebDriverWait(driver, 10).until(
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             Assert.assertEquals("http://portal-stg.asiantech.vn/organisation/employees", driver.getCurrentUrl());
             new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ibox-content.main-content")));
@@ -137,7 +138,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
         });
 
         Then("^Show maximum (\\d+) cells$", (Integer cell) -> {
-            Assert.assertTrue((employeesPage.getCellSum() >= 0 && employeesPage.getCellSum() <= 50));
+            Assert.assertTrue((employeesPage.getCellSum() >= 0 && employeesPage.getCellSum() <= MAXIMUM_CELL));
         });
 
         Then("^Page indicator (\\d+) is active$", (Integer arg0) -> {
@@ -180,7 +181,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
             employeesPage.searchEmployee(name);
             String currentUrl = "http://portal-stg.asiantech.vn/organisation/employees;name_cont=" + name;
             driver.get(currentUrl);
-            new WebDriverWait(driver, 10).until(
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             Assert.assertEquals(currentUrl, driver.getCurrentUrl());
             new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ui-datatable-data.ui-widget-content")));

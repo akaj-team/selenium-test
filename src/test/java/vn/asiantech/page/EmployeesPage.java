@@ -14,7 +14,9 @@ import java.util.List;
 public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public static final int TIME_OUT_SECOND = 10;
-    private static final int MAXIMUM_CELL = 50;
+    public static final int MAXIMUM_CELL = 50;
+    private static final int SPLIT_STRING_INDEX = 7;
+    private static final int LAST_INDICATOR_INDEX = 4;
     private static final int NEXT_INDICATOR_CLICK = 0;
     private static final int BACK_INDICATOR_CLICK = 1;
     private static final int FIST_INDICATOR_CLICK = 2;
@@ -25,6 +27,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private static final int EMPLOYEE_TEAM_COLUMN_INDEX = 4;
     private static final int EMPLOYEE_GROUP_COLUMN_INDEX = 5;
     private static final int EMPLOYEE_ACTION_COLUMN_INDEX = 6;
+    private static final int EMPLOYEE_POSITION_INDEX = 3;
+    private static final int EMPLOYEE_TYPE_INDEX = 5;
+    private static final int EMPLOYEE_STATUS_INDEX = 7;
 
     @FindBy(css = ".ui-datatable-data.ui-widget-content")
     private WebElement tableBody;
@@ -57,7 +62,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private int typeClick;
 
     @Override
-    public EmployeesPage navigateTo(final WebDriver webDriver) {
+    public final EmployeesPage navigateTo(final WebDriver webDriver) {
         webDriver.get("http://portal-stg.asiantech.vn/organisation/employees");
         return this;
     }
@@ -189,16 +194,16 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
                 return indicatorIndex == 1;
             default: {
                 String content = leftContent.findElement(By.tagName("small")).getText();
-                String firstSub = content.substring(7, content.length() - 7);
+                String firstSub = content.substring(SPLIT_STRING_INDEX, content.length() - SPLIT_STRING_INDEX);
                 Integer sumCell = Integer.valueOf(firstSub.split("of")[1].trim());
-                return Integer.valueOf(indicatorPage.findElements(By.tagName("a")).get(4).getText()) * MAXIMUM_CELL >= sumCell;
+                return Integer.valueOf(indicatorPage.findElements(By.tagName("a")).get(LAST_INDICATOR_INDEX).getText()) * MAXIMUM_CELL >= sumCell;
             }
         }
     }
 
     public final Boolean compareLeftContentWithPageIndicator() {
         String content = leftContent.findElement(By.tagName("small")).getText();
-        String firstSub = content.substring(7, content.length() - 7);
+        String firstSub = content.substring(SPLIT_STRING_INDEX, content.length() - SPLIT_STRING_INDEX);
         String secondSub = firstSub.split("of")[0];
         int topCell = Integer.parseInt(secondSub.split("-")[0].trim());
         int endCell = Integer.parseInt(secondSub.split("-")[1].trim());
@@ -219,7 +224,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final Boolean clickPositionView() {
-        WebElement positionView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(3);
+        WebElement positionView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(EMPLOYEE_POSITION_INDEX);
         positionView.click();
         positionList = positionView.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
         return positionList.getAttribute("class").contains("ui-dropdown-open");
@@ -268,7 +273,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final Boolean clickType() {
-        WebElement typeView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(5);
+        WebElement typeView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(EMPLOYEE_TYPE_INDEX);
         typeView.click();
         typeList = typeView.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
         return typeList.getAttribute("class").contains("ui-dropdown-open");
@@ -285,12 +290,12 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return typeName;
     }
 
-    public final Boolean isTypeChoosed(String type) {
+    public final Boolean isTypeChoosed(final String type) {
         return typeList.findElement(By.tagName("label")).getText().equals(type);
     }
 
     public final Boolean clickStatus() {
-        WebElement statusView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(7);
+        WebElement statusView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(EMPLOYEE_STATUS_INDEX);
         statusView.click();
         statusList = statusView.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
         return statusList.getAttribute("class").contains("ui-dropdown-open");
@@ -311,7 +316,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return statusList.findElement(By.tagName("label")).getText().equals(status);
     }
 
-    private WebElement getEmployeeInfor(Integer cellPosition, Integer columnPosition) {
+    private WebElement getEmployeeInfor(final Integer cellPosition, final Integer columnPosition) {
         List<WebElement> cells = tableBody.findElements(By.tagName("tr"));
         return cells.get(cellPosition).findElements(By.tagName("td")).get(columnPosition).findElement(By.tagName("span")).findElement(By.tagName("a"));
     }
