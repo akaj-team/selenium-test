@@ -42,9 +42,4 @@ public class HomePage extends BasePage<HomePage> {
         logoutButton.click();
         return this;
     }
-
-    public final String getEmployeeCode(final WebDriver driver) {
-        waitForElementDisplay(driver, employeeCodeText, Constant.DEFAULT_TIME_OUT);
-        return employeeCodeText.getText().split("-")[0].trim();
-    }
 }

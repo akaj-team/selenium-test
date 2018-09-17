@@ -77,45 +77,6 @@ public class NotificationElementDefinitions extends DriverBase implements En {
             // Write code here that turns the phrase above into concrete actions
             getDriver().get(Constant.PORTAL_URL);
         });
-
-        Given("^Check current account employee code is my employee code \"([^\"]*)\"$", (String arg0) -> {
-            // Write code here that turns the phrase above into concrete actions
-            switch (getDriver().getCurrentUrl()) {
-                case Constant.HOME_PAGE_URL:
-                    if (!homePage.getEmployeeCode(getDriver()).equals(arg0)) {
-                        homePage.logout();
-                        new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
-                                webDriver -> webDriver.getCurrentUrl().equals(Constant.LOGIN_PAGE_URL));
-
-                        loginPage.withUsername("stg.tien.hoang@asiantech.vn");
-                        loginPage.withPassword("Abc123@@");
-                        loginPage.login();
-                    }
-                    break;
-                case Constant.LOGIN_PAGE_URL:
-                    loginPage.withUsername("stg.tien.hoang@asiantech.vn");
-                    loginPage.withPassword("Abc123@@");
-                    loginPage.login();
-                    break;
-                default:
-                    break;
-            }
-        });
-
-        Then("^Employee code should be \"([^\"]*)\"$", (String arg0) -> {
-            // Write code here that turns the phrase above into concrete actions
-            new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
-                    webDriver -> webDriver.getCurrentUrl().equals(Constant.HOME_PAGE_URL));
-            Assert.assertEquals(homePage.getEmployeeCode(getDriver()), arg0);
-        });
-        When("^I click on mark all as read text$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            notificationMenuElement.markAllAsRead();
-        });
-        Then("^List notification should be hide$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            Assert.assertFalse(notificationMenuElement.notificationElementIsDisplay());
-        });
     }
 
     private void waitAjaxLoadSuccess() {
