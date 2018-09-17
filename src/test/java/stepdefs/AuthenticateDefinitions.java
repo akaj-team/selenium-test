@@ -1,56 +1,55 @@
 package stepdefs;
 
 import cucumber.api.java8.En;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
+import vn.asiantech.object.Account;
+import vn.asiantech.page.HomePage;
+import vn.asiantech.page.LoginPage;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AuthenticateDefinitions extends DriverBase implements En {
-    private WebElement usernameInput;
-    private WebElement passwordInput;
-    private WebElement logoutButton;
-    private WebDriver driver;
+    private Map<String, Account> accounts = new HashMap<>();
+
+    private LoginPage loginPage;
 
     public AuthenticateDefinitions() {
-        try {
-            driver = getDriver();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Given("^I am logged in as an android team manager$", () -> {
-            driver.get(Constant.PORTAL_URL);
-            new WebDriverWait(driver, 10).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            String url = driver.getCurrentUrl();
-            if (url.endsWith("/auth/login")) {
-                //Not logged in
-                List<WebElement> formInputs = driver.findElements(By.className("form-control"));
-                usernameInput = formInputs.get(0);
-                passwordInput = formInputs.get(1);
-                usernameInput.sendKeys("stg.tien.hoang@asiantech.vn");
-                passwordInput.sendKeys("Abc123@@");
-                driver.findElement(By.className("btn-primary")).click();
-                new WebDriverWait(driver, 5).until(
-                        webDriver -> webDriver.findElement(By.className("welcome-message")).isDisplayed());
-                Assert.assertTrue(driver.findElement(By.className("welcome-message")).isDisplayed());
-            } else {
-                Assert.assertTrue(true);
+        initMap();
+        Given("^I am logged in as (a|an) \"([^\"]*)\"$", (String arg0, String position) -> {
+            clearCookies();
+
+            if (!getDriver().getCurrentUrl().startsWith("data")) {
+                getDriver().executeScript("window.localStorage.clear();");
             }
+            Account account = accounts.get(position);
+            getDriver().get("http://portal-stg.asiantech.vn/auth/login");
+            loginPage = initPage(getDriver(), LoginPage.class);
+            loginPage.waitForLoginButton();
+            loginPage.withUsername(account.email).withPassword(account.password).login();
+
+            HomePage homePage = initPage(getDriver(), HomePage.class);
+            homePage.waitForWelcomeMessage(getDriver());
+            Assert.assertTrue(homePage.welcomeTestIsDisplayed());
         });
 
-        Given("^I am an unauthenticated user$", () -> {
-            boolean isLoggedIn = driver.findElements(By.className("fa-sign-out")).size() > 0;
-            if (isLoggedIn) {
-                logoutButton = driver.findElement(By.className("fa-sign-out"));
-                logoutButton.click();
-            }
-        });
+        Given("^I am an unauthenticated user$", this::logoutCurrentSession);
+    }
+
+    private void logoutCurrentSession() {
+        clearCookies();
+        if (!getDriver().getCurrentUrl().startsWith("data")) {
+            getDriver().executeScript("window.localStorage.clear();");
+        }
+    }
+
+    private void initMap() {
+        accounts.put("EM", new Account("stg.tien.hoang@asiantech.vn", "Abc123@@"));
+        accounts.put("QCE", new Account("stg.lam.le2@asiantech.vn", "Abc123@@"));
+        accounts.put("AQC", new Account("stg.tu.le.2@asiantech.vn", "Abc123@@"));
+        accounts.put("SQCE", new Account("stg.hang.nguyen@asiantech.vn", "Abc123@@"));
+        accounts.put("SM", new Account("stg.tri.pham@asiantech.vn", "Abc123@@"));
+        accounts.put("BDM", new Account("stg.thien.dang2@asiantech.vn", "Abc123@@"));
     }
 }

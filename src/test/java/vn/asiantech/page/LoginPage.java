@@ -11,10 +11,16 @@ public class LoginPage extends BasePage<LoginPage> {
     private WebElement usernameInput;
     @FindBy(css = "input[formcontrolname=password]")
     private WebElement passwordInput;
-    @FindBy(className = "btn-primary")
+    @FindBy(css = "button.btn-primary")
     private WebElement loginButton;
     @FindBy(className = "text-danger")
     private WebElement errorText;
+
+    private WebDriver driver;
+
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     @Override
     public LoginPage navigateTo(WebDriver webDriver) {
@@ -34,6 +40,11 @@ public class LoginPage extends BasePage<LoginPage> {
 
     public LoginPage withPassword(String password) {
         passwordInput.sendKeys(password);
+        return this;
+    }
+
+    public LoginPage waitForLoginButton() {
+        waitForElement(driver, loginButton, 5);
         return this;
     }
 
