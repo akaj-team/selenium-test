@@ -76,7 +76,6 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public final String clickEmployeeCode() {
         WebElement employee = getEmployeeInfor(0, EMPLOYEE_CODE_COLUMN_INDEX);
-        System.out.println(employee.getAttribute("class"));
         employee.click();
         return employee.getAttribute("href");
     }
@@ -113,7 +112,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final void clickPromotionButton() {
-        actionTitle.findElements(By.xpath(".btn.btn-sm.btn-default")).get(0).click();
+        actionTitle.findElements(By.cssSelector(".btn.btn-sm.btn-default")).get(0).click();
     }
 
     public final Boolean isAlertShowed(final String title) {
@@ -233,7 +232,6 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
         for (WebElement position : positions) {
             if (position.getAttribute("class").contains("ui-state-highlight")) {
-                System.out.println(position.findElement(By.tagName("span")).getText());
                 return position.findElement(By.tagName("span")).getText().equals(positionName);
             }
         }

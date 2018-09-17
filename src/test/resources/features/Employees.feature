@@ -137,5 +137,5 @@ Feature: Check display views and handle events
   Scenario: Filter employees with status
     Given Click on status view
     When Select any item in that status list
-    Then An status item is choosed
+    Then A status item is choosed
     Then Display an employee list corresponding

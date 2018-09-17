@@ -256,7 +256,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
             }
         });
 
-        Then("^An status item is choosed$", () -> {
+        Then("^A status item is choosed$", () -> {
             Assert.assertTrue(employeesPage.isStatusChoosed(employeeStatus));
         });
     }
