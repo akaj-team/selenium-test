@@ -185,6 +185,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final Boolean isIndicatorActive() {
+        String content = leftContent.findElement(By.tagName("small")).getText();
+        String firstSub = content.substring(SPLIT_STRING_INDEX, content.length() - SPLIT_STRING_INDEX);
+        Integer sumCell = Integer.valueOf(firstSub.split("of")[1].trim());
         switch (typeClick) {
             case NEXT_INDICATOR_CLICK:
                 return indicatorIndex + 1 == findIndicatorIndex();
@@ -192,14 +195,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
                 return indicatorIndex - 1 == findIndicatorIndex();
             case FIST_INDICATOR_CLICK:
                 return indicatorIndex == 1;
-            case LAST_INDICATOR_CLICK: {
-                String content = leftContent.findElement(By.tagName("small")).getText();
-                String firstSub = content.substring(SPLIT_STRING_INDEX, content.length() - SPLIT_STRING_INDEX);
-                Integer sumCell = Integer.valueOf(firstSub.split("of")[1].trim());
+            default:
                 return Integer.valueOf(indicatorPage.findElements(By.tagName("a")).get(LAST_INDICATOR_INDEX).getText()) * MAXIMUM_CELL >= sumCell;
-            }
         }
-        return false;
     }
 
     public final Boolean compareLeftContentWithPageIndicator() {
