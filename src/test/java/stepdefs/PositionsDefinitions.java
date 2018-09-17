@@ -1,6 +1,5 @@
 package stepdefs;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -53,6 +52,39 @@ public class PositionsDefinitions extends DriverBase implements En {
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-submit")));
             Assert.assertEquals(driver.getCurrentUrl(), "http://portal-stg.asiantech.vn/organisation/positions/new");
+        });
+
+        When("^I click on career path button$", () -> {
+            positionsPage.getBtnCareerPath(driver).click();
+        });
+
+        Then("^I move to career path page$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("panel-heading")));
+            Assert.assertEquals(driver.getCurrentUrl(), "http://portal-stg.asiantech.vn/organisation/positions/tree");
+        });
+
+        When("^I click on a row in table position$", () -> {
+            positionsPage.getCellDataTable(driver, 1, 1).click();
+        });
+
+        Then("^I move to position detail page$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
+            Assert.assertEquals(driver.getCurrentUrl(), positionsPage.getUrlOfCell());
+        });
+
+        When("^I click on update button in a row$", () -> {
+            positionsPage.getCellEditInTable(driver, 1, 1).click();
+        });
+
+        Then("^I move to update position page$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-submit")));
+            Assert.assertEquals(driver.getCurrentUrl(), positionsPage.getUpdatePositionUrl());
         });
     }
 }

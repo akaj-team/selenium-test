@@ -32,7 +32,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
                 List<WebElement> formInputs = driver.findElements(By.className("form-control"));
                 usernameInput = formInputs.get(0);
                 passwordInput = formInputs.get(1);
-                usernameInput.sendKeys("stg.tien.hoang@asiantech.vn");
+                usernameInput.sendKeys("stg.hang.nguyen@asiantech.vn");
                 passwordInput.sendKeys("Abc123@@");
                 driver.findElement(By.className("btn-primary")).click();
                 new WebDriverWait(driver, 5).until(
