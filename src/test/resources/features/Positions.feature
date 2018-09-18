@@ -1,3 +1,4 @@
+@Positions
 Feature: See, create, edit, search position
   Login my account to portal and open positions page
   I want to check display and edit position of members
@@ -31,3 +32,14 @@ Feature: See, create, edit, search position
   Scenario: Check dialog confirm delete position
     When I click on delete button in a row
     Then I see dialog confirm delete position is display
+
+  Scenario Outline: Check search position function
+    When I write "<text>" and press enter on search field
+    Then The table show positions with long name are contains "<text>" value
+
+    Examples:
+      | text    |
+      | manager |
+      | senior  |
+      | qc      |
+      | junior  |

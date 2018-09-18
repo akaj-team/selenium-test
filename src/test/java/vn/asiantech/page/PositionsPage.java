@@ -1,11 +1,13 @@
 package vn.asiantech.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,6 +63,12 @@ public class PositionsPage extends BasePage<PositionsPage> {
         return searchBox;
     }
 
+    public void searchPosition(WebDriver driver, String text) {
+        waitForElement(driver, searchBox, TIME_OUT_SECOND);
+        searchBox.sendKeys(text);
+        searchBox.sendKeys(Keys.RETURN);
+    }
+
     private WebElement getDataTable(WebDriver driver) {
         waitForElement(driver, dataTable, TIME_OUT_SECOND);
         return dataTable;
@@ -68,7 +76,7 @@ public class PositionsPage extends BasePage<PositionsPage> {
 
     public WebElement getCellDataTable(WebDriver driver, int row, int col) {
         WebElement element = getDataTable(driver);
-        List<WebElement> rows = element.findElements(By.className("ui-datatable-even"));
+        List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
         if (rows.size() > row - 1) {
             List<WebElement> cols = rows.get(row - 1).findElements(By.className("ui-cell-data"));
             if (cols.size() > col - 1) {
@@ -85,7 +93,7 @@ public class PositionsPage extends BasePage<PositionsPage> {
 
     public WebElement getCellEditInTable(WebDriver driver, int row, int col) {
         WebElement element = getDataTable(driver);
-        List<WebElement> rows = element.findElements(By.className("ui-datatable-even"));
+        List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
         if (rows.size() > row - 1) {
             List<WebElement> cols = rows.get(row - 1).findElements(By.className("ui-cell-data"));
             if (cols.size() > col - 1) {
@@ -102,7 +110,7 @@ public class PositionsPage extends BasePage<PositionsPage> {
 
     public WebElement getCellDeleteInTable(WebDriver driver, int row, int col) {
         WebElement element = getDataTable(driver);
-        List<WebElement> rows = element.findElements(By.className("ui-datatable-even"));
+        List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
         if (rows.size() > row - 1) {
             List<WebElement> cols = rows.get(row - 1).findElements(By.className("ui-cell-data"));
             if (cols.size() > col - 1) {
@@ -113,6 +121,23 @@ public class PositionsPage extends BasePage<PositionsPage> {
         } else {
             return null;
         }
+    }
+
+    public List<String> getLongNameDataInTable(WebDriver driver) {
+        List<String> longNames = new ArrayList<>();
+        WebElement element = getDataTable(driver);
+        List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
+        for (WebElement row : rows) {
+            List<WebElement> cols = row.findElements(By.className("ui-cell-data"));
+            for (WebElement col : cols) {
+                //long name column
+                if (cols.indexOf(col) == 1) {
+                    WebElement item = col.findElement(By.className("item-name"));
+                    longNames.add(item.getText());
+                }
+            }
+        }
+        return longNames;
     }
 
     public String getUpdatePositionUrl() {

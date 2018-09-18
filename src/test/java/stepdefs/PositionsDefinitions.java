@@ -10,6 +10,9 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.PositionsPage;
 
+import java.util.List;
+import java.util.regex.Pattern;
+
 import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
 
 public class PositionsDefinitions extends DriverBase implements En {
@@ -93,6 +96,21 @@ public class PositionsDefinitions extends DriverBase implements En {
 
         Then("^I see dialog confirm delete position is display$", () -> {
             Assert.assertTrue(positionsPage.isDialogConfirmDeleteDisplay(driver));
+        });
+
+        When("^I write \"([^\"]*)\" and press enter on search field$", (String arg0) -> {
+            positionsPage.searchPosition(driver, arg0);
+        });
+
+        Then("^The table show positions with long name are contains \"([^\"]*)\" value$", (String arg0) -> {
+            List<String> names = positionsPage.getLongNameDataInTable(driver);
+            boolean isMatch = true;
+            for (String name : names) {
+                if (!Pattern.compile(Pattern.quote(arg0), Pattern.CASE_INSENSITIVE).matcher(name).find()) {
+                    isMatch = false;
+                }
+            }
+            Assert.assertTrue(isMatch);
         });
     }
 }
