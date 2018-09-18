@@ -11,3 +11,22 @@ Feature: Check leave balance of employee
 
   Scenario: I want to check first page of list balance leave
     Then List balance leave should be 50 item
+
+  Scenario: I want to view profile of an employee on leave list
+    Given I click to avatar of an employee
+    Then Should open correct profile page of that employee
+
+  Scenario: I want to view leave history of an employee
+    Given I click to search icon of an employee on leave list
+    Then Should open correct history page of that employee
+
+  Scenario: I want to view all leave  balance of an employee with name
+    Given I fill in search view with name is "Vinh Huynh L.B."
+    Then Should show list result of employ with name is "Vinh Huynh L.B."
+
+  Scenario: I want to show all leave balance of android team
+    Given I click on all team filter
+    Given List filter should display
+    When I select item "Android"
+    Then Team will display "Android"
+    And Show list result of employ on Android team

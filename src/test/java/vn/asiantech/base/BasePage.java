@@ -36,4 +36,11 @@ public abstract class BasePage<T> {
             return elementCount > count;
         });
     }
+
+    protected final void waitUntilCountDifference(final WebDriver webDriver, final WebElement element, final By by, final int count) {
+        new WebDriverWait(webDriver, 10).until((ExpectedCondition<Boolean>) driver -> {
+            int elementCount = element.findElements(by).size();
+            return elementCount != count;
+        });
+    }
 }
