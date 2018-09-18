@@ -50,6 +50,7 @@ public class PortalLoginDefinitions extends DriverBase implements En {
             Assert.assertTrue(loginPage.errorMessageIsDisplayed());
             Assert.assertEquals(warning, loginPage.getErrorMessage());
         });
+
         Then("^I click on logout button$", () -> {
             homePage.logout();
         });
