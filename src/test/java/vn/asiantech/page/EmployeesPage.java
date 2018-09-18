@@ -33,11 +33,12 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     @FindBy(css = ".ui-datatable-data.ui-widget-content")
     private WebElement tableBody;
+
     @FindBy(css = ".title-action")
     private WebElement actionTitle;
 
     @FindBy(css = ".is-top.ui-overflow-hidden")
-    private WebElement hiddenbody;
+    private WebElement hiddenBody;
 
     @FindBy(css = ".ui-paginator-pages")
     private WebElement indicatorPage;
@@ -68,20 +69,20 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final String clickEmployeeName() {
-        WebElement employee = getEmployeeInfor(0, EMPLOYEE_NAME_COLUMN_INDEX);
+        WebElement employee = getEmployeeInfor(EMPLOYEE_NAME_COLUMN_INDEX);
         WebElement employeeName = employee.findElement(By.tagName("span")).findElement(By.tagName("span"));
         employeeName.click();
         return employee.getAttribute("href");
     }
 
     public final String clickEmployeeCode() {
-        WebElement employee = getEmployeeInfor(0, EMPLOYEE_CODE_COLUMN_INDEX);
+        WebElement employee = getEmployeeInfor(EMPLOYEE_CODE_COLUMN_INDEX);
         employee.click();
         return employee.getAttribute("href");
     }
 
     public final String clickEmployeeAvatar() {
-        WebElement employee = getEmployeeInfor(0, EMPLOYEE_NAME_COLUMN_INDEX);
+        WebElement employee = getEmployeeInfor(EMPLOYEE_NAME_COLUMN_INDEX);
         employee.findElement(By.tagName("span")).findElement(By.tagName("img")).click();
         return employee.getAttribute("href");
     }
@@ -94,19 +95,19 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final String clickTeamName() {
-        WebElement team = getEmployeeInfor(0, EMPLOYEE_TEAM_COLUMN_INDEX);
+        WebElement team = getEmployeeInfor(EMPLOYEE_TEAM_COLUMN_INDEX);
         team.click();
         return team.getAttribute("href");
     }
 
     public final String clickGroupName() {
-        WebElement group = getEmployeeInfor(0, EMPLOYEE_GROUP_COLUMN_INDEX);
+        WebElement group = getEmployeeInfor(EMPLOYEE_GROUP_COLUMN_INDEX);
         group.click();
         return group.getAttribute("href");
     }
 
     public final String clickEditButton() {
-        WebElement editEmployee = getEmployeeInfor(0, EMPLOYEE_ACTION_COLUMN_INDEX);
+        WebElement editEmployee = getEmployeeInfor(EMPLOYEE_ACTION_COLUMN_INDEX);
         editEmployee.click();
         return editEmployee.getAttribute("href");
     }
@@ -116,8 +117,8 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final Boolean isAlertShowed(final String title) {
-        hiddenbody.isDisplayed();
-        return hiddenbody.findElement(By.tagName("p-header")).getText().equals(title);
+        hiddenBody.isDisplayed();
+        return hiddenBody.findElement(By.tagName("p-header")).getText().equals(title);
     }
 
     public final void clickAwardCategory() {
@@ -260,13 +261,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return positions.size() == 1 && positions.get(0).getText().equals(message);
     }
 
-    public final void selectPosition(final WebDriver driver) {
+    public final void selectPosition() {
         List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
-        for (WebElement position : positions) {
-            waitForElement(driver, position, TIME_OUT_SECOND);
-            position.click();
-            break;
-        }
+        positions.get(0).click();
     }
 
     public final Boolean clickType() {
@@ -277,14 +274,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final String selectType() {
-        String typeName = "";
         List<WebElement> types = typeList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
-        for (WebElement type : types) {
-            typeName = type.findElement(By.tagName("span")).getText();
-            type.click();
-            break;
-        }
-        return typeName;
+        types.get(0).click();
+        return types.get(0).findElement(By.tagName("span")).getText();
     }
 
     public final Boolean isTypeChoosed(final String type) {
@@ -299,23 +291,18 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final String selectStatus() {
-        String statusName = "";
         List<WebElement> statuses = statusList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
-        for (WebElement status : statuses) {
-            statusName = status.findElement(By.tagName("span")).getText();
-            status.click();
-            break;
-        }
-        return statusName;
+        statuses.get(0).click();
+        return statuses.get(0).findElement(By.tagName("span")).getText();
     }
 
     public final Boolean isStatusChoosed(final String status) {
         return statusList.findElement(By.tagName("label")).getText().equals(status);
     }
 
-    private WebElement getEmployeeInfor(final Integer cellPosition, final Integer columnPosition) {
+    private WebElement getEmployeeInfor(final Integer columnPosition) {
         List<WebElement> cells = tableBody.findElements(By.tagName("tr"));
-        return cells.get(cellPosition).findElements(By.tagName("td")).get(columnPosition).findElement(By.tagName("span")).findElement(By.tagName("a"));
+        return cells.get(0).findElements(By.tagName("td")).get(columnPosition).findElement(By.tagName("span")).findElement(By.tagName("a"));
     }
 
     private int findIndicatorIndex() {

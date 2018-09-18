@@ -34,6 +34,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
     private String employeeStatus;
 
     public EmployeesDefinitions() {
+
         try {
             driver = getDriver();
         } catch (Exception e) {
@@ -49,133 +50,39 @@ public class EmployeesDefinitions extends DriverBase implements En {
             new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ibox-content.main-content")));
         });
 
-        When("^Click on employee name$", () -> {
-            employeeProfileUrl = employeesPage.clickEmployeeName();
-        });
+        Given("^Click on status view$", () -> isShowStatusList = employeesPage.clickStatus());
 
-        When("^Click on employee avatar$", () -> {
-            employeeProfileUrl = employeesPage.clickEmployeeAvatar();
-        });
+        Given("^Click on employee type view$", () -> isShowTypeList = employeesPage.clickType());
 
-        When("^Click on employee code$", () -> {
-            employeeProfileUrl = employeesPage.clickEmployeeCode();
-        });
+        When("^Click on employee name$", () -> employeeProfileUrl = employeesPage.clickEmployeeName());
 
-        Then("^Open successfully profile page of that employee$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
-            Assert.assertEquals(employeeProfileUrl, driver.getCurrentUrl());
-        });
+        When("^Click on employee avatar$", () -> employeeProfileUrl = employeesPage.clickEmployeeAvatar());
 
-        When("^Click on manager name$", () -> {
-            managerUrl = employeesPage.clickManagerName();
-        });
+        When("^Click on employee code$", () -> employeeProfileUrl = employeesPage.clickEmployeeCode());
 
-        Then("^Open successfully profile page of that manager$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
-            Assert.assertEquals(managerUrl, driver.getCurrentUrl());
-        });
+        When("^Click on manager name$", () -> managerUrl = employeesPage.clickManagerName());
 
-        When("^Click on team name$", () -> {
-            teamUrl = employeesPage.clickTeamName();
-        });
+        When("^Click on team name$", () -> teamUrl = employeesPage.clickTeamName());
 
-        Then("^Open successfully a team detail page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
-            Assert.assertEquals(teamUrl, driver.getCurrentUrl());
-        });
+        When("^Click on group name$", () -> groupUrl = employeesPage.clickGroupName());
 
-        When("^Click on group name$", () -> {
-            groupUrl = employeesPage.clickGroupName();
-        });
+        When("^Click on edit action edit$", () -> editEmployeeUrl = employeesPage.clickEditButton());
 
-        Then("^Open successfully a group detail page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
-            Assert.assertEquals(groupUrl, driver.getCurrentUrl());
-        });
+        When("^Click on promotion button$", () -> employeesPage.clickPromotionButton());
 
-        When("^Click on edit action edit$", () -> {
-            editEmployeeUrl = employeesPage.clickEditButton();
-        });
+        When("^Click on award category button$", () -> employeesPage.clickAwardCategory());
 
-        Then("^Open successfully update employee page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.urlToBe(editEmployeeUrl));
-        });
+        When("^Click on new employee button$", () -> newEmployeeUrl = employeesPage.clickNewEmployee());
 
-        When("^Click on promotion button$", () -> {
-            employeesPage.clickPromotionButton();
-        });
+        When("^Click on next indicator$", () -> employeesPage.clickNextIndicator());
 
-        Then("^Open an import promotion dialog$", () -> {
-            Assert.assertTrue(employeesPage.isAlertShowed("Import Promotion"));
-        });
+        When("^Click on back indicator$", () -> employeesPage.clickBackIndicator());
 
-        When("^Click on award category button$", () -> {
-            employeesPage.clickAwardCategory();
-        });
+        When("^Click on fist indicator$", () -> employeesPage.clickFirstIndicator());
 
-        Then("^Open an import award dialog$", () -> {
-            Assert.assertTrue(employeesPage.isAlertShowed("Import Award"));
-        });
+        When("^Click on last indicator$", () -> employeesPage.clickLastIndicator());
 
-        When("^Click on new employee button$", () -> {
-            newEmployeeUrl = employeesPage.clickNewEmployee();
-        });
-
-        Then("^Open successfully new employee page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.urlToBe(newEmployeeUrl));
-        });
-
-        Then("^Show maximum (\\d+) cells$", (Integer cell) -> {
-            Assert.assertTrue((employeesPage.getCellSum() >= 0 && employeesPage.getCellSum() <= MAXIMUM_CELL));
-        });
-
-        Then("^Page indicator (\\d+) is active$", (Integer arg0) -> {
-            Assert.assertTrue(employeesPage.isOneIndicatorActive());
-        });
-
-        And("^Fist indicator and back indicator are not clickable$", () -> {
-            Assert.assertFalse(employeesPage.isFirstAndBackIndicatorClickable());
-        });
-
-        When("^Click on next indicator$", () -> {
-            employeesPage.clickNextIndicator();
-        });
-
-        When("^Click on back indicator$", () -> {
-            employeesPage.clickBackIndicator();
-        });
-
-        Then("^Page indicator corresponding is active$", () -> {
-            Assert.assertTrue(employeesPage.isIndicatorActive());
-        });
-
-        Then("^Check compatibility sum of cells with page number$", () -> {
-            Assert.assertTrue(employeesPage.compareLeftContentWithPageIndicator());
-        });
-
-        When("^Click on fist indicator$", () -> {
-            employeesPage.clickFirstIndicator();
-        });
-
-        When("^Click on last indicator$", () -> {
-            employeesPage.clickLastIndicator();
-        });
-
-        And("^Last indicator and next indicator are not clickable$", () -> {
-            Assert.assertFalse(employeesPage.isNextAndLastIndicatorClickable());
-        });
+        When("^Click on position view$", () -> isShowPositionList = employeesPage.clickPositionView());
 
         When("^Enter search employee with \"([^\"]*)\"$", (String name) -> {
             employeesPage.searchEmployee(name);
@@ -187,53 +94,11 @@ public class EmployeesDefinitions extends DriverBase implements En {
             new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ui-datatable-data.ui-widget-content")));
         });
 
-        Then("^Show an employee list$", () -> {
-            Assert.assertFalse(employeesPage.isEmployeeListEmpty());
-        });
-
-        Then("^Show an empty message$", () -> {
-            Assert.assertTrue(employeesPage.isEmployeeListEmpty());
-        });
-
-        When("^Click on position view$", () -> {
-            isShowPositionList = employeesPage.clickPositionView();
-        });
-
-        Then("^Show a position list$", () -> {
-            Assert.assertTrue(isShowPositionList);
-        });
-
-        And("^Item \"([^\"]*)\" is selected$", (String position) -> {
-            Assert.assertTrue(employeesPage.isPositionSelected(position));
-        });
-
         When("^Search position with \"([^\"]*)\"$", (String position) -> {
             if (isShowPositionList) {
                 employeePosition = position;
                 employeesPage.searchPosition(position, driver);
             }
-        });
-
-        Then("^Display a position list corresponding with that position$", () -> {
-            Assert.assertTrue(employeesPage.isShowCorrectPositionList(employeePosition));
-        });
-
-        Then("^Display \"([^\"]*)\" message$", (String message) -> {
-            Assert.assertTrue(employeesPage.isShowNoResultMessage(message));
-        });
-
-        When("^Select any item in the position list$", () -> {
-            if (isShowPositionList) {
-                employeesPage.selectPosition(driver);
-            }
-        });
-
-        Then("^Display an employee list corresponding$", () -> {
-            Assert.assertFalse(employeesPage.isEmployeeListEmpty());
-        });
-
-        Given("^Click on employee type view$", () -> {
-            isShowTypeList = employeesPage.clickType();
         });
 
         When("^Select any item in that type list$", () -> {
@@ -242,22 +107,91 @@ public class EmployeesDefinitions extends DriverBase implements En {
             }
         });
 
-        Then("^Employee type is choosed$", () -> {
-            Assert.assertTrue(employeesPage.isTypeChoosed(employeeType));
-        });
-
-        Given("^Click on status view$", () -> {
-            isShowStatusList = employeesPage.clickStatus();
-        });
-
         When("^Select any item in that status list$", () -> {
             if (isShowStatusList) {
                 employeeStatus = employeesPage.selectStatus();
             }
         });
 
-        Then("^A status item is choosed$", () -> {
-            Assert.assertTrue(employeesPage.isStatusChoosed(employeeStatus));
+        When("^Select any item in the position list$", () -> {
+            if (isShowPositionList) {
+                employeesPage.selectPosition();
+            }
         });
+
+        Then("^Open successfully profile page of that employee$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
+            Assert.assertEquals(employeeProfileUrl, driver.getCurrentUrl());
+        });
+
+        Then("^Open successfully profile page of that manager$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
+            Assert.assertEquals(managerUrl, driver.getCurrentUrl());
+        });
+
+        Then("^Open successfully a team detail page$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
+            Assert.assertEquals(teamUrl, driver.getCurrentUrl());
+        });
+
+        Then("^Open successfully a group detail page$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
+            Assert.assertEquals(groupUrl, driver.getCurrentUrl());
+        });
+
+        Then("^Open successfully update employee page$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.urlToBe(editEmployeeUrl));
+        });
+
+        Then("^Open an import promotion dialog$", () -> Assert.assertTrue(employeesPage.isAlertShowed("Import Promotion")));
+
+        Then("^Open an import award dialog$", () -> Assert.assertTrue(employeesPage.isAlertShowed("Import Award")));
+
+        Then("^Open successfully new employee page$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.urlToBe(newEmployeeUrl));
+        });
+
+        Then("^Show maximum (\\d+) cells$", (Integer cell) -> Assert.assertTrue((employeesPage.getCellSum() >= 0 && employeesPage.getCellSum() <= MAXIMUM_CELL)));
+
+        Then("^Page indicator (\\d+) is active$", (Integer arg0) -> Assert.assertTrue(employeesPage.isOneIndicatorActive()));
+
+        Then("^Corresponding page indicator is active$", () -> Assert.assertTrue(employeesPage.isIndicatorActive()));
+
+        Then("^Check compatibility sum of cells with page number$", () -> Assert.assertTrue(employeesPage.compareLeftContentWithPageIndicator()));
+
+        Then("^Show an employee list$", () -> Assert.assertFalse(employeesPage.isEmployeeListEmpty()));
+
+        Then("^Show an empty message$", () -> Assert.assertTrue(employeesPage.isEmployeeListEmpty()));
+
+        Then("^Show a position list$", () -> Assert.assertTrue(isShowPositionList));
+
+        Then("^Display a corresponding position list with that position$", () ->
+                Assert.assertTrue(employeesPage.isShowCorrectPositionList(employeePosition)));
+
+        Then("^Display \"([^\"]*)\" message$", (String message) -> Assert.assertTrue(employeesPage.isShowNoResultMessage(message)));
+
+        Then("^Display a corresponding employee list$", () -> Assert.assertFalse(employeesPage.isEmployeeListEmpty()));
+
+        Then("^Employee type is choosed$", () -> Assert.assertTrue(employeesPage.isTypeChoosed(employeeType)));
+
+        Then("^A status item is choosed$", () -> Assert.assertTrue(employeesPage.isStatusChoosed(employeeStatus)));
+
+        And("^Fist indicator and back indicator are not clickable$", () -> Assert.assertFalse(employeesPage.isFirstAndBackIndicatorClickable()));
+
+        And("^Item \"([^\"]*)\" is selected$", (String position) -> Assert.assertTrue(employeesPage.isPositionSelected(position)));
+
+        And("^Last indicator and next indicator are not clickable$", () -> Assert.assertFalse(employeesPage.isNextAndLastIndicatorClickable()));
     }
 }
