@@ -1,6 +1,5 @@
 package stepdefs;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,13 +8,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.LeaveRequestPage;
 
 import java.util.List;
 
-import static vn.asiantech.base.DriverBase.getDriver;
-
-public class LeaveRequestDefinitions implements En {
+public class LeaveRequestDefinitions extends DriverBase implements En {
     private WebDriver driver;
     private WebElement usernameInput;
     private WebElement passwordInput;
@@ -31,6 +29,7 @@ public class LeaveRequestDefinitions implements En {
 
         Given("^I am logged in as an team member$", () -> {
             driver.get("http://portal-stg.asiantech.vn");
+            leaveRequestPage = initPage(getDriver(), LeaveRequestPage.class);
             new WebDriverWait(driver, 10).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             String url = driver.getCurrentUrl();
@@ -49,6 +48,7 @@ public class LeaveRequestDefinitions implements En {
                 Assert.assertTrue(true);
             }
         });
+
         And("^Display leave request page$", () -> {
             driver.get("http://portal-stg.asiantech.vn/leave/request");
             new WebDriverWait(driver, 10).until(
@@ -56,89 +56,71 @@ public class LeaveRequestDefinitions implements En {
             new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
             Assert.assertEquals("http://portal-stg.asiantech.vn/leave/request", driver.getCurrentUrl());
         });
-        And("^And Annual Leave is \"([^\"]*)\"$", (String arg0) -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        And("^Marriage Leave is \"([^\"]*)\"$", (String number) -> Assert.assertTrue(leaveRequestPage.checkTextMarriageLeave(getDriver(), number)));
 
-        And("^Overtime Leave is \"([^\"]*)\"$", (String number) -> Assert.assertTrue(leaveRequestPage.checkTextOvertimeLeave(getDriver(), number)));
+        And("^Marriage Leave is \"([^\"]*)\"$", (String number) -> Assert.assertTrue(leaveRequestPage.checkTextMarriageLeave(number)));
 
-        And("^Paternal Leave is \"([^\"]*)\"$", (String number) -> Assert.assertTrue(leaveRequestPage.checkTextPaternalLeave(getDriver(), number)));
+        And("^Overtime Leave is \"([^\"]*)\"$", (String number) -> Assert.assertTrue(leaveRequestPage.checkTextOvertimeLeave(number)));
 
-        When("^I enter the message$", () -> leaveRequestPage.withMessage());
+        And("^Paternal Leave is \"([^\"]*)\"$", (String number) -> Assert.assertTrue(leaveRequestPage.checkTextPaternalLeave(number)));
 
-        Then("^Submit button still not enabled$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
+        When("^I enter the message$", () -> leaveRequestPage.withMessage(getDriver()));
 
         And("^Annual Leave is \"([^\"]*)\"$", (String number) -> Assert.assertTrue(leaveRequestPage.checkTextAnnualLeave(getDriver(), number)));
 
-        And("^I choose type leave is \"([^\"]*)\"$", (String arg0) -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^Show message is \"([^\"]*)\"$", (String arg0) -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I click on box leave time$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^Calendar not display$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I click on time from box leave time$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        And("^I click on time to box leave time$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^Calendar display$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I choose one day in calendar$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^Show \"([^\"]*)\" in time from box$", (String arg0) -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^Show \"([^\"]*)\" in time to box$", (String arg0) -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        And("^Show date request$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I choose afternoon on show date request$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^Move circle form all day to afternoon$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        When("^I choose morning on show date request$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^Move circle form afternoon to morning$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
-        Then("^Submit button is enabled$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        });
+        And("^I choose type leave is \"([^\"]*)\"$", (String status) -> leaveRequestPage.clickItemMenuType(getDriver(), status));
+
+        Then("^Show message is \"([^\"]*)\"$", (String mess) -> Assert.assertTrue(leaveRequestPage.isShowMessage(mess)));
+
+        When("^I click on timeFrom box leave time$", () -> leaveRequestPage.clickTimeFromBox());
+
+        And("^I click on timeTo box leave time$", () -> leaveRequestPage.clickTimeToBox());
+
+        And("^Show date request$", () -> Assert.assertTrue(leaveRequestPage.isDateRequestShow(getDriver())));
+
+        When("^I choose afternoon on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseAfternoon(getDriver())));
+
+        When("^I choose morning on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseMorning(getDriver())));
+
+        Then("^Submit button is enabled$", () -> Assert.assertTrue(leaveRequestPage.isEnableSubmitButton()));
+
         Then("^Submit button still disabled$", () -> Assert.assertFalse(leaveRequestPage.isEnableSubmitButton()));
+
+        And("^I click menu type of leave$", () -> leaveRequestPage.clickMenuTypeOfLeave());
+
+        Then("^Menu type of leave drop down$", () -> Assert.assertTrue(leaveRequestPage.isMenuDropDown()));
+
+        Then("^Calendar timeFrom display$", () -> Assert.assertTrue(leaveRequestPage.isCalendarShow("timeFrom")));
+
+        Then("^Calendar timeTo display$", () -> Assert.assertTrue(leaveRequestPage.isCalendarShow("timeTo")));
+
+        And("^I choose Sep (\\d+), (\\d+) in timeForm calendar$", (Integer arg0, Integer arg1) -> leaveRequestPage.chooseTime("timeFrom"));
+
+        And("^I choose Sep (\\d+), (\\d+) in timeTo calendar$", (Integer arg0, Integer arg1) -> leaveRequestPage.chooseTime("timeTo"));
+
+        And("^I choose all day on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseAllday(getDriver())));
+
+        And("^Check date is \"([^\"]*)\"$", (String date) -> Assert.assertTrue(leaveRequestPage.checkDateInDateRequest(0, date)));
+
+        When("^I click remove button$", () -> leaveRequestPage.clickRemoveButton(0));
+
+        Then("^Date request is removed$", () -> Assert.assertFalse(leaveRequestPage.isRemoveDateRequest()));
+
+        Given("^I chose type leave is \"([^\"]*)\"$", (String status) -> leaveRequestPage.setNonePaidInTypeOfLeave(getDriver(), status));
+
+        Given("^Enter full information$", () -> leaveRequestPage.enterFullInfor(getDriver()));
+
+        When("^I click submit$", () -> leaveRequestPage.clickSubmit());
+
+        Then("^Show dialog confirmation$", () -> Assert.assertTrue(leaveRequestPage.isShowDialog()));
+
+        Given("^Dialog was showed$", () -> leaveRequestPage.showDialog(getDriver()));
+
+        When("^I click submit on dialog$", () -> leaveRequestPage.clickSubmitButtonInDialog());
+
+        Then("^Redirect to leave detail$", () -> leaveRequestPage.display(getDriver()));
+
+        When("^I click cancel on dialog$", () -> leaveRequestPage.clickCancelButtonInDialog());
+
+        Then("^Dialog disappeared$", () -> Assert.assertTrue(leaveRequestPage.isDialogDisappeared()));
     }
 }
