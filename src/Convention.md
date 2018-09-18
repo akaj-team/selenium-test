@@ -27,9 +27,6 @@
 **A definitions.java of the following, in order:**
  `Give` - `When` - `Then` - `And` - `But`
 
-**A page.java of the following:**
-- Priority of find element: `id` ->`name` -> `className` -> `tagName` -> `cssSelector` -> `linkText` -> `partialLinkText` -> `xpath`
-
 ### Name
 **1. Package names**
 - All letters should be in lower case.
@@ -72,7 +69,7 @@
    Testbase.java  
    ```
    **3. Method names**
-   
+ 
    - Lower camel case should be used for the method names.
    - Method name should be a verb.
    - Try to make the name simple and descriptive. 
@@ -102,16 +99,16 @@
   | Button       | btn          | btnSubmit            |
   | Checkbox     | chk          | chkStatus            |
   | Combo box    | cbo          | cboAnswer            |
-  | Input        | input        | ipPassword           |
+  | Input        | input        | inputPassword        |
   | Common dialog| dlg          | dlgNotice            |
   | Date picker  | dtp          | dtpFrom              |
-  | Form         | form         | dtpFrom              |
+  | Form         | form         | formLogin            |
   | Frame        | fr           | frLanguage           |
   | TabStrip     | tab          | tabOption            |
   | Text Area    | txa          | txaDescription       |
   | Text box     | txt          | txtName              |
   | Image        | img          | imgLogo              |
-  | Label        | lbl          | tblUserName          |
+  | Label        | lbl          | lblUserName          |
   | List box     | lst          | lstCountry           |
   | Menu         | menu         | menuEmployee         |
   | Message      | msg          | msgError             |
@@ -145,6 +142,10 @@
    - You can add your comments in the lines followed by the keywords Feature, Scenario, Scenario Outline or Examples.
    - Also you can use #  for line comments.
    `# This is comment`
+  
+## Locator
+
+- Priority of find element: `id` ->`name` -> `className` -> `tagName` -> `cssSelector` -> `linkText` -> `partialLinkText` -> `xpath`
   
 ## Cucumber
 
