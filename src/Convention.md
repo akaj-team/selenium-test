@@ -11,7 +11,7 @@
 
 | Name       | Path                      | Description                                |
 | -----------|:-------------------------:| ------------------------------------------:|
-| stepdef | src/test/java/stepdef  | This is where we put our step define files.|
+| stepdef    | src/test/java/stepdef     | This is where we put our step define files.|
 | object     | src/test/java/object      | This is where we put objects.              |
 | page       | src/test/java/page        | This is where we put pages.                |
 | feature    | src/test/resources/feature| This is where we put feature.              |
@@ -34,7 +34,7 @@
 - Priority of find element: `id` ->`name` -> `className` -> `tagName` -> `cssSelector` -> `linkText` -> `partialLinkText` -> `xpath`
 
 ### Name
-1. Pakage names
+**1. Pakage names**
 - All letters should be in lower case.
 - Meaningful directory name shall be used to indicate the content within the package.
   
@@ -54,7 +54,7 @@
    com.pragmatic.selenium.Util 
   ```
   
-  2. Class names
+  **2. Class names**
   - Upper camel case should be used for the class names.
   - Class name should be a noun.
   - Try to make the name simple and descriptive.
@@ -74,7 +74,7 @@
    Loginpage.java 
    Testbase.java  
    ```
-   3. Method names
+   **3. Method names**
    
    - Lower camel case should be used for the method names.
    - Method name should be a verb.
@@ -94,7 +94,7 @@
      initbrowsers()
      wait_for_text_to_be_present(WebElement webElement, String textToBeVerified)
       ```
-   4. Variable names   
+   **4. Variable names**   
   - Lower camel case should be used for the variable names. 
   - Intent of the variable shall be indicated with the given name.
   - The variable name should be a noun.
@@ -121,7 +121,7 @@
   | Radio        | rdo          | droGender            |
   | Table        | tbl          | tblEmployee          |
   
-  4. Constants
+ **5. Constants**
   - All letters should be in uppercase.
   - Words shall be separated with underscore `_`.
   - Constants shall be defined as public static in the Constant class.
@@ -137,7 +137,7 @@
    ```
     String BASEURL;
    ```
-   5. Comments
+   **6. Comments**
    - Comments shall be used to explain the code to make the test scripts more readable for others.
    - Single line 
    `// This is comment`
