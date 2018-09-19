@@ -24,6 +24,12 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     @FindBy(css = "input.form-control.ng-valid.ng-dirty.ng-touched")
     private WebElement inputViewSearch;
 
+    @FindBy(css = "div.directional-toolbox")
+    private WebElement elementYearContainer;
+
+    @FindBy(css = "span.ui-paginator-pages")
+    private WebElement pageinatorElement;
+
     private String currentProfileUrl;
 
     private String currentLeaveHistoryUrl;
@@ -44,7 +50,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return filterElement.isDisplayed();
     }
 
-    public final int getFirstPageLeaveBalanceList(final WebDriver driver) {
+    public final int getLeaveBalanceListCount(final WebDriver driver) {
         waitForElementDisplay(driver, leaveBalanceList, 5);
         return leaveBalanceList.findElements(By.tagName("tr")).size();
     }
@@ -114,7 +120,26 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return this;
     }
 
-    public  String getFilterLabel() {
+    public String getFilterLabel() {
         return allTeamsView.getText();
+    }
+
+    public String getYear(WebDriver driver) {
+        waitForElementDisplay(driver, elementYearContainer, 5);
+        WebElement tvYear = elementYearContainer.findElement(By.cssSelector("span.content"));
+        return tvYear.getText();
+    }
+
+    public LeaveBalancePage previous(WebDriver driver) {
+        waitForElementDisplay(driver, elementYearContainer, 5);
+        WebElement btnPrevious = elementYearContainer.findElement(By.cssSelector("button.btn.control-item.prev"));
+        btnPrevious.click();
+        return this;
+    }
+
+    public LeaveBalancePage gotoPage(WebDriver driver, int page) {
+        waitForElementDisplay(driver, pageinatorElement, 5);
+        pageinatorElement.findElements(By.tagName("a")).get(page).click();
+        return this;
     }
 }

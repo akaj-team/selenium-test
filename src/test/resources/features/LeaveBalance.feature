@@ -9,6 +9,13 @@ Feature: Check leave balance of employee
     Given I click on all team filter
     Then List filter should display
 
+  Scenario: I want to check leave balance of this year
+    Then Year on this page should be "2018"
+
+  Scenario: I want to check leave balance of last year
+    When I click on previous
+    Then Year on this page should be "2017"
+
   Scenario: I want to check first page of list balance leave
     Then List balance leave should be 50 item
 
@@ -30,3 +37,8 @@ Feature: Check leave balance of employee
     When I select item "Android"
     Then Team will display "Android"
     And Show list result of employ on Android team
+
+  Scenario: I want to check second page of list balance leave
+    When I click on page number 2
+    Then Should load data at page 2
+    And List balance leave should be 50 item
