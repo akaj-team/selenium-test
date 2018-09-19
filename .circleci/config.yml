@@ -1,0 +1,44 @@
+version: 2 # use CircleCI 2.0
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
+
+    working_directory: ~/src # directory where steps will run
+
+    docker: # run the steps with Docker
+
+    #    - image: circleci/android:api-26-alpha # ...with this image as the primary container; this is where all `steps` will run
+    - image: circleci/ruby:2.3-node-browsers
+    steps: # a collection of executable commands
+
+    - checkout # check out source code to working directory
+
+    - run:
+        name: Install maven
+        command: sudo apt-get install maven
+
+    - run:
+        name: Install bundle
+        command: gem install bundle
+
+    - restore_cache:
+        key: gems-{{ checksum "Gemfile.lock" }}
+
+    - run:
+        name: Install and update danger
+        command: |
+          bundle update danger
+          bundle install --path vendor/bundle
+
+    - save_cache:
+        paths:
+        - vendor/bundle
+        key: gems-{{ checksum "Gemfile.lock" }}
+
+    - run:
+        name: Check
+        halt_build_on_fail: false
+        command: mvn validate
+
+    - run:
+        name: Run danger
+        command: bundle exec danger
