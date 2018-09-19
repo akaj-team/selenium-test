@@ -14,16 +14,16 @@ import static vn.asiantech.base.DriverBase.getDriver;
 
 public class MyLeavePage extends BasePage<MyLeavePage> {
     @FindBy(id = "side-menu")
-    private WebElement sideMenu;
+    private WebElement menuSlide;
 
     @FindBy(css = ".toolbox-item.dropdown-md")
-    private WebElement menuStatus;
+    private WebElement inputStatus;
 
     @FindBy(className = "ui-dropdown-items-wrapper")
-    private WebElement itemMenuStatus;
+    private WebElement menuStatus;
 
     @FindBy(className = "ui-datatable-scrollable-table-wrapper")
-    private WebElement dataLeave;
+    private WebElement tableLeave;
 
     @FindBy(css = ".dl-horizontal.m-t-xs.ng-star-inserted")
     private WebElement leaveBalance;
@@ -52,31 +52,31 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public void clickMenuStatus(WebDriver driver) {
-        waitForElementDisplay(driver, menuStatus, 10);
-        menuStatus.click();
+        waitForElementDisplay(driver, inputStatus, 10);
+        inputStatus.click();
     }
 
     public Boolean dropDownMenuStatus() {
-        return itemMenuStatus.isDisplayed();
+        return menuStatus.isDisplayed();
     }
 
     public void clickItemMenuStatus(String status) {
-        WebElement itemStatus = itemMenuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        WebElement itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
         if (status.equals("Pending")) {
-            itemStatus = itemMenuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
+            itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
         }
         if (status.equals("Approved")) {
-            itemStatus = itemMenuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(2);
+            itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(2);
         }
         if (status.equals("Rejected")) {
-            itemStatus = itemMenuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(3);
+            itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(3);
         }
         itemStatus.click();
     }
 
     public boolean checkTextStatusMenu(String status, WebDriver driver) {
-        waitForElementDisplay(driver, menuStatus, 10);
-        return menuStatus.findElement(By.tagName("label")).getText().equals(status);
+        waitForElementDisplay(driver, inputStatus, 10);
+        return inputStatus.findElement(By.tagName("label")).getText().equals(status);
     }
 
     public boolean checkTextSYSID(String sysid) {
@@ -129,7 +129,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public boolean checkMenuStatusDropDown() {
-        return itemMenuStatus.isDisplayed();
+        return menuStatus.isDisplayed();
     }
 
     public boolean checkNoRecordsFound() {
@@ -137,22 +137,22 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public void clickSYSID(WebDriver driver) {
-        waitForElementDisplay(driver, menuStatus, 10);
+        waitForElementDisplay(driver, inputStatus, 10);
         findDataLeave(0, 0).click();
     }
 
     public void clickNameManager(WebDriver driver) {
-        waitForElementDisplay(driver, menuStatus, 10);
+        waitForElementDisplay(driver, inputStatus, 10);
         findDataLeave(0, 6).click();
     }
 
     public void clickIconSearch(WebDriver driver) {
-        waitForElementDisplay(driver, menuStatus, 10);
+        waitForElementDisplay(driver, inputStatus, 10);
         findDataLeave(0, 7).click();
     }
 
     public void clickBtnLeaveRequest(WebDriver driver) {
-        waitForElementDisplay(driver, menuStatus, 10);
+        waitForElementDisplay(driver, inputStatus, 10);
         btnLeaveRequest.click();
     }
 
@@ -166,7 +166,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     private WebElement findDataLeave(int row, int col) {
-        WebElement tableData = dataLeave.findElement(By.tagName("table"));
+        WebElement tableData = tableLeave.findElement(By.tagName("table"));
         WebElement item = tableData.findElement(By.tagName("colgroup"));
         List<WebElement> rows = tableData.findElements(By.tagName("tr"));
 
@@ -202,7 +202,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     private WebElement getItemMenuInPosition() {
         List<WebElement> itemMenus = new ArrayList<>();
         int countChildItem;
-        List<WebElement> items = sideMenu.findElements(By.tagName("li"));
+        List<WebElement> items = menuSlide.findElements(By.tagName("li"));
         for (int i = 0; i < items.size(); i = i + countChildItem + 1) {
             countChildItem = 0;
             itemMenus.add(items.get(i));
