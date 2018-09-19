@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class PositionsPage extends BasePage<PositionsPage> {
 
-    private static final int TIME_OUT_SECOND = 10;
+    public static final int TIME_OUT_SECOND = 10;
 
     @FindBy(tagName = "h2")
     private WebElement title;
@@ -39,42 +39,42 @@ public class PositionsPage extends BasePage<PositionsPage> {
         return this;
     }
 
-    public String getUrlOfCell() {
+    public final String getUrlOfCell() {
         return positionDetailUrl;
     }
 
-    public WebElement getTitle(WebDriver driver) {
+    public final WebElement getTitle(final WebDriver driver) {
         waitForElement(driver, title, TIME_OUT_SECOND);
         return title;
     }
 
-    public WebElement getBtnNewPosition(WebDriver driver) {
+    public final WebElement getBtnNewPosition(final WebDriver driver) {
         waitForElement(driver, btnNewPosition, TIME_OUT_SECOND);
         return btnNewPosition;
     }
 
-    public WebElement getBtnCareerPath(WebDriver driver) {
+    public final WebElement getBtnCareerPath(final WebDriver driver) {
         waitForElement(driver, btnCareerPath, TIME_OUT_SECOND);
         return btnCareerPath;
     }
 
-    public WebElement getSearchBox(WebDriver driver) {
+    public final WebElement getSearchBox(final WebDriver driver) {
         waitForElement(driver, searchBox, TIME_OUT_SECOND);
         return searchBox;
     }
 
-    public void searchPosition(WebDriver driver, String text) {
+    public final void searchPosition(final WebDriver driver, final String text) {
         waitForElement(driver, searchBox, TIME_OUT_SECOND);
         searchBox.sendKeys(text);
         searchBox.sendKeys(Keys.RETURN);
     }
 
-    private WebElement getDataTable(WebDriver driver) {
+    private WebElement getDataTable(final WebDriver driver) {
         waitForElement(driver, dataTable, TIME_OUT_SECOND);
         return dataTable;
     }
 
-    public WebElement getCellDataTable(WebDriver driver, int row, int col) {
+    public final WebElement getCellDataTable(final WebDriver driver, final int row, final int col) {
         WebElement element = getDataTable(driver);
         List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
         if (rows.size() > row - 1) {
@@ -91,7 +91,7 @@ public class PositionsPage extends BasePage<PositionsPage> {
         }
     }
 
-    public WebElement getCellEditInTable(WebDriver driver, int row, int col) {
+    public final WebElement getCellEditInTable(final WebDriver driver, final int row, final int col) {
         WebElement element = getDataTable(driver);
         List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
         if (rows.size() > row - 1) {
@@ -108,7 +108,7 @@ public class PositionsPage extends BasePage<PositionsPage> {
         }
     }
 
-    public WebElement getCellDeleteInTable(WebDriver driver, int row, int col) {
+    public final WebElement getCellDeleteInTable(final WebDriver driver, final int row, final int col) {
         WebElement element = getDataTable(driver);
         List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
         if (rows.size() > row - 1) {
@@ -123,7 +123,7 @@ public class PositionsPage extends BasePage<PositionsPage> {
         }
     }
 
-    public List<String> getLongNameDataInTable(WebDriver driver) {
+    public final List<String> getLongNameDataInTable(final WebDriver driver) {
         List<String> longNames = new ArrayList<>();
         WebElement element = getDataTable(driver);
         List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
@@ -140,16 +140,16 @@ public class PositionsPage extends BasePage<PositionsPage> {
         return longNames;
     }
 
-    public String getUpdatePositionUrl() {
+    public final String getUpdatePositionUrl() {
         return updatePositionUrl;
     }
 
-    public boolean isDialogConfirmDeleteDisplay(WebDriver driver) {
+    public final boolean isDialogConfirmDeleteDisplay(final WebDriver driver) {
         String style = getDialogConfirmDelete(driver).getAttribute("style");
         return style.contains("display: block");
     }
 
-    private WebElement getDialogConfirmDelete(WebDriver driver) {
+    private WebElement getDialogConfirmDelete(final WebDriver driver) {
         waitForElement(driver, dialogConfirmDelete, TIME_OUT_SECOND);
         return dialogConfirmDelete;
     }

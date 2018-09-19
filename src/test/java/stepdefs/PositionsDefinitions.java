@@ -4,6 +4,7 @@ import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -13,8 +14,11 @@ import vn.asiantech.page.PositionsPage;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
+import static vn.asiantech.page.PositionsPage.TIME_OUT_SECOND;
 
+/**
+ * @author at-trungnguyen
+ */
 public class PositionsDefinitions extends DriverBase implements En {
 
     private WebDriver driver;
@@ -69,7 +73,10 @@ public class PositionsDefinitions extends DriverBase implements En {
         });
 
         When("^I click on a row in table position$", () -> {
-            positionsPage.getCellDataTable(driver, 1, 1).click();
+            WebElement webElement = positionsPage.getCellDataTable(driver, 1, 1);
+            if (webElement != null) {
+                webElement.click();
+            }
         });
 
         Then("^I move to position detail page$", () -> {
@@ -80,7 +87,10 @@ public class PositionsDefinitions extends DriverBase implements En {
         });
 
         When("^I click on update button in a row$", () -> {
-            positionsPage.getCellEditInTable(driver, 1, 1).click();
+            WebElement webElement = positionsPage.getCellEditInTable(driver, 1, 1);
+            if (webElement != null) {
+                webElement.click();
+            }
         });
 
         Then("^I move to update position page$", () -> {
@@ -91,7 +101,10 @@ public class PositionsDefinitions extends DriverBase implements En {
         });
 
         When("^I click on delete button in a row$", () -> {
-            positionsPage.getCellDeleteInTable(driver, 1, 1).click();
+            WebElement webElement = positionsPage.getCellDeleteInTable(driver, 1, 1);
+            if (webElement != null) {
+                webElement.click();
+            }
         });
 
         Then("^I see dialog confirm delete position is display$", () -> {

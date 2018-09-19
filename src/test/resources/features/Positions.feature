@@ -4,7 +4,7 @@ Feature: See, create, edit, search position
   I want to check display and edit position of members
 
   Background: User navigates to leave planner page
-    Given I am logged in as an android team manager
+    Given I am logged in as a "SQCE"
     And Display "/organisation/positions" page
 
   Scenario:  I see title is display
