@@ -58,15 +58,9 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         When("^I click on item My Timesheet$", () -> myTimeSheet.clickMyTimeSheet());
         Then("^My Timesheet page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
         And("^Title content is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.checkTextStatusMenu(content)));
-        And("^Display full record timesheet", () -> {
-            Assert.assertTrue(true, myTimeSheet.isDisplayFullColumns(driver).toString());
-        });
-        And("^Disable button this week and can not click", () -> {
-            Assert.assertTrue(true, myTimeSheet.getClickable(driver, "btnThisWeek").toString());
-        });
-        And("^Disable button submit and can not click", () -> {
-            Assert.assertTrue(true, myTimeSheet.getClickable(driver, "btnSubmit").toString());
-        });
+        And("^Display full record timesheet", () -> Assert.assertTrue(true, myTimeSheet.isDisplayFullColumns(driver).toString()));
+        And("^Disable button this week and can not click", () -> Assert.assertTrue(true, myTimeSheet.getClickable(driver, "btnThisWeek").toString()));
+        And("^Disable button submit and can not click", () -> Assert.assertTrue(true, myTimeSheet.getClickable(driver, "btnSubmit").toString()));
 
         Given("^I open my timesheet page$", () -> {
             // Write code here that turns the phrase above into concrete actions
@@ -74,23 +68,30 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         });
         When("^Click on back button$", () -> myTimeSheet.clickBackButton(driver));
         When("^Click on next button$", () -> myTimeSheet.clickNextButton(driver));
-        Then("^Can click this week button$", () -> {
-            Assert.assertTrue(true, myTimeSheet.getClickable(driver, "btnThisWeek").toString());
-        });
+        Then("^Can click this week button$", () -> Assert.assertTrue(true, myTimeSheet.getClickable(driver, "btnThisWeek").toString()));
 
-        When("^Move to columns timesheet$", () -> {
-            myTimeSheet.moveRowTimeSheet(driver);
-        });
-        Then("^Display button add new timesheet$", () -> {
-            Assert.assertTrue(true, myTimeSheet.getAddTimeSheetClickable(driver).toString());
-        });
+        When("^Move to columns timesheet$", () -> myTimeSheet.moveRowTimeSheet(driver));
+        Then("^Display button add new timesheet$", () -> Assert.assertTrue(true, myTimeSheet.getAddTimeSheetClickable(driver).toString()));
 
         When("^Display dialog create timesheet after click button add timesheet$", () -> myTimeSheet.getAddTimeSheetsClickable());
         When("^Click on button timesheet$", () -> myTimeSheet.clickAddTimeSheets(driver));
+
         When("^Click first button add new timesheet$", () -> myTimeSheet.clickFirstItemAddTimeSheet(driver));
-        Then("^Display dialog timesheet$", () -> {
-            Assert.assertTrue(true, myTimeSheet.isTimeSheetShowing(driver).toString());
-        });
+        Then("^Display dialog timesheet$", () -> Assert.assertTrue(true, myTimeSheet.isTimeSheetShowing(driver).toString()));
+        And("^Display title item project is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isTitleItemProjectShowing(driver, content)));
+        And("^Display title dropdown default is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isDefaultSelectProjectShowing(driver, content)));
+        And("^Display title item task is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isTitleTaskShowing(driver, content)));
+        And("^Display title dropdown task default is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isDefaultSelectTaskShowing(driver, content)));
+        And("^Display text area description default value is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isDescriptionShowing(driver, content)));
+        And("^Display text input time is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isDefaultInputTimeShowing(driver, content)));
+        And("^Display button Repeat every day is disable$", () -> Assert.assertTrue(myTimeSheet.checkButtonRepeatClickable(driver)));
+        And("^Display button Save is disable$", () -> Assert.assertTrue(myTimeSheet.checkButtonSaveClickable(driver)));
+
+
+        When("^Create and submit timesheet$", () -> myTimeSheet.getAddTimeSheetsClickable());
+        When("^Select first project on list project$", () -> myTimeSheet.getAddTimeSheetsClickable());
+        When("^Status list project has show value$", () -> myTimeSheet.selectedFirstValueProject(driver));
+        When("Select  first task on list task", () -> myTimeSheet.selectedFirstValueTask(driver));
 
     }
 

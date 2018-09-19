@@ -43,6 +43,31 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     @FindBy(css = ".ng-tns-c1-0")
     private WebElement dialogTimeSheet;
 
+    @FindBy(css = ".ui-dropdown-items-wrapper")
+    private WebElement dropdown;
+
+    @FindBy(css = ".col-md-12.project-form")
+    private WebElement dropdownProject;
+
+    @FindBy(xpath = ".col-md-12")
+    private WebElement dropdownTask;
+
+    @FindBy(css = ".box-note")
+    private WebElement boxNote;
+
+    @FindBy(css = "div.task-panel.ng-star-inserted")
+    private WebElement taskContent;
+
+    @FindBy(css = ".box-spent")
+    private WebElement boxSpent;
+
+    @FindBy(css = ".text-muted.ng-star-inserted")
+    private WebElement btnRepeat;
+
+    @FindBy(css = ".btn.btn-sm.btn-primary")
+    private WebElement btnSave;
+
+
     @Override
     public TimeSheetPage navigateTo(WebDriver webDriver) {
         return this;
@@ -63,7 +88,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public void moveRowTimeSheet(WebDriver driver) {
         Actions action = new Actions(driver);
-        waitForElement(driver, btnSubmit, 10);
+        waitForElement(driver, btnSubmit, 5);
         List<WebElement> elementCalendar = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         for (WebElement anAvatar : elementCalendar) {
             action.moveToElement(anAvatar).build().perform();
@@ -76,7 +101,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public Boolean isDisplayFullColumns(WebDriver driver) {
         boolean isFull = true;
-        waitForElement(driver, calendar, 10);
+        waitForElement(driver, calendar, 5);
         List<WebElement> divs = calendar.findElements(By.tagName("div"));
         for (WebElement div : divs) {
             int columns = div.findElements(By.tagName("div")).size();
@@ -88,26 +113,26 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public Boolean getAddTimeSheetClickable(WebDriver driver) {
-        waitForElement(driver, btnAddTimeSheet, 10);
+        waitForElement(driver, btnAddTimeSheet, 5);
         return btnAddTimeSheet.isEnabled();
     }
 
     public Boolean getClickable(WebDriver driver, String view) {
         if (view.equals(Constant.VIEW_BTN_THIS_WEEK)) {
-            waitForElement(driver, btnThisWeek, 10);
+            waitForElement(driver, btnThisWeek, 5);
             return btnSubmit.isEnabled();
         }
-        waitForElement(driver, btnSubmit, 10);
+        waitForElement(driver, btnSubmit, 5);
         return btnSubmit.isEnabled();
     }
 
     public void clickBackButton(WebDriver driver) {
-        waitForElement(driver, btnBack, 10);
+        waitForElement(driver, btnBack, 5);
         btnBack.click();
     }
 
     public void clickNextButton(WebDriver driver) {
-        waitForElement(driver, btnNext, 10);
+        waitForElement(driver, btnNext, 5);
         btnNext.click();
     }
 
@@ -140,7 +165,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public void clickAddTimeSheets(WebDriver driver) {
         Actions action = new Actions(driver);
-        waitForElement(driver, calendarBody, 10);
+        waitForElement(driver, calendarBody, 5);
         List<WebElement> elementCalendar = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         for (WebElement anAvatar : elementCalendar) {
             action.moveToElement(anAvatar).build().perform();
@@ -153,7 +178,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public void clickFirstItemAddTimeSheet(WebDriver driver) {
         Actions action = new Actions(driver);
-        waitForElement(driver, calendarBody, 10);
+        waitForElement(driver, calendarBody, 5);
         List<WebElement> elementCalendar = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         for (WebElement anAvatar : elementCalendar) {
             action.moveToElement(anAvatar).build().perform();
@@ -163,8 +188,107 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public Boolean isTimeSheetShowing(WebDriver driver) {
-        waitForElement(driver, dialogTimeSheet, 10);
+        waitForElement(driver, dialogTimeSheet, 5);
         return dialogTimeSheet.isDisplayed();
     }
 
+    public Boolean isTitleItemProjectShowing(WebDriver driver, String title) {
+        waitForElement(driver, dropdownProject, 5);
+        WebElement titleProject = dropdownProject.findElement(By.cssSelector(".title"));
+        return titleProject.isDisplayed() && titleProject.getText().equals(title);
+    }
+
+    public Boolean isDefaultSelectProjectShowing(WebDriver driver, String title) {
+        waitForElement(driver, dropdownProject, 5);
+        List<WebElement> titleItemProjects = dropdownProject.findElements(By.cssSelector(".ng-tns-c2-2.ng-star-inserted"));
+        for (WebElement item : titleItemProjects) {
+            if (!item.getText().isEmpty()) {
+                return item.isDisplayed() && item.getText().equals(title);
+            }
+        }
+        return false;
+    }
+
+    public Boolean isTitleTaskShowing(WebDriver driver, String title) {
+        waitForElement(driver, taskContent, 5);
+        List<WebElement> taskList = taskContent.findElements(By.cssSelector("div.task-content"));
+        List<WebElement> taskElement = taskList.get(0).findElements(By.cssSelector("div.row"));
+        String text = taskElement.get(1).findElement(By.tagName("span")).getText();
+        return text.equals(title);
+    }
+
+    public Boolean isDefaultSelectTaskShowing(WebDriver driver, String title) {
+        waitForElement(driver, taskContent, 5);
+        List<WebElement> taskList = taskContent.findElements(By.cssSelector("div.task-content"));
+        List<WebElement> taskElement = taskList.get(0).findElements(By.cssSelector("div.row"));
+        String text = taskElement.get(1).findElement(By.tagName("label")).getText();
+        return text.equals(title);
+    }
+
+    public Boolean isDescriptionShowing(WebDriver driver, String title) {
+        waitForElement(driver, boxNote, 5);
+        WebElement textArea = boxNote.findElement(By.tagName("textarea"));
+        String text = textArea.getAttribute("placeholder");
+        return text.equals(title);
+    }
+
+
+    public Boolean isDefaultInputTimeShowing(WebDriver driver, String title) {
+        waitForElement(driver, boxSpent, 5);
+        WebElement timeInput = boxSpent.findElement(By.tagName("small"));
+        return true;
+    }
+
+    public Boolean checkButtonRepeatClickable(WebDriver driver) {
+        waitForElement(driver, btnRepeat, 5);
+        return btnRepeat.isEnabled();
+    }
+
+    public Boolean checkButtonSaveClickable(WebDriver driver){
+        waitForElement(driver, btnSave, 5);
+        return btnSave.isEnabled();
+    }
+
+
+    public void selectedFirstValueProject(WebDriver driver) {
+        waitForElement(driver, dropdownProject, 5);
+        dropdownProject.click();
+        WebElement item = getItemMenuProjectPosition();
+        item.click();
+    }
+
+    private WebElement getItemMenuProjectPosition() {
+        List<WebElement> itemMenus = new ArrayList<>();
+        int countChildItem;
+        List<WebElement> items = dropdownProject.findElements(By.tagName("li"));
+        for (int i = 0; i < items.size(); i = i + countChildItem + 1) {
+            countChildItem = 0;
+            itemMenus.add(items.get(i));
+            if (items.get(i).findElements(By.tagName("li")).size() > 0) {
+                countChildItem = items.get(i).findElements(By.tagName("li")).size();
+            }
+        }
+        return itemMenus.get(0);
+    }
+
+    public void selectedFirstValueTask(WebDriver driver) {
+        waitForElement(driver, dropdownTask, 5);
+        dropdownTask.click();
+        WebElement item = getItemMenuTaskPosition();
+        item.click();
+    }
+
+    private WebElement getItemMenuTaskPosition() {
+        List<WebElement> itemMenus = new ArrayList<>();
+        int countChildItem;
+        List<WebElement> items = dropdownTask.findElements(By.tagName("li"));
+        for (int i = 0; i < items.size(); i = i + countChildItem + 1) {
+            countChildItem = 0;
+            itemMenus.add(items.get(i));
+            if (items.get(i).findElements(By.tagName("li")).size() > 0) {
+                countChildItem = items.get(i).findElements(By.tagName("li")).size();
+            }
+        }
+        return itemMenus.get(0);
+    }
 }
