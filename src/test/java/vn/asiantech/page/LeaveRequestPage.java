@@ -12,34 +12,34 @@ import java.util.List;
 public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
 
     @FindBy(xpath = "//p-dropdown[contains(@class,'ui-inputwrapper-filled')]")
-    private WebElement typeOfLeaveInput;
+    private WebElement inputTypeOfLeave;
 
     @FindBy(css = ".ng-tns-c2-2.ui-calendar")
-    private WebElement timeFromInput;
+    private WebElement inputTimeFrom;
 
     @FindBy(css = ".ng-tns-c2-5.ui-calendar")
-    private WebElement timeToInput;
+    private WebElement inputTimeTo;
 
     @FindBy(xpath = "//table[contains(@class,'ng-tns-c2-2')]")
-    private WebElement timeFromCalendar;
+    private WebElement calendarTimeFrom;
 
     @FindBy(xpath = "//table[contains(@class,'ng-tns-c2-5')]")
-    private WebElement timeToCalendar;
+    private WebElement calendarTimeTo;
 
     @FindBy(css = ".table.table-striped.table-vm.has-error")
-    private WebElement dateRequestTable;
+    private WebElement tableDateRequest;
 
     @FindBy(id = "cke_1_contents")
-    private WebElement messageInput;
+    private WebElement inputMessage;
 
     @FindBy(css = ".dl-horizontal.m-t-xs.ng-star-inserted")
-    private WebElement leaveBalanceTable;
+    private WebElement tableLeaveBalance;
 
     @FindBy(css = ".btn.btn-primary.btn-submit")
-    private WebElement submitButton;
+    private WebElement btnSubmit;
 
     @FindBy(className = "ui-dropdown-items-wrapper")
-    private WebElement typeOfLeaveMenu;
+    private WebElement menuTypeOfLeave;
 
     @FindBy(css = ".text-center.m-t-xs.ng-star-inserted")
     private WebElement messageTypeOfLeave;
@@ -55,7 +55,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public boolean checkTextAnnualLeave(WebDriver driver, String annualLeave) {
-        waitForElementDisplay(driver, leaveBalanceTable, 10);
+        waitForElementDisplay(driver, tableLeaveBalance, 10);
         return findLeaveBalance(0).getText().equals(annualLeave);
     }
 
@@ -72,28 +72,28 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public void clickMenuTypeOfLeave() {
-        typeOfLeaveInput.click();
+        inputTypeOfLeave.click();
     }
 
     public boolean isMenuDropDown() {
-        return typeOfLeaveMenu.isDisplayed();
+        return menuTypeOfLeave.isDisplayed();
     }
 
     public void clickItemMenuType(WebDriver driver, String status) {
-        waitForElementDisplay(driver, typeOfLeaveMenu, 10);
+        waitForElementDisplay(driver, menuTypeOfLeave, 10);
 
-        WebElement itemStatus = typeOfLeaveMenu.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        WebElement itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
         if (status.equals("Marriage Leave")) {
-            itemStatus = typeOfLeaveMenu.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
+            itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
         }
         if (status.equals("None Paid")) {
-            itemStatus = typeOfLeaveMenu.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(2);
+            itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(2);
         }
         if (status.equals("Overtime Leave")) {
-            itemStatus = typeOfLeaveMenu.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(3);
+            itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(3);
         }
         if (status.equals("Paternal Leave")) {
-            itemStatus = typeOfLeaveMenu.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(4);
+            itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(4);
         }
         itemStatus.click();
     }
@@ -101,7 +101,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     public void withMessage(WebDriver driver) {
         String message = "Gui A Tien";
 
-        waitForElementDisplay(driver, messageInput, 10);
+        waitForElementDisplay(driver, inputMessage, 10);
 
         driver.switchTo().frame(driver.findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
 
@@ -111,7 +111,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public boolean isEnableSubmitButton() {
-        return submitButton.isEnabled();
+        return btnSubmit.isEnabled();
     }
 
     public boolean isShowMessage(String mess) {
@@ -119,11 +119,11 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public void clickTimeFromBox() {
-        timeFromInput.click();
+        inputTimeFrom.click();
     }
 
     public void clickTimeToBox() {
-        timeToInput.click();
+        inputTimeTo.click();
     }
 
     public void chooseTime(String type) {
@@ -134,14 +134,14 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
 
     public boolean isCalendarShow(String type) {
         if (type.equals("timeFrom")) {
-            return timeFromCalendar.isDisplayed();
+            return calendarTimeFrom.isDisplayed();
         } else {
-            return timeToCalendar.isDisplayed();
+            return calendarTimeTo.isDisplayed();
         }
     }
 
     public boolean isDateRequestShow(WebDriver driver) {
-        waitForElementDisplay(driver, dateRequestTable, 10);
+        waitForElementDisplay(driver, tableDateRequest, 10);
         return true;
     }
 
@@ -152,7 +152,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
 
     public boolean isRemoveDateRequest() {
         try {
-            dateRequestTable.isDisplayed();
+            tableDateRequest.isDisplayed();
             return true;
         } catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
@@ -175,8 +175,8 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     private WebElement findRadioButtonDateRequest(WebDriver driver, int col) {
-        waitForElementDisplay(driver, dateRequestTable, 10);
-        WebElement data = dateRequestTable.findElement(By.tagName("tbody"));
+        waitForElementDisplay(driver, tableDateRequest, 10);
+        WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
 
         List<WebElement> rows = data.findElements(By.tagName("tr"));
         List<WebElement> columns = rows.get(0).findElements(By.cssSelector(".ui-radiobutton.ui-widget"));
@@ -185,13 +185,13 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public boolean checkDateInDateRequest(int row, String date) {
-        WebElement data = dateRequestTable.findElement(By.tagName("tbody"));
+        WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
         List<WebElement> rows = data.findElements(By.tagName("tr"));
         return rows.get(row).findElement(By.className("text-left")).getText().equals(date);
     }
 
     public void clickRemoveButton(int row) {
-        WebElement data = dateRequestTable.findElement(By.tagName("tbody"));
+        WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
         List<WebElement> rows = data.findElements(By.tagName("tr"));
         rows.get(row).findElement(By.className("delete")).click();
     }
@@ -206,7 +206,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public void clickSubmit() {
-        submitButton.click();
+        btnSubmit.click();
     }
 
     public boolean isShowDialog() {
@@ -243,16 +243,16 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     private WebElement findLeaveBalance(int pos) {
-        List<WebElement> balances = leaveBalanceTable.findElements(By.tagName("dd"));
+        List<WebElement> balances = tableLeaveBalance.findElements(By.tagName("dd"));
         return balances.get(pos).findElement(By.tagName("span"));
     }
 
     private void findDayLeave(String type) {
         WebElement data;
         if (type.equals("timeTo")) {
-            data = timeToCalendar.findElement(By.tagName("tbody"));
+            data = calendarTimeTo.findElement(By.tagName("tbody"));
         } else {
-            data = timeFromCalendar.findElement(By.tagName("tbody"));
+            data = calendarTimeFrom.findElement(By.tagName("tbody"));
         }
 
         List<WebElement> rows = data.findElements(By.tagName("tr"));
