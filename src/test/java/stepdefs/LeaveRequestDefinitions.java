@@ -1,5 +1,6 @@
 package stepdefs;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -93,10 +94,6 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         Then("^Calendar timeTo display$", () -> Assert.assertTrue(leaveRequestPage.isCalendarShow("timeTo")));
 
-        And("^I choose Sep (\\d+), (\\d+) in timeForm calendar$", (Integer arg0, Integer arg1) -> leaveRequestPage.chooseTime("timeFrom"));
-
-        And("^I choose Sep (\\d+), (\\d+) in timeTo calendar$", (Integer arg0, Integer arg1) -> leaveRequestPage.chooseTime("timeTo"));
-
         And("^I choose all day on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseAllday(getDriver())));
 
         And("^Check date is \"([^\"]*)\"$", (String date) -> Assert.assertTrue(leaveRequestPage.checkDateInDateRequest(0, date)));
@@ -117,10 +114,14 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         When("^I click submit on dialog$", () -> leaveRequestPage.clickSubmitButtonInDialog());
 
-        Then("^Redirect to leave detail$", () -> leaveRequestPage.display(getDriver()));
+        Then("^Redirect to leave detail$", () -> leaveRequestPage.redirectLeaveDetail());
 
         When("^I click cancel on dialog$", () -> leaveRequestPage.clickCancelButtonInDialog());
 
         Then("^Dialog disappeared$", () -> Assert.assertTrue(leaveRequestPage.isDialogDisappeared()));
+
+        And("^I choose today in timeForm calendar$", () -> leaveRequestPage.chooseTime("timeFrom"));
+
+        And("^I choose today in timeTo calendar$", () -> leaveRequestPage.chooseTime("timeTo"));
     }
 }

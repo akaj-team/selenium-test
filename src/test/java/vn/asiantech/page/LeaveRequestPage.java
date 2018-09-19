@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
-import java.util.Calendar;
 import java.util.List;
 
 public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
@@ -127,9 +126,8 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public void chooseTime(String type) {
-        findDayLeave(type);
-        Calendar cal = Calendar.getInstance();
-        System.out.println(cal.getTime());
+        java.util.Date date = new java.util.Date();
+        findDayLeave(type, date.getDate() + "");
     }
 
     public boolean isCalendarShow(String type) {
@@ -237,9 +235,8 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         }
     }
 
-    public void display(WebDriver driver) {
-        WebElement title = driver.findElement(By.className("col-sm-8"));
-        System.out.println(title.getText());
+    public void redirectLeaveDetail() {
+        // To-do later
     }
 
     private WebElement findLeaveBalance(int pos) {
@@ -247,8 +244,9 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         return balances.get(pos).findElement(By.tagName("span"));
     }
 
-    private void findDayLeave(String type) {
+    private void findDayLeave(String type, String day) {
         WebElement data;
+        WebElement item = null;
         if (type.equals("timeTo")) {
             data = calendarTimeTo.findElement(By.tagName("tbody"));
         } else {
@@ -256,8 +254,21 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         }
 
         List<WebElement> rows = data.findElements(By.tagName("tr"));
-        List<WebElement> cols = rows.get(3).findElements(By.tagName("td"));
 
-        cols.get(1).findElement(By.tagName("a")).click();
+        for (WebElement row : rows) {
+            List<WebElement> cols = row.findElements(By.tagName("td"));
+            for (WebElement col : cols) {
+                if (col.findElement(By.tagName("a")).getText().equals(day)) {
+                    item = col.findElement(By.tagName("a"));
+                    break;
+                }
+            }
+            if (item != null) {
+                break;
+            }
+        }
+        if (item != null) {
+            item.click();
+        }
     }
 }

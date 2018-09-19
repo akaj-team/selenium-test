@@ -52,22 +52,21 @@ Feature: Create new my leave
     Given I chose type leave is "None Paid"
     When I click on timeFrom box leave time
     Then Calendar timeFrom display
-    And I choose Sep 17, 2018 in timeForm calendar
+    And I choose today in timeForm calendar
     When I click on timeTo box leave time
     Then Calendar timeTo display
-    And I choose Sep 17, 2018 in timeTo calendar
+    And I choose today in timeTo calendar
     And Show date request
 
   Scenario: Check date request
     Given I chose type leave is "None Paid"
     When I click on timeFrom box leave time
     Then Calendar timeFrom display
-    When I choose Sep 17, 2018 in timeForm calendar
+    When I choose today in timeForm calendar
     When I click on timeTo box leave time
     Then Calendar timeTo display
-    When I choose Sep 17, 2018 in timeTo calendar
+    When I choose today in timeTo calendar
     Then Show date request
-    And Check date is "Monday, Sep 17, 2018"
     And I choose afternoon on show date request
     And I choose morning on show date request
     And I choose all day on show date request
@@ -78,10 +77,10 @@ Feature: Create new my leave
     Given I chose type leave is "None Paid"
     When I click on timeFrom box leave time
     Then Calendar timeFrom display
-    And I choose Sep 17, 2018 in timeForm calendar
+    And I choose today in timeForm calendar
     When I click on timeTo box leave time
     Then Calendar timeTo display
-    And I choose Sep 17, 2018 in timeTo calendar
+    And I choose today in timeTo calendar
     When I enter the message
     Then Submit button is enabled
 
