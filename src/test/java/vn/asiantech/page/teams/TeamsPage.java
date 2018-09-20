@@ -1,21 +1,16 @@
-package vn.asiantech.page;
+package vn.asiantech.page.teams;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
 import java.util.List;
-import java.util.logging.Handler;
 
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
  * Created by at-vietphan on 9/13/18.
  */
 public class TeamsPage extends BasePage<TeamsPage> {
-    public static final int TIME_SECONDS = 1000;
     public static final int TIME_OUT_SECONDS_10 = 10;
     private static final int COLUMN_NAME = 0;
     private static final int COLUMN_MANAGER = 1;
@@ -32,9 +27,6 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     @FindBy(className = "ui-overflow-hidden")
     private WebElement hiddenBody;
-
-    @FindBy(css = ".wrapper.wrapper-content")
-    private WebElement wrapper;
 
     @Override
     public TeamsPage navigateTo(final WebDriver webDriver) {
@@ -82,14 +74,27 @@ public class TeamsPage extends BasePage<TeamsPage> {
     public final String onClickNewTeam() {
         WebElement newEmployee = titleAction.findElement(By.cssSelector(".btn.btn-sm.btn-default.btn-add"));
         newEmployee.click();
-        return newEmployee.getAttribute("href");
+        String href;
+        try {
+            href = newEmployee.getAttribute("href");
+        } catch (StaleElementReferenceException e) {
+            e.printStackTrace();
+            href = newEmployee.getAttribute("href");
+        }
+        return href;
     }
 
     public final String onClickUpdateTeam() {
         WebElement columnAction = getColumnIndex(COLUMN_ACTION, 0);
         WebElement aUpdate = columnAction.findElement(By.tagName("a"));
         aUpdate.click();
-        return aUpdate.getAttribute("href");
+        String href="";
+        try {
+            href = aUpdate.getAttribute("href");
+        } catch (StaleElementReferenceException e) {
+            e.printStackTrace();
+        }
+        return href;
     }
 
     public final String onClickDeleteTeam(int position) {
@@ -122,26 +127,5 @@ public class TeamsPage extends BasePage<TeamsPage> {
     private WebElement getColumnIndex(final Integer column, final int position) {
         List<WebElement> rows = tableBody.findElements(By.tagName("tr"));
         return rows.get(position).findElements(By.tagName("td")).get(column);
-    }
-
-    public final void clearNameTeam() {
-        wrapper.findElement(By.name("name")).clear();
-        try {
-            Thread.sleep(TIME_SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public final Boolean isBtnSubmitEnable() {
-        try {
-            return wrapper.findElement(By.name("submit")).isEnabled();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    public final void inputNameTeam(final String name) {
-        wrapper.findElement(By.name("name")).sendKeys(name);
     }
 }

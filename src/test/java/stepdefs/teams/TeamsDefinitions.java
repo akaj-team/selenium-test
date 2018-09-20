@@ -1,4 +1,4 @@
-package stepdefs;
+package stepdefs.teams;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
@@ -8,22 +8,23 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.TeamsPage;
+import vn.asiantech.page.teams.TeamsPage;
 
-import static vn.asiantech.page.TeamsPage.TIME_OUT_SECONDS_10;
+import static vn.asiantech.page.teams.TeamsPage.TIME_OUT_SECONDS_10;
 
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
  * Created by at-vietphan on 9/18/18.
  */
 public class TeamsDefinitions extends DriverBase implements En {
-    private static final String URL_PAGE_TEAMS = "http://portal-stg.asiantech.vn/organisation/teams";
+    static final String URL_PAGE_TEAMS = "http://portal-stg.asiantech.vn/organisation/teams";
+    static String urlUpdateTeam;
+
     private WebDriver driver;
     private TeamsPage mTeamsPage;
     private String urlTeamDetail;
     private String urlEmployeeDetail;
     private String urlNewTeam;
-    private String urlUpdateTeam;
     private String nameTeam;
 
     public TeamsDefinitions() {
@@ -37,9 +38,9 @@ public class TeamsDefinitions extends DriverBase implements En {
             driver.get(URL_PAGE_TEAMS);
             new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            Assert.assertEquals(URL_PAGE_TEAMS, driver.getCurrentUrl());
             new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(
                     ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
+            Assert.assertEquals(URL_PAGE_TEAMS, driver.getCurrentUrl());
         });
 
         //Search teams with enter name team
@@ -74,14 +75,14 @@ public class TeamsDefinitions extends DriverBase implements En {
         When("^I click on button New Team$", () -> urlNewTeam = mTeamsPage.onClickNewTeam());
         Then("^Page is redirected to New Team page$", () -> {
             new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.urlToBe(urlNewTeam));
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("wrapper-content")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
         });
 
-        // Update team detail
+        // Update team
         When("^I click on button update team$", () -> urlUpdateTeam = mTeamsPage.onClickUpdateTeam());
         Then("^Page is redirected to Update Team page$", () -> {
             new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.urlToBe(urlUpdateTeam));
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("wrapper-content")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
         });
 
         // Delete team
@@ -95,15 +96,5 @@ public class TeamsDefinitions extends DriverBase implements En {
             new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("app-alert")));
             Assert.assertTrue(driver.findElement(By.className("app-alert")).isDisplayed());
         });
-
-        // UpdateTeam
-        When("^I clear text in inputName$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.name("name")));
-            mTeamsPage.clearNameTeam();
-        });
-        Then("^Button submit is unable$", () -> Assert.assertFalse(mTeamsPage.isBtnSubmitEnable()));
-        When("^I fill in inputName with \"([^\"]*)\"$", (String name) -> mTeamsPage.inputNameTeam(name));
-        Then("^Button submit is enable$", () -> Assert.assertTrue((mTeamsPage.isBtnSubmitEnable())));
-
     }
 }

@@ -23,9 +23,9 @@ Feature: Login in AT portal
     And I should see message "No records found"
     Examples:
       | search |
-      | aaa    |
-      | bbb    |
-      | ccc    |
+      | aaa999 |
+      | bbb888 |
+      | ccc777 |
 
   Scenario: Open successfully profile when click on avatar of team
     When I click on avatar of team
@@ -38,3 +38,15 @@ Feature: Login in AT portal
   Scenario: Open successfully profile when click on username of manager
     When I click on username of manager
     Then Manager profile is displayed
+
+  Scenario: Open successfully new team page when click on button New Team
+    Given I click on button New Team
+    And Page is redirected to New Team page
+
+  Scenario: Open successfully update team page when click on button Update
+    When I click on button update team
+    Then Page is redirected to Update Team page
+
+  Scenario: Open successfully dialog delete team when click on button Delete
+    When I click on button delete team at position is 1
+    Then I should see dialog confirm delete team
