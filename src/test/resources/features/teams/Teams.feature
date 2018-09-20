@@ -7,8 +7,8 @@ Feature: Login in AT portal
     Given I am logged in as an "EM"
     And I am stayed in teams page
 
-  Scenario Outline: Search teams with enter name team and result is list team
-    When Enter toolbox search with name is "<search>"
+  Scenario Outline: Search teams with result is list team
+    When Enter search with name is "<search>"
     Then I should see list team
     Examples:
       | search  |
@@ -17,8 +17,8 @@ Feature: Login in AT portal
       | IOS     |
 
 
-  Scenario Outline: Search teams with enter name team and result is empty team
-    When Enter toolbox search with name is "<search>"
+  Scenario Outline: Search teams with result is empty
+    When Enter search with name is "<search>"
     Then I should see list team is empty
     And I should see message "No records found"
     Examples:

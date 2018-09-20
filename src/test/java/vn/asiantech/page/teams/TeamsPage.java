@@ -108,6 +108,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
         try {
             return hiddenBody.isDisplayed();
         } catch (NoSuchElementException e) {
+            e.printStackTrace();
             return false;
         }
     }

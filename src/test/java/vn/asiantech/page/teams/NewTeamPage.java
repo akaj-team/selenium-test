@@ -13,16 +13,13 @@ import java.util.List;
  * Created by at-vietphan on 9/20/18.
  */
 public class NewTeamPage extends BasePage<NewTeamPage> {
-    private static final String URL_NEW_TEAM_PAGE = "http://portal-stg.asiantech.vn/organisation/teams/new";
-
     @FindBy(css = ".ibox-content")
     private WebElement iboxContent;
     private WebElement itemManager;
 
-
     @Override
     public final NewTeamPage navigateTo(final WebDriver webDriver) {
-        webDriver.get(URL_NEW_TEAM_PAGE);
+        webDriver.get("http://portal-stg.asiantech.vn/organisation/teams/new");
         return this;
     }
 
