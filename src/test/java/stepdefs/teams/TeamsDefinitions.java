@@ -48,7 +48,7 @@ public class TeamsDefinitions extends DriverBase implements En {
             mTeamsPage.searchNameTeam(name);
             String redirectUrl = URL_PAGE_TEAMS + ";name_cont=" + name;
             new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.urlToBe(redirectUrl));
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(webDriver ->webDriver.findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).isDisplayed());
+            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(webDriver -> webDriver.findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).isDisplayed());
         });
         Then("^I should see list team$", () -> Assert.assertFalse(mTeamsPage.isTeamListEmpty()));
         Then("^I should see list team is empty$", () -> Assert.assertTrue(mTeamsPage.isTeamListEmpty()));
