@@ -17,11 +17,11 @@ public class NewTeamPage extends BasePage<NewTeamPage> {
 
     @FindBy(css = ".ibox-content")
     private WebElement iboxContent;
-    private WebElement positionList;
+    private WebElement itemManager;
 
 
     @Override
-    public NewTeamPage navigateTo(WebDriver webDriver) {
+    public final NewTeamPage navigateTo(final WebDriver webDriver) {
         webDriver.get(URL_NEW_TEAM_PAGE);
         return this;
     }
@@ -29,12 +29,12 @@ public class NewTeamPage extends BasePage<NewTeamPage> {
     public final Boolean clickPositionView() {
         WebElement positionView = iboxContent.findElements(By.className("form-group")).get(1).findElement(By.className("col-md-8"));
         positionView.click();
-        positionList = positionView.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
-        return positionList.getAttribute("class").contains("ui-dropdown-open");
+        itemManager = positionView.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
+        return itemManager.getAttribute("class").contains("ui-dropdown-open");
     }
 
     public final void selectManager() {
-        List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
+        List<WebElement> positions = itemManager.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
         positions.get(1).click();
     }
 }

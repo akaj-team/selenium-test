@@ -17,6 +17,7 @@ import static vn.asiantech.page.teams.TeamsPage.TIME_OUT_SECONDS_10;
  * Created by at-vietphan on 9/20/18.
  */
 public class NewTeamDefinitions extends DriverBase implements En {
+    private static final int INDEX_ID_IN_URL = 5;
     private WebDriver driver;
     private NewTeamPage mNewTeamPage;
     private Boolean isShowPositionList;
@@ -43,7 +44,7 @@ public class NewTeamDefinitions extends DriverBase implements En {
         });
         Then("^Open successfully team detail page$", () -> {
             new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
-            String id = driver.getCurrentUrl().split("/")[5];
+            String id = driver.getCurrentUrl().split("/")[INDEX_ID_IN_URL];
             System.out.print(id);
             Assert.assertEquals(driver.getCurrentUrl(), URL_PAGE_TEAMS + "/" + id);
         });

@@ -20,7 +20,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
     private WebElement sectionToolBox;
 
     @FindBy(className = "ui-datatable-data")
-    private WebElement tableBody;
+    private WebElement tbBody;
 
     @FindBy(className = "title-action")
     private WebElement titleAction;
@@ -29,7 +29,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
     private WebElement hiddenBody;
 
     @Override
-    public TeamsPage navigateTo(final WebDriver webDriver) {
+    public final TeamsPage navigateTo(final WebDriver webDriver) {
         webDriver.get("http://portal-stg.asiantech.vn/organisation/teams");
         return this;
     }
@@ -40,7 +40,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
     }
 
     public final boolean isTeamListEmpty() {
-        List<WebElement> rows = tableBody.findElements(By.tagName("tr"));
+        List<WebElement> rows = tbBody.findElements(By.tagName("tr"));
         if (rows.get(0).getAttribute("class").contains("ui-datatable-emptymessage-row")) {
             return true;
         }
@@ -48,7 +48,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
     }
 
     public final String showMessageEmptyTeam() {
-        WebElement rowEmpty = tableBody.findElement(By.tagName("tr"));
+        WebElement rowEmpty = tbBody.findElement(By.tagName("tr"));
         return rowEmpty.findElement(By.tagName("span")).getText();
     }
 
@@ -88,7 +88,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
         WebElement columnAction = getColumnIndex(COLUMN_ACTION, 0);
         WebElement aUpdate = columnAction.findElement(By.tagName("a"));
         aUpdate.click();
-        String href="";
+        String href = "";
         try {
             href = aUpdate.getAttribute("href");
         } catch (StaleElementReferenceException e) {
@@ -97,7 +97,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
         return href;
     }
 
-    public final String onClickDeleteTeam(int position) {
+    public final String onClickDeleteTeam(final int position) {
         WebElement columnAction = getColumnIndex(COLUMN_ACTION, position);
         columnAction.findElement(By.tagName("button")).click();
         WebElement columnName = getColumnIndex(COLUMN_NAME, position);
@@ -125,7 +125,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
     }
 
     private WebElement getColumnIndex(final Integer column, final int position) {
-        List<WebElement> rows = tableBody.findElements(By.tagName("tr"));
+        List<WebElement> rows = tbBody.findElements(By.tagName("tr"));
         return rows.get(position).findElements(By.tagName("td")).get(column);
     }
 }

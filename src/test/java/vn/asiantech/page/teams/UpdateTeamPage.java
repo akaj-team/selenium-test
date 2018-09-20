@@ -25,7 +25,7 @@ public class UpdateTeamPage extends BasePage<UpdateTeamPage> {
     private WebElement titleAction;
 
     @Override
-    public UpdateTeamPage navigateTo(WebDriver webDriver) {
+    public final UpdateTeamPage navigateTo(final WebDriver webDriver) {
         return null;
     }
 
