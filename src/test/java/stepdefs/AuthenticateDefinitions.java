@@ -45,7 +45,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
     }
 
     private void initMap() {
-        accounts.put("EM", new Account("stg.hang.nguyen@asiantech.vn", "Abc123@@"));
+        accounts.put("EM", new Account("stg.tien.hoang@asiantech.vn", "Abc123@@"));
         accounts.put("QCE", new Account("stg.lam.le2@asiantech.vn", "Abc123@@"));
         accounts.put("AQC", new Account("stg.tu.le.2@asiantech.vn", "Abc123@@"));
         accounts.put("SQCE", new Account("stg.hang.nguyen@asiantech.vn", "Abc123@@"));
