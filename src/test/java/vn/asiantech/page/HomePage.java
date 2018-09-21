@@ -41,9 +41,6 @@ public class HomePage extends BasePage<HomePage> {
     @FindBy(name = "search")
     private WebElement inputSearch;
 
-    private WebElement listTab;
-    private List<WebElement> listBtnTab;
-
     @Override
     public final HomePage navigateTo(final WebDriver webDriver) {
         webDriver.get(URL_HOME_PAGE);
@@ -151,22 +148,22 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public final void scrollIBoxContent(final WebDriver driver, final boolean isDown) {
-        scrollElementContent(homeContentHasData, driver, isDown);
+        List<WebElement> listFeed = homeContentHasData.findElements(By.cssSelector("div.social-feed-box.ng-star-inserted"));
+        scrollElementContent(listFeed, driver, isDown);
     }
 
     public final void scrollRightSideBar(final WebDriver driver, final boolean isDown) {
-        scrollElementContent(rightSideBar, driver, isDown);
+        List<WebElement> listFeed = rightSideBar.findElements(By.cssSelector("div.feed-element.ng-star-inserted"));
+        scrollElementContent(listFeed, driver, isDown);
     }
 
     private WebElement getBtnTab(final WebElement elementContent, final String position) {
-        listTab = elementContent.findElement(By.className("ui-buttonset-3"));
-        listBtnTab = listTab.findElements(By.className("ui-button-text-only"));
+        List<WebElement> listBtnTab = elementContent.findElement(By.className("ui-buttonset-3")).findElements(By.className("ui-button-text-only"));
         return listBtnTab.get(Integer.parseInt(position));
     }
 
     private boolean checkColorOtherTab(final WebElement elementContent, final String color, final String position) {
-        listTab = elementContent.findElement(By.className("ui-buttonset-3"));
-        listBtnTab = listTab.findElements(By.className("ui-button-text-only"));
+        List<WebElement> listBtnTab = elementContent.findElement(By.className("ui-buttonset-3")).findElements(By.className("ui-button-text-only"));
         for (int i = 0; i < listBtnTab.size(); i++) {
             if (i != Integer.parseInt(position)) {
                 return getActualColor(listBtnTab.get(i)).equals(color);
@@ -186,12 +183,13 @@ public class HomePage extends BasePage<HomePage> {
         return String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
     }
 
-    private void scrollElementContent(final WebElement elementContent, final WebDriver driver, final boolean isDown) {
-        List<WebElement> listFeed = elementContent.findElements(By.cssSelector("div.feed-element.ng-star-inserted"));
-        if (isDown) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", listFeed.get(listFeed.size() - 1));
-        } else {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", listFeed.get(0));
+    private void scrollElementContent(final List<WebElement> listElementContent, final WebDriver driver, final boolean isDown) {
+        if (listElementContent.size() > 0) {
+            if (isDown) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", listElementContent.get(listElementContent.size() - 1));
+            } else {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", listElementContent.get(0));
+            }
         }
     }
 }
