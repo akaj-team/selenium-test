@@ -10,16 +10,16 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.teams.TeamsPage;
 
-import static vn.asiantech.page.teams.TeamsPage.TIME_OUT_SECONDS_10;
-
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
  * Created by at-vietphan on 9/18/18.
  */
 public class TeamsDefinitions extends DriverBase implements En {
-    static final String URL_PAGE_TEAMS = "http://portal-stg.asiantech.vn/organisation/teams";
-    static String urlUpdateTeam;
+    private static final int TIME_OUT_SECONDS_10 = 10;
+    private static final int TIME_OUT_SECONDS_20 = 20;
+    private static final String URL_PAGE_TEAMS = "http://portal-stg.asiantech.vn/organisation/teams";
 
+    private String urlUpdateTeam;
     private WebDriver driver;
     private TeamsPage mTeamsPage;
     private String urlTeamDetail;
@@ -36,10 +36,8 @@ public class TeamsDefinitions extends DriverBase implements En {
         mTeamsPage = initPage(getDriver(), TeamsPage.class);
         And("^I am stayed in teams page$", () -> {
             driver.get(URL_PAGE_TEAMS);
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(
-                    ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
             Assert.assertEquals(URL_PAGE_TEAMS, driver.getCurrentUrl());
         });
 
@@ -47,7 +45,7 @@ public class TeamsDefinitions extends DriverBase implements En {
         When("^Enter search with name is \"([^\"]*)\"$", (String name) -> {
             mTeamsPage.searchNameTeam(name);
             String redirectUrl = URL_PAGE_TEAMS + ";name_cont=" + name;
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.urlToBe(redirectUrl));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_20).until(ExpectedConditions.urlToBe(redirectUrl));
             new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(webDriver -> webDriver.findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).isDisplayed());
         });
         Then("^I should see list team$", () -> Assert.assertFalse(mTeamsPage.isTeamListEmpty()));
@@ -58,7 +56,7 @@ public class TeamsDefinitions extends DriverBase implements En {
         When("^I click on avatar of team$", () -> urlTeamDetail = mTeamsPage.onClickAvatarTeam());
         When("^I click on name team$", () -> urlTeamDetail = mTeamsPage.onClickNameTeam());
         Then("^Team details is displayed$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.urlToBe(urlTeamDetail));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_20).until(ExpectedConditions.urlToBe(urlTeamDetail));
             new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
             Assert.assertTrue(driver.findElement(By.className("section-top")).isDisplayed());
 
@@ -66,7 +64,7 @@ public class TeamsDefinitions extends DriverBase implements En {
         // Open successfully profile when click on username of manager
         When("^I click on username of manager$", () -> urlEmployeeDetail = mTeamsPage.onClickNameManager());
         Then("^Manager profile is displayed$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.urlToBe(urlEmployeeDetail));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_20).until(ExpectedConditions.urlToBe(urlEmployeeDetail));
             new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
             Assert.assertTrue(driver.findElement(By.className("section-top")).isDisplayed());
         });
@@ -74,14 +72,14 @@ public class TeamsDefinitions extends DriverBase implements En {
         // Add new team
         When("^I click on button New Team$", () -> urlNewTeam = mTeamsPage.onClickNewTeam());
         Then("^Page is redirected to New Team page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.urlToBe(urlNewTeam));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_20).until(ExpectedConditions.urlToBe(urlNewTeam));
             new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
         });
 
         // Update team
         When("^I click on button update team$", () -> urlUpdateTeam = mTeamsPage.onClickUpdateTeam());
         Then("^Page is redirected to Update Team page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.urlToBe(urlUpdateTeam));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_20).until(ExpectedConditions.urlToBe(urlUpdateTeam));
             new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
         });
 

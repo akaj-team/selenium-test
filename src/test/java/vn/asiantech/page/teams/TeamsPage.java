@@ -11,7 +11,6 @@ import java.util.List;
  * Created by at-vietphan on 9/13/18.
  */
 public class TeamsPage extends BasePage<TeamsPage> {
-    public static final int TIME_OUT_SECONDS_10 = 10;
     private static final int COLUMN_NAME = 0;
     private static final int COLUMN_MANAGER = 1;
     private static final int COLUMN_ACTION = 3;
@@ -74,12 +73,11 @@ public class TeamsPage extends BasePage<TeamsPage> {
     public final String onClickNewTeam() {
         WebElement newEmployee = titleAction.findElement(By.cssSelector(".btn.btn-sm.btn-default.btn-add"));
         newEmployee.click();
-        String href;
+        String href="";
         try {
             href = newEmployee.getAttribute("href");
         } catch (StaleElementReferenceException e) {
             e.printStackTrace();
-            href = newEmployee.getAttribute("href");
         }
         return href;
     }

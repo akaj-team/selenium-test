@@ -8,13 +8,13 @@ import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
- * Created by at-vietphan on 9/20/18.
+ * Created by at-vietphan on 9/21/18.
  */
-public class UpdateTeamPage extends BasePage<UpdateTeamPage> {
-
+public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
     @FindBy(css = ".wrapper.wrapper-content")
     private WebElement wrapper;
 
@@ -24,9 +24,23 @@ public class UpdateTeamPage extends BasePage<UpdateTeamPage> {
     @FindBy(className = "title-action")
     private WebElement titleAction;
 
+    private WebElement itemManager;
+
     @Override
-    public final UpdateTeamPage navigateTo(final WebDriver webDriver) {
+    public final NewTeamFormPage navigateTo(final WebDriver webDriver) {
         return null;
+    }
+
+    public final StringBuilder generateNameTeam() {
+        String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder stringBuilder = new StringBuilder();
+        Random random = new Random();
+        int randomLength = 1 + random.nextInt(49);
+        for (int i = 0; i < randomLength; i++) {
+            char c = alphabet.charAt(random.nextInt(alphabet.length()));
+            stringBuilder.append(c);
+        }
+        return stringBuilder;
     }
 
     public final void sendKeyInputName(final String name) {
@@ -65,5 +79,16 @@ public class UpdateTeamPage extends BasePage<UpdateTeamPage> {
 
     public final void onClickBtnTeams() {
         titleAction.findElement(By.tagName("a")).click();
+    }
+
+    public final void clickDropDownListManager() {
+        WebElement dropDownListManager = iboxContent.findElements(By.className("form-group")).get(1).findElement(By.className("col-md-8"));
+        dropDownListManager.click();
+        itemManager = dropDownListManager.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
+    }
+
+    public final void selectManager() {
+        List<WebElement> listManager = itemManager.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
+        listManager.get(1).click();
     }
 }

@@ -41,10 +41,21 @@ Feature: Login in AT portal
     And I select a item in manager list
     Then Button submit is enable
 
-  Scenario: Click button submit when fill name and selected manager
-    When I fill in inputName with "football group 2"
+  Scenario: Open successfully teams page when click on button Team in title
+    When I click on button Team in title
+    Then Open successfully team page
+
+  Scenario: Show fail message when click button submit
+    When I fill in inputName with "Android"
     And I open dropdown Manager
     And I select a item in manager list
     When I click on button Submit
-    Then Open successfully team detail page
-    And I should see the created team success message
+    Then I should see fail or success message
+
+  Scenario: Open successfully team detail page when click button submit
+    When I fill in inputName with new name
+    And I open dropdown Manager
+    And I select a item in manager list
+    When I click on button Submit
+    Then Open successfully team detail page after created
+    And I should see fail or success message

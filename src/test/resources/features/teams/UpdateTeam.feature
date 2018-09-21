@@ -35,7 +35,12 @@ Feature: Login in AT portal
     When I click on button Team in title
     Then Open successfully team page
 
+  Scenario: Click button Submit, show fail message
+    When I fill in inputName with "Android"
+    And I click on button Submit
+    Then I should see fail or success message
+
   Scenario: Click button Submit, redirect to Team Detail page
     When I click on button Submit
-    Then Open successfully team detail page of that team
-    And I should see the update success message
+    Then Open successfully team detail page after update
+    And I should see fail or success message
