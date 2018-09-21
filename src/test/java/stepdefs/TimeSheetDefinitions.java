@@ -85,7 +85,7 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         And("^Display text area description default value is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isDescriptionShowing(driver, content)));
         And("^Display text input time is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isDefaultInputTimeShowing(driver, content)));
         And("^Display button Repeat every day is disable$", () -> Assert.assertTrue(myTimeSheet.checkButtonRepeatClickable(driver)));
-        And("^Display button Save is disable$", () -> Assert.assertTrue(myTimeSheet.checkButtonSaveClickable(driver)));
+        And("^Display button Save is disable$", () -> Assert.assertFalse(myTimeSheet.checkButtonSaveClickable(driver)));
 
 
         When("^Create and submit timesheet$", () -> myTimeSheet.getAddTimeSheetsClickable());
