@@ -15,7 +15,14 @@ import java.util.List;
 
 import static vn.asiantech.base.DriverBase.getDriver;
 
+/**
+ * MyLeavePage
+ *
+ * @author at-anh.quach
+ */
+
 public class MyLeavePage extends BasePage<MyLeavePage> {
+    private static final int TIMEOUTINSECONDS = 5;
 
     @FindBy(css = ".toolbox-item.dropdown-md")
     private WebElement inputStatus;
@@ -42,8 +49,8 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         return this;
     }
 
-    public void clickMenuStatus(WebDriver driver) {
-        waitForElementDisplay(driver, inputStatus, 10);
+    public void clickMenuStatus() {
+        waitForElementDisplay(getDriver(), inputStatus);
         inputStatus.click();
     }
 
@@ -65,29 +72,29 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         itemStatus.click();
     }
 
-    public boolean checkTextStatusMenu(String status, WebDriver driver) {
-        waitForElementDisplay(driver, inputStatus, 10);
+    public boolean checkTextStatusMenu(String status) {
+        waitForElementDisplay(getDriver(), inputStatus);
         return inputStatus.findElement(By.tagName("label")).getText().equals(status);
     }
 
     public boolean checkTextSYSID(String sysid) {
-        return findDataLeave(0, 0).getText().equals(sysid);
+        return findDataLeave(0).getText().equals(sysid);
     }
 
     public boolean checkTextTypeOfLeave(String type) {
-        return findDataLeave(0, 1).getText().equals(type);
+        return findDataLeave(1).getText().equals(type);
     }
 
     public boolean checkTextStatus(String status) {
-        return findDataLeave(0, 2).getAttribute("class").equals(getNameIconStatus(status));
+        return findDataLeave(2).getAttribute("class").equals(getNameIconStatus(status));
     }
 
     public boolean checkTextApprover(String approver) {
-        return findDataLeave(0, 5).getText().equals(approver);
+        return findDataLeave(5).getText().equals(approver);
     }
 
     public boolean checkTextManager(String manager) {
-        return findDataLeave(0, 6).getText().equals(manager);
+        return findDataLeave(6).getText().equals(manager);
     }
 
     public boolean checkTextAnnualLeave(String annualLeave) {
@@ -111,35 +118,35 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public boolean checkNoRecordsFound() {
-        return findDataLeave(0, 0).getText().equals("No records found");
+        return findDataLeave(0).getText().equals("No records found");
     }
 
-    public void clickSYSID(WebDriver driver) {
-        waitForElementDisplay(driver, inputStatus, 10);
-        sysid = findDataLeave(0, 0).getText();
-        findDataLeave(0, 0).click();
+    public void clickSYSID() {
+        waitForElementDisplay(getDriver(), inputStatus);
+        sysid = findDataLeave(0).getText();
+        findDataLeave(0).click();
     }
 
-    public void clickNameManager(WebDriver driver) {
-        waitForElementDisplay(driver, inputStatus, 10);
-        findDataLeave(0, 6).click();
+    public void clickNameManager() {
+        waitForElementDisplay(getDriver(), inputStatus);
+        findDataLeave(6).click();
     }
 
-    public void clickIconSearch(WebDriver driver) {
-        waitForElementDisplay(driver, inputStatus, 10);
-        sysid = findDataLeave(0, 0).getText();
-        findDataLeave(0, 7).click();
+    public void clickIconSearch() {
+        waitForElementDisplay(getDriver(), inputStatus);
+        sysid = findDataLeave(0).getText();
+        findDataLeave(7).click();
     }
 
-    public void clickBtnLeaveRequest(WebDriver driver) {
-        waitForElementDisplay(driver, inputStatus, 10);
+    public void clickBtnLeaveRequest() {
+        waitForElementDisplay(getDriver(), inputStatus);
         btnLeaveRequest.click();
     }
 
-    public void hoverMouseToStatus(WebDriver driver) {
-        waitForElementDisplay(driver, tableLeave, 10);
+    public void hoverMouseToStatus() {
+        waitForElementDisplay(getDriver(), tableLeave);
         Actions builder = new Actions(getDriver());
-        builder.moveToElement(findDataLeave(0, 2)).build().perform();
+        builder.moveToElement(findDataLeave(2)).build().perform();
     }
 
     public boolean checkDisplayTipStatus(String status) {
@@ -149,16 +156,16 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
 
     public void displayLeaveDetailPage(WebDriver driver) {
         driver.get("http://portal-stg.asiantech.vn/leave/" + sysid);
-        new WebDriverWait(driver, 10).until(
+        new WebDriverWait(driver, TIMEOUTINSECONDS).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+        new WebDriverWait(driver, TIMEOUTINSECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
         Assert.assertEquals("http://portal-stg.asiantech.vn/leave/" + sysid, driver.getCurrentUrl());
     }
 
-    private WebElement findDataLeave(int row, int col) {
+    private WebElement findDataLeave(int col) {
         WebElement tableData = tableLeave.findElement(By.tagName("table"));
         List<WebElement> rows = tableData.findElements(By.tagName("tr"));
-        List<WebElement> columns = rows.get(row).findElements(By.tagName("td"));
+        List<WebElement> columns = rows.get(0).findElements(By.tagName("td"));
 
         if (col != 2) {
             return columns.get(col).findElement(By.tagName("span"));

@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage<T> {
+    private static final int TIMEOUTINSECONDS = 10;
+
 
     public abstract T navigateTo(WebDriver webDriver);
 
@@ -18,13 +20,13 @@ public abstract class BasePage<T> {
         return true;
     }
 
-    public void waitForElement(WebDriver webDriver, WebElement element, int timeOutInSecond) {
+    protected final void waitForElement(WebDriver webDriver, WebElement element, int timeOutInSecond) {
         new WebDriverWait(webDriver, timeOutInSecond).until(
                 driver -> isElementPresented(element));
     }
 
-    public void waitForElementDisplay(WebDriver webDriver, WebElement element, int timeOutInSecond) {
-        new WebDriverWait(webDriver, timeOutInSecond).until(
+    protected final void waitForElementDisplay(WebDriver webDriver, WebElement element) {
+        new WebDriverWait(webDriver, TIMEOUTINSECONDS).until(
                 driver -> element.isDisplayed());
     }
 }

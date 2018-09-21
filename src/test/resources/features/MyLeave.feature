@@ -66,7 +66,3 @@ Feature: Check my leave
   Scenario: I want to click button leave request
     When I click on Leave Request button
     Then Leave Request page is displayed
-
-  Scenario: I want to check tip status
-    When I hover mouse on status
-    Then Tip status display is "Pending"

@@ -13,7 +13,15 @@ import vn.asiantech.page.MyLeavePage;
 
 import java.util.List;
 
+/**
+ * MyLeaveDefinitions
+ *
+ * @author at-anh.quach
+ */
+
 public class MyLeaveDefinitions extends DriverBase implements En {
+    private static final int TIMEOUTINSECONDS = 5;
+
     private WebDriver driver;
     private WebElement usernameInput;
     private WebElement passwordInput;
@@ -31,7 +39,7 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         Given("^I logged in with a employee account$", () -> {
             driver.get("http://portal-stg.asiantech.vn");
-            new WebDriverWait(driver, 10).until(
+            new WebDriverWait(driver, TIMEOUTINSECONDS).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             String url = driver.getCurrentUrl();
             if (url.endsWith("/auth/login")) {
@@ -42,7 +50,7 @@ public class MyLeaveDefinitions extends DriverBase implements En {
                 usernameInput.sendKeys("stg.thien.dang2@asiantech.vn");
                 passwordInput.sendKeys("Abc123@@");
                 driver.findElement(By.className("btn-primary")).click();
-                new WebDriverWait(driver, 5).until(
+                new WebDriverWait(driver, TIMEOUTINSECONDS).until(
                         webDriver -> webDriver.findElement(By.className("welcome-message")).isDisplayed());
                 Assert.assertTrue(driver.findElement(By.className("welcome-message")).isDisplayed());
             } else {
@@ -52,7 +60,7 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         Then("^My Leave page is displayed$", () -> displayPage("/leave/my-leave"));
 
-        When("^I click on menu Status$", () -> myLeavePage.clickMenuStatus(getDriver()));
+        When("^I click on menu Status$", () -> myLeavePage.clickMenuStatus());
 
         Then("^Menu drop down$", () -> Assert.assertTrue(myLeavePage.dropDownMenuStatus()));
 
@@ -71,15 +79,15 @@ public class MyLeaveDefinitions extends DriverBase implements En {
         Then("^My Leave page with status Rejected is displayed$", () ->
                 displayPage("/leave/my-leave;status_eq=rejected"));
 
-        When("^I click on a name Manager$", () -> myLeavePage.clickNameManager(getDriver()));
+        When("^I click on a name Manager$", () -> myLeavePage.clickNameManager());
 
         Then("^Employee Detail page is displayed$", () -> displayPage("/organisation/employees/189"));
 
-        When("^I click on Leave Request button$", () -> myLeavePage.clickBtnLeaveRequest(getDriver()));
+        When("^I click on Leave Request button$", () -> myLeavePage.clickBtnLeaveRequest());
 
         Then("^Leave Request page is displayed$", () -> displayPage("/leave/request"));
 
-        And("^Status Menu is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkTextStatusMenu(status, getDriver())));
+        And("^Status Menu is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkTextStatusMenu(status)));
 
         And("^SYSID is \"([^\"]*)\"$", (String sysid) -> Assert.assertTrue(myLeavePage.checkTextSYSID(sysid)));
 
@@ -101,32 +109,32 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         Then("^Menu status drop down$", () -> Assert.assertTrue(myLeavePage.checkMenuStatusDropDown()));
 
-        When("^I click on SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickSYSID(getDriver()));
+        When("^I click on SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickSYSID());
 
         Then("^Leave Detail SYSID \"([^\"]*)\" page is displayed$", (String sysid) -> displayPage("/leave/" + sysid));
 
-        When("^I click on icon search with SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickIconSearch(getDriver()));
+        When("^I click on icon search with SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickIconSearch());
 
         Given("^My Leave page with status Pending displayed$", () -> displayPage("/leave/my-leave;status_eq=pending"));
 
         When("^I click on All Status in menu$", () -> myLeavePage.clickItemMenuStatus("All Status"));
 
-        When("^I hover mouse on status$", () -> myLeavePage.hoverMouseToStatus(getDriver()));
+        When("^I hover mouse on status$", () -> myLeavePage.hoverMouseToStatus());
 
         Then("^Tip status display is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkDisplayTipStatus(status)));
 
-        When("^I click an SYSID$", () -> myLeavePage.clickSYSID(getDriver()));
+        When("^I click an SYSID$", () -> myLeavePage.clickSYSID());
 
         Then("^Leave Detail page is displayed$", () -> myLeavePage.displayLeaveDetailPage(getDriver()));
 
-        When("^I click on an icon search$", () -> myLeavePage.clickIconSearch(getDriver()));
+        When("^I click on an icon search$", () -> myLeavePage.clickIconSearch());
     }
 
-    private void displayPage(String path) {
+    private void displayPage(final String path) {
         driver.get("http://portal-stg.asiantech.vn" + path);
-        new WebDriverWait(driver, 10).until(
+        new WebDriverWait(driver, TIMEOUTINSECONDS).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+        new WebDriverWait(driver, TIMEOUTINSECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
         Assert.assertEquals("http://portal-stg.asiantech.vn" + path, driver.getCurrentUrl());
     }
 }
