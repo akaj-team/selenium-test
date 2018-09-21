@@ -73,7 +73,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
     public final String onClickNewTeam() {
         WebElement newEmployee = titleAction.findElement(By.cssSelector(".btn.btn-sm.btn-default.btn-add"));
         newEmployee.click();
-        String href="";
+        String href = "";
         try {
             href = newEmployee.getAttribute("href");
         } catch (StaleElementReferenceException e) {

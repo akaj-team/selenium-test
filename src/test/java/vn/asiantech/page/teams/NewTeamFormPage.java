@@ -15,6 +15,7 @@ import java.util.Random;
  * Created by at-vietphan on 9/21/18.
  */
 public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
+    private static final int MAX_LENGTH_NAME_TEAM = 50;
     @FindBy(css = ".wrapper.wrapper-content")
     private WebElement wrapper;
 
@@ -35,7 +36,7 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
         String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder stringBuilder = new StringBuilder();
         Random random = new Random();
-        int randomLength = 1 + random.nextInt(49);
+        int randomLength = 1 + random.nextInt(MAX_LENGTH_NAME_TEAM - 1);
         for (int i = 0; i < randomLength; i++) {
             char c = alphabet.charAt(random.nextInt(alphabet.length()));
             stringBuilder.append(c);
