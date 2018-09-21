@@ -138,7 +138,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return this;
     }
 
-    public final LeaveBalancePage searchWithKey(final WebDriver driver, String key) {
+    public final LeaveBalancePage searchWithKey(final WebDriver driver, final String key) {
         waitForElementDisplay(driver, inputViewSearchEmpty, DEFAULT_TIMEOUT);
         inputViewSearchEmpty.sendKeys(key);
         return this;
