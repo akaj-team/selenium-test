@@ -1,6 +1,9 @@
 package vn.asiantech.page;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,248 +16,163 @@ import java.util.List;
  * Created by at-vietphan on 02/09.
  */
 public class HomePage extends BasePage<HomePage> {
-    public static final int TIME_OUT_IN_SECONDS_5 = 5;
+    public static final String URL_HOME_PAGE = "http://portal-stg.asiantech.vn/homepage";
     public static final int TIME_OUT_IN_SECONDS_10 = 10;
     private static final int TIME_OUT_IN_SECONDS_20 = 20;
-    private static final int TIME_SLEEP_MILLISECONDS_3000 = 3000;
+
     @FindBy(className = "welcome-message")
-    private WebElement welcomeText;
+    private WebElement txtWelcome;
+
     @FindBy(className = "fa-sign-out")
-    private WebElement logoutButton;
+    private WebElement btnLogout;
+
     @FindBy(className = "wapper")
-    private WebElement homeContent;
+    private WebElement wapper;
+
     @FindBy(className = "sidebar-panel")
     private WebElement rightSideBar;
-    private WebElement homeContentChild;
-    private WebElement rightSideBarChild;
-    private WebElement elementItemBtn;
+
     @FindBy(css = ".text-center.ng-star-inserted")
     private WebElement homeContentNoData;
+
     @FindBy(className = "notification-container")
     private WebElement homeContentHasData;
+
     @FindBy(name = "search")
     private WebElement inputSearch;
 
+    private WebElement listTab;
+    private List<WebElement> listBtnTab;
+
     @Override
-    public HomePage navigateTo(WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn/homepage");
+    public final HomePage navigateTo(final WebDriver webDriver) {
+        webDriver.get(URL_HOME_PAGE);
         return this;
     }
 
     public final boolean hasWelcomeMessage() {
-        return isElementPresented(welcomeText);
+        return isElementPresented(txtWelcome);
     }
 
     public final boolean welcomeTestIsDisplayed() {
-        return welcomeText.isDisplayed();
+        return txtWelcome.isDisplayed();
     }
 
     public final void waitForWelcomeMessage(final WebDriver driver) {
-        waitForElement(driver, welcomeText, 5);
+        waitForElement(driver, txtWelcome, TIME_OUT_IN_SECONDS_10);
     }
 
     public final void logout() {
-        logoutButton.click();
-    }
-
-    public final boolean checkHeaderIsShown() {
-        return rightSideBar.isDisplayed() && homeContent.isDisplayed();
+        btnLogout.click();
     }
 
     public final void waitForElementsVisibility(final WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, TIME_OUT_IN_SECONDS_20);
-        wait.until(ExpectedConditions.visibilityOfAllElements(homeContent, rightSideBar));
+        wait.until(ExpectedConditions.visibilityOfAllElements(wapper, rightSideBar));
     }
 
-    public final void onClickTabItems(final String tabName) {
-        homeContentChild = homeContent.findElement(By.className("ui-buttonset-3"));
-        List<WebElement> btnItems = homeContentChild.findElements(By.className("ui-button-text-only"));
-        if (tabName.equals(ItemTabNavigation.AllNews.name())) {
-            elementItemBtn = btnItems.get(ItemTabNavigation.AllNews.ordinal());
-        } else if (tabName.equals(ItemTabNavigation.Announcerment.name())) {
-            elementItemBtn = btnItems.get(ItemTabNavigation.Announcerment.ordinal());
-        } else {
-            elementItemBtn = btnItems.get(ItemTabNavigation.Notification.ordinal());
-        }
-        if (elementItemBtn != null && isElementPresented(elementItemBtn)) {
-            elementItemBtn.click();
+    public final void onClickTabInIBoxContent(final String tabName) {
+        if (getBtnTab(wapper, tabName) != null && isElementPresented(getBtnTab(wapper, tabName))) {
+            getBtnTab(wapper, tabName).click();
         }
     }
 
-    public final boolean checkColorForTabItems(final String color, final String tabName) {
-        homeContentChild = homeContent.findElement(By.className("ui-buttonset-3"));
-        List<WebElement> btnItems = homeContentChild.findElements(By.className("ui-button-text-only"));
-        if (tabName.equals(ItemTabNavigation.AllNews.name())) {
-            elementItemBtn = btnItems.get(ItemTabNavigation.AllNews.ordinal());
-        } else if (tabName.equals(ItemTabNavigation.Announcerment.name())) {
-            elementItemBtn = btnItems.get(ItemTabNavigation.Announcerment.ordinal());
-        } else {
-            elementItemBtn = btnItems.get(ItemTabNavigation.Notification.ordinal());
-        }
-        return getActualColor(elementItemBtn).equals(color);
+    public final boolean checkColorTabInIBoxContent(final String color, final String tabName) {
+        return getActualColor(getBtnTab(wapper, tabName)).equals(color);
     }
 
-    public final boolean checkColorForOtherTabItems(final String color, final String tabName) {
-        int position;
-        if (tabName.equals(ItemTabNavigation.AllNews.name())) {
-            position = ItemTabNavigation.AllNews.ordinal();
-        } else if (tabName.equals(ItemTabNavigation.Announcerment.name())) {
-            position = ItemTabNavigation.Announcerment.ordinal();
-        } else {
-            position = ItemTabNavigation.Notification.ordinal();
-        }
-        homeContentChild = homeContent.findElement(By.className("ui-buttonset-3"));
-        List<WebElement> btnItems = homeContentChild.findElements(By.className("ui-button-text-only"));
-        for (int i = 0; i < btnItems.size(); i++) {
-            if (i != position) {
-                elementItemBtn = btnItems.get(i);
-                return getActualColor(elementItemBtn).equals(color);
-            }
-        }
-        return false;
+    public final boolean checkColorOtherTabInIBoxContent(final String color, final String position) {
+        return checkColorOtherTab(wapper, color, position);
     }
 
-    public final void onClickTabItemsInRightSideBar(final String tabName) {
-        rightSideBarChild = rightSideBar.findElement(By.className("ui-buttonset-3"));
-        List<WebElement> btnItems = rightSideBarChild.findElements(By.className("ui-button-text-only"));
-        if (tabName.equals(ItemTabOnRightSidebar.AllEvents.name())) {
-            elementItemBtn = btnItems.get(ItemTabOnRightSidebar.AllEvents.ordinal());
-        } else if (tabName.equals(ItemTabOnRightSidebar.Birthday.name())) {
-            elementItemBtn = btnItems.get(ItemTabOnRightSidebar.Birthday.ordinal());
-        } else {
-            elementItemBtn = btnItems.get(ItemTabOnRightSidebar.Anniversary.ordinal());
-        }
-        if (elementItemBtn != null && isElementPresented(elementItemBtn)) {
-            elementItemBtn.click();
+    public final void onClickTabInRightSideBar(final String tabName) {
+        if (getBtnTab(rightSideBar, tabName) != null && isElementPresented(getBtnTab(rightSideBar, tabName))) {
+            getBtnTab(rightSideBar, tabName).click();
         }
     }
 
-    public final boolean checkColorForTabItemsInRightSideBar(final String tabName, final String colorActive) {
-        rightSideBarChild = rightSideBar.findElement(By.className("ui-buttonset-3"));
-        List<WebElement> btnItems = rightSideBarChild.findElements(By.className("ui-button-text-only"));
-        if (tabName.equals(ItemTabOnRightSidebar.AllEvents.name())) {
-            elementItemBtn = btnItems.get(ItemTabOnRightSidebar.AllEvents.ordinal());
-        } else if (tabName.equals(ItemTabOnRightSidebar.Birthday.name())) {
-            elementItemBtn = btnItems.get(ItemTabOnRightSidebar.Birthday.ordinal());
-        } else {
-            elementItemBtn = btnItems.get(ItemTabOnRightSidebar.Anniversary.ordinal());
-        }
-        return getActualColor(elementItemBtn).equals(colorActive);
+    public final boolean checkColorTabInRightSideBar(final String tabName, final String colorActive) {
+        return getActualColor(getBtnTab(rightSideBar, tabName)).equals(colorActive);
     }
 
-    public final boolean checkColorForOtherTabItemsOnRightSideBar(final String tabName, final String colorDefault) {
-        int position;
-        if (tabName.equals(ItemTabOnRightSidebar.AllEvents.name())) {
-            position = ItemTabOnRightSidebar.AllEvents.ordinal();
-        } else if (tabName.equals(ItemTabOnRightSidebar.Birthday.name())) {
-            position = ItemTabOnRightSidebar.Birthday.ordinal();
-        } else {
-            position = ItemTabOnRightSidebar.Anniversary.ordinal();
-        }
-        rightSideBarChild = rightSideBar.findElement(By.className("ui-buttonset-3"));
-        List<WebElement> btnItems = rightSideBarChild.findElements(By.className("ui-button-text-only"));
-        for (int i = 0; i < btnItems.size(); i++) {
-            if (i != position) {
-                return getActualColor(btnItems.get(i)).equals(colorDefault);
-            }
-        }
-        return false;
+    public final boolean checkColorOtherTabInRightSideBar(final String position, final String colorDefault) {
+        return checkColorOtherTab(rightSideBar, colorDefault, position);
     }
 
-    public final boolean checkShowHaveOrNoDataInHomeContent() {
-        By byFeedBox = By.className("social-feed-box");
-        By byMessageNoData = By.tagName("h2");
-        if (isPresentAndDisplayed(homeContentHasData) && homeContentHasData.findElements(byFeedBox).size() > 0) {
+    public final boolean checkShowHaveOrNoDataInIBoxContent() {
+        if (isElementPresented(homeContentHasData) && homeContentHasData.findElements(By.className("social-feed-box")).size() > 0) {
             return true;
         } else {
-            return isPresentAndDisplayed(homeContentNoData) && isPresentAndDisplayed(homeContentNoData.findElement(byMessageNoData));
+            return isElementPresented(homeContentNoData) && isElementPresented(homeContentNoData.findElement(By.tagName("h2")));
         }
     }
 
-    public final void withValueSearch(final String valueSearch) {
+    public final void sendKeysSearch(final String valueSearch) {
         inputSearch.sendKeys(valueSearch);
     }
 
     public final boolean checkShowHaveOrNoDataOnRightSideBar() {
-        List<WebElement> elements = rightSideBar.findElements(By.className("event-block"));
+        List<WebElement> listEvent = rightSideBar.findElements(By.className("event-block"));
         //noinspection LoopStatementThatDoesntLoop
-        for (WebElement element : elements) {
-            WebElement title = element.findElement(By.tagName("h3"));
-            List<WebElement> feeds = element.findElements(By.className("feed-element"));
-            WebElement messageNoData = element.findElement(By.className("text-na"));
-            if (title.isDisplayed() && feeds.size() > 0) {
+        for (WebElement event : listEvent) {
+            if (event.findElement(By.tagName("h3")).isDisplayed() && event.findElements(By.className("feed-element")).size() > 0) {
                 return true;
             } else {
-                return title.isDisplayed() && isPresentAndDisplayed(messageNoData);
+                return event.findElement(By.tagName("h3")).isDisplayed() && isElementPresented(event.findElement(By.className("text-na")));
             }
         }
         return false;
     }
 
-    public final void onClickUserNameOnHomeContent() {
-        List<WebElement> elements = homeContent.findElements(By.cssSelector("span.name"));
-        elements.get(0).click();
+    public final void onClickUserName() {
+        List<WebElement> listUserName = wapper.findElements(By.cssSelector("span.name"));
+        listUserName.get(0).click();
     }
 
-    public final void onClickAvatarOnHomeContent() {
-        List<WebElement> elements = homeContentHasData.findElements(By.cssSelector("img.img-circle.pull-left"));
-        elements.get(0).click();
+    public final void onClickAvatarInIBoxContent() {
+        List<WebElement> listAvatar = homeContentHasData.findElements(By.cssSelector("img.img-circle.pull-left"));
+        listAvatar.get(0).click();
     }
 
-    public final void onClickAvatarOnRightSideBar() {
-        List<WebElement> elements = rightSideBar.findElements(By.cssSelector("img.img-circle"));
-        elements.get(0).click();
+    public final void onClickAvatarInRightSideBar() {
+        List<WebElement> listAvatar = rightSideBar.findElements(By.cssSelector("img.img-circle"));
+        listAvatar.get(0).click();
     }
 
-    public final void onClickBtnReactionFlowers() {
-        By byEventBlock = By.className("event-block");
-        List<WebElement> elements = rightSideBar.findElements(byEventBlock);
-        if (elements.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).size() > 0) {
-            elements.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).get(0).click();
-        }
-        try {
-            Thread.sleep(TIME_SLEEP_MILLISECONDS_3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public final void onClickBtnReaction(final int position) {
+        List<WebElement> listBtnReaction = rightSideBar.findElements(By.className("event-block"));
+        if (listBtnReaction.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).size() > 0) {
+            listBtnReaction.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).get(position).click();
         }
     }
 
-    public final void onClickBtnReactionCongrats() {
-        List<WebElement> elements = rightSideBar.findElements(By.className("event-block"));
-        if (elements.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).size() > 0) {
-            elements.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).get(1).click();
+    public final boolean isShowEffectForReaction() {
+        return rightSideBar.findElement(By.cssSelector("button.btn-reaction.congrafs-btn.active")).isDisplayed();
+    }
+
+    public final void scrollIBoxContent(final WebDriver driver, final boolean isDown) {
+        scrollElementContent(homeContentHasData, driver, isDown);
+    }
+
+    public final void scrollRightSideBar(final WebDriver driver, final boolean isDown) {
+        scrollElementContent(rightSideBar, driver, isDown);
+    }
+
+    private WebElement getBtnTab(final WebElement elementContent, final String position) {
+        listTab = elementContent.findElement(By.className("ui-buttonset-3"));
+        listBtnTab = listTab.findElements(By.className("ui-button-text-only"));
+        return listBtnTab.get(Integer.parseInt(position));
+    }
+
+    private boolean checkColorOtherTab(final WebElement elementContent, final String color, final String position) {
+        listTab = elementContent.findElement(By.className("ui-buttonset-3"));
+        listBtnTab = listTab.findElements(By.className("ui-button-text-only"));
+        for (int i = 0; i < listBtnTab.size(); i++) {
+            if (i != Integer.parseInt(position)) {
+                return getActualColor(listBtnTab.get(i)).equals(color);
+            }
         }
-        try {
-            Thread.sleep(TIME_SLEEP_MILLISECONDS_3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public final void scrollDownHomeContent(final WebDriver driver) {
-        By socialFeed = By.cssSelector("div.social-feed-box.ng-star-inserted");
-        int count = homeContentHasData.findElements(socialFeed).size();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);", homeContentHasData.findElements(socialFeed).get(count - 1));
-    }
-
-    public final void scrollUpHomeContent(final WebDriver driver) {
-        By socialFeed = By.cssSelector("div.social-feed-box.ng-star-inserted");
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);", homeContentHasData.findElements(socialFeed).get(0));
-    }
-
-    public final void scrollDownRightSideBar(final WebDriver driver) {
-        By feed = By.cssSelector("div.feed-element.ng-star-inserted");
-        int count = rightSideBar.findElements(feed).size();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);", rightSideBar.findElements(feed).get(count - 1));
-    }
-
-    public final void scrollUpRightSideBar(final WebDriver driver) {
-        By feed = By.cssSelector("div.feed-element.ng-star-inserted");
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);", rightSideBar.findElements(feed).get(0));
+        return false;
     }
 
     private String getActualColor(final WebElement element) {
@@ -265,35 +183,15 @@ public class HomePage extends BasePage<HomePage> {
         } else if (colorCss.contains("rgb")) {
             hexValue = colorCss.replace("rgb(", "").replace(")", "").split(",");
         }
-        return String.format("#%01x%01x%01x",
-                Integer.parseInt(hexValue[0].trim()),
-                Integer.parseInt(hexValue[1].trim()),
-                Integer.parseInt(hexValue[2].trim()));
+        return String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
     }
 
-    private static boolean isPresentAndDisplayed(final WebElement element) {
-        try {
-            return element.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
+    private void scrollElementContent(final WebElement elementContent, final WebDriver driver, final boolean isDown) {
+        List<WebElement> listFeed = elementContent.findElements(By.cssSelector("div.feed-element.ng-star-inserted"));
+        if (isDown) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", listFeed.get(listFeed.size() - 1));
+        } else {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", listFeed.get(0));
         }
-    }
-
-    /**
-     * enum for ite tab on navigation on home content.
-     */
-    private enum ItemTabNavigation {
-        AllNews,
-        Announcerment,
-        Notification
-    }
-
-    /**
-     * enum for Item tab on right side bar.
-     */
-    private enum ItemTabOnRightSidebar {
-        AllEvents,
-        Birthday,
-        Anniversary
     }
 }
