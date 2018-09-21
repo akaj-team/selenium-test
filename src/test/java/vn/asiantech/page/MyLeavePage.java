@@ -1,20 +1,21 @@
 package vn.asiantech.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import vn.asiantech.base.BasePage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static vn.asiantech.base.DriverBase.getDriver;
 
 public class MyLeavePage extends BasePage<MyLeavePage> {
-    @FindBy(id = "side-menu")
-    private WebElement menuSlide;
 
     @FindBy(css = ".toolbox-item.dropdown-md")
     private WebElement inputStatus;
@@ -34,21 +35,11 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     @FindBy(css = ".ui-tooltip-text.ui-shadow.ui-corner-all")
     private WebElement toolTip;
 
+    private String sysid;
+
     @Override
     public MyLeavePage navigateTo(WebDriver webDriver) {
         return this;
-    }
-
-
-    public void clickItemLeave() {
-        WebElement itemLeave = getItemMenuInPosition();
-        itemLeave.click();
-    }
-
-    public void clickMyLeave() {
-        WebElement itemLeave = getItemMenuInPosition();
-        WebElement myLeave = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
-        myLeave.click();
     }
 
     public void clickMenuStatus(WebDriver driver) {
@@ -91,14 +82,6 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         return findDataLeave(0, 2).getAttribute("class").equals(getNameIconStatus(status));
     }
 
-    public boolean checkTextDateRequest(String date) {
-        return findDataLeave(0, 3).getText().equals(date);
-    }
-
-    public boolean checkTextQuantity(String quatity) {
-        return findDataLeave(0, 4).getText().equals(quatity);
-    }
-
     public boolean checkTextApprover(String approver) {
         return findDataLeave(0, 5).getText().equals(approver);
     }
@@ -123,11 +106,6 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         return findLeaveBalance(3).getText().equals(paternalLeave);
     }
 
-    public boolean checkLeaveMenuDropDown() {
-        WebElement itemLeave = getItemMenuInPosition();
-        return itemLeave.findElement(By.tagName("ul")).getRect().height == 0;
-    }
-
     public boolean checkMenuStatusDropDown() {
         return menuStatus.isDisplayed();
     }
@@ -138,6 +116,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
 
     public void clickSYSID(WebDriver driver) {
         waitForElementDisplay(driver, inputStatus, 10);
+        sysid = findDataLeave(0, 0).getText();
         findDataLeave(0, 0).click();
     }
 
@@ -148,6 +127,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
 
     public void clickIconSearch(WebDriver driver) {
         waitForElementDisplay(driver, inputStatus, 10);
+        sysid = findDataLeave(0, 0).getText();
         findDataLeave(0, 7).click();
     }
 
@@ -156,61 +136,40 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         btnLeaveRequest.click();
     }
 
-    public void hoverMouseToStatus() {
+    public void hoverMouseToStatus(WebDriver driver) {
+        waitForElementDisplay(driver, tableLeave, 10);
         Actions builder = new Actions(getDriver());
         builder.moveToElement(findDataLeave(0, 2)).build().perform();
     }
 
     public boolean checkDisplayTipStatus(String status) {
+        System.out.println(toolTip.getText());
         return toolTip.isDisplayed() && toolTip.getText().equals(status);
+    }
+
+    public void displayLeaveDetailPage(WebDriver driver) {
+        driver.get("http://portal-stg.asiantech.vn/leave/" + sysid);
+        new WebDriverWait(driver, 10).until(
+                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+        Assert.assertEquals("http://portal-stg.asiantech.vn/leave/" + sysid, driver.getCurrentUrl());
     }
 
     private WebElement findDataLeave(int row, int col) {
         WebElement tableData = tableLeave.findElement(By.tagName("table"));
-        WebElement item = tableData.findElement(By.tagName("colgroup"));
         List<WebElement> rows = tableData.findElements(By.tagName("tr"));
+        List<WebElement> columns = rows.get(row).findElements(By.tagName("td"));
 
-        for (int i = 0; i < rows.size(); i++) {
-            if (i == row) {
-                List<WebElement> columns = rows.get(i).findElements(By.tagName("td"));
-                for (int j = 0; j < columns.size(); j++) {
-                    if (j == col) {
-                        item = columns.get(j).findElement(By.tagName("span"));
-                        if (j == 2) {
-                            item = columns.get(2).findElement(By.className("ui-cell-data")).findElement(By.tagName("span"));
-                        }
-                        break;
-                    }
-                }
-            }
+        if (col != 2) {
+            return columns.get(col).findElement(By.tagName("span"));
+        } else {
+            return columns.get(2).findElement(By.className("ui-cell-data")).findElement(By.tagName("span"));
         }
-        return item;
     }
 
     private WebElement findLeaveBalance(int pos) {
-        WebElement item = leaveBalance.findElement(By.tagName("dt"));
         List<WebElement> balances = leaveBalance.findElements(By.tagName("dd"));
-        for (int i = 0; i < balances.size(); i++) {
-            if (i == pos) {
-                item = balances.get(i).findElement(By.tagName("span"));
-                break;
-            }
-        }
-        return item;
-    }
-
-    private WebElement getItemMenuInPosition() {
-        List<WebElement> itemMenus = new ArrayList<>();
-        int countChildItem;
-        List<WebElement> items = menuSlide.findElements(By.tagName("li"));
-        for (int i = 0; i < items.size(); i = i + countChildItem + 1) {
-            countChildItem = 0;
-            itemMenus.add(items.get(i));
-            if (items.get(i).findElements(By.tagName("li")).size() > 0) {
-                countChildItem = items.get(i).findElements(By.tagName("li")).size();
-            }
-        }
-        return itemMenus.get(3);
+        return balances.get(pos).findElement(By.tagName("span"));
     }
 
     private String getNameIconStatus(String status) {

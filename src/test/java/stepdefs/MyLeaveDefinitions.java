@@ -50,13 +50,7 @@ public class MyLeaveDefinitions extends DriverBase implements En {
             }
         });
 
-        When("^I click on Leave in menu$", () -> myLeavePage.clickItemLeave());
-
-        Then("^Menu Leave drop down$", () -> Assert.assertFalse(myLeavePage.checkLeaveMenuDropDown()));
-
         Then("^My Leave page is displayed$", () -> displayPage("/leave/my-leave"));
-
-        When("^I click on item My Leave$", () -> myLeavePage.clickMyLeave());
 
         When("^I click on menu Status$", () -> myLeavePage.clickMenuStatus(getDriver()));
 
@@ -64,13 +58,11 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         When("^I click on Pending in menu$", () -> myLeavePage.clickItemMenuStatus("Pending"));
 
-        Then("^My Leave page with status Pending is displayed$", () ->
-                displayPage("/leave/my-leave;status_eq=pending"));
+        Then("^My Leave page with status Pending is displayed$", () -> displayPage("/leave/my-leave;status_eq=pending"));
 
         When("^I click on Approved in menu$", () -> myLeavePage.clickItemMenuStatus("Approved"));
 
-        Then("^My Leave page with status Approved is displayed$", () ->
-                displayPage("/leave/my-leave;status_eq=approved"));
+        Then("^My Leave page with status Approved is displayed$", () -> displayPage("/leave/my-leave;status_eq=approved"));
 
         And("^My Leave page display No records found$", () -> Assert.assertTrue(myLeavePage.checkNoRecordsFound()));
 
@@ -94,10 +86,6 @@ public class MyLeaveDefinitions extends DriverBase implements En {
         And("^Type of Leave is \"([^\"]*)\"$", (String type) -> Assert.assertTrue(myLeavePage.checkTextTypeOfLeave(type)));
 
         And("^Status is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkTextStatus(status)));
-
-        And("^Date Request is \"([^\"]*)\"$", (String date) -> Assert.assertTrue(myLeavePage.checkTextDateRequest(date)));
-
-        And("^Quantity is \"([^\"]*)\"$", (String quatity) -> Assert.assertTrue(myLeavePage.checkTextQuantity(quatity)));
 
         And("^Approver is \"([^\"]*)\"$", (String approver) -> Assert.assertTrue(myLeavePage.checkTextApprover(approver)));
 
@@ -123,10 +111,15 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         When("^I click on All Status in menu$", () -> myLeavePage.clickItemMenuStatus("All Status"));
 
-        When("^I hover mouse on status$", () -> myLeavePage.hoverMouseToStatus());
+        When("^I hover mouse on status$", () -> myLeavePage.hoverMouseToStatus(getDriver()));
 
         Then("^Tip status display is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkDisplayTipStatus(status)));
 
+        When("^I click an SYSID$", () -> myLeavePage.clickSYSID(getDriver()));
+
+        Then("^Leave Detail page is displayed$", () -> myLeavePage.displayLeaveDetailPage(getDriver()));
+
+        When("^I click on an icon search$", () -> myLeavePage.clickIconSearch(getDriver()));
     }
 
     private void displayPage(String path) {
