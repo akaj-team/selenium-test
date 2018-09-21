@@ -6,6 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
+import static vn.asiantech.base.DriverBase.DEFAULT_TIMEOUT;
+
+/**
+ * @author at-vinhhuynh
+ */
 public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
 
     @FindBy(css = "label.ui-multiselect-label.ui-corner-all")
@@ -41,7 +46,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     }
 
     public final LeaveBalancePage openFilter(final WebDriver driver) {
-        waitForElementDisplay(driver, allTeamsView, 5);
+        waitForElementDisplay(driver, allTeamsView, DEFAULT_TIMEOUT);
         allTeamsView.click();
         return this;
     }
@@ -51,12 +56,12 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     }
 
     public final int getLeaveBalanceListCount(final WebDriver driver) {
-        waitForElementDisplay(driver, leaveBalanceList, 5);
+        waitForElementDisplay(driver, leaveBalanceList, DEFAULT_TIMEOUT);
         return leaveBalanceList.findElements(By.tagName("tr")).size();
     }
 
-    public final LeaveBalancePage openProfile(final WebDriver driver) {
-        waitForElementDisplay(driver, leaveBalanceList, 5);
+    public final LeaveBalancePage avatarClick(final WebDriver driver) {
+        waitForElementDisplay(driver, leaveBalanceList, DEFAULT_TIMEOUT);
 
         WebElement imgAvatar = leaveBalanceList.findElements(By.tagName("tr")).get(0)
                 .findElements(By.cssSelector("td.col-major.has-avatar.ng-star-inserted"))
@@ -71,6 +76,40 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return this;
     }
 
+    public final LeaveBalancePage userNameClick(final WebDriver driver) {
+        waitForElementDisplay(driver, leaveBalanceList, DEFAULT_TIMEOUT);
+
+        WebElement tvUserName = leaveBalanceList.findElements(By.tagName("tr")).get(0)
+                .findElements(By.cssSelector("td.col-major.has-avatar.ng-star-inserted"))
+                .get(0).findElement(By.tagName("a")).findElement(By.cssSelector("span.info-grouping-text.truncate"));
+
+        String profilePath = leaveBalanceList.findElements(By.tagName("tr")).get(0)
+                .findElements(By.cssSelector("td.col-major.has-avatar.ng-star-inserted"))
+                .get(0).findElement(By.tagName("a")).getAttribute("href");
+
+        setCurrentProfileUrl(profilePath);
+        tvUserName.click();
+        return this;
+    }
+
+    public final LeaveBalancePage sysIdClick(final WebDriver driver) {
+        waitForElementDisplay(driver, leaveBalanceList, DEFAULT_TIMEOUT);
+
+        WebElement tvSysId = leaveBalanceList.findElements(By.tagName("tr")).get(0)
+                .findElements(By.cssSelector("td.col-60.ng-star-inserted"))
+                .get(0).findElement(By.cssSelector("span.ui-cell-data.ng-star-inserted"))
+                .findElement(By.tagName("a"));
+
+        String historyPath = leaveBalanceList.findElements(By.tagName("tr")).get(0)
+                .findElements(By.cssSelector("td.col-60.ng-star-inserted"))
+                .get(0).findElement(By.cssSelector("span.ui-cell-data.ng-star-inserted"))
+                .findElement(By.tagName("a")).getAttribute("href");
+        System.out.println("Path is: " + historyPath);
+        setCurrentLeaveHistoryUrl(historyPath);
+        tvSysId.click();
+        return this;
+    }
+
     public final String getCurrentProfileUrl() {
         return currentProfileUrl;
     }
@@ -81,7 +120,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     }
 
     public final LeaveBalancePage openLeaveHistory(final WebDriver driver) {
-        waitForElementDisplay(driver, leaveBalanceList, 5);
+        waitForElementDisplay(driver, leaveBalanceList, DEFAULT_TIMEOUT);
         WebElement imgLeaveHistory = leaveBalanceList.findElements(By.tagName("tr")).get(0)
                 .findElements(By.cssSelector("td.col-action.text-right.ng-star-inserted"))
                 .get(0).findElement(By.tagName("a"));
@@ -99,13 +138,13 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return this;
     }
 
-    public final LeaveBalancePage searchWithKey(WebDriver driver, String key) {
-        waitForElementDisplay(driver, inputViewSearchEmpty, 5);
+    public final LeaveBalancePage searchWithKey(final WebDriver driver, String key) {
+        waitForElementDisplay(driver, inputViewSearchEmpty, DEFAULT_TIMEOUT);
         inputViewSearchEmpty.sendKeys(key);
         return this;
     }
 
-    public final String getCurrentEmployeeName(WebDriver driver) {
+    public final String getCurrentEmployeeName(final WebDriver driver) {
         int currentCountLeaveList = leaveBalanceList.findElements(By.tagName("tr")).size();
         waitUntilCountDifference(driver, leaveBalanceList, By.tagName("tr"), currentCountLeaveList);
         WebElement nameElement = leaveBalanceList.findElements(By.tagName("tr")).get(0)
@@ -120,25 +159,25 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return this;
     }
 
-    public String getFilterLabel() {
+    public final String getFilterLabel() {
         return allTeamsView.getText();
     }
 
-    public String getYear(WebDriver driver) {
-        waitForElementDisplay(driver, elementYearContainer, 5);
+    public final String getYear(final WebDriver driver) {
+        waitForElementDisplay(driver, elementYearContainer, DEFAULT_TIMEOUT);
         WebElement tvYear = elementYearContainer.findElement(By.cssSelector("span.content"));
         return tvYear.getText();
     }
 
-    public LeaveBalancePage previous(WebDriver driver) {
-        waitForElementDisplay(driver, elementYearContainer, 5);
+    public final LeaveBalancePage previous(final WebDriver driver) {
+        waitForElementDisplay(driver, elementYearContainer, DEFAULT_TIMEOUT);
         WebElement btnPrevious = elementYearContainer.findElement(By.cssSelector("button.btn.control-item.prev"));
         btnPrevious.click();
         return this;
     }
 
-    public LeaveBalancePage gotoPage(WebDriver driver, int page) {
-        waitForElementDisplay(driver, pageinatorElement, 5);
+    public final LeaveBalancePage gotoPage(final WebDriver driver, final int page) {
+        waitForElementDisplay(driver, pageinatorElement, DEFAULT_TIMEOUT);
         pageinatorElement.findElements(By.tagName("a")).get(page).click();
         return this;
     }

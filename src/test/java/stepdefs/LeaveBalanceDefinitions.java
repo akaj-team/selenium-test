@@ -10,6 +10,9 @@ import vn.asiantech.page.LeaveBalancePage;
 
 import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
 
+/**
+ * @author at-vinhhuynh
+ */
 public class LeaveBalanceDefinitions extends DriverBase implements En {
 
     private static final int DEFAULT_PAGE_COUNT = 50;
@@ -32,7 +35,7 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
         });
 
         Given("^I click on all team filter$", () -> {
-            new WebDriverWait(getDriver(), 5).until(
+            new WebDriverWait(getDriver(), DEFAULT_TIMEOUT).until(
                     webDriver -> webDriver.getCurrentUrl().equals("http://portal-stg.asiantech.vn/leave/balance"));
             leaveBalancePage.openFilter(driver);
         });
@@ -41,10 +44,10 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
 
         Then("^List balance leave should be (\\d+) item$", (Integer arg0) -> Assert.assertEquals(leaveBalancePage.getLeaveBalanceListCount(driver), (int) arg0));
 
-        Given("^I click to avatar of an employee$", () -> leaveBalancePage.openProfile(driver));
+        Given("^I click to avatar of an employee$", () -> leaveBalancePage.avatarClick(driver));
 
         Then("^Should open correct profile page of that employee$", () -> {
-            new WebDriverWait(getDriver(), 5).until(
+            new WebDriverWait(getDriver(), DEFAULT_TIMEOUT).until(
                     webDriver -> webDriver.getCurrentUrl().equals(leaveBalancePage.getCurrentProfileUrl()));
             Assert.assertEquals(leaveBalancePage.getCurrentProfileUrl(), driver.getCurrentUrl());
         });
@@ -52,7 +55,7 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
         Given("^I click to search icon of an employee on leave list$", () -> leaveBalancePage.openLeaveHistory(driver));
 
         Then("^Should open correct history page of that employee$", () -> {
-            new WebDriverWait(getDriver(), 5).until(
+            new WebDriverWait(getDriver(), DEFAULT_TIMEOUT).until(
                     webDriver -> webDriver.getCurrentUrl().equals(leaveBalancePage.getCurrentLeaveHistoryUrl()));
             Assert.assertEquals(leaveBalancePage.getCurrentLeaveHistoryUrl(), driver.getCurrentUrl());
         });
@@ -60,7 +63,7 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
         Given("^I fill in search view with name is \"([^\"]*)\"$", (String arg0) -> leaveBalancePage.searchWithKey(driver, arg0));
 
         Then("^Should show list result of employ with name is \"([^\"]*)\"$", (String arg0) -> {
-            new WebDriverWait(getDriver(), 5).until(
+            new WebDriverWait(getDriver(), DEFAULT_TIMEOUT).until(
                     webDriver -> !webDriver.getCurrentUrl().equals("http://portal-stg.asiantech.vn/leave/balance"));
             Assert.assertEquals(leaveBalancePage.getCurrentEmployeeName(driver), arg0);
         });
@@ -70,7 +73,7 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
         Then("^Team will display \"([^\"]*)\"$", (String arg0) -> Assert.assertEquals(leaveBalancePage.getFilterLabel(), arg0));
 
         And("^Show list result of employ on Android team$", () -> {
-            new WebDriverWait(getDriver(), 5).until(
+            new WebDriverWait(getDriver(), DEFAULT_TIMEOUT).until(
                     webDriver -> webDriver.getCurrentUrl().equals("http://portal-stg.asiantech.vn/leave/balance;team_id_eq=24"));
             Assert.assertEquals(DEFAULT_PAGE_COUNT, leaveBalancePage.getLeaveBalanceListCount(driver));
         });
@@ -83,9 +86,13 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
         });
 
         Then("^Should load data at page (\\d+)$", (Integer arg0) -> {
-            new WebDriverWait(getDriver(), 5).until(
+            new WebDriverWait(getDriver(), DEFAULT_TIMEOUT).until(
                     webDriver -> webDriver.getCurrentUrl().equals("http://portal-stg.asiantech.vn/leave/balance;page=" + arg0));
             Assert.assertEquals("http://portal-stg.asiantech.vn/leave/balance;page=" + arg0, driver.getCurrentUrl());
         });
+        When("^I click to name of an employee$", () -> {
+            leaveBalancePage.userNameClick(driver);
+        });
+        Given("^I click to sysId of an employee on leave list$", () -> leaveBalancePage.sysIdClick(driver));
     }
 }

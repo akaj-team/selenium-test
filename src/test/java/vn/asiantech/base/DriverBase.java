@@ -11,6 +11,7 @@ import java.util.List;
 
 public class DriverBase {
 
+    public static final int DEFAULT_TIMEOUT = 5;
     private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
     private static ThreadLocal<DriverFactory> driverFactoryThread;
 
