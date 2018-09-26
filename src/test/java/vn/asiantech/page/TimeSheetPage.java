@@ -79,35 +79,15 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     @FindBy(xpath = "//*[@class ='task-content']/div[2]/div/div[1]/p-dropdown/div[1]")
     private
-    WebElement test;
-
-    @FindBy(xpath = "//*[@class ='task-content']/div[2]/div/div[1]/p-dropdown/div[1]")
-    private
-    WebElement test1;
-
-    @FindBy(xpath = "//*[@class ='task-content']/div[2]/div/div[1]/p-dropdown/div")
-    private
-    WebElement test2;
-
-    @FindBy(css = ".col-md-12")
-    private
-    WebElement dialogTask;
+    WebElement elementTitleTask;
 
     @FindBy(xpath = "//*[@class ='task-content']/div[1]/div/div[1]/p-dropdown/div/div[4]")
     private
-    WebElement dialogTestProject;
+    WebElement dialogProject;
 
     @FindBy(xpath = "//*[@class ='task-content']/div[2]/div/div[1]/p-dropdown/div/div[4]")
     private
-    WebElement xxDialog;
-
-    @FindBy(css = ".ui-dropdown-items-wrapper")
-    private
-    WebElement yyyDialog;
-
-    @FindBy(css = ".ng-tns-c2-4.arrow-block.ui-dropdown-panel.ui-widget-content.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-panelState")
-    private
-    WebElement ddd;
+    WebElement dialogTask;
 
     @Override
     public TimeSheetPage navigateTo(WebDriver webDriver) {
@@ -314,7 +294,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     public Boolean disableProjectDialog(WebDriver driver) {
         waitForElement(driver, boxNote, 5);
         boxNote.click();
-        return dialogTestProject.isDisplayed();
+        return dialogProject.isDisplayed();
     }
 
     public void selectItemOnDialogProject(WebDriver driver, String content) {
@@ -327,18 +307,14 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         }
     }
 
-
     public void selectedFirstValueTask(WebDriver driver) {
-        waitForElement(driver, test2, 5);
-        test2.click();
-        waitForElement(driver, test, 5);
-        test.click();
+        waitForElement(driver, elementTitleTask, 5);
+        elementTitleTask.click();
     }
 
     public void selectItemOnDialogTask(WebDriver driver, String content) {
-        waitForElement(driver, test, 5);
-        test.click();
-        List<WebElement> items = test.findElements(By.tagName("div"));
+        waitForElement(driver, elementTitleTask, 5);
+        List<WebElement> items = elementTitleTask.findElements(By.tagName("div"));
         List<WebElement> i = items.get(3).findElements(By.tagName("div"));
         WebElement es = i.get(1).findElement(By.tagName("ul"));
         waitForElement(driver, es, 5);
@@ -353,8 +329,8 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public Boolean displayDialogTask(WebDriver driver) {
         try {
-            waitForElement(driver, xxDialog, 5);
-            return xxDialog.isEnabled();
+            waitForElement(driver, dialogTask, 5);
+            return dialogTask.isEnabled();
         } catch (Exception e) {
             return false;
         }
