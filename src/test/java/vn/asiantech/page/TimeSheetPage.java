@@ -14,59 +14,100 @@ import java.util.List;
 public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     @FindBy(id = "side-menu")
-    private WebElement sideMenu;
+    private
+    WebElement sideMenu;
 
     @FindBy(css = ".directional-toolbox")
-    private WebElement toolbox;
+    private
+    WebElement toolbox;
 
     @FindBy(css = ".timesheet-grid")
-    private WebElement calendar;
+    private
+    WebElement calendar;
 
     @FindBy(css = ".btn.btn-sm.btn-white")
-    private WebElement btnThisWeek;
+    private
+    WebElement btnThisWeek;
 
     @FindBy(css = ".btn.btn-primary.btn-submit")
-    private WebElement btnSubmit;
+    private
+    WebElement btnSubmit;
 
     @FindBy(css = ".btn.control-item.prev")
-    private WebElement btnBack;
+    private
+    WebElement btnBack;
 
     @FindBy(css = ".btn.control-item.next")
-    private WebElement btnNext;
+    private
+    WebElement btnNext;
 
     @FindBy(css = ".timesheet-body")
-    private WebElement calendarBody;
+    private
+    WebElement calendarBody;
 
     @FindBy(css = ".task-record.create-task.panel-left.ng-star-inserted")
-    private WebElement btnAddTimeSheet;
+    private
+    WebElement btnAddTimeSheet;
 
     @FindBy(css = ".ng-tns-c1-0")
-    private WebElement dialogTimeSheet;
-
-    @FindBy(css = ".ui-dropdown-items-wrapper")
-    private WebElement dropdown;
+    private
+    WebElement dialogTimeSheet;
 
     @FindBy(css = ".col-md-12.project-form")
-    private WebElement dropdownProject;
-
-    @FindBy(xpath = ".col-md-12")
-    private WebElement dropdownTask;
+    private
+    WebElement dropdownProject;
 
     @FindBy(css = ".box-note")
-    private WebElement boxNote;
+    private
+    WebElement boxNote;
 
     @FindBy(css = "div.task-panel.ng-star-inserted")
-    private WebElement taskContent;
+    private
+    WebElement taskContent;
 
     @FindBy(css = ".box-spent")
-    private WebElement boxSpent;
+    private
+    WebElement boxSpent;
 
     @FindBy(css = ".text-muted.ng-star-inserted")
-    private WebElement btnRepeat;
+    private
+    WebElement btnRepeat;
 
     @FindBy(css = ".btn.btn-sm.btn-primary")
-    private WebElement btnSave;
+    private
+    WebElement btnSave;
 
+    @FindBy(xpath = "//*[@class ='task-content']/div[2]/div/div[1]/p-dropdown/div[1]")
+    private
+    WebElement test;
+
+    @FindBy(xpath = "//*[@class ='task-content']/div[2]/div/div[1]/p-dropdown/div[1]")
+    private
+    WebElement test1;
+
+    @FindBy(xpath = "//*[@class ='task-content']/div[2]/div/div[1]/p-dropdown/div")
+    private
+    WebElement test2;
+
+    @FindBy(css = ".col-md-12")
+    private
+    WebElement dialogTask;
+
+    @FindBy(xpath = "//*[@class ='task-content']/div[1]/div/div[1]/p-dropdown/div/div[4]")
+    private
+    WebElement dialogTestProject;
+
+    @FindBy(xpath = "//*[@class ='task-content']/div[2]/div/div[1]/p-dropdown/div/div[4]")
+    private
+    WebElement xxDialog;
+
+    @FindBy(css = ".ui-dropdown-items-wrapper")
+    private
+    WebElement yyyDialog;
+
+    @FindBy(css = ".ng-tns-c2-4.arrow-block.ui-dropdown-panel.ui-widget-content.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-panelState")
+    private
+    WebElement ddd;
 
     @Override
     public TimeSheetPage navigateTo(WebDriver webDriver) {
@@ -198,15 +239,14 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         return titleProject.isDisplayed() && titleProject.getText().equals(title);
     }
 
-    public Boolean isDefaultSelectProjectShowing(WebDriver driver, String title) {
+    public Boolean isDefaultSelectProjectShowing(WebDriver driver, String content) {
         waitForElement(driver, dropdownProject, 5);
-        List<WebElement> titleItemProjects = dropdownProject.findElements(By.cssSelector(".ng-tns-c2-2.ng-star-inserted"));
-        for (WebElement item : titleItemProjects) {
-            if (!item.getText().isEmpty()) {
-                return item.isDisplayed() && item.getText().equals(title);
-            }
+        WebElement titleItemProjects = dropdownProject.findElement(By.tagName("select"));
+        String tittle = titleItemProjects.getAttribute("aria-label");
+        if (!tittle.trim().isEmpty()) {
+            return tittle.equals(content);
         }
-        return false;
+        return titleItemProjects.getAttribute("value").equals(content);
     }
 
     public Boolean isTitleTaskShowing(WebDriver driver, String title) {
@@ -214,6 +254,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         List<WebElement> taskList = taskContent.findElements(By.cssSelector("div.task-content"));
         List<WebElement> taskElement = taskList.get(0).findElements(By.cssSelector("div.row"));
         String text = taskElement.get(1).findElement(By.tagName("span")).getText();
+
         return text.equals(title);
     }
 
@@ -232,11 +273,10 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         return text.equals(title);
     }
 
-
     public Boolean isDefaultInputTimeShowing(WebDriver driver, String title) {
         waitForElement(driver, boxSpent, 5);
-        WebElement timeInput = boxSpent.findElement(By.tagName("small"));
-        return true;
+        WebElement timeInput = boxSpent.findElement(By.tagName("input"));
+        return timeInput.getAttribute("value").equals(title);
     }
 
     public Boolean checkButtonRepeatClickable(WebDriver driver) {
@@ -244,7 +284,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         return btnRepeat.isEnabled();
     }
 
-    public Boolean checkButtonSaveClickable(WebDriver driver){
+    public Boolean checkButtonSaveClickable(WebDriver driver) {
         waitForElement(driver, btnSave, 5);
         return btnSave.isEnabled();
     }
@@ -271,24 +311,52 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         return itemMenus.get(0);
     }
 
-    public void selectedFirstValueTask(WebDriver driver) {
-        waitForElement(driver, dropdownTask, 5);
-        dropdownTask.click();
-        WebElement item = getItemMenuTaskPosition();
-        item.click();
+    public Boolean disableProjectDialog(WebDriver driver) {
+        waitForElement(driver, boxNote, 5);
+        boxNote.click();
+        return dialogTestProject.isDisplayed();
     }
 
-    private WebElement getItemMenuTaskPosition() {
-        List<WebElement> itemMenus = new ArrayList<>();
-        int countChildItem;
-        List<WebElement> items = dropdownTask.findElements(By.tagName("li"));
-        for (int i = 0; i < items.size(); i = i + countChildItem + 1) {
-            countChildItem = 0;
-            itemMenus.add(items.get(i));
-            if (items.get(i).findElements(By.tagName("li")).size() > 0) {
-                countChildItem = items.get(i).findElements(By.tagName("li")).size();
+    public void selectItemOnDialogProject(WebDriver driver, String content) {
+        waitForElement(driver, dropdownProject, 5);
+        List<WebElement> titleItemProjects = dropdownProject.findElements(By.cssSelector(".ng-tns-c2-2.ng-star-inserted"));
+        for (WebElement item : titleItemProjects) {
+            if (item.getText().equals(content)) {
+                item.click();
             }
         }
-        return itemMenus.get(0);
+    }
+
+
+    public void selectedFirstValueTask(WebDriver driver) {
+        waitForElement(driver, test2, 5);
+        test2.click();
+        waitForElement(driver, test, 5);
+        test.click();
+    }
+
+    public void selectItemOnDialogTask(WebDriver driver, String content) {
+        waitForElement(driver, test, 5);
+        test.click();
+        List<WebElement> items = test.findElements(By.tagName("div"));
+        List<WebElement> i = items.get(3).findElements(By.tagName("div"));
+        WebElement es = i.get(1).findElement(By.tagName("ul"));
+        waitForElement(driver, es, 5);
+        List<WebElement> listUri = es.findElements(By.tagName("li"));
+        for (WebElement e : listUri) {
+            if (e.getText().equals(content)) {
+                e.click();
+                return;
+            }
+        }
+    }
+
+    public Boolean displayDialogTask(WebDriver driver) {
+        try {
+            waitForElement(driver, xxDialog, 5);
+            return xxDialog.isEnabled();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

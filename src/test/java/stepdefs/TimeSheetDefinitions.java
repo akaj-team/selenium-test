@@ -89,10 +89,13 @@ public class TimeSheetDefinitions extends DriverBase implements En {
 
 
         When("^Create and submit timesheet$", () -> myTimeSheet.getAddTimeSheetsClickable());
-        When("^Select first project on list project$", () -> myTimeSheet.getAddTimeSheetsClickable());
-        When("^Status list project has show value$", () -> myTimeSheet.selectedFirstValueProject(driver));
-        When("Select  first task on list task", () -> myTimeSheet.selectedFirstValueTask(driver));
-
+        When("^Select first project on list project$", () -> myTimeSheet.selectedFirstValueProject(driver));
+        Then("^Select item dialog project is \"([^\"]*)\"$", (String content) -> myTimeSheet.selectItemOnDialogProject(driver, content));
+        Then("^Disable dialog project$", () -> myTimeSheet.disableProjectDialog(driver));
+        When("^Select first task on list task$", () -> myTimeSheet.selectedFirstValueTask(driver));
+        Then("^Select item dialog task is \"([^\"]*)\"$", (String content) -> myTimeSheet.selectItemOnDialogTask(driver, content));
+        Then("^Display dialog task$", () -> Assert.assertTrue(myTimeSheet.displayDialogTask(driver)));
+//        Then("^Display title dropdown default task is \"([^\"]*)\"$", (String content) -> myTimeSheet.isDefaultTaskShowing(driver, content));
     }
 
     private void redirectPageWhenClickChildItem(String path) {

@@ -10,7 +10,7 @@ Feature: Check TimeSheet
     Then Menu Timesheet drop down
     When I click on item My Timesheet
     Then My Timesheet page is displayed "/timesheet/submission"
-    And Title content is "Sep 17 - Sep 23"
+    And Title content is "Sep 24 - Sep 30"
     And Display full record timesheet
     And Disable button this week and can not click
     And Disable button submit and can not click
@@ -49,15 +49,15 @@ Feature: Check TimeSheet
     And Display button Repeat every day is disable
     And Display button Save is disable
 
-#  Scenario: Create and submit timesheet
-#    Given I open my timesheet page
-#    When Click first button add new timesheet
-#    Then Display dialog timesheet
-#    When Select first project on list project
-#    Then Status list project has show value
-#    And  Select  first task on list task
-#    When Select first task on list task
-#    Then Status list task has show value
-#    And Display button save on dialog
-#    When Click button save on dialog
-#    Then Display message save success
+  Scenario: Create and submit timesheet
+    Given I open my timesheet page
+    When Click first button add new timesheet
+    Then Display dialog timesheet
+    When Select first project on list project
+    Then Select item dialog project is "Non-Project"
+    And Display title dropdown default is "Non-Project"
+    And Disable dialog project
+    When Select first task on list task
+    Then Display dialog task
+    And Select item dialog task is "Coding"
+    And Display title dropdown task default is "Coding"
