@@ -10,7 +10,6 @@ import vn.asiantech.base.BasePage;
 import static vn.asiantech.base.DriverBase.getDriver;
 
 /**
- *
  * @author at-anh.quach
  * Wiki page
  */
@@ -30,7 +29,7 @@ public class WikiPage extends BasePage<WikiPage> {
     private WebElement treeContainer;
 
     @Override
-    public WikiPage navigateTo(WebDriver webDriver) {
+    public final WikiPage navigateTo(final WebDriver webDriver) {
         return null;
     }
 
@@ -83,7 +82,7 @@ public class WikiPage extends BasePage<WikiPage> {
 
     public final boolean isHideCategoryInside() {
         try {
-            getTitleCategory(5).findElement(By.cssSelector(".ui-treenode-children.ng-star-inserted")).isDisplayed();
+            getTitleCategory().findElement(By.cssSelector(".ui-treenode-children.ng-star-inserted")).isDisplayed();
             return true;
         } catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
@@ -98,7 +97,7 @@ public class WikiPage extends BasePage<WikiPage> {
         return treeContainer.findElements(By.xpath("//span[contains(@class,'ui-tree-toggler')]")).get(pos);
     }
 
-    private WebElement getTitleCategory(final int pos) {
-        return treeContainer.findElements(By.cssSelector(".ui-treenode.ng-star-inserted")).get(pos);
+    private WebElement getTitleCategory() {
+        return treeContainer.findElements(By.cssSelector(".ui-treenode.ng-star-inserted")).get(5);
     }
 }
