@@ -152,11 +152,11 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public final boolean isShowEffectForReaction() {
-        if (rightSideBar.findElements(By.cssSelector("button.btn-reaction.congrafs-btn.active")).size() > 0) {
-            return rightSideBar.findElement(By.cssSelector("button.btn-reaction.congrafs-btn.active")).isDisplayed();
-        } else {
-            return false;
+        By btnActive = By.cssSelector("button.btn-reaction.congrafs-btn.active");
+        if (rightSideBar.findElements(btnActive).size() > 0) {
+            return rightSideBar.findElement(btnActive).isDisplayed();
         }
+        return true;
     }
 
     public final void scrollIBoxContent(final WebDriver driver, final boolean isDown) {
