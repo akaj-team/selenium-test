@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class HomePage extends BasePage<HomePage> {
     public static final String URL_HOME_PAGE = "http://portal-stg.asiantech.vn/homepage";
-    public static final int TIME_OUT_IN_SECONDS_10 = 10;
+    public static final int TIME_OUT_SECOND_NORMAL = 10;
     private static final int TIME_OUT_IN_SECONDS_20 = 20;
 
     @FindBy(className = "welcome-message")
@@ -56,7 +56,7 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public final void waitForWelcomeMessage(final WebDriver driver) {
-        waitForElement(driver, txtWelcome, TIME_OUT_IN_SECONDS_10);
+        waitForElement(driver, txtWelcome, TIME_OUT_SECOND_NORMAL);
     }
 
     public final void logout() {
@@ -74,12 +74,12 @@ public class HomePage extends BasePage<HomePage> {
         }
     }
 
-    public final boolean checkColorTabInIBoxContent(final String color, final String tabName) {
+    public final boolean isColorTabInIBoxContentCorrect(final String color, final String tabName) {
         return getActualColor(getBtnTab(wapper, tabName)).equals(color);
     }
 
-    public final boolean checkColorOtherTabInIBoxContent(final String color, final String position) {
-        return checkColorOtherTab(wapper, color, position);
+    public final boolean isColorOtherTabInIBoxContentCorrect(final String color, final String position) {
+        return isColorOtherTabCorrect(wapper, color, position);
     }
 
     public final void onClickTabInRightSideBar(final String tabName) {
@@ -88,27 +88,26 @@ public class HomePage extends BasePage<HomePage> {
         }
     }
 
-    public final boolean checkColorTabInRightSideBar(final String tabName, final String colorActive) {
+    public final boolean isColorTabInRightSideBarCorrect(final String tabName, final String colorActive) {
         return getActualColor(getBtnTab(rightSideBar, tabName)).equals(colorActive);
     }
 
-    public final boolean checkColorOtherTabInRightSideBar(final String position, final String colorDefault) {
-        return checkColorOtherTab(rightSideBar, colorDefault, position);
+    public final boolean isColorOtherTabInRightSideBarCorrect(final String position, final String colorDefault) {
+        return isColorOtherTabCorrect(rightSideBar, colorDefault, position);
     }
 
-    public final boolean checkShowHaveOrNoDataInIBoxContent() {
+    public final boolean isInIBoxContentShowed() {
         if (isElementPresented(homeContentHasData) && homeContentHasData.findElements(By.className("social-feed-box")).size() > 0) {
             return true;
-        } else {
-            return isElementPresented(homeContentNoData) && isElementPresented(homeContentNoData.findElement(By.tagName("h2")));
         }
+        return isElementPresented(homeContentNoData) && isElementPresented(homeContentNoData.findElement(By.tagName("h2")));
     }
 
     public final void sendKeysSearch(final String valueSearch) {
         inputSearch.sendKeys(valueSearch);
     }
 
-    public final String showMessageEmptyTeam() {
+    public final String getEmptyTeamMessage() {
         WebElement txtEmpty = homeContentNoData.findElement(By.tagName("h2"));
         return txtEmpty.getText();
     }
@@ -118,15 +117,14 @@ public class HomePage extends BasePage<HomePage> {
         return listFeeds.size() == 0;
     }
 
-    public final boolean checkShowHaveOrNoDataOnRightSideBar() {
+    public final boolean isRightSideBarShowed() {
         List<WebElement> listEvent = rightSideBar.findElements(By.className("event-block"));
         //noinspection LoopStatementThatDoesntLoop
         for (WebElement event : listEvent) {
             if (event.findElement(By.tagName("h3")).isDisplayed() && event.findElements(By.className("feed-element")).size() > 0) {
                 return true;
-            } else {
-                return event.findElement(By.tagName("h3")).isDisplayed() && isElementPresented(event.findElement(By.className("text-na")));
             }
+            return event.findElement(By.tagName("h3")).isDisplayed() && isElementPresented(event.findElement(By.className("text-na")));
         }
         return false;
     }
@@ -147,14 +145,18 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public final void onClickBtnReaction(final int position) {
-        List<WebElement> listBtnReaction = rightSideBar.findElements(By.className("event-block"));
-        if (listBtnReaction.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).size() > 0) {
-            listBtnReaction.get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn")).get(position).click();
+        List<WebElement> listBtnReaction = rightSideBar.findElements(By.className("event-block")).get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn"));
+        if (listBtnReaction.size() > 0) {
+            listBtnReaction.get(position).click();
         }
     }
 
     public final boolean isShowEffectForReaction() {
-        return rightSideBar.findElement(By.cssSelector("button.btn-reaction.congrafs-btn.active")).isDisplayed();
+        if (rightSideBar.findElements(By.cssSelector("button.btn-reaction.congrafs-btn.active")).size() > 0) {
+            return rightSideBar.findElement(By.cssSelector("button.btn-reaction.congrafs-btn.active")).isDisplayed();
+        } else {
+            return false;
+        }
     }
 
     public final void scrollIBoxContent(final WebDriver driver, final boolean isDown) {
@@ -172,7 +174,7 @@ public class HomePage extends BasePage<HomePage> {
         return listBtnTab.get(Integer.parseInt(position));
     }
 
-    private boolean checkColorOtherTab(final WebElement elementContent, final String color, final String position) {
+    private boolean isColorOtherTabCorrect(final WebElement elementContent, final String color, final String position) {
         List<WebElement> listBtnTab = elementContent.findElement(By.className("ui-buttonset-3")).findElements(By.className("ui-button-text-only"));
         for (int i = 0; i < listBtnTab.size(); i++) {
             if (i != Integer.parseInt(position)) {

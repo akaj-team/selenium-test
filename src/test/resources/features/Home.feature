@@ -17,57 +17,58 @@ Feature: Open home page
       | 2        | #bfac8a     | #c2c2c2      |
       | 0        | #bfac8a     | #c2c2c2      |
 
+
   Scenario Outline: Check color and data of tab on right sideBar when clicked
     When I click on tab item "<position>" in right sideBar
-    Then Color of tab "<position>" is "<colorActive>" in right sideBar
-    And Color other tab "<position>" is "<colorDefault>" in right sideBar
+    Then Color of tab "<position>" is "<activeColor>" in right sideBar
+    And Color other tab "<position>" is "<defaultColor>" in right sideBar
     And I should see data Today's Event and Upcoming Event on right sideBar
     Examples:
-      | position | colorActive | colorDefault |
+      | position | activeColor | defaultColor |
       | 1        | #bfac8a     | #c2c2c2      |
       | 2        | #bfac8a     | #c2c2c2      |
       | 0        | #bfac8a     | #c2c2c2      |
 
   Scenario Outline: I fill to search and result is list feed
-    When I fill to search with value is "<valueSearch>"
+    When I fill to search with value is "<searchData>"
     Then I should see list feed is displayed
     Examples:
-      | valueSearch |
+      | searchData |
       | vi          |
       | viet        |
       | wh          |
 
   Scenario Outline: I fill to search and result is empty
-    When I fill to search with value is "<valueSearch>"
+    When I fill to search with value is "<searchData>"
     Then I should see message "No data available"
     Examples:
-      | valueSearch |
+      | searchData |
       | vivivivivi  |
       | iviviviviv  |
       | zzzzzzzzzz  |
 
-  Scenario: Check click username on homeContent and open successfully profile page
+  Scenario: Click username on homeContent and open successfully profile page
     When I click on username in social-box
     Then Open successfully User Profile page
 
-  Scenario: Check click avatar on homeContent and open successfully profile page
+  Scenario: Click avatar on homeContent and open successfully profile page
     When I click on avatar in social-box
     Then Open successfully User Profile page
 
-  Scenario: Check click avatar on right sideBar and open successfully profile page
+  Scenario: Click avatar on right sideBar and open successfully profile page
     When I click on avatar in right sideBar
     Then Open successfully User Profile page
 
-  Scenario: Check click on Flowers and Congrats
-    When I click on btn Flowers
+  Scenario: Show effect when click on Flowers and Congrats
+    When I click on button Flowers
     Then I should see Flowers is displayed
-    When I click on btn Congrats
+    When I click on button Congrats
     Then I should see Congrats is displayed
 
-  Scenario: Check scrollview on homeContent
+  Scenario: Scrollview on homeContent
     When I scroll down homeContent
     Then I scroll up homeContent
 
-  Scenario: Check scrollview on right sideBar
+  Scenario: Scrollview on right sideBar
     When I scroll down right sideBar
     Then I scroll up right sideBar
