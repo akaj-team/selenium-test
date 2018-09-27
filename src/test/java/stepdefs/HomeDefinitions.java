@@ -44,6 +44,14 @@ public class HomeDefinitions extends DriverBase implements En {
 
 //        Check function search
         When("^I fill to search with value is \"([^\"]*)\"$", (String valueSearch) -> homePage.sendKeysSearch(valueSearch));
+        Then("^I should see list feed is displayed$", () -> {
+            new WebDriverWait(driver,TIME_OUT_IN_SECONDS_10).until(webDriver -> webDriver.findElement(By.className("notification-container")).findElement(By.className("social-feed-box")).isDisplayed());
+            Assert.assertFalse(homePage.isFeedListEmpty());
+        });
+        Then("^I should see message \"([^\"]*)\"$", (String message) -> {
+            new WebDriverWait(driver, TIME_OUT_IN_SECONDS_10).until(webDriver -> webDriver.findElement(By.cssSelector(".text-center.ng-star-inserted")).findElement(By.tagName("h2")).isDisplayed());
+            Assert.assertEquals(homePage.showMessageEmptyTeam(), message);
+        });
 
 //        Check color and data of tab on right sideBar when clicked
         When("^I click on tab item \"([^\"]*)\" in right sideBar$", (String position) -> homePage.onClickTabInRightSideBar(position));

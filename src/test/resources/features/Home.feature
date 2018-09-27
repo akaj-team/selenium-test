@@ -17,14 +17,6 @@ Feature: Open home page
       | 2        | #bfac8a     | #c2c2c2      |
       | 0        | #bfac8a     | #c2c2c2      |
 
-  Scenario Outline: Check function search
-    When I fill to search with value is "<valueSearch>"
-    Examples:
-      | valueSearch |
-      | vi          |
-      | viet        |
-      | wh          |
-
   Scenario Outline: Check color and data of tab on right sideBar when clicked
     When I click on tab item "<position>" in right sideBar
     Then Color of tab "<position>" is "<colorActive>" in right sideBar
@@ -35,6 +27,24 @@ Feature: Open home page
       | 1        | #bfac8a     | #c2c2c2      |
       | 2        | #bfac8a     | #c2c2c2      |
       | 0        | #bfac8a     | #c2c2c2      |
+
+  Scenario Outline: I fill to search and result is list feed
+    When I fill to search with value is "<valueSearch>"
+    Then I should see list feed is displayed
+    Examples:
+      | valueSearch |
+      | vi          |
+      | viet        |
+      | wh          |
+
+  Scenario Outline: I fill to search and result is empty
+    When I fill to search with value is "<valueSearch>"
+    Then I should see message "No data available"
+    Examples:
+      | valueSearch |
+      | vivivivivi  |
+      | iviviviviv  |
+      | zzzzzzzzzz  |
 
   Scenario: Check click username on homeContent and open successfully profile page
     When I click on username in social-box

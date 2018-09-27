@@ -108,6 +108,16 @@ public class HomePage extends BasePage<HomePage> {
         inputSearch.sendKeys(valueSearch);
     }
 
+    public final String showMessageEmptyTeam() {
+        WebElement txtEmpty = homeContentNoData.findElement(By.tagName("h2"));
+        return txtEmpty.getText();
+    }
+
+    public final boolean isFeedListEmpty() {
+        List<WebElement> listFeeds = homeContentHasData.findElements(By.className("social-feed-box"));
+        return listFeeds.size() == 0;
+    }
+
     public final boolean checkShowHaveOrNoDataOnRightSideBar() {
         List<WebElement> listEvent = rightSideBar.findElements(By.className("event-block"));
         //noinspection LoopStatementThatDoesntLoop
