@@ -10,6 +10,7 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.EmployeesPage;
 
+import static vn.asiantech.page.EmployeesPage.EMPLOYEE_URL;
 import static vn.asiantech.page.EmployeesPage.TIME_OUT_SECOND;
 import static vn.asiantech.page.EmployeesPage.MAXIMUM_CELL;
 
@@ -42,37 +43,37 @@ public class EmployeesDefinitions extends DriverBase implements En {
         }
 
         Given("Display employees page", () -> {
-            driver.get("http://portal-stg.asiantech.vn/organisation/employees");
+            driver.get(EMPLOYEE_URL);
             employeesPage = initPage(getDriver(), EmployeesPage.class);
             new WebDriverWait(driver, TIME_OUT_SECOND).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            Assert.assertEquals("http://portal-stg.asiantech.vn/organisation/employees", driver.getCurrentUrl());
+            Assert.assertEquals(EMPLOYEE_URL, driver.getCurrentUrl());
             new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ibox-content.main-content")));
         });
 
         Given("^Click on status view$", () -> isShowStatusList = employeesPage.clickStatus());
 
-        Given("^Click on employee type view$", () -> isShowTypeList = employeesPage.clickType());
+        Given("^Click on employee type view$", () -> isShowTypeList = employeesPage.getClickType());
 
-        When("^Click on employee name$", () -> employeeProfileUrl = employeesPage.clickEmployeeName());
+        When("^Click on employee name$", () -> employeeProfileUrl = employeesPage.clickAndGetEmployeeName());
 
-        When("^Click on employee avatar$", () -> employeeProfileUrl = employeesPage.clickEmployeeAvatar());
+        When("^Click on employee avatar$", () -> employeeProfileUrl = employeesPage.clickAndGetEmployeeAvatar());
 
-        When("^Click on employee code$", () -> employeeProfileUrl = employeesPage.clickEmployeeCode());
+        When("^Click on employee code$", () -> employeeProfileUrl = employeesPage.clickAndGetEmployeeCode());
 
-        When("^Click on manager name$", () -> managerUrl = employeesPage.clickManagerName());
+        When("^Click on manager name$", () -> managerUrl = employeesPage.clickAndGetManagerName());
 
-        When("^Click on team name$", () -> teamUrl = employeesPage.clickTeamName());
+        When("^Click on team name$", () -> teamUrl = employeesPage.clickAndGetTeamName());
 
-        When("^Click on group name$", () -> groupUrl = employeesPage.clickGroupName());
+        When("^Click on group name$", () -> groupUrl = employeesPage.clickAndGetGroupName());
 
-        When("^Click on edit action edit$", () -> editEmployeeUrl = employeesPage.clickEditButton());
+        When("^Click on edit action edit$", () -> editEmployeeUrl = employeesPage.clickEditButtonAndGetLink());
 
         When("^Click on promotion button$", () -> employeesPage.clickPromotionButton());
 
         When("^Click on award category button$", () -> employeesPage.clickAwardCategory());
 
-        When("^Click on new employee button$", () -> newEmployeeUrl = employeesPage.clickNewEmployee());
+        When("^Click on new employee button$", () -> newEmployeeUrl = employeesPage.clickNewEmployeeAndGetLink());
 
         When("^Click on next indicator$", () -> employeesPage.clickNextIndicator());
 
@@ -86,7 +87,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
 
         When("^Enter search employee with \"([^\"]*)\"$", (String name) -> {
             employeesPage.searchEmployee(name);
-            String currentUrl = "http://portal-stg.asiantech.vn/organisation/employees;name_cont=" + name;
+            String currentUrl = EMPLOYEE_URL + ";name_cont=" + name;
             driver.get(currentUrl);
             new WebDriverWait(driver, TIME_OUT_SECOND).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
@@ -97,13 +98,13 @@ public class EmployeesDefinitions extends DriverBase implements En {
         When("^Search position with \"([^\"]*)\"$", (String position) -> {
             if (isShowPositionList) {
                 employeePosition = position;
-                employeesPage.searchPosition(position, driver);
+                employeesPage.searchPosition(position);
             }
         });
 
         When("^Select any item in that type list$", () -> {
             if (isShowTypeList) {
-                employeeType = employeesPage.selectType();
+                employeeType = employeesPage.getSelectType();
             }
         });
 
@@ -169,7 +170,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
 
         Then("^Corresponding page indicator is active$", () -> Assert.assertTrue(employeesPage.isIndicatorActive()));
 
-        Then("^Check compatibility sum of cells with page number$", () -> Assert.assertTrue(employeesPage.compareLeftContentWithPageIndicator()));
+        Then("^Check compatibility sum of cells with page number$", () -> Assert.assertTrue(employeesPage.isLeftContentAndPageIndicatorCorrect()));
 
         Then("^Show an employee list$", () -> Assert.assertFalse(employeesPage.isEmployeeListEmpty()));
 
@@ -177,10 +178,9 @@ public class EmployeesDefinitions extends DriverBase implements En {
 
         Then("^Show a position list$", () -> Assert.assertTrue(isShowPositionList));
 
-        Then("^Display a corresponding position list with that position$", () ->
-                Assert.assertTrue(employeesPage.isShowCorrectPositionList(employeePosition)));
+        Then("^Display a corresponding position list with that position$", () -> Assert.assertTrue(employeesPage.isShowCorrectPositionList(employeePosition)));
 
-        Then("^Display \"([^\"]*)\" message$", (String message) -> Assert.assertTrue(employeesPage.isShowNoResultMessage(message)));
+        Then("^Display \"([^\"]*)\" message$", (String message) -> Assert.assertTrue(employeesPage.isNoResultMessageShowed(message)));
 
         Then("^Display a corresponding employee list$", () -> Assert.assertFalse(employeesPage.isEmployeeListEmpty()));
 
