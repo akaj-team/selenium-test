@@ -51,7 +51,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
 
     @Override
 
-    public LeaveRequestPage navigateTo(final WebDriver webDriver) {
+    public final LeaveRequestPage navigateTo(final WebDriver webDriver) {
         webDriver.get("http://portal-stg.asiantech.vn/leave/request");
         return this;
     }

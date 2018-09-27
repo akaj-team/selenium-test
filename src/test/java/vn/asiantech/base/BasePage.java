@@ -18,12 +18,12 @@ public abstract class BasePage<T> {
         return true;
     }
 
-    public void waitForElement(WebDriver webDriver, WebElement element, int timeOutInSecond) {
+    protected final void waitForElement(WebDriver webDriver, WebElement element, int timeOutInSecond) {
         new WebDriverWait(webDriver, timeOutInSecond).until(
                 driver -> isElementPresented(element));
     }
 
-    public void waitForElementDisplay(WebDriver webDriver, WebElement element, int timeOutInSecond) {
+    protected final void waitForElementDisplay(WebDriver webDriver, WebElement element, int timeOutInSecond) {
         new WebDriverWait(webDriver, timeOutInSecond).until(
                 driver -> element.isDisplayed());
     }
