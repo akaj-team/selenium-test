@@ -187,9 +187,10 @@
    `/* This is comment */`
    
    **Comments in feature files (Cucumber)**
-   - You can add your comments in the lines followed by the keywords Feature, Scenario, Scenario Outline or Examples.
-   - Also you can use #  for line comments.
-   `# This is comment`
+   - You can add your comments in the lines followed by the keywords `Feature`, `Scenario`, `Scenario Outline` or `Examples`.
+   - Also you can use `#`  for line comments.
+   
+       `# This is comment`
   
 ## Locator
 
@@ -201,15 +202,21 @@
 - Feature definitions are typically given a name and an optional, short description.
 
 ### Scenario
-- Cucumber does not distinguish between keywords Given, When, Then, But, And and `*` but should use this keywords to be more readable.
+- Cucumber does not distinguish between keywords `Given`, `When`, `Then`, `But`, `And` and `*` but should use this keywords to be more readable.
 
 *Scenario Outline help to avoid repetitive code*
 
 ## References
  1.Java Naming Conventions – Javatpoint. Available at: https://www.javatpoint.com/java-naming-conventions.
+ 
  2.Code Conventions for the Java Programming Language: 9. Naming Conventions. Available at: [http://www.oracle.com/technetwork/java/codeconventions-135099.html]().
+ 
  3.Java Naming Conventions – GeeksforGeeks. Available at: [https://www.geeksforgeeks.org/java-naming-conventions]().
+ 
  4.Camel case – En.wikipedia.org. Available at: [https://en.wikipedia.org/wiki/Camel_case]().
+
  5.Object Naming Conventions – Msdn.microsoft.com Available at:[https://msdn.microsoft.com/en-us/library/aa263493(v=vs.60).aspx]().
+
  6.Cucumber Limited.Reference·Cucumber. Available [at:https://cucumber.io/docs/reference](). 
+ 
  7.Conselenium java. Available at [https://pragmatictestlabs.com/2018/03/05/coding-convention-selenium-java/]().
