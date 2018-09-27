@@ -55,8 +55,8 @@ public class HomeDefinitions extends DriverBase implements En {
 
         // Check color and data of tab on right sideBar when clicked
         When("^I click on tab item \"([^\"]*)\" in right sideBar$", (String position) -> homePage.onClickTabInRightSideBar(position));
-        Then("^Color of tab \"([^\"]*)\" is \"([^\"]*)\" in right sideBar$", (String position, String colorActive) -> Assert.assertTrue(homePage.isColorTabInRightSideBarCorrect(position, colorActive)));
-        And("^Color other tab \"([^\"]*)\" is \"([^\"]*)\" in right sideBar$", (String position, String colorDefault) -> Assert.assertTrue(homePage.isColorOtherTabInRightSideBarCorrect(position, colorDefault)));
+        Then("^Color of tab \"([^\"]*)\" is \"([^\"]*)\" in right sideBar$", (String position, String activeColor) -> Assert.assertTrue(homePage.isColorTabInRightSideBarCorrect(position, activeColor)));
+        And("^Color other tab \"([^\"]*)\" is \"([^\"]*)\" in right sideBar$", (String position, String defaultColor) -> Assert.assertTrue(homePage.isColorOtherTabInRightSideBarCorrect(position, defaultColor)));
         And("^I should see data Today's Event and Upcoming Event on right sideBar$", () -> Assert.assertTrue(homePage.isRightSideBarShowed()));
 
         // Click username on homeContent

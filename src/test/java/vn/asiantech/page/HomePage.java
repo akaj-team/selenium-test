@@ -88,12 +88,12 @@ public class HomePage extends BasePage<HomePage> {
         }
     }
 
-    public final boolean isColorTabInRightSideBarCorrect(final String tabName, final String colorActive) {
-        return getActualColor(getBtnTab(rightSideBar, tabName)).equals(colorActive);
+    public final boolean isColorTabInRightSideBarCorrect(final String tabName, final String activeColor) {
+        return getActualColor(getBtnTab(rightSideBar, tabName)).equals(activeColor);
     }
 
-    public final boolean isColorOtherTabInRightSideBarCorrect(final String position, final String colorDefault) {
-        return isColorOtherTabCorrect(rightSideBar, colorDefault, position);
+    public final boolean isColorOtherTabInRightSideBarCorrect(final String position, final String defaultColor) {
+        return isColorOtherTabCorrect(rightSideBar, defaultColor, position);
     }
 
     public final boolean isInIBoxContentShowed() {

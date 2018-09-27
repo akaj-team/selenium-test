@@ -8,11 +8,11 @@ Feature: Open home page
 
   Scenario Outline: Check color and data of tab on navigation header when clicked
     When I click on tab item "<position>"
-    Then Color of tab "<position>" is "<colorActive>"
-    And Color other tab "<position>" is "<colorDefault>"
+    Then Color of tab "<position>" is "<activeColor>"
+    And Color other tab "<position>" is "<defaultColor>"
     And I Should see data when has or no
     Examples:
-      | position | colorActive | colorDefault |
+      | position | activeColor | defaultColor |
       | 1        | #bfac8a     | #c2c2c2      |
       | 2        | #bfac8a     | #c2c2c2      |
       | 0        | #bfac8a     | #c2c2c2      |
@@ -20,11 +20,11 @@ Feature: Open home page
 
   Scenario Outline: Check color and data of tab on right sideBar when clicked
     When I click on tab item "<position>" in right sideBar
-    Then Color of tab "<position>" is "<colorActive>" in right sideBar
-    And Color other tab "<position>" is "<colorDefault>" in right sideBar
+    Then Color of tab "<position>" is "<activeColor>" in right sideBar
+    And Color other tab "<position>" is "<defaultColor>" in right sideBar
     And I should see data Today's Event and Upcoming Event on right sideBar
     Examples:
-      | position | colorActive | colorDefault |
+      | position | activeColor | defaultColor |
       | 1        | #bfac8a     | #c2c2c2      |
       | 2        | #bfac8a     | #c2c2c2      |
       | 0        | #bfac8a     | #c2c2c2      |
