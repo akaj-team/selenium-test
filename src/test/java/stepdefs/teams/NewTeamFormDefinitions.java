@@ -18,7 +18,7 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
     private static final String URL_PAGE_TEAMS = "http://portal-stg.asiantech.vn/organisation/teams";
     private static final String URL_PAGE_NEW_TEAM = "http://portal-stg.asiantech.vn/organisation/teams/new";
     private static final int TIME_OUT_SECONDS_NORMAL = 10;
-    private static final int TIME_OUT_SECONDS_20 = 20;
+    private static final int TIME_OUT_SECOND_MAXIMUM = 20;
     private WebDriver driver;
     private NewTeamFormPage mNewTeamFormPage;
     private static final int INDEX_ID_IN_URL = 5;
@@ -57,7 +57,7 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
             mNewTeamFormPage.onClickBtnSubmit();
         });
         Then("^Open successfully team detail page after update$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_20).until(webDriver -> webDriver.findElement(By.className("section-top")).isDisplayed());
+            new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM).until(webDriver -> webDriver.findElement(By.className("section-top")).isDisplayed());
             Assert.assertTrue(driver.findElement(By.className("section-top")).isDisplayed());
         });
 

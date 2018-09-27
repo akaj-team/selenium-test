@@ -16,7 +16,7 @@ import vn.asiantech.page.teams.TeamsPage;
  */
 public class TeamsDefinitions extends DriverBase implements En {
     private static final int TIME_OUT_SECONDS_NORMAL = 10;
-    private static final int TIME_OUT_SECONDS_20 = 20;
+    private static final int TIME_OUT_SECOND_MAXIMUM = 20;
     private static final String URL_PAGE_TEAMS = "http://portal-stg.asiantech.vn/organisation/teams";
 
     private String urlUpdateTeam;
@@ -45,7 +45,7 @@ public class TeamsDefinitions extends DriverBase implements En {
         When("^Enter search with name is \"([^\"]*)\"$", (String name) -> {
             mTeamsPage.searchNameTeam(name);
             String redirectUrl = URL_PAGE_TEAMS + ";name_cont=" + name;
-            new WebDriverWait(driver, TIME_OUT_SECONDS_20).until(ExpectedConditions.urlToBe(redirectUrl));
+            new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM).until(ExpectedConditions.urlToBe(redirectUrl));
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(webDriver -> webDriver.findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).isDisplayed());
         });
         Then("^I should see list team$", () -> Assert.assertFalse(mTeamsPage.isTeamListEmpty()));
@@ -56,7 +56,7 @@ public class TeamsDefinitions extends DriverBase implements En {
         When("^I click on avatar of team$", () -> urlTeamDetail = mTeamsPage.onClickAvatarTeam());
         When("^I click on name team$", () -> urlTeamDetail = mTeamsPage.onClickNameTeam());
         Then("^Team details is displayed$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_20).until(ExpectedConditions.urlToBe(urlTeamDetail));
+            new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM).until(ExpectedConditions.urlToBe(urlTeamDetail));
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
             Assert.assertTrue(driver.findElement(By.className("section-top")).isDisplayed());
 
@@ -64,7 +64,7 @@ public class TeamsDefinitions extends DriverBase implements En {
         // Open successfully profile when click on username of manager
         When("^I click on username of manager$", () -> urlEmployeeDetail = mTeamsPage.onClickNameManager());
         Then("^Manager profile is displayed$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_20).until(ExpectedConditions.urlToBe(urlEmployeeDetail));
+            new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM).until(ExpectedConditions.urlToBe(urlEmployeeDetail));
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
             Assert.assertTrue(driver.findElement(By.className("section-top")).isDisplayed());
         });
@@ -72,14 +72,14 @@ public class TeamsDefinitions extends DriverBase implements En {
         // Open successfully new team page when click on button New Team
         When("^I click on button New Team$", () -> urlNewTeam = mTeamsPage.onClickNewTeam());
         Then("^Page is redirected to New Team page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_20).until(ExpectedConditions.urlToBe(urlNewTeam));
+            new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM).until(ExpectedConditions.urlToBe(urlNewTeam));
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
         });
 
         // Open successfully update team page when click on button Update
         When("^I click on button update team$", () -> urlUpdateTeam = mTeamsPage.onClickUpdateTeam());
         Then("^Page is redirected to Update Team page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_20).until(ExpectedConditions.urlToBe(urlUpdateTeam));
+            new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM).until(ExpectedConditions.urlToBe(urlUpdateTeam));
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
         });
 
