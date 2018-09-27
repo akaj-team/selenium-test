@@ -3,8 +3,11 @@ package vn.asiantech.page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+
+import static vn.asiantech.base.DriverBase.getDriver;
 
 public class WikiPage extends BasePage<WikiPage> {
 
@@ -25,35 +28,36 @@ public class WikiPage extends BasePage<WikiPage> {
         return null;
     }
 
-    public void clickAuthor() {
+    public final void clickAuthor() {
         txtAuthor.click();
     }
 
-    public void clickChildPageButton() {
+    public final void clickChildPageButton() {
         getButton(0).click();
     }
 
-    public void clickUpdateButton() {
+    public final void clickUpdateButton() {
         getButton(1).click();
     }
 
-    public void clickDeleteButton() {
-        getButton(2).click();
+    public final void hoverDeleteButton() {
+        Actions builder = new Actions(getDriver());
+        builder.moveToElement(pullRight.findElement(By.tagName("button"))).build().perform();
     }
 
-    public boolean isEnableDeleteButton() {
-        return getButton(2).isEnabled();
+    public final boolean isEnableDeleteButton() {
+        return pullRight.findElement(By.tagName("button")).isEnabled();
     }
 
-    public void clickTitle() {
+    public final void clickTitle() {
         listTitle.findElements(By.tagName("li")).get(0).click();
     }
 
-    public void clickIconPackageWikiHome() {
+    public final void clickIconPackageWikiHome() {
         getIconPackage(0).click();
     }
 
-    public boolean isRemoveCategories() {
+    public final boolean isRemoveCategories() {
         try {
             treeContainer.isDisplayed();
             return true;
@@ -62,13 +66,22 @@ public class WikiPage extends BasePage<WikiPage> {
         }
     }
 
-    public void clickIconPackageCompanyDocument() {
+    public final void clickIconPackageCompanyDocument() {
         clickIconPackageWikiHome();
         getIconPackage(5).click();
     }
 
-    public boolean isHideCatogoryInside() {
-        return getTitleCategory(2).findElement(By.cssSelector(".ui-treenode-children.ng-star-inserted")).getRect().height == 0;
+    public final void clickIconPackageCompanyDocumentAgain() {
+        getIconPackage(5).click();
+    }
+
+    public final boolean isHideCategoryInside() {
+        try {
+            getTitleCategory(5).findElement(By.cssSelector(".ui-treenode-children.ng-star-inserted")).isDisplayed();
+            return true;
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            return false;
+        }
     }
 
     private WebElement getButton(int pos) {

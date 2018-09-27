@@ -66,9 +66,7 @@ public class WikiDefinitions extends DriverBase implements En {
 
         Then("^Redirect wiki detail page$", () -> displayPage("/wiki/190"));
 
-        When("^I click delete button$", () -> wikiPage.clickDeleteButton());
-
-        Then("^Can not click delete button$", () -> Assert.assertTrue(wikiPage.isEnableDeleteButton()));
+        Then("^Can not click delete button$", () -> Assert.assertFalse(wikiPage.isEnableDeleteButton()));
 
         When("^I click on icon package Wiki$", () -> wikiPage.clickIconPackageWikiHome());
 
@@ -78,11 +76,13 @@ public class WikiDefinitions extends DriverBase implements En {
 
         When("^I click on icon package Company Document$", () -> wikiPage.clickIconPackageCompanyDocument());
 
-        Then("^Categories inside hide$", () -> Assert.assertFalse(wikiPage.isHideCatogoryInside()));
+        Then("^Categories inside hide$", () -> Assert.assertFalse(wikiPage.isHideCategoryInside()));
 
-        When("^I click on icon package Company Document again$", () -> wikiPage.clickIconPackageCompanyDocument());
+        When("^I click on icon package Company Document again$", () -> wikiPage.clickIconPackageCompanyDocumentAgain());
 
-        Then("^Categories inside show$", () -> Assert.assertTrue(wikiPage.isHideCatogoryInside()));
+        Then("^Categories inside show$", () -> Assert.assertTrue(wikiPage.isHideCategoryInside()));
+
+        When("^I hover delete button$", () -> wikiPage.hoverDeleteButton());
     }
 
     private void displayPage(final String path) {

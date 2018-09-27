@@ -22,7 +22,7 @@ Feature: Check wiki page
     Then Redirect wiki detail page
 
   Scenario: Check click delete button
-    When I click delete button
+    When I hover delete button
     Then Can not click delete button
 
   Scenario: Check click icon package
