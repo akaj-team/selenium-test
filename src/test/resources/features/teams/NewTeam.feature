@@ -4,10 +4,8 @@ Feature: Login in AT portal
   I want to check teams page
 
   Background: User navigates to Company teams page
-    Given I am logged in as an "EM"
-    And I am stayed in teams page
-    And I click on button New Team
-    And Page is redirected to New Team page
+    Given I am logged in as an "QCE"
+    And I am stayed in new team page
 
   Scenario: Open successfully teams page when click on button Team in title
     When I click on button Team in title

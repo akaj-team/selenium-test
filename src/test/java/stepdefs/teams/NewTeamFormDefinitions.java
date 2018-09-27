@@ -2,6 +2,7 @@ package stepdefs.teams;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,6 +16,7 @@ import vn.asiantech.page.teams.NewTeamFormPage;
  */
 public class NewTeamFormDefinitions extends DriverBase implements En {
     private static final String URL_PAGE_TEAMS = "http://portal-stg.asiantech.vn/organisation/teams";
+    private static final String URL_PAGE_NEW_TEAM = "http://portal-stg.asiantech.vn/organisation/teams/new";
     private static final int TIME_OUT_SECONDS_10 = 10;
     private static final int TIME_OUT_SECONDS_20 = 20;
     private WebDriver driver;
@@ -28,6 +30,13 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
         mNewTeamFormPage = initPage(getDriver(), NewTeamFormPage.class);
+
+        And("^I am stayed in new team page$", () -> {
+            driver.get(URL_PAGE_NEW_TEAM);
+            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
+            Assert.assertEquals(URL_PAGE_NEW_TEAM, driver.getCurrentUrl());
+        });
 
         // Validate Form
         Then("^Button submit is unable$", () -> Assert.assertFalse(mNewTeamFormPage.isBtnSubmitEnable()));
