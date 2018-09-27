@@ -58,7 +58,7 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
         }
     }
 
-    public final boolean isShowMessageError() {
+    public final boolean isMessageErrorShown() {
         List<WebElement> formGroup = iboxContent.findElements(By.className("form-group"));
         try {
             return formGroup.get(0).findElement(By.className("help-block")).isDisplayed();

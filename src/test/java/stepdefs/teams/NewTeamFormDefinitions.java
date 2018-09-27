@@ -17,7 +17,7 @@ import vn.asiantech.page.teams.NewTeamFormPage;
 public class NewTeamFormDefinitions extends DriverBase implements En {
     private static final String URL_PAGE_TEAMS = "http://portal-stg.asiantech.vn/organisation/teams";
     private static final String URL_PAGE_NEW_TEAM = "http://portal-stg.asiantech.vn/organisation/teams/new";
-    private static final int TIME_OUT_SECONDS_10 = 10;
+    private static final int TIME_OUT_SECONDS_NORMAL = 10;
     private static final int TIME_OUT_SECONDS_20 = 20;
     private WebDriver driver;
     private NewTeamFormPage mNewTeamFormPage;
@@ -33,27 +33,27 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
 
         And("^I am stayed in new team page$", () -> {
             driver.get(URL_PAGE_NEW_TEAM);
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
             Assert.assertEquals(URL_PAGE_NEW_TEAM, driver.getCurrentUrl());
         });
 
         // Validate Form
         Then("^Button submit is unable$", () -> Assert.assertFalse(mNewTeamFormPage.isBtnSubmitEnable()));
         When("^I fill in inputName with \"([^\"]*)\"$", (String name) -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.name("name")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.name("name")));
             mNewTeamFormPage.sendKeyInputName(name);
         });
         Then("^Button submit is enable$", () -> Assert.assertTrue((mNewTeamFormPage.isBtnSubmitEnable())));
         And("^Message error is displayed$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(webDriver -> webDriver.findElement(By.className("form-group")).findElement(By.className("help-block")).isDisplayed());
-            Assert.assertTrue(mNewTeamFormPage.isShowMessageError());
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(webDriver -> webDriver.findElement(By.className("form-group")).findElement(By.className("help-block")).isDisplayed());
+            Assert.assertTrue(mNewTeamFormPage.isMessageErrorShown());
         });
-        And("^Message error is hidden$", () -> Assert.assertFalse(mNewTeamFormPage.isShowMessageError()));
+        And("^Message error is hidden$", () -> Assert.assertFalse(mNewTeamFormPage.isMessageErrorShown()));
 
         // Click button Submit, redirect to Team Detail page
         When("^I click on button Submit$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.name("submit")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.name("submit")));
             mNewTeamFormPage.onClickBtnSubmit();
         });
         Then("^Open successfully team detail page after update$", () -> {
@@ -64,31 +64,31 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
         // Open successfully teams page when click on button Team in title
         When("^I click on button Team in title$", () -> mNewTeamFormPage.onClickBtnTeams());
         Then("^Open successfully team page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.urlToBe(URL_PAGE_TEAMS));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.urlToBe(URL_PAGE_TEAMS));
             Assert.assertEquals(driver.getCurrentUrl(), URL_PAGE_TEAMS);
         });
 
         // Dropdown Manager
         When("^I open dropdown Manager$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.tagName("p-dropdown")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.tagName("p-dropdown")));
             mNewTeamFormPage.clickDropDownListManager();
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(webDriver -> webDriver.findElement(By.className("ui-dropdown-open")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(webDriver -> webDriver.findElement(By.className("ui-dropdown-open")));
         });
         And("^I select a item in manager list$", () -> mNewTeamFormPage.selectManager());
 
         // Open successfully team detail page when click button submit
         Then("^Open successfully team detail page after created$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
             String id = driver.getCurrentUrl().split("/")[INDEX_ID_IN_URL];
             Assert.assertEquals(driver.getCurrentUrl(), URL_PAGE_TEAMS + "/" + id);
         });
 
         Then("^I should see fail or success message$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.className("app-alert")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("app-alert")));
             Assert.assertTrue(driver.findElement(By.className("app-alert")).isDisplayed());
         });
         When("^I fill in inputName with new name$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_10).until(ExpectedConditions.visibilityOfElementLocated(By.name("name")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.name("name")));
             mNewTeamFormPage.sendKeyInputName(mNewTeamFormPage.generateNameTeam().toString());
         });
     }

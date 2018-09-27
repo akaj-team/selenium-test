@@ -8,21 +8,21 @@ Feature: Login in AT portal
     And I am stayed in teams page
 
   Scenario Outline: Search teams with result is list team
-    When Enter search with name is "<search>"
+    When Enter search with name is "<name>"
     Then I should see list team
     Examples:
-      | search  |
+      | name  |
       | Android |
       | BA      |
       | IOS     |
 
 
   Scenario Outline: Search teams with result is empty
-    When Enter search with name is "<search>"
+    When Enter search with name is "<name>"
     Then I should see list team is empty
     And I should see message "No records found"
     Examples:
-      | search |
+      | name |
       | aaa999 |
       | bbb888 |
       | ccc777 |
