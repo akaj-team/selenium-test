@@ -19,16 +19,17 @@
 ### File structure
 
 **A .feature file of the following:**
-
-- `A feature file consists of a single feature.`
-- `A feature file contains a scenario or a list of scenarios.`
-- `Every scenario consists of a list of steps, which must start with one of the keywords Given, When, Then, But, And or *`
+- A page should be divided to many features.
+- A feature file should have a tag miniximum.
+- A feature file consists of a single feature.
+- A feature file contains a scenario or a list of scenarios.
+- Every scenario consists of a list of steps, which must start with one of the keywords Given, When, Then, But, And or *
 
 **Order of functions in a class**
-- `Override` 
-- `Public`
-- `Protected`
-- `Private`
+- Override 
+- Public
+- Protected
+- Private
 
 ### Name
 **1. Package names**
@@ -50,7 +51,50 @@
      com.pragmatic.selenium.Utils
    ```
   
-  **2. Class names**
+  **2. Feature names**
+ - Feature names should be described a general action.
+ 
+  **GOOD**
+   
+  ``` 
+    EmployeeLogin.feature 
+   ```
+   
+   **BAD**
+     
+   ```
+     LoginPage.feature 
+   ```
+    
+  **3. Tag names**
+  - Tag names should be clear and link to page.  
+  
+   **GOOD**
+     
+   ``` 
+      @LoginPage
+   ```
+   **BAD**
+       
+   ```
+      @Login
+   ```
+   
+   **4. Step names**
+     - Step names should be special and not general to avoid conflict, call the wrong location.  
+     
+   **GOOD**
+        
+   ``` 
+     When Click submit button at leave planner page
+   ```
+   **BAD**
+          
+   ```
+     When Click submit button
+   ```
+  
+  **5. Class names**
   - Upper camel case should be used for the class names.
   - Class name should be a noun.
   - Try to make the name simple and descriptive.
@@ -70,7 +114,7 @@
    Loginpage.java 
    Testbase.java  
    ```
-   **3. Method names**
+   **6. Method names**
  
    - Lower camel case should be used for the method names.
    - Method name should be a verb.
@@ -90,7 +134,7 @@
      initbrowsers()
      wait_for_text_to_be_present(WebElement webElement, String textToBeVerified)
       ```
-   **4. Variable names**   
+   **7. Variable names**   
   - Lower camel case should be used for the variable names. 
   - Intent of the variable shall be indicated with the given name.
   - The variable name should be a noun.
@@ -117,7 +161,7 @@
   | Radio        | rd           | rdGender             |
   | Table        | tb           | tbEmployee           |
   
- **5. Constants**
+ **8. Constants**
   - All letters should be in uppercase.
   - Words shall be separated with underscore `_`.
   - Constants shall be defined as public static in the Constant class.
@@ -133,7 +177,8 @@
    ```
     String BASEURL;
    ```
-   **6. Comments**
+   
+   **9. Comments**
    - Comments shall be used to explain the code to make the test scripts more readable for others.
    - Single line 
    `// This is comment`
