@@ -10,7 +10,7 @@
 ### Resource structure
 
 | Name       | Path                      | Description                                |
-| -----------|:-------------------------:| ------------------------------------------:|
+| -----------|---------------------------|--------------------------------------------|
 | stepdef    | src/test/java/stepdef     | This is where we put our step define files.|
 | object     | src/test/java/object      | This is where we put objects.              |
 | page       | src/test/java/page        | This is where we put pages.                |
@@ -18,12 +18,12 @@
 
 ### File structure
 
-**A .feature file of the following:**
+**Feature file of the following:**
 - A page should be divided to many features.
-- A feature file should have a tag miniximum.
+- A feature file should have a minimum of a tag.
 - A feature file consists of a single feature.
 - A feature file contains a scenario or a list of scenarios.
-- Every scenario consists of a list of steps, which must start with one of the keywords Given, When, Then, But, And or *
+- Every scenario consists of a list of steps, which must start with one of the keywords `Given`, `When`, `Then`, `But`, `And` or `*`
 
 **Order of functions in a class**
 - Override 
@@ -81,7 +81,8 @@
    ```
    
    **4. Step names**
-     - Step names should be special and not general to avoid conflict, call the wrong location.  
+   
+   - Step names should be special and not general to avoid conflict, call the wrong location.  
      
    **GOOD**
         
