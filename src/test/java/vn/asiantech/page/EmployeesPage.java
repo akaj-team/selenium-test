@@ -255,7 +255,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return true;
     }
 
-    public final void searchPosition(final String positionName,final WebDriver driver) {
+    public final void searchPosition(final String positionName, final WebDriver driver) {
         WebElement searchPosition = positionList.findElement(By.cssSelector(".ui-dropdown-filter.ui-inputtext.ui-widget.ui-state-default.ui-corner-all"));
         waitForElement(driver, searchPosition, TIME_OUT_SECOND);
         searchPosition.sendKeys(positionName);
