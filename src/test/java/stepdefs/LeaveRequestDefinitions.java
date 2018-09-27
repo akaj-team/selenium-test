@@ -1,6 +1,5 @@
 package stepdefs;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -64,11 +63,11 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         And("^Paternal Leave is \"([^\"]*)\"$", (String number) -> Assert.assertTrue(leaveRequestPage.checkTextPaternalLeave(number)));
 
-        When("^I enter the message$", () -> leaveRequestPage.withMessage(getDriver()));
+        When("^I enter the message$", () -> leaveRequestPage.withMessage());
 
-        And("^Annual Leave is \"([^\"]*)\"$", (String number) -> Assert.assertTrue(leaveRequestPage.checkTextAnnualLeave(getDriver(), number)));
+        And("^Annual Leave is \"([^\"]*)\"$", (String number) -> Assert.assertTrue(leaveRequestPage.checkTextAnnualLeave(number)));
 
-        And("^I choose type leave is \"([^\"]*)\"$", (String status) -> leaveRequestPage.clickItemMenuType(getDriver(), status));
+        And("^I choose type leave is \"([^\"]*)\"$", (String status) -> leaveRequestPage.clickItemMenuType(status));
 
         Then("^Show message is \"([^\"]*)\"$", (String mess) -> Assert.assertTrue(leaveRequestPage.isShowMessage(mess)));
 
@@ -76,11 +75,11 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         And("^I click on timeTo box leave time$", () -> leaveRequestPage.clickTimeToBox());
 
-        And("^Show date request$", () -> Assert.assertTrue(leaveRequestPage.isDateRequestShow(getDriver())));
+        And("^Show date request$", () -> Assert.assertTrue(leaveRequestPage.isDateRequestShow()));
 
-        When("^I choose afternoon on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseAfternoon(getDriver())));
+        When("^I choose afternoon on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseAfternoon()));
 
-        When("^I choose morning on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseMorning(getDriver())));
+        When("^I choose morning on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseMorning()));
 
         Then("^Submit button is enabled$", () -> Assert.assertTrue(leaveRequestPage.isEnableSubmitButton()));
 
@@ -94,7 +93,7 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         Then("^Calendar timeTo display$", () -> Assert.assertTrue(leaveRequestPage.isCalendarShow("timeTo")));
 
-        And("^I choose all day on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseAllday(getDriver())));
+        And("^I choose all day on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseAllday()));
 
         And("^Check date is \"([^\"]*)\"$", (String date) -> Assert.assertTrue(leaveRequestPage.checkDateInDateRequest(0, date)));
 
@@ -102,15 +101,15 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         Then("^Date request is removed$", () -> Assert.assertFalse(leaveRequestPage.isRemoveDateRequest()));
 
-        Given("^I chose type leave is \"([^\"]*)\"$", (String status) -> leaveRequestPage.setNonePaidInTypeOfLeave(getDriver(), status));
+        Given("^I chose type leave is \"([^\"]*)\"$", (String status) -> leaveRequestPage.setNonePaidInTypeOfLeave(status));
 
-        Given("^Enter full information$", () -> leaveRequestPage.enterFullInfor(getDriver()));
+        Given("^Enter full information$", () -> leaveRequestPage.enterFullInfor());
 
         When("^I click submit$", () -> leaveRequestPage.clickSubmit());
 
         Then("^Show dialog confirmation$", () -> Assert.assertTrue(leaveRequestPage.isShowDialog()));
 
-        Given("^Dialog was showed$", () -> leaveRequestPage.showDialog(getDriver()));
+        Given("^Dialog was showed$", () -> leaveRequestPage.showDialog());
 
         When("^I click submit on dialog$", () -> leaveRequestPage.clickSubmitButtonInDialog());
 
