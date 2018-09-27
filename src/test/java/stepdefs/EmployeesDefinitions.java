@@ -98,7 +98,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
         When("^Search position with \"([^\"]*)\"$", (String position) -> {
             if (isShowPositionList) {
                 employeePosition = position;
-                employeesPage.searchPosition(position);
+                employeesPage.searchPosition(position, driver);
             }
         });
 

@@ -57,7 +57,6 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     @CacheLookup
     private WebElement toolBox;
 
-    private WebDriver driver;
     private int indicatorIndex = 0;
     private WebElement firstIndicator;
     private WebElement backIndicator;
@@ -66,11 +65,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private WebElement typeList;
     private WebElement positionList;
     private WebElement statusList;
-    private int typeClick;
-
-    public EmployeesPage(WebDriver driver) {
-        this.driver = driver;
-    }
+    private int clickType;
 
     @Override
     public final EmployeesPage navigateTo(final WebDriver webDriver) {
@@ -164,7 +159,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public final void clickNextIndicator() {
         if (!isNextAndLastIndicatorClickable()) {
-            typeClick = NEXT_INDICATOR_CLICK;
+            clickType = NEXT_INDICATOR_CLICK;
             indicatorIndex = findIndicatorIndex();
             nextIndicator.click();
         }
@@ -172,7 +167,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public final void clickBackIndicator() {
         if (isFirstAndBackIndicatorClickable()) {
-            typeClick = BACK_INDICATOR_CLICK;
+            clickType = BACK_INDICATOR_CLICK;
             indicatorIndex = findIndicatorIndex();
             backIndicator.click();
         }
@@ -180,7 +175,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public final void clickFirstIndicator() {
         if (isFirstAndBackIndicatorClickable()) {
-            typeClick = FIST_INDICATOR_CLICK;
+            clickType = FIST_INDICATOR_CLICK;
             indicatorIndex = findIndicatorIndex();
             firstIndicator.click();
         }
@@ -188,7 +183,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public final void clickLastIndicator() {
         if (isNextAndLastIndicatorClickable()) {
-            typeClick = LAST_INDICATOR_CLICK;
+            clickType = LAST_INDICATOR_CLICK;
             indicatorIndex = findIndicatorIndex();
             lastIndicator.click();
         }
@@ -198,7 +193,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         String content = leftContent.findElement(By.tagName("small")).getText();
         String firstSub = content.substring(SPLIT_STRING_INDEX, content.length() - SPLIT_STRING_INDEX);
         Integer sumCell = Integer.valueOf(firstSub.split("of")[1].trim());
-        switch (typeClick) {
+        switch (clickType) {
             case NEXT_INDICATOR_CLICK:
                 return indicatorIndex + 1 == findIndicatorIndex();
             case BACK_INDICATOR_CLICK:
@@ -260,7 +255,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return true;
     }
 
-    public final void searchPosition(final String positionName) {
+    public final void searchPosition(final String positionName,final WebDriver driver) {
         WebElement searchPosition = positionList.findElement(By.cssSelector(".ui-dropdown-filter.ui-inputtext.ui-widget.ui-state-default.ui-corner-all"));
         waitForElement(driver, searchPosition, TIME_OUT_SECOND);
         searchPosition.sendKeys(positionName);
