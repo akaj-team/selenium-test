@@ -8,7 +8,10 @@ import vn.asiantech.base.BasePage;
 
 import java.util.List;
 
+import static vn.asiantech.base.DriverBase.getDriver;
+
 public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
+    private static final int TIMEOUTINSECONDS = 5;
 
     @FindBy(xpath = "//p-dropdown[contains(@class,'ui-inputwrapper-filled')]")
     private WebElement inputTypeOfLeave;
@@ -48,38 +51,38 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
 
     @Override
 
-    public LeaveRequestPage navigateTo(WebDriver webDriver) {
+    public LeaveRequestPage navigateTo(final WebDriver webDriver) {
         webDriver.get("http://portal-stg.asiantech.vn/leave/request");
         return this;
     }
 
-    public boolean checkTextAnnualLeave(WebDriver driver, String annualLeave) {
-        waitForElementDisplay(driver, tableLeaveBalance, 10);
+    public final boolean checkTextAnnualLeave(String annualLeave) {
+        waitForElementDisplay(getDriver(), tableLeaveBalance, TIMEOUTINSECONDS);
         return findLeaveBalance(0).getText().equals(annualLeave);
     }
 
-    public boolean checkTextMarriageLeave(String marriageLeave) {
+    public final boolean checkTextMarriageLeave(String marriageLeave) {
         return findLeaveBalance(1).getText().equals(marriageLeave);
     }
 
-    public boolean checkTextOvertimeLeave(String overTimeLeave) {
+    public final boolean checkTextOvertimeLeave(String overTimeLeave) {
         return findLeaveBalance(2).getText().equals(overTimeLeave);
     }
 
-    public boolean checkTextPaternalLeave(String paternalLeave) {
+    public final boolean checkTextPaternalLeave(String paternalLeave) {
         return findLeaveBalance(3).getText().equals(paternalLeave);
     }
 
-    public void clickMenuTypeOfLeave() {
+    public final void clickMenuTypeOfLeave() {
         inputTypeOfLeave.click();
     }
 
-    public boolean isMenuDropDown() {
+    public final boolean isMenuDropDown() {
         return menuTypeOfLeave.isDisplayed();
     }
 
-    public void clickItemMenuType(WebDriver driver, String status) {
-        waitForElementDisplay(driver, menuTypeOfLeave, 10);
+    public final void clickItemMenuType(String status) {
+        waitForElementDisplay(getDriver(), menuTypeOfLeave, TIMEOUTINSECONDS);
 
         WebElement itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
         if (status.equals("Marriage Leave")) {
@@ -97,40 +100,40 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         itemStatus.click();
     }
 
-    public void withMessage(WebDriver driver) {
+    public final void withMessage() {
         String message = "Gui A Tien";
 
-        waitForElementDisplay(driver, inputMessage, 10);
+        waitForElementDisplay(getDriver(), inputMessage, TIMEOUTINSECONDS);
 
-        driver.switchTo().frame(driver.findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
+        getDriver().switchTo().frame(getDriver().findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
 
-        driver.findElement(By.tagName("body")).sendKeys(message);
+        getDriver().findElement(By.tagName("body")).sendKeys(message);
 
-        driver.switchTo().defaultContent();
+        getDriver().switchTo().defaultContent();
     }
 
-    public boolean isEnableSubmitButton() {
+    public final boolean isEnableSubmitButton() {
         return btnSubmit.isEnabled();
     }
 
-    public boolean isShowMessage(String mess) {
+    public final boolean isShowMessage(String mess) {
         return messageTypeOfLeave.isDisplayed() && messageTypeOfLeave.getText().equals(mess);
     }
 
-    public void clickTimeFromBox() {
+    public final void clickTimeFromBox() {
         inputTimeFrom.click();
     }
 
-    public void clickTimeToBox() {
+    public final void clickTimeToBox() {
         inputTimeTo.click();
     }
 
-    public void chooseTime(String type) {
+    public final void chooseTime(String type) {
         java.util.Date date = new java.util.Date();
         findDayLeave(type, date.getDate() + "");
     }
 
-    public boolean isCalendarShow(String type) {
+    public final boolean isCalendarShow(String type) {
         if (type.equals("timeFrom")) {
             return calendarTimeFrom.isDisplayed();
         } else {
@@ -138,17 +141,17 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         }
     }
 
-    public boolean isDateRequestShow(WebDriver driver) {
-        waitForElementDisplay(driver, tableDateRequest, 10);
+    public final boolean isDateRequestShow() {
+        waitForElementDisplay(getDriver(), tableDateRequest, TIMEOUTINSECONDS);
         return true;
     }
 
-    public void setNonePaidInTypeOfLeave(WebDriver driver, String status) {
+    public final void setNonePaidInTypeOfLeave(String status) {
         clickMenuTypeOfLeave();
-        clickItemMenuType(driver, status);
+        clickItemMenuType(status);
     }
 
-    public boolean isRemoveDateRequest() {
+    public final boolean isRemoveDateRequest() {
         try {
             tableDateRequest.isDisplayed();
             return true;
@@ -157,76 +160,66 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         }
     }
 
-    public boolean chooseAfternoon(WebDriver driver) {
-        findRadioButtonDateRequest(driver, 1).click();
-        return findRadioButtonDateRequest(driver, 1).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
+    public final boolean chooseAfternoon() {
+        findRadioButtonDateRequest(1).click();
+        return findRadioButtonDateRequest(1).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
     }
 
-    public boolean chooseMorning(WebDriver driver) {
-        findRadioButtonDateRequest(driver, 0).click();
-        return findRadioButtonDateRequest(driver, 0).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
+    public final boolean chooseMorning() {
+        findRadioButtonDateRequest(0).click();
+        return findRadioButtonDateRequest(0).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
     }
 
-    public boolean chooseAllday(WebDriver driver) {
-        findRadioButtonDateRequest(driver, 2).click();
-        return findRadioButtonDateRequest(driver, 2).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
+    public final boolean chooseAllday() {
+        findRadioButtonDateRequest(2).click();
+        return findRadioButtonDateRequest(2).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
     }
 
-    private WebElement findRadioButtonDateRequest(WebDriver driver, int col) {
-        waitForElementDisplay(driver, tableDateRequest, 10);
-        WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
-
-        List<WebElement> rows = data.findElements(By.tagName("tr"));
-        List<WebElement> columns = rows.get(0).findElements(By.cssSelector(".ui-radiobutton.ui-widget"));
-
-        return columns.get(col);
-    }
-
-    public boolean checkDateInDateRequest(int row, String date) {
+    public final boolean checkDateInDateRequest(int row, String date) {
         WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
         List<WebElement> rows = data.findElements(By.tagName("tr"));
         return rows.get(row).findElement(By.className("text-left")).getText().equals(date);
     }
 
-    public void clickRemoveButton(int row) {
+    public final void clickRemoveButton(int row) {
         WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
         List<WebElement> rows = data.findElements(By.tagName("tr"));
         rows.get(row).findElement(By.className("delete")).click();
     }
 
-    public void enterFullInfor(WebDriver driver) {
-        setNonePaidInTypeOfLeave(driver, "None Paid");
+    public final void enterFullInfor() {
+        setNonePaidInTypeOfLeave("None Paid");
         clickTimeFromBox();
         chooseTime("timeFrom");
         clickTimeToBox();
         chooseTime("timeTo");
-        withMessage(driver);
+        withMessage();
     }
 
-    public void clickSubmit() {
+    public final void clickSubmit() {
         btnSubmit.click();
     }
 
-    public boolean isShowDialog() {
+    public final boolean isShowDialog() {
         return dialog.isDisplayed();
     }
 
-    public void showDialog(WebDriver driver) {
-        enterFullInfor(driver);
+    public final void showDialog() {
+        enterFullInfor();
         clickSubmit();
     }
 
-    public void clickSubmitButtonInDialog() {
+    public final void clickSubmitButtonInDialog() {
         WebElement submitButton = dialog.findElement(By.xpath("//button[contains(@class,'btn-submit')]"));
         submitButton.click();
     }
 
-    public void clickCancelButtonInDialog() {
+    public final void clickCancelButtonInDialog() {
         WebElement cancelButton = dialog.findElement(By.xpath("//button[contains(@class,'btn-cancel')]"));
         cancelButton.click();
     }
 
-    public boolean isDialogDisappeared() {
+    public final boolean isDialogDisappeared() {
         try {
             dialog.isDisplayed();
             return true;
@@ -235,7 +228,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         }
     }
 
-    public void redirectLeaveDetail() {
+    public final void redirectLeaveDetail() {
         // To-do later
     }
 
@@ -270,5 +263,15 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         if (item != null) {
             item.click();
         }
+    }
+
+    private WebElement findRadioButtonDateRequest(int col) {
+        waitForElementDisplay(getDriver(), tableDateRequest, TIMEOUTINSECONDS);
+        WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
+
+        List<WebElement> rows = data.findElements(By.tagName("tr"));
+        List<WebElement> columns = rows.get(0).findElements(By.cssSelector(".ui-radiobutton.ui-widget"));
+
+        return columns.get(col);
     }
 }
