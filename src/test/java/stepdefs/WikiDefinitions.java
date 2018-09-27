@@ -13,8 +13,14 @@ import vn.asiantech.page.WikiPage;
 
 import java.util.List;
 
+/**
+ *
+ * @author at-anh.quach
+ * WikiDefinitions
+ */
+
 public class WikiDefinitions extends DriverBase implements En {
-    private static final int TIMEOUTINSECONDS = 10;
+    private static final int TIMEOUTINSECONDS = 5;
 
     private WebDriver driver;
     private WikiPage wikiPage;
@@ -31,7 +37,7 @@ public class WikiDefinitions extends DriverBase implements En {
         Given("^I am logged in as an team member$", () -> {
             driver.get("http://portal-stg.asiantech.vn");
             wikiPage = initPage(getDriver(), WikiPage.class);
-            new WebDriverWait(driver, 10).until(
+            new WebDriverWait(driver, TIMEOUTINSECONDS).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             String url = driver.getCurrentUrl();
             if (url.endsWith("/auth/login")) {
@@ -42,7 +48,7 @@ public class WikiDefinitions extends DriverBase implements En {
                 usernameInput.sendKeys("stg.thien.dang2@asiantech.vn");
                 passwordInput.sendKeys("Abc123@@");
                 driver.findElement(By.className("btn-primary")).click();
-                new WebDriverWait(driver, 5).until(
+                new WebDriverWait(driver, TIMEOUTINSECONDS).until(
                         webDriver -> webDriver.findElement(By.className("welcome-message")).isDisplayed());
                 Assert.assertTrue(driver.findElement(By.className("welcome-message")).isDisplayed());
             } else {

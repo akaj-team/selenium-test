@@ -9,6 +9,12 @@ import vn.asiantech.base.BasePage;
 
 import static vn.asiantech.base.DriverBase.getDriver;
 
+/**
+ *
+ * @author at-anh.quach
+ * Wiki page
+ */
+
 public class WikiPage extends BasePage<WikiPage> {
 
     @FindBy(linkText = "Huy Dinh Q.")
@@ -84,15 +90,15 @@ public class WikiPage extends BasePage<WikiPage> {
         }
     }
 
-    private WebElement getButton(int pos) {
+    private WebElement getButton(final int pos) {
         return pullRight.findElements(By.tagName("a")).get(pos);
     }
 
-    private WebElement getIconPackage(int pos) {
+    private WebElement getIconPackage(final int pos) {
         return treeContainer.findElements(By.xpath("//span[contains(@class,'ui-tree-toggler')]")).get(pos);
     }
 
-    private WebElement getTitleCategory(int pos) {
+    private WebElement getTitleCategory(final int pos) {
         return treeContainer.findElements(By.cssSelector(".ui-treenode.ng-star-inserted")).get(pos);
     }
 }
