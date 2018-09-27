@@ -18,7 +18,7 @@ import java.util.List;
 public class HomePage extends BasePage<HomePage> {
     public static final String URL_HOME_PAGE = "http://portal-stg.asiantech.vn/homepage";
     public static final int TIME_OUT_SECOND_NORMAL = 10;
-    private static final int TIME_OUT_IN_SECONDS_20 = 20;
+    private static final int TIME_OUT_SECOND_MAXIMUM = 20;
 
     @FindBy(className = "welcome-message")
     private WebElement txtWelcome;
@@ -64,7 +64,7 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public final void waitForElementsVisibility(final WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, TIME_OUT_IN_SECONDS_20);
+        WebDriverWait wait = new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM);
         wait.until(ExpectedConditions.visibilityOfAllElements(wapper, rightSideBar));
     }
 
