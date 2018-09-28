@@ -18,9 +18,9 @@ import vn.asiantech.page.teams.TeamsPage;
 public class NewTeamFormDefinitions extends DriverBase implements En {
     private static final String URL_PAGE_TEAMS = "http://portal-stg.asiantech.vn/organisation/teams";
     private static final String URL_PAGE_NEW_TEAM = "http://portal-stg.asiantech.vn/organisation/teams/new";
+    private static final int INDEX_ID_IN_URL = 5;
     private static final int TIME_OUT_SECONDS_NORMAL = 10;
     private static final int TIME_OUT_SECOND_MAXIMUM = 20;
-    private static final int INDEX_ID_IN_URL = 5;
     private WebDriver driver;
     private NewTeamFormPage newTeamFormPage;
     private TeamsPage teamsPage;
