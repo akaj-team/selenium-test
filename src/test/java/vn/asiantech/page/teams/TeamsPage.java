@@ -114,7 +114,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
         hiddenBody.findElement(By.className("btn-submit")).click();
     }
 
-    private String getViewContainerOfColumnName(By tagName) {
+    private String getViewContainerOfColumnName(final By tagName) {
         WebElement columnName = getColumnIndex(COLUMN_NAME, 0);
         columnName.findElement(By.tagName("a")).findElement(By.tagName("span")).findElement(tagName).click();
         return columnName.findElement(By.tagName("a")).getAttribute("href");
