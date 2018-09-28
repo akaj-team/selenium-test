@@ -1,4 +1,4 @@
-package vn.asiantech.page;
+package vn.asiantech.page.employee;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -121,7 +121,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         actionTitle.findElements(By.cssSelector(".btn.btn-sm.btn-default")).get(0).click();
     }
 
-    public final Boolean isAlertShowed(final String title) {
+    public final boolean isAlertShowed(final String title) {
         hiddenBody.isDisplayed();
         return hiddenBody.findElement(By.tagName("p-header")).getText().equals(title);
     }
@@ -136,22 +136,22 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return newEmployee.getAttribute("href");
     }
 
-    public final Integer getCellSum() {
+    public final int getCellSum() {
         return tblBody.findElements(By.tagName("tr")).size();
     }
 
-    public final Boolean isOneIndicatorActive() {
+    public final boolean isOneIndicatorActive() {
         String oneIndicator = indicatorPage.findElement(By.xpath("//a[text()='1']")).getAttribute("class");
         return oneIndicator.contains("ui-state-active");
     }
 
-    public final Boolean isFirstAndBackIndicatorClickable() {
+    public final boolean isFirstAndBackIndicatorClickable() {
         firstIndicator = bottomIndicator.findElement(By.xpath("//a[contains(@class,'ui-paginator-first')]"));
         backIndicator = bottomIndicator.findElement(By.xpath("//a[contains(@class,'ui-paginator-prev')]"));
         return !firstIndicator.getAttribute("class").contains("ui-state-disabled") && !backIndicator.getAttribute("class").contains("ui-state-disabled");
     }
 
-    public final Boolean isNextAndLastIndicatorClickable() {
+    public final boolean isNextAndLastIndicatorClickable() {
         nextIndicator = bottomIndicator.findElement(By.xpath("//a[contains(@class,'ui-paginator-next')]"));
         lastIndicator = bottomIndicator.findElement(By.xpath("//a[contains(@class,'ui-paginator-last')]"));
         return !nextIndicator.getAttribute("class").contains("ui-state-disabled") && !lastIndicator.getAttribute("class").contains("ui-state-disabled");
@@ -189,7 +189,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         }
     }
 
-    public final Boolean isIndicatorActive() {
+    public final boolean isIndicatorActive() {
         String content = leftContent.findElement(By.tagName("small")).getText();
         String firstSub = content.substring(SPLIT_STRING_INDEX, content.length() - SPLIT_STRING_INDEX);
         Integer sumCell = Integer.valueOf(firstSub.split("of")[1].trim());
@@ -205,7 +205,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         }
     }
 
-    public final Boolean isLeftContentAndPageIndicatorCorrect() {
+    public final boolean isLeftContentAndPageIndicatorCorrect() {
         String content = leftContent.findElement(By.tagName("small")).getText();
         String firstSub = content.substring(SPLIT_STRING_INDEX, content.length() - SPLIT_STRING_INDEX);
         String secondSub = firstSub.split("of")[0];
@@ -219,7 +219,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         search.sendKeys(name);
     }
 
-    public final Boolean isEmployeeListEmpty() {
+    public final boolean isEmployeeListEmpty() {
         String emptyCell = tblBody.findElements(By.tagName("tr")).get(0).getAttribute("class");
         if (emptyCell.contains("ui-datatable-emptymessage-row")) {
             return true;
@@ -227,14 +227,14 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return tblBody.findElements(By.tagName("tr")).size() == 0;
     }
 
-    public final Boolean clickPositionView() {
+    public final boolean clickPositionView() {
         WebElement positionView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(EMPLOYEE_POSITION_INDEX);
         positionView.click();
         positionList = positionView.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
         return positionList.getAttribute("class").contains("ui-dropdown-open");
     }
 
-    public final Boolean isPositionSelected(final String positionName) {
+    public final boolean isPositionSelected(final String positionName) {
         List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
         for (WebElement position : positions) {
             if (position.getAttribute("class").contains("ui-state-highlight")) {
@@ -244,7 +244,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return false;
     }
 
-    public final Boolean isShowCorrectPositionList(final String positionName) {
+    public final boolean isShowCorrectPositionList(final String positionName) {
         List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
         for (WebElement position : positions) {
             String positionItemName = position.findElement(By.tagName("span")).getText();
@@ -261,7 +261,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         searchPosition.sendKeys(positionName);
     }
 
-    public final Boolean isNoResultMessageShowed(final String message) {
+    public final boolean isNoResultMessageShowed(final String message) {
         List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
         return positions.size() == 1 && positions.get(0).getText().equals(message);
     }
@@ -271,7 +271,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         positions.get(0).click();
     }
 
-    public final Boolean getClickType() {
+    public final boolean getClickType() {
         WebElement typeView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(EMPLOYEE_TYPE_INDEX);
         typeView.click();
         typeList = typeView.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
@@ -284,11 +284,11 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return types.get(0).findElement(By.tagName("span")).getText();
     }
 
-    public final Boolean isTypeChoosed(final String type) {
+    public final boolean isTypeChose(final String type) {
         return typeList.findElement(By.tagName("label")).getText().equals(type);
     }
 
-    public final Boolean clickStatus() {
+    public final boolean clickStatus() {
         WebElement statusView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(EMPLOYEE_STATUS_INDEX);
         statusView.click();
         statusList = statusView.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
@@ -301,7 +301,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return statuses.get(0).findElement(By.tagName("span")).getText();
     }
 
-    public final Boolean isStatusChoosed(final String status) {
+    public final boolean isStatusChose(final String status) {
         return statusList.findElement(By.tagName("label")).getText().equals(status);
     }
 

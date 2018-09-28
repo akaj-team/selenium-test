@@ -8,11 +8,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.EmployeesPage;
+import vn.asiantech.page.employee.EmployeesPage;
 
-import static vn.asiantech.page.EmployeesPage.EMPLOYEE_URL;
-import static vn.asiantech.page.EmployeesPage.TIME_OUT_SECOND;
-import static vn.asiantech.page.EmployeesPage.MAXIMUM_CELL;
+import static vn.asiantech.page.employee.EmployeesPage.EMPLOYEE_URL;
+import static vn.asiantech.page.employee.EmployeesPage.TIME_OUT_SECOND;
+import static vn.asiantech.page.employee.EmployeesPage.MAXIMUM_CELL;
 
 /**
  * @author at-hangtran
@@ -184,9 +184,9 @@ public class EmployeesDefinitions extends DriverBase implements En {
 
         Then("^Display a corresponding employee list$", () -> Assert.assertFalse(employeesPage.isEmployeeListEmpty()));
 
-        Then("^Employee type is choosed$", () -> Assert.assertTrue(employeesPage.isTypeChoosed(employeeType)));
+        Then("^Employee type is chose$", () -> Assert.assertTrue(employeesPage.isTypeChose(employeeType)));
 
-        Then("^A status item is choosed$", () -> Assert.assertTrue(employeesPage.isStatusChoosed(employeeStatus)));
+        Then("^A status item is chose$", () -> Assert.assertTrue(employeesPage.isStatusChose(employeeStatus)));
 
         And("^Fist indicator and back indicator are not clickable$", () -> Assert.assertFalse(employeesPage.isFirstAndBackIndicatorClickable()));
 

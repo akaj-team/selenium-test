@@ -15,11 +15,11 @@ Feature: Filter employees with position, type and status
   Scenario: Filter employees with employee type
     Given Click on employee type view
     When Select any item in that type list
-    Then Employee type is choosed
+    Then Employee type is chose
     Then Display a corresponding employee list
 
   Scenario: Filter employees with status
     Given Click on status view
     When Select any item in that status list
-    Then A status item is choosed
+    Then A status item is chose
     Then Display a corresponding employee list
