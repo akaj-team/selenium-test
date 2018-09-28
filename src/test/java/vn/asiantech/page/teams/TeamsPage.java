@@ -1,6 +1,9 @@
 package vn.asiantech.page.teams;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
@@ -40,10 +43,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     public final boolean isTeamListEmpty() {
         List<WebElement> rows = tbBody.findElements(By.tagName("tr"));
-        if (rows.get(0).getAttribute("class").contains("ui-datatable-emptymessage-row")) {
-            return true;
-        }
-        return rows.size() == 0;
+        return rows.get(0).getAttribute("class").contains("ui-datatable-emptymessage-row");
     }
 
     public final String showMessageEmptyTeam() {
@@ -52,15 +52,11 @@ public class TeamsPage extends BasePage<TeamsPage> {
     }
 
     public final String onClickAvatarTeam() {
-        WebElement columnName = getColumnIndex(COLUMN_NAME, 0);
-        columnName.findElement(By.tagName("a")).findElement(By.tagName("span")).findElement(By.tagName("img")).click();
-        return columnName.findElement(By.tagName("a")).getAttribute("href");
+        return getViewContainerOfColumnName(By.tagName("img"));
     }
 
     public final String onClickNameTeam() {
-        WebElement columnName = getColumnIndex(COLUMN_NAME, 0);
-        columnName.findElement(By.tagName("a")).findElement(By.tagName("span")).findElement(By.tagName("span")).click();
-        return columnName.findElement(By.tagName("a")).getAttribute("href");
+        return getViewContainerOfColumnName(By.tagName("span"));
     }
 
     public final String onClickNameManager() {
@@ -102,13 +98,8 @@ public class TeamsPage extends BasePage<TeamsPage> {
         return columnName.findElement(By.tagName("a")).findElement(By.tagName("span")).findElement(By.tagName("span")).getText();
     }
 
-    public final Boolean isDialogShowed() {
-        try {
-            return hiddenBody.isDisplayed();
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-            return false;
-        }
+    public final Boolean isDeleteDialogShown() {
+        return isElementPresented(hiddenBody);
     }
 
     public final String getNameTeamIsDeleted() {
@@ -121,6 +112,12 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     public final void onClickBtnDeleteInDialogDelete() {
         hiddenBody.findElement(By.className("btn-submit")).click();
+    }
+
+    private String getViewContainerOfColumnName(By tagName) {
+        WebElement columnName = getColumnIndex(COLUMN_NAME, 0);
+        columnName.findElement(By.tagName("a")).findElement(By.tagName("span")).findElement(tagName).click();
+        return columnName.findElement(By.tagName("a")).getAttribute("href");
     }
 
     private WebElement getColumnIndex(final Integer column, final int position) {

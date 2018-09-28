@@ -1,25 +1,20 @@
 @TeamsPage
-Feature: Login in AT portal
-  As a team manager
-  I want to check function delete team in teams page
+Feature: Check function delete team in teams page
+  I want to login as an EM an check function delete team
 
   Background: User navigates to Company teams page
     Given I am logged in as an "EM"
     And I am stayed in teams page
+    And I click on button delete team at position is 1
+    And I should see dialog confirm delete team
 
   Scenario: Check name team correct with team is deleted
-    Given I click on button delete team at position is 1
-    Then I should see dialog confirm delete team
-    And Name team is correct with team is chose
+    Then Name team is correct with team is chose
 
   Scenario: Delete team and cancel when dialog is showed
-    Given I click on button delete team at position is 1
-    Then I should see dialog confirm delete team
     When I choose button cancel on dialog
     Then Dialog is dismiss
 
   Scenario: Delete team and confirm ok when dialog is showed
-    Given I click on button delete team at position is 1
-    Then I should see dialog confirm delete team
     When I choose button ok on dialog
     Then Team is chose would be deleted

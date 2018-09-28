@@ -16,14 +16,13 @@ import java.util.Random;
  */
 public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
     private static final int MAX_LENGTH_NAME_TEAM = 50;
+    private static final String TYPE_VALID_HAS_WHITE_SPACE_AT_THE_BEGINNING = "whiteSpaceAtTheBeginning";
+    private static final String TYPE_VALID_HAS_WHITE_SPACE_AT_THE_END = "whiteSpaceAtTheEnd";
     @FindBy(css = ".wrapper.wrapper-content")
     private WebElement wrapper;
 
     @FindBy(className = "ibox-content")
     private WebElement iboxContent;
-
-    @FindBy(className = "title-action")
-    private WebElement titleAction;
 
     private WebElement itemManager;
 
@@ -44,9 +43,22 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
         return stringBuilder;
     }
 
-    public final void sendKeyInputName(final String name) {
+    public final void sendKeyInputNameWithTypeValid(final String searchData, final String typeValid) {
         wrapper.findElement(By.name("name")).clear();
-        wrapper.findElement(By.name("name")).sendKeys(name);
+        if (typeValid != null) {
+            switch (typeValid) {
+                case TYPE_VALID_HAS_WHITE_SPACE_AT_THE_BEGINNING:
+                    wrapper.findElement(By.name("name")).sendKeys(" " + searchData);
+                    break;
+                case TYPE_VALID_HAS_WHITE_SPACE_AT_THE_END:
+                    wrapper.findElement(By.name("name")).sendKeys(searchData + " ");
+                    break;
+                default:
+                    wrapper.findElement(By.name("name")).sendKeys(searchData);
+            }
+        } else {
+            wrapper.findElement(By.name("name")).sendKeys(searchData);
+        }
     }
 
     public final Boolean isBtnSubmitEnable() {
@@ -76,10 +88,6 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
         } catch (NoSuchElementException e) {
             e.printStackTrace();
         }
-    }
-
-    public final void onClickBtnTeams() {
-        titleAction.findElement(By.tagName("a")).click();
     }
 
     public final void clickDropDownListManager() {

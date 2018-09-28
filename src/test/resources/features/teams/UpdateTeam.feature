@@ -1,39 +1,27 @@
 @UpdateTeamPage
-Feature: Login in AT portal
-  As a team manager
-  I want to check update team page
+Feature: Check update team page
+  I login as an EM
+  Check validate fill in form update team and status enable of button submit
 
   Background: User navigates to Company teams page
     Given I am logged in as an "EM"
-    And I am stayed in teams page
-    And I click on button update team
-    And Page is redirected to Update Team page
+    And I am stayed in update team page
 
-  Scenario: I fill to inputName with name invalid, button Submit will unable and message error is showed
-    When I fill in inputName with "football group sssssssssssssssssssssssssssssssssss most 50 characters"
+  Scenario Outline: I fill to inputName with name invalid, button Submit is unable and message error is showed
+    When I fill in inputName with "<searchData>" as type valid is "<typeValid>"
     Then Button submit is unable
     And Message error is displayed
-    When I fill in inputName with "football group !@#$%^&*"
-    Then Button submit is unable
-    And Message error is displayed
-    When I fill in inputName with " football group"
-    Then Button submit is unable
-    And Message error is displayed
-    When I fill in inputName with "football group "
-    Then Button submit is unable
-    And Message error is displayed
-    When I fill in inputName with ""
-    Then Button submit is unable
-    And Message error is displayed
+    Examples:
+      | searchData                                                  | typeValid                |
+      | football group football group football group football group | moreThan50Characters     |
+      | football group !@#$%^&*                                     | specialCharacters        |
+      | football group                                              | whiteSpaceAtTheBeginning |
+      | football group                                              | whiteSpaceAtTheEnd       |
 
   Scenario: I fill to inputName with name valid, button Submit will enable and message error is hidden
     When I fill in inputName with "football group"
     Then Button submit is enable
     And Message error is hidden
-
-  Scenario: Open successfully teams page when click on button Team in title
-    When I click on button Team in title
-    Then Open successfully team page
 
   Scenario: Click button Submit, show fail message
     When I fill in inputName with "Android"

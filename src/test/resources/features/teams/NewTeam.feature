@@ -1,32 +1,22 @@
 @NewTeamPage
-Feature: Login in AT portal
-  As a team manager
-  I want to check teams page
+Feature: Check teams page
+  I Login as an EM and go to Teams page
+  Check validate and button submit when fill in form create new team
 
   Background: User navigates to Company teams page
-    Given I am logged in as an "QCE"
+    Given I am logged in as an "EM"
     And I am stayed in new team page
 
-  Scenario: Open successfully teams page when click on button Team in title
-    When I click on button Team in title
-    Then Open successfully team page
-
-  Scenario: I fill to inputName with name invalid, button Submit is unable and message error is showed
-    When I fill in inputName with "football group sssssssssssssssssssssssssssssssssss most 50 characters"
+  Scenario Outline: I fill to inputName with name invalid, button Submit is unable and message error is showed
+    When I fill in inputName with "<searchData>" as type valid is "<typeValid>"
     Then Button submit is unable
     And Message error is displayed
-    When I fill in inputName with "football group !@#$%^&*"
-    Then Button submit is unable
-    And Message error is displayed
-    When I fill in inputName with " football group"
-    Then Button submit is unable
-    And Message error is displayed
-    When I fill in inputName with "football group "
-    Then Button submit is unable
-    And Message error is displayed
-    When I fill in inputName with ""
-    Then Button submit is unable
-    And Message error is displayed
+    Examples:
+      | searchData                                                  | typeValid                |
+      | football group football group football group football group | moreThan50Characters     |
+      | football group !@#$%^&*                                     | specialCharacters        |
+      | football group                                              | whiteSpaceAtTheBeginning |
+      | football group                                              | whiteSpaceAtTheEnd       |
 
   Scenario: I selected a manager but not fill name team, button Submit is unable
     When I open dropdown Manager
@@ -38,10 +28,6 @@ Feature: Login in AT portal
     And I open dropdown Manager
     And I select a item in manager list
     Then Button submit is enable
-
-  Scenario: Open successfully teams page when click on button Team in title
-    When I click on button Team in title
-    Then Open successfully team page
 
   Scenario: Show fail message when click button submit
     When I fill in inputName with "Android"

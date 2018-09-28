@@ -1,7 +1,7 @@
 @TeamsPage
-Feature: Login in AT portal
-  As a team manager
-  I want to check teams page
+Feature: Check teams page
+  I login as an EM
+  Check view displayed, fill search and click on button in teams page
 
   Background: User navigates to Company teams page
     Given I am logged in as an "EM"
@@ -11,18 +11,17 @@ Feature: Login in AT portal
     When Enter search with name is "<name>"
     Then I should see list team
     Examples:
-      | name  |
+      | name    |
       | Android |
       | BA      |
       | IOS     |
-
 
   Scenario Outline: Search teams with result is empty
     When Enter search with name is "<name>"
     Then I should see list team is empty
     And I should see message "No records found"
     Examples:
-      | name |
+      | name   |
       | aaa999 |
       | bbb888 |
       | ccc777 |
