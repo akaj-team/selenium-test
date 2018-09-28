@@ -9,12 +9,13 @@ Feature: I login in AT Portal
 
   Scenario Outline: Check color item in toolbox when I click on any item
     When I click on tab item "<position>"
-    Then Color of tab "<position>" is "<colorActive>"
-    And Color other tab "<position>" is "<colorDefault>"
+    Then Color of tab "<position>" is "<activeColor>"
+    And Color other tab "<position>" is "<defaultColor>"
     Examples:
-      | position | colorActive | colorDefault |
+      | position | activeColor | defaultColor |
       | 1        | #bfac8a     | #c2c2c2      |
       | 2        | #bfac8a     | #c2c2c2      |
+      | 3        | #bfac8a     | #c2c2c2      |
       | 0        | #bfac8a     | #c2c2c2      |
 
   Scenario: Check view is displayed of Normal User when I click on this item
