@@ -89,6 +89,14 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     private
     WebElement dialogTask;
 
+    @FindBy(css = ".action.link-primary.ng-star-inserted")
+    private
+    WebElement btnRespeatEnable;
+
+    @FindBy(css = ".app-alert.ng-star-inserted")
+    private
+    WebElement alertStar;
+
     @Override
     public TimeSheetPage navigateTo(WebDriver webDriver) {
         return this;
@@ -334,5 +342,25 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public Boolean checkButtonRepeatEnableClickable(WebDriver driver) {
+        waitForElement(driver, btnRespeatEnable, 5);
+        return btnRespeatEnable.isEnabled();
+    }
+
+    public Boolean checkButtonSubmitEnable(WebDriver driver) {
+        waitForElement(driver, btnSubmit, 5);
+        return btnSubmit.isDisplayed();
+    }
+
+    public Boolean displayDialogAlert(WebDriver driver) {
+        waitForElement(driver, alertStar, 5);
+        return alertStar.isDisplayed();
+    }
+
+    public void clickRepeatEveryDay(WebDriver driver) {
+        waitForElement(driver, btnRespeatEnable, 5);
+        btnRespeatEnable.click();
     }
 }

@@ -95,7 +95,11 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         When("^Select first task on list task$", () -> myTimeSheet.selectedFirstValueTask(driver));
         Then("^Select item dialog task is \"([^\"]*)\"$", (String content) -> myTimeSheet.selectItemOnDialogTask(driver, content));
         Then("^Display dialog task$", () -> Assert.assertTrue(myTimeSheet.displayDialogTask(driver)));
-//        Then("^Display title dropdown default task is \"([^\"]*)\"$", (String content) -> myTimeSheet.isDefaultTaskShowing(driver, content));
+        And("^Display button Repeat every day is enable$", () -> Assert.assertTrue(myTimeSheet.checkButtonRepeatEnableClickable(driver)));
+        And("^Display button Save is enable$", () -> Assert.assertTrue(myTimeSheet.checkButtonSaveClickable(driver)));
+        When("^Click button Repeat every day$", () -> myTimeSheet.clickRepeatEveryDay(driver));
+        Then("^Display button submit is enable$", () -> Assert.assertTrue(myTimeSheet.checkButtonSubmitEnable(driver)));
+        And("^Display Dialog success is enable and show message$", () -> Assert.assertTrue(myTimeSheet.displayDialogAlert(driver)));
     }
 
     private void redirectPageWhenClickChildItem(String path) {

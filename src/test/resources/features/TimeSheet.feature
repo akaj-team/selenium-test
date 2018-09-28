@@ -61,3 +61,8 @@ Feature: Check TimeSheet
     Then Display dialog task
     And Select item dialog task is "Coding"
     And Display title dropdown task default is "Coding"
+    And Display button Repeat every day is enable
+    And Display button Save is enable
+    When Click button Repeat every day
+    Then Display button submit is enable
+    And Display Dialog success is enable and show message
