@@ -37,5 +37,7 @@ public class AccessControlDefinitions extends DriverBase implements En {
         When("^I click on tab item \"([^\"]*)\"$", (String position) -> accessControlPage.onClickItemInToolBox(position));
         Then("^Color of tab \"([^\"]*)\" is \"([^\"]*)\"$", (String position, String activeColor) -> Assert.assertTrue(accessControlPage.isColorItemTabCorrect(position, activeColor)));
         And("^Color other tab \"([^\"]*)\" is \"([^\"]*)\"$", (String position, String defaultColor) -> Assert.assertTrue(accessControlPage.isColorOtherTabCorrect(position, defaultColor)));
+        And("^Button Submit is enable$", () -> Assert.assertTrue(accessControlPage.isEnableBtnSubmit()));
+        And("^Button Submit is unable$", () -> Assert.assertFalse(accessControlPage.isEnableBtnSubmit()));
     }
 }
