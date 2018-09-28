@@ -5,7 +5,7 @@ Feature: Check update team page
 
   Background: User navigates to Company teams page
     Given I am logged in as an "EM"
-    And I am stayed in update team page
+    And I am stayed in update team page at position is 1
 
   Scenario Outline: I fill to inputName with name invalid, button Submit is unable and message error is showed
     When I fill in inputName with "<searchData>" as type valid is "<typeValid>"

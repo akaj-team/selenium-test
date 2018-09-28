@@ -43,7 +43,7 @@ Feature: Check teams page
     And Page is redirected to New Team page
 
   Scenario: Open successfully update team page when click on button Update
-    When I click on button update team
+    When I click on button update team at position is 0
     Then Page is redirected to Update Team page
 
   Scenario: Open successfully dialog delete team when click on button Delete

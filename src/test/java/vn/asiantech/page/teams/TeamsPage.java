@@ -78,8 +78,8 @@ public class TeamsPage extends BasePage<TeamsPage> {
         return href;
     }
 
-    public final String onClickUpdateTeam() {
-        WebElement columnAction = getColumnIndex(COLUMN_ACTION, 0);
+    public final String onClickUpdateTeam(final int position) {
+        WebElement columnAction = getColumnIndex(COLUMN_ACTION, position);
         WebElement aUpdate = columnAction.findElement(By.tagName("a"));
         aUpdate.click();
         String href = "";

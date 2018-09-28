@@ -40,6 +40,15 @@ public class TeamsDefinitions extends DriverBase implements En {
             Assert.assertEquals(URL_PAGE_TEAMS, driver.getCurrentUrl());
         });
 
+        And("^I am stayed in dialog confirm delete team at position is (\\d+)$", (Integer position) -> {
+            driver.get(URL_PAGE_TEAMS);
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
+            Assert.assertEquals(URL_PAGE_TEAMS, driver.getCurrentUrl());
+            nameTeam = teamsPage.onClickDeleteTeam(position);
+            Assert.assertTrue(teamsPage.isDeleteDialogShown());
+        });
+
         //Search teams with enter name team
         When("^Enter search with name is \"([^\"]*)\"$", (String name) -> {
             teamsPage.searchNameTeam(name);
@@ -76,7 +85,7 @@ public class TeamsDefinitions extends DriverBase implements En {
         });
 
         // Open successfully update team page when click on button Update
-        When("^I click on button update team$", () -> updateTeamUrl = teamsPage.onClickUpdateTeam());
+        When("^I click on button update team at position is (\\d+)$", (Integer position) -> updateTeamUrl = teamsPage.onClickUpdateTeam(position));
         Then("^Page is redirected to Update Team page$", () -> {
             new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM).until(ExpectedConditions.urlToBe(updateTeamUrl));
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));

@@ -40,12 +40,12 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
             Assert.assertEquals(URL_PAGE_NEW_TEAM, driver.getCurrentUrl());
         });
 
-        And("^I am stayed in update team page$", () -> {
+        And("^I am stayed in update team page at position is (\\d+)$", (Integer position) -> {
             driver.get(URL_PAGE_TEAMS);
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
             Assert.assertEquals(URL_PAGE_TEAMS, driver.getCurrentUrl());
-            String updateTeamUrl = teamsPage.onClickUpdateTeam();
+            String updateTeamUrl = teamsPage.onClickUpdateTeam(position);
             new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM).until(ExpectedConditions.urlToBe(updateTeamUrl));
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
         });
