@@ -17,13 +17,13 @@ Feature: Check TimeSheet
 
   Scenario: Can click this week button after click back button
     Given I open my timesheet page
-    When Click on back button
-    Then Can click this week button
+    When Click on back button on timesheet
+    Then Can click this week button on timesheet
 
   Scenario: Can click this week button after click next button
     Given I open my timesheet page
-    When Click on next button
-    Then Can click this week button
+    When Click on next button on timesheet
+    Then Can click this week button on timesheet
 
   Scenario: Display button add timesheet after hover avatar
     Given I open my timesheet page
@@ -66,3 +66,11 @@ Feature: Check TimeSheet
     When Click button Repeat every day
     Then Display button submit is enable
     And Display Dialog success is enable and show message
+
+  Scenario: Display timeSheet data
+    Given I open my timesheet page
+    Then Display full record timesheet
+    And Display element timeSheet
+    When Move to title columns timesheet
+    Then Display button add new timesheet
+    And Display dialog title project

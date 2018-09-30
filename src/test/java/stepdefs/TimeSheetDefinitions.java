@@ -59,16 +59,16 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         Then("^My Timesheet page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
         And("^Title content is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.checkTextStatusMenu(content)));
         And("^Display full record timesheet", () -> Assert.assertTrue(true, myTimeSheet.isDisplayFullColumns(driver).toString()));
-        And("^Disable button this week and can not click", () -> Assert.assertTrue(true, myTimeSheet.getClickable(driver, "btnThisWeek").toString()));
-        And("^Disable button submit and can not click", () -> Assert.assertTrue(true, myTimeSheet.getClickable(driver, "btnSubmit").toString()));
+        And("^Disable button this week and can not click", () -> Assert.assertTrue(true, myTimeSheet.getClickableTimeSheet(driver, "btnThisWeek").toString()));
+        And("^Disable button submit and can not click", () -> Assert.assertTrue(true, myTimeSheet.getClickableTimeSheet(driver, "btnSubmit").toString()));
 
         Given("^I open my timesheet page$", () -> {
             // Write code here that turns the phrase above into concrete actions
             getDriver().get(Constant.TIME_SHEET_PAGE_URL);
         });
-        When("^Click on back button$", () -> myTimeSheet.clickBackButton(driver));
-        When("^Click on next button$", () -> myTimeSheet.clickNextButton(driver));
-        Then("^Can click this week button$", () -> Assert.assertTrue(true, myTimeSheet.getClickable(driver, "btnThisWeek").toString()));
+        When("^Click on back button on timesheet$", () -> myTimeSheet.clickBackButtonOnTimeSheet(driver));
+        When("^Click on next button on timesheet$", () -> myTimeSheet.clickNextButtonOnTimeSheet(driver));
+        Then("^Can click this week button on timesheet$", () -> Assert.assertTrue(true, myTimeSheet.getClickableTimeSheet(driver, "btnThisWeek").toString()));
 
         When("^Move to columns timesheet$", () -> myTimeSheet.moveRowTimeSheet(driver));
         Then("^Display button add new timesheet$", () -> Assert.assertTrue(true, myTimeSheet.getAddTimeSheetClickable(driver).toString()));
@@ -100,6 +100,10 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         When("^Click button Repeat every day$", () -> myTimeSheet.clickRepeatEveryDay(driver));
         Then("^Display button submit is enable$", () -> Assert.assertTrue(myTimeSheet.checkButtonSubmitEnable(driver)));
         And("^Display Dialog success is enable and show message$", () -> Assert.assertTrue(myTimeSheet.displayDialogAlert(driver)));
+
+        And("^Display element timeSheet$", () -> Assert.assertTrue(myTimeSheet.isExistsElementTimeSheet(driver)));
+        When("^Move to title columns timesheet$", () -> myTimeSheet.moveToTitleTimeSheet(driver));
+        And("^Display dialog title project$", () -> Assert.assertTrue(true, myTimeSheet.isDialogTitleProjectShowing(driver).toString()));
     }
 
     private void redirectPageWhenClickChildItem(String path) {
