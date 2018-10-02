@@ -1,6 +1,7 @@
 package vn.asiantech.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -393,7 +394,6 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         return true;
     }
 
-
     public void moveToTitleTimeSheet(final WebDriver driver) {
         Actions action = new Actions(driver);
         waitForElement(driver, timeSheetBody, TIME_OUT_WAITED_ELEMENT);
@@ -465,13 +465,36 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         return btnCancel.isDisplayed();
     }
 
-//    public final void clickButtonCancelDialogConfirm(final WebDriver driver) {
-//        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
-//        WebElement btnCancel = dialogConfirmDelete.findElement(By.cssSelector(".btn.btn-default.btn-sm"));
-//        if (btnCancel != null && btnCancel.isEnabled()) {
-//            System.out.println("xxx");
-//            btnCancel.click();
-//        }
-//    }
+    public final void clickButtonCancelDialogConfirm(final WebDriver driver) {
+        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+        WebElement listItems = dialogConfirmDelete.findElement(By.cssSelector(".text-right.m-b-xs"));
+        List<WebElement> items = listItems.findElements(By.tagName("button"));
+        WebElement btnCancel = items.get(1);
+        if (btnCancel != null && btnCancel.isEnabled()) {
+            btnCancel.click();
+        }
+    }
+
+    public final Boolean dismissDialogConfirmDelete(final WebDriver driver) {
+        try {
+            waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+            return dialogConfirmDelete.isDisplayed();
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public final void clickButtonConfirmDelete(final WebDriver driver) {
+        clickButtonDelete(driver);
+        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+        WebElement btnDelete = dialogConfirmDelete.findElement(By.cssSelector(".btn.btn-default.btn-sm.btn-delete"));
+        if (btnDelete != null && btnDelete.isEnabled()) {
+            btnDelete.click();
+        }
+    }
+
+    public final Boolean isItemTimeSheetDelete(final WebDriver driver) {
+        return true;
+    }
 
 }

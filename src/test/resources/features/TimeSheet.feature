@@ -88,9 +88,9 @@ Feature: Check TimeSheet
     And Display message is "Are you sure to delete a task?"
     And Display button confirm delete
     And Display button confirm cancel
-#    When Click button cancel
-#    Then Dismiss dialog confirm delete
-#    When Click button confirm delete
-#    Then Element timeSheet is delete
+    When Click button cancel
+    Then Dismiss dialog confirm delete
+    When Click button confirm delete
+    Then Element timeSheet is delete
 
 
