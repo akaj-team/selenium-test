@@ -104,6 +104,14 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     private
     WebElement timeSheetBody;
 
+    @FindBy(css = ".action.link-danger.ng-star-inserted")
+    private
+    WebElement btnDelete;
+
+    @FindBy(css = ".arrow-block.has-border.b-l.ng-star-inserted")
+    private
+    WebElement dialogConfirmDelete;
+
     @Override
     public TimeSheetPage navigateTo(final WebDriver webDriver) {
         return this;
@@ -403,4 +411,67 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     public final Boolean isDialogTitleProjectShowing(final WebDriver driver) {
         return driver.getPageSource().contains("Hover message");
     }
+
+    public final void clickColumnsTimeSheet(final WebDriver driver) {
+        waitForElement(driver, timeSheetBody, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> items = timeSheetBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        for (int i = 0; i < items.size() - 2; i++) {
+            WebElement element = items.get(i).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
+            WebElement content = element.findElement(By.cssSelector(".info-content"));
+            if (content != null && content.isDisplayed()) {
+                content.click();
+            }
+        }
+    }
+
+    public final Boolean isButtonDeleteShowing(final WebDriver driver) {
+        waitForElement(driver, btnDelete, TIME_OUT_WAITED_ELEMENT);
+        return btnDelete.isEnabled();
+    }
+
+    public final void clickButtonDelete(final WebDriver driver) {
+        waitForElement(driver, btnDelete, TIME_OUT_WAITED_ELEMENT);
+        if (btnDelete != null && btnDelete.isEnabled()) {
+            btnDelete.click();
+        }
+    }
+
+    public final Boolean displayDialogConfirmDelete(final WebDriver driver) {
+        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+        return dialogConfirmDelete.isDisplayed();
+    }
+
+    public final Boolean displayTitleConfirmDialog(final WebDriver driver, final String content) {
+        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+        WebElement title = dialogConfirmDelete.findElement(By.tagName("h4"));
+        return title.isDisplayed() && title.getText().equals(content);
+    }
+
+    public final Boolean displayMessageConfirmDialog(final WebDriver driver, final String content) {
+        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+        WebElement message = dialogConfirmDelete.findElement(By.cssSelector(".m-b"));
+        return message.isDisplayed() && message.getText().equals(content);
+    }
+
+    public final Boolean displayDeleteConfirmDialog(final WebDriver driver) {
+        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+        WebElement btnDelete = dialogConfirmDelete.findElement(By.cssSelector(".btn.btn-default.btn-sm.btn-delete"));
+        return btnDelete.isDisplayed();
+    }
+
+    public final Boolean displayCancelConfirmDialog(final WebDriver driver) {
+        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+        WebElement btnCancel = dialogConfirmDelete.findElement(By.cssSelector(".btn.btn-default.btn-sm"));
+        return btnCancel.isDisplayed();
+    }
+
+//    public final void clickButtonCancelDialogConfirm(final WebDriver driver) {
+//        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+//        WebElement btnCancel = dialogConfirmDelete.findElement(By.cssSelector(".btn.btn-default.btn-sm"));
+//        if (btnCancel != null && btnCancel.isEnabled()) {
+//            System.out.println("xxx");
+//            btnCancel.click();
+//        }
+//    }
+
 }

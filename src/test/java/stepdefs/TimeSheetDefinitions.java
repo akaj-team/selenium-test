@@ -104,6 +104,16 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         And("^Display element timeSheet$", () -> Assert.assertTrue(myTimeSheet.isExistsElementTimeSheet(driver)));
         When("^Move to title columns timesheet$", () -> myTimeSheet.moveToTitleTimeSheet(driver));
         And("^Display dialog title project$", () -> Assert.assertTrue(true, myTimeSheet.isDialogTitleProjectShowing(driver).toString()));
+
+        When("^Click on columns timesheet$", () -> myTimeSheet.clickColumnsTimeSheet(driver));
+        And("^Button delete is enable$", () -> Assert.assertTrue(myTimeSheet.isButtonDeleteShowing(driver)));
+        When("^Click on button delete$", () -> myTimeSheet.clickButtonDelete(driver));
+        Then("^Display dialog confirm delete$", () -> Assert.assertTrue(myTimeSheet.displayDialogConfirmDelete(driver)));
+        And("^Display title is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.displayTitleConfirmDialog(driver, content)));
+        And("^Display message is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.displayMessageConfirmDialog(driver, content)));
+        And("^Display button confirm delete$", () -> Assert.assertTrue(myTimeSheet.displayDeleteConfirmDialog(driver)));
+        And("^Display button confirm cancel$", () -> Assert.assertTrue(myTimeSheet.displayCancelConfirmDialog(driver)));
+
     }
 
     private void redirectPageWhenClickChildItem(String path) {
