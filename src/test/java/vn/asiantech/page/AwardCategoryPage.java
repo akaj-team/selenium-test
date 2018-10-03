@@ -1,6 +1,7 @@
 package vn.asiantech.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,13 +26,13 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     @FindBy(name = "name")
     private WebElement inputName;
 
-    @FindBy(name = "description")
+    @FindBy(css = ".form-control.ng-untouched.ng-pristine.ng-valid")
     private WebElement txaDescription;
 
     @FindBy(className = "help-block")
     private WebElement txtNameError;
 
-    @FindBy(css = ".ui-dialog-title.ng-tns-c0-5.ng-star-inserted")
+    @FindBy(xpath = "//div[contains(@class, 'ui-dialog-titlebar')]")
     private WebElement headerDialog;
 
     @Override
@@ -75,6 +76,7 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     }
 
     public final void enterDescription() {
+        txaDescription.click();
         txaDescription.sendKeys("Fast Retailing");
     }
 
@@ -101,7 +103,8 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     public final void clearText(String type) {
         if (type.equals("name")) {
             inputName.clear();
-            inputName.sendKeys("c");
+            inputName.sendKeys("h");
+            inputName.sendKeys(Keys.BACK_SPACE);
         } else {
             txaDescription.clear();
         }

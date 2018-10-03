@@ -33,6 +33,7 @@ Feature: Check award category page
 
   Scenario: Check click submit with full information
     Given New dialog is showed and entered name
+    And Check count line in table
     When I enter description
     And I click submit button
     Then Table add one line
@@ -47,6 +48,7 @@ Feature: Check award category page
   Scenario: Check close button
     Given I click edit button
     And Dialog edit is showed
+    And Check count line in table
     When I clear name box
     And I input name on Name box
     But I click close button
@@ -54,7 +56,8 @@ Feature: Check award category page
     And Disappear dialog
 
   Scenario: Check cancel button
-    Given Dialog edit is showed
+    Given I click edit button
+    And Dialog edit is showed
     When I click cancel button
     Then Disappear dialog
 

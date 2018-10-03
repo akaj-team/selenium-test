@@ -71,7 +71,7 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
         Given("^New dialog is showed and entered name$", () -> {
             awardCategotyPage.clickNewAward();
-            awardCategotyPage.enterName("Best project" + countCurrentLine);
+            awardCategotyPage.enterName("Best project" + System.currentTimeMillis());
         });
 
         When("^I click submit button$", () -> awardCategotyPage.clickSubmit());
