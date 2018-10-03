@@ -18,24 +18,47 @@ Feature: I login in AT Portal
       | 3        | #bfac8a     | #c2c2c2      |
       | 0        | #bfac8a     | #c2c2c2      |
 
-  Scenario: Check view is displayed of Normal User when I click on this item
+  Scenario Outline: I click on tab Item, check view is displayed in this tab
+    Given I click on tab item "<position>"
+    Then Has "<sum>" drop down is displayed
+    And BodyTable is displayed
+    And Button Submit is "<enable>"
+    Examples:
+      | position | sum | enable |
+      | 0        | 0   | true   |
+      | 1        | 2   | false  |
+      | 2        | 2   | false  |
+      | 3        | 1   | false  |
+
+  Scenario: I click on tab Normal User, show alert message then clicked on button submit
     Given I click on tab item "0"
-    Then Not has Spinner is displayed
-    And Button Submit is enable
+    When I click on Button Submit
+    Then I should see the alert message
 
-  Scenario: Check view is displayed of Team when I click on this item
+  Scenario: I click on tab Team, check isEnable button Submit, show alert message then clicked on button submit
     Given I click on tab item "1"
-    Then Spinner Role is displayed
-    And Spinner Team is displayed
-    And Button Submit is unable
+    When I open dropDown Role
+    And I click on any role
+    When I open DropDown Team
+    And I click on any team
+    Then Button Submit is enable
+    When I click on Button Submit
+    Then I should see the alert message
 
-  Scenario: Check view is displayed of Group when I click on this item
+  Scenario: I click on tab Group, check isEnable button Submit, show alert message then clicked on button submit
     Given I click on tab item "2"
-    Then Spinner Role is displayed
-    And Spinner Group is displayed
-    And Button Submit is unable
+    When I open dropDown Role
+    And I click on any role
+    When I open DropDown Group
+    And I click on any group
+    Then Button Submit is enable
+    When I click on Button Submit
+    Then I should see the alert message
 
-  Scenario: Check view is displayed of Project when I click on this item
+  Scenario: I click on tab Project, check isEnable button Submit, show alert message then clicked on button submit
     Given I click on tab item "3"
-    Then Spinner Role is displayed
-    And Button Submit is unable
+    When I open dropDown Role
+    And I click on any role
+    Then Button Submit is enable
+    When I click on Button Submit
+    Then I should see the alert message

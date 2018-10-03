@@ -21,7 +21,6 @@ public class AccessControlPage extends BasePage<AccessControlPage> {
     @FindBy(className = "ui-buttonset-4")
     private WebElement btnSetInToolBox;
 
-    private By titleOfDropdown = By.cssSelector(".toolbox-item.m-l-sm.ng-star-inserted");
     private By dropDown = By.cssSelector(".toolbox-item.dropdown-md.ng-star-inserted");
     private WebElement itemSpinner;
 
@@ -46,50 +45,31 @@ public class AccessControlPage extends BasePage<AccessControlPage> {
         return btnSubmit.isEnabled();
     }
 
-    public final boolean isTitleDropDownShown() {
-        return getSumTitleOfDropDown().size() > 0;
+    public final void onCLickBtnSubmit() {
+        wrapperContent.findElement(By.name("submit")).click();
     }
 
-    public final boolean isDropDownShown() {
-        return getSumDropDown().size() > 0;
+    public final boolean isAlertMessageShown(WebDriver driver) {
+        return isElementPresented(driver.findElement(By.className("app-alert")));
     }
 
-    public final boolean isCorrectSumTitleWithDropDown() {
-        return getSumTitleOfDropDown().size() == getSumDropDown().size();
+    public final boolean isBodyTableShown(WebDriver driver) {
+        return isElementPresented(driver.findElement(By.className("table-striped")));
     }
 
-    public final List getSumTitleOfDropDown() {
-        return wrapperContent.findElements(titleOfDropdown);
+    public final int getSumDropDown() {
+        return wrapperContent.findElements(dropDown).size();
     }
 
-    public final List getSumDropDown() {
-        return wrapperContent.findElements(dropDown);
-    }
-
-    public final boolean isDisplayedTitleOfDropDown() {
-        WebElement title = wrapperContent.findElement(titleOfDropdown);
-        return title.isDisplayed();
-    }
-
-    public final boolean isDisplayedDropDown() {
-        WebElement drop = wrapperContent.findElement(dropDown);
-        return drop.isDisplayed();
-    }
-
-    public final void clickDropDownList(final int position) {
+    public final void onClickDropDownList(final int position) {
         WebElement dropDownList = wrapperContent.findElements(dropDown).get(position);
         dropDownList.click();
         itemSpinner = dropDownList.findElement(By.tagName("p-dropdown")).findElement(By.className("ng-trigger")).findElement(By.cssSelector(".ui-dropdown-items-wrapper"));
     }
 
-    public final void selectItemInDropDown(final int position) {
+    public final void onSelectItemInDropDown(final int position) {
         List<WebElement> listManager = itemSpinner.findElement(By.tagName("ul")).findElements(By.tagName("li"));
         listManager.get(position).click();
-    }
-
-    private WebElement getItemInToolBox(final String position) {
-        List<WebElement> listBtnTab = btnSetInToolBox.findElements(By.className("ui-button-text-only"));
-        return listBtnTab.get(Integer.parseInt(position));
     }
 
     public final boolean isColorOtherTabCorrect(final String position, final String defaultColor) {
@@ -100,6 +80,11 @@ public class AccessControlPage extends BasePage<AccessControlPage> {
             }
         }
         return false;
+    }
+
+    private WebElement getItemInToolBox(final String position) {
+        List<WebElement> listBtnTab = btnSetInToolBox.findElements(By.className("ui-button-text-only"));
+        return listBtnTab.get(Integer.parseInt(position));
     }
 
     private String getActualColor(final WebElement element) {

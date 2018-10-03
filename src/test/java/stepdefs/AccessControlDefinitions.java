@@ -4,6 +4,7 @@ import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
@@ -39,5 +40,63 @@ public class AccessControlDefinitions extends DriverBase implements En {
         And("^Color other tab \"([^\"]*)\" is \"([^\"]*)\"$", (String position, String defaultColor) -> Assert.assertTrue(accessControlPage.isColorOtherTabCorrect(position, defaultColor)));
         And("^Button Submit is enable$", () -> Assert.assertTrue(accessControlPage.isEnableBtnSubmit()));
         And("^Button Submit is unable$", () -> Assert.assertFalse(accessControlPage.isEnableBtnSubmit()));
+
+        // I click on tab Item, check view is displayed in this tab
+        Then("^Has \"([^\"]*)\" drop down is displayed$", (String sum) -> {
+            if (Integer.parseInt(sum) > 0) {
+                new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".toolbox-item.dropdown-md.ng-star-inserted")));
+            }
+            Assert.assertEquals(accessControlPage.getSumDropDown(), Integer.parseInt(sum));
+            System.out.print(accessControlPage.getSumDropDown() + " " + Integer.parseInt(sum));
+        });
+        And("^BodyTable is displayed$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("table-striped")));
+            Assert.assertTrue(accessControlPage.isBodyTableShown(driver));
+        });
+        And("^Button Submit is \"([^\"]*)\"$", (String isEnable) -> {
+            Assert.assertEquals(accessControlPage.isEnableBtnSubmit(), Boolean.parseBoolean(isEnable));
+            System.out.print(accessControlPage.isEnableBtnSubmit() + " " + Boolean.parseBoolean(isEnable));
+
+        });
+
+        // Open dropdown Role and click on any Role
+        When("^I open dropDown Role$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.tagName("p-dropdown")));
+            accessControlPage.onClickDropDownList(0);
+            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> webDriver.findElement(By.className("ui-dropdown-open")));
+        });
+        And("^I click on any role$", () -> {
+            accessControlPage.onSelectItemInDropDown(0);
+            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL);
+        });
+
+        // Open dropdown Team and click on any Team
+        When("^I open DropDown Team$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.tagName("p-dropdown")));
+            accessControlPage.onClickDropDownList(1);
+            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> webDriver.findElement(By.className("ui-dropdown-open")));
+        });
+        And("^I click on any team$", () -> {
+            accessControlPage.onSelectItemInDropDown(2);
+            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL);
+        });
+
+        // Open dropdown Group and click on any group
+        When("^I open DropDown Group$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.tagName("p-dropdown")));
+            accessControlPage.onClickDropDownList(1);
+            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> webDriver.findElement(By.className("ui-dropdown-open")));
+        });
+        And("^I click on any group$", () -> {
+            accessControlPage.onSelectItemInDropDown(1);
+            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL);
+        });
+
+        // Click on button Submit and show alert message
+        When("^I click on Button Submit$", () -> accessControlPage.onCLickBtnSubmit());
+        Then("^I should see the alert message$", () -> {
+            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("app-alert")));
+            Assert.assertTrue(accessControlPage.isAlertMessageShown(driver));
+        });
     }
 }
