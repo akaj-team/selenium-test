@@ -1,19 +1,12 @@
 package stepdefs;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.object.Account;
 import vn.asiantech.page.HomePage;
 import vn.asiantech.page.LoginPage;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class AuthenticateDefinitions extends DriverBase implements En {

@@ -13,6 +13,9 @@ import vn.asiantech.page.MyTeamPage;
 
 import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
 
+/**
+ * @author at-huethai
+ */
 public class MyTeamDefinitions extends DriverBase implements En {
 
     private WebDriver driver;

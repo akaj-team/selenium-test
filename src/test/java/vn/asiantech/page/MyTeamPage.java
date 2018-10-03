@@ -5,47 +5,51 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.BasePage;
+
 import java.util.List;
 
+/**
+ * @author at-huethai
+ */
 public class MyTeamPage extends BasePage<MyTeamPage> {
 
     public static final int TIME_OUT_SECOND = 50;
 
     @FindBy(css = ".ui-datatable-data.ui-widget-content")
-    public static WebElement listMember;
+    private WebElement listMember;
 
     @FindBy(className = "btn-edit")
-    public static WebElement btnUpdateTeam;
+    private WebElement btnUpdateTeam;
 
     @FindBy(className = "btn-list")
-    public static WebElement btnTeams;
+    private WebElement btnTeams;
 
     @FindBy(css = ".btn.btn-block.btn-white.btn-add")
-    public static WebElement btnAddMember;
+    private WebElement btnAddMember;
 
     @FindBy(css = ".ng-tns-c0-1.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-dialogState")
-    public static WebElement dlgAddMember;
+    private WebElement dlgAddMember;
 
     @FindBy(css = "input[type=\"text\"]")
-    public static WebElement txtSearch;
+    private WebElement txtSearch;
 
     @FindBy(css = "input[class=\"ui-inputtext ui-widget ui-state-default ui-corner-all\"]")
-    public static WebElement txtSearch2;
+    private WebElement txtSearch2;
 
     @FindBy(className = "ui-listbox-list-wrapper")
-    public static WebElement listSearchResult;
+    private WebElement listSearchResult;
 
     @FindBy(css = ".btn.btn-sm.btn-default.btn-cancel")
-    public static WebElement btnClose;
+    private WebElement btnClose;
 
-    public String textAddUser = "";
-    public String textSearch = "";
+    private String textAddUser = "";
+    private String textSearch = "";
 
     public MyTeamPage() {
     }
 
     @Override
-    public final MyTeamPage navigateTo(WebDriver webDriver) {
+    public final MyTeamPage navigateTo(final WebDriver webDriver) {
         return null;
     }
 
@@ -61,8 +65,8 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         btnUpdateTeam.click();
     }
 
-    public void redirectPage(WebDriver driver, String path) {
-        new WebDriverWait(driver, 10).until(
+    public final void redirectPage(final WebDriver driver, final String path) {
+        new WebDriverWait(driver, TIME_OUT_SECOND).until(
                 webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed());
         String url = driver.getCurrentUrl();
         Assert.assertEquals(url.substring(url.length() - path.length()), path);
@@ -78,7 +82,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         btnAddMember.click();
     }
 
-    public boolean getAddMemberPopupName(final WebDriver driver) {
+    public final boolean getAddMemberPopupName(final WebDriver driver) {
         try {
             dlgAddMember.isDisplayed();
             return true;
@@ -87,13 +91,13 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         }
     }
 
-    public final void inputUserNametoAdd(final WebDriver driver, String username) {
+    public final void inputUserNametoAdd(final WebDriver driver, final String username) {
         waitForElement(driver, txtSearch2, TIME_OUT_SECOND);
         txtSearch2.sendKeys(username);
         textAddUser = username;
     }
 
-    public boolean verifySearchResult(final WebDriver driver, String n) {
+    public final boolean verifySearchResult(final WebDriver driver, final String n) {
         Integer j = 0;
         waitForElement(driver, listSearchResult, TIME_OUT_SECOND);
         List<WebElement> list = listSearchResult.findElement(By.className("ui-listbox-list")).findElements(By.tagName("li"));
@@ -112,8 +116,9 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         if (1 == 1) {
             Assert.assertEquals(j.toString(), n);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     public final void clickAddBtn(final WebDriver driver) {
@@ -142,20 +147,20 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         btnClose.click();
     }
 
-    public final boolean verifyAddMemberPopupDisappeared(WebDriver driver) {
+    public final boolean verifyAddMemberPopupDisappeared(final WebDriver driver) {
         waitForElement(driver, dlgAddMember, TIME_OUT_SECOND);
         Assert.assertTrue(dlgAddMember.getAttribute("style").contains("display: none"));
         return true;
     }
 
-    public final void inputUserNametoSearch(final WebDriver driver, String username) {
+    public final void inputUserNametoSearch(final WebDriver driver, final String username) {
         waitForElement(driver, txtSearch, TIME_OUT_SECOND);
         txtSearch.sendKeys(username);
         txtSearch.sendKeys(Keys.ENTER);
         textSearch = username;
     }
 
-    public final boolean verifySearchMemberResult(WebDriver driver, String n) {
+    public final boolean verifySearchMemberResult(final WebDriver driver, final String n) {
         Integer k = 0;
         waitForElement(driver, listMember, TIME_OUT_SECOND);
         List<WebElement> tr = listMember.findElements(By.tagName("tr"));
@@ -173,8 +178,9 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         if (1 == 1) {
             Assert.assertEquals(k.toString(), n);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 }
 
