@@ -2,20 +2,21 @@ package stepdefs;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.LeavePlannerPage;
 import vn.asiantech.page.MyTeamPage;
 
-import java.util.List;
+import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
 
 public class MyTeamDefinitions extends DriverBase implements En {
 
     private WebDriver driver;
     private MyTeamPage myTeamPage;
-
 
     public MyTeamDefinitions() {
         try {
@@ -24,27 +25,20 @@ public class MyTeamDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
 
-        When("^I click on Organisation tab$", () -> {
+        Given("^Display My Team page$", () -> {
+            driver.get("http://portal-stg.asiantech.vn/organisation/teams/24");
             myTeamPage = initPage(getDriver(), MyTeamPage.class);
-            myTeamPage.clickOrganisationTab(driver);
-            Thread.sleep(5000);
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+            Assert.assertEquals("http://portal-stg.asiantech.vn/organisation/teams/24", driver.getCurrentUrl());
         });
 
-        And("^I click on My Teams tab$", () -> {
-            myTeamPage.clickMyTeamTab(driver);
-        });
-
-        And("^I click on Android tab$", () -> {
-            myTeamPage.clickTeamTab(driver);
-
-        });
         Then("^The member of Android team is displayed$", () -> {
-           Assert.assertEquals(39,myTeamPage.checkNumberofTeam(driver));
-
+            Assert.assertEquals(39, myTeamPage.checkNumberofTeam(driver));
         });
 
         And("^The \"([^\"]*)\" value is \"([^\"]*)\"$", (String key, String value) -> {
-
             WebElement dt = driver.findElement(By.xpath("//dt[contains(text(), '" + key + "')]"));
             WebElement dd = dt.findElement(By.xpath("following-sibling::dd"));
             WebElement span = dd.findElement(By.tagName("span"));
@@ -56,73 +50,54 @@ public class MyTeamDefinitions extends DriverBase implements En {
                 WebElement a = dd.findElement(By.tagName("a"));
                 Assert.assertEquals(a.getText(), value);
             }
-
-
-            Thread.sleep(2000);
-
-
         });
+
         When("^I click on 'Update Team' button$", () -> {
-
-           myTeamPage.clickUpdateTeam(driver);
-
+            myTeamPage.clickUpdateTeamBtn(driver);
         });
+
         Then("^The web page navigates to the \"([^\"]*)\" page$", (String page) -> {
-
-            while (true) {
-                Thread.sleep(1000);
-                WebElement pageNameq = driver.findElement(By.tagName("h2"));
-                if (pageNameq != null) {
-                    break;
-                }
-            }
-
-            WebElement pageName = driver.findElement(By.tagName("h2"));
-            Assert.assertEquals(pageName.getText(), page);
-            driver.navigate().forward();
+            myTeamPage.redirectPage(driver, page);
         });
+
         When("^I click on 'Teams' button$", () -> {
-
-            WebElement teams = driver.findElement(By.className("btn-list"));
-            teams.click();
-            Thread.sleep(3000);
-
+            myTeamPage.clickTeamsBtn(driver);
+        });
+        When("^I click on New Member button$", () -> {
+            myTeamPage.clickAddMemberBtn(driver);
         });
 
-        When("^I click on 'Employee Avatar'$", () -> {
-
-            List<WebElement> member_lst = driver.findElement(By.cssSelector("*[class='ui-datatable-data ui-widget-content']"))
-                    .findElements(By.tagName("tr"));
-            List<WebElement> td = member_lst.get(0).findElements(By.tagName("td"));
-            WebElement avatar = td.get(0).findElement(By.tagName("span")).findElement(By.tagName("a"));
-            avatar.click();
-//
-//
-//            List<WebElement> empAvatarList = driver.findElements(By.className("avatar-sm"));
-//            empAvatarList.get(0).click();
-            Thread.sleep(5000);
-
+        Then("^The Add Member popup is displayed$", () -> {
+            Assert.assertTrue(myTeamPage.getAddMemberPopupName(driver));
         });
 
-        When("^I click on 'Employee Name'$", () -> {
-
-            List<WebElement> member_lst = driver.findElement(By.cssSelector("*[class='ui-datatable-data ui-widget-content']"))
-                    .findElements(By.tagName("tr"));
-            List<WebElement> td = member_lst.get(0).findElements(By.tagName("td"));
-            WebElement avatar = td.get(0).findElement(By.tagName("span")).findElement(By.tagName("a"));
-            avatar.click();
-
+        When("^I input \"([^\"]*)\" into search textbox to add member$", (String username) -> {
+            myTeamPage.inputUserNametoAdd(driver, username);
         });
-        When("^I click on 'Manager Name'$", () -> {
-//            WebElement magName = driver.findElement(By.cssSelector("a[href='*']"));
-//            magName.click();
-//            Thread.sleep(2000);
+
+        Then("^I verify that search result list is correct with \"([^\"]*)\"$", (String n) -> {
+            Assert.assertTrue(myTeamPage.verifySearchResult(driver, n));
         });
-        When("^I click on 'Officer name'$", () -> {
-//            WebElement offName = driver.findElement(By.cssSelector("btn.btn-default.btn-sm.btn-list"));
-//            offName.click();
+
+        When("^I click on Add button$", () -> {
+            myTeamPage.clickAddBtn(driver);
+        });
+
+        When("^I click on Close button$", () -> {
+            myTeamPage.clickCloseBtn(driver);
+        });
+
+        Then("^The Add Member popup is disappeared$", () -> {
+            Assert.assertTrue(myTeamPage.verifyAddMemberPopupDisappeared(driver));
+        });
+
+        When("^I input \"([^\"]*)\" into search textbox to search member$", (String username) -> {
+            myTeamPage.inputUserNametoSearch(driver, username);
+        });
+
+        Then("^I verify that members of team are displayed correctly as \"([^\"]*)\"$", (String record) -> {
+            myTeamPage.verifySearchMemberResult(driver, record);
         });
     }
-
 }
 
