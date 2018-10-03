@@ -24,7 +24,7 @@ import static vn.asiantech.base.DriverBase.getDriver;
 public class MyLeavePage extends BasePage<MyLeavePage> {
     private static final int TIMEOUTINSECONDS = 5;
 
-    @FindBy(css = ".toolbox-item.dropdown-md")
+    @FindBy(id = "filter-dropdown-status")
     private WebElement inputStatus;
 
     @FindBy(className = "ui-dropdown-items-wrapper")
@@ -33,10 +33,10 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     @FindBy(className = "ui-datatable-scrollable-table-wrapper")
     private WebElement tableLeave;
 
-    @FindBy(css = ".dl-horizontal.m-t-xs.ng-star-inserted")
+    @FindBy(id = "leave-balance-content")
     private WebElement leaveBalance;
 
-    @FindBy(css = ".btn.btn-default.btn-sm.btn-add")
+    @FindBy(id = "leave-request")
     private WebElement btnLeaveRequest;
 
     @FindBy(css = ".ui-tooltip-text.ui-shadow.ui-corner-all")
@@ -78,15 +78,15 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public boolean checkTextSYSID(String sysid) {
-        return findDataLeave(0).getText().equals(sysid);
+        return tableLeave.findElements(By.id("sysid")).get(0).getText().equals(sysid);
     }
 
     public boolean checkTextTypeOfLeave(String type) {
-        return findDataLeave(1).getText().equals(type);
+        return tableLeave.findElements(By.id("leave-type")).get(0).getText().equals(type);
     }
 
     public boolean checkTextStatus(String status) {
-        return findDataLeave(2).getAttribute("class").equals(getNameIconStatus(status));
+        return tableLeave.findElements(By.id("status")).get(0).getAttribute("class").equals(getNameIconStatus(status));
     }
 
     public boolean checkTextApprover(String approver) {
