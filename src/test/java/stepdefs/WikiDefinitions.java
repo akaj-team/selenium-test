@@ -87,8 +87,6 @@ public class WikiDefinitions extends DriverBase implements En {
         When("^I click on icon package Company Document again$", () -> wikiPage.clickIconPackageCompanyDocumentAgain());
 
         Then("^Categories inside show$", () -> Assert.assertTrue(wikiPage.isHideCategoryInside()));
-
-        When("^I hover delete button$", () -> wikiPage.hoverDeleteButton());
     }
 
     private void displayPage(final String path) {

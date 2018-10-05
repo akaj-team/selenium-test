@@ -3,11 +3,8 @@ package vn.asiantech.page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
-
-import static vn.asiantech.base.DriverBase.getDriver;
 
 /**
  * @author at-anh.quach
@@ -16,17 +13,23 @@ import static vn.asiantech.base.DriverBase.getDriver;
 
 public class WikiPage extends BasePage<WikiPage> {
 
-    @FindBy(linkText = "Huy Dinh Q.")
+    @FindBy(id = "link-to-employee-detail")
     private WebElement txtAuthor;
 
-    @FindBy(css = ".m-b.m-l.pull-right")
-    private WebElement pullRight;
-
-    @FindBy(className = "list-unstyled")
+    @FindBy(id = "child-page-list-wrapper")
     private WebElement listTitle;
 
     @FindBy(css = ".ui-tree-container.ng-star-inserted")
     private WebElement treeContainer;
+
+    @FindBy(id = "link-to-wiki-create")
+    private WebElement btnChildPage;
+
+    @FindBy(id = "btn-delete-wiki")
+    private WebElement btnDelete;
+
+    @FindBy(id = "link-to-wiki-edit")
+    private WebElement btnEdit;
 
     @Override
     public final WikiPage navigateTo(final WebDriver webDriver) {
@@ -38,20 +41,15 @@ public class WikiPage extends BasePage<WikiPage> {
     }
 
     public final void clickChildPageButton() {
-        getButton(0).click();
+        btnChildPage.click();
     }
 
     public final void clickUpdateButton() {
-        getButton(1).click();
-    }
-
-    public final void hoverDeleteButton() {
-        Actions builder = new Actions(getDriver());
-        builder.moveToElement(pullRight.findElement(By.tagName("button"))).build().perform();
+        btnEdit.click();
     }
 
     public final boolean isEnableDeleteButton() {
-        return pullRight.findElement(By.tagName("button")).isEnabled();
+        return btnDelete.isEnabled();
     }
 
     public final void clickTitle() {
@@ -87,10 +85,6 @@ public class WikiPage extends BasePage<WikiPage> {
         } catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
         }
-    }
-
-    private WebElement getButton(final int pos) {
-        return pullRight.findElements(By.tagName("a")).get(pos);
     }
 
     private WebElement getIconPackage(final int pos) {
