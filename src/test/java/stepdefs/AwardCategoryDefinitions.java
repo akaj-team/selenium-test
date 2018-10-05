@@ -83,7 +83,6 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
         When("^I enter description$", () -> awardCategotyPage.enterDescription());
 
         Given("^Dialog edit is showed$", () -> {
-//            awardCategotyPage.isNotEmptyName() &&
             Assert.assertTrue(awardCategotyPage.isDisplayDialog());
         });
 

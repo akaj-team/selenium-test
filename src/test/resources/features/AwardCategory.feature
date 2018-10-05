@@ -60,7 +60,3 @@ Feature: Check award category page
     And Dialog edit is showed
     When I click cancel button
     Then Disappear dialog
-
-
-
-

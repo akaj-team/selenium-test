@@ -14,7 +14,7 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     @FindBy(className = "ui-datatable-scrollable-table-wrapper")
     private WebElement tbCategory;
 
-    @FindBy(css = ".btn.btn-sm.btn-white.btn-add")
+    @FindBy(id = "btn-award-create")
     private WebElement btnNewAward;
 
     @FindBy(css = ".btn.btn-sm.btn-primary.btn-submit")
