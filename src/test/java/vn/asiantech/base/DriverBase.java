@@ -55,7 +55,7 @@ public class DriverBase {
         return PageFactory.initElements(driver, clazz);
     }
 
-    protected void waitForPageDisplayed(WebDriver driver, String url, By containerElement) {
+    protected final void waitForPageDisplayed(final WebDriver driver, final String url, final By containerElement) {
         new WebDriverWait(driver, TIME_OUT_SECOND).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(containerElement));
