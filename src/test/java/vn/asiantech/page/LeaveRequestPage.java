@@ -13,22 +13,22 @@ import static vn.asiantech.base.DriverBase.getDriver;
 public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     private static final int TIMEOUTINSECONDS = 5;
 
-    @FindBy(xpath = "//p-dropdown[contains(@class,'ui-inputwrapper-filled')]")
+    @FindBy(id = "leave-type-select")
     private WebElement inputTypeOfLeave;
 
-    @FindBy(css = ".ng-tns-c2-2.ui-calendar")
+    @FindBy(id = "start-date-select")
     private WebElement inputTimeFrom;
 
-    @FindBy(css = ".ng-tns-c2-5.ui-calendar")
+    @FindBy(id = "end-date-select")
     private WebElement inputTimeTo;
 
-    @FindBy(xpath = "//table[contains(@class,'ng-tns-c2-2')]")
+    @FindBy(id = "start-date-select")
     private WebElement calendarTimeFrom;
 
-    @FindBy(xpath = "//table[contains(@class,'ng-tns-c2-5')]")
+    @FindBy(id = "end-date-select")
     private WebElement calendarTimeTo;
 
-    @FindBy(css = ".table.table-striped.table-vm.has-error")
+    @FindBy(id = "leave-request-content")
     private WebElement tableDateRequest;
 
     @FindBy(id = "cke_1_contents")
@@ -37,16 +37,16 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     @FindBy(css = ".dl-horizontal.m-t-xs.ng-star-inserted")
     private WebElement tableLeaveBalance;
 
-    @FindBy(css = ".btn.btn-primary.btn-submit")
+    @FindBy(name = "submit")
     private WebElement btnSubmit;
 
-    @FindBy(className = "ui-dropdown-items-wrapper")
+    @FindBy(id = "leave-type-select")
     private WebElement menuTypeOfLeave;
 
     @FindBy(css = ".text-center.m-t-xs.ng-star-inserted")
     private WebElement messageTypeOfLeave;
 
-    @FindBy(tagName = "p-dialog")
+    @FindBy(id = "static-dialog")
     private WebElement dialog;
 
     @Override
