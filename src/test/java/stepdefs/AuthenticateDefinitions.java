@@ -1,6 +1,7 @@
 package stepdefs;
 
 import cucumber.api.java8.En;
+import org.openqa.selenium.JavascriptException;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.object.Account;
@@ -20,9 +21,14 @@ public class AuthenticateDefinitions extends DriverBase implements En {
         Given("^I am logged in as (a|an) \"([^\"]*)\"$", (String arg0, String position) -> {
             clearCookies();
 
-            if (!getDriver().getCurrentUrl().startsWith("data")) {
-                getDriver().executeScript("window.localStorage.clear();");
+            try {
+                if (!getDriver().getCurrentUrl().startsWith("data")) {
+                    getDriver().executeScript("window.localStorage.clear();");
+                }
+            } catch (JavascriptException exception) {
+                exception.printStackTrace();
             }
+
             Account account = accounts.get(position);
             getDriver().get("http://portal-stg.asiantech.vn/auth/login");
             loginPage = initPage(getDriver(), LoginPage.class);

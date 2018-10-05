@@ -1,6 +1,5 @@
 package stepdefs;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -22,9 +21,9 @@ public class MenuDefinitions extends DriverBase implements En {
         When("^I hover mouse to account name$", () -> menuPage.hoverMouseToAccountName());
 
 
-        Given("^Item Timesheet close$", () -> Assert.assertTrue(menuPage.checkItemTimeSheetClose()));
+        Given("^Item Timesheet close$", () -> Assert.assertFalse(menuPage.checkItemTimeSheetClose()));
         When("^I click in Timesheet item$", () -> menuPage.clickItemMenu());
-        Then("^Open Child Timesheet item$", () -> Assert.assertFalse(menuPage.checkItemTimeSheetClose()));
+        Then("^Open Child Timesheet item$", () -> Assert.assertTrue(menuPage.checkItemTimeSheetClose()));
 
 
         When("^I click Home item$", () -> menuPage.clickHomeItem());
@@ -48,9 +47,9 @@ public class MenuDefinitions extends DriverBase implements En {
         And("^Should redirect to time sheet of other page \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
 
 
-        Given("^Item leave close$", () -> Assert.assertTrue(menuPage.checkItemLeaveClose()));
+        Given("^Item leave close$", () -> Assert.assertFalse(menuPage.checkItemLeaveClose()));
         When("^I click item leave$", () -> menuPage.clickItemLeave());
-        Then("^Open child leave item$", () -> Assert.assertFalse(menuPage.checkItemLeaveClose()));
+        Then("^Open child leave item$", () -> Assert.assertTrue(menuPage.checkItemLeaveClose()));
         And("^Item leave change color to \"([^\"]*)\"$", (String color) -> Assert.assertTrue(menuPage.checkColorItemLeaveIsWhite(color)));
 
 
@@ -65,9 +64,9 @@ public class MenuDefinitions extends DriverBase implements En {
         Then("^Should redirect to leave balance page \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
 
 
-        Given("^Item organisation close$", () -> Assert.assertTrue(menuPage.checkItemOrganisationClose()));
+        Given("^Item organisation close$", () -> Assert.assertFalse(menuPage.checkItemOrganisationClose()));
         When("^I click item organisation$", () -> menuPage.clickItemOrganisation());
-        Then("^Open child organisation item$", () -> Assert.assertFalse(menuPage.checkItemOrganisationClose()));
+        Then("^Open child organisation item$", () -> Assert.assertTrue(menuPage.checkItemOrganisationClose()));
 
 
         When("^I click child item organisation with position \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemOrganisation(position));

@@ -45,7 +45,7 @@ public class MenuPage extends BasePage<MenuPage> {
 
     public boolean checkItemTimeSheetClose() {
         WebElement itemTimeSheet = getItemMenuInPosition(2);
-        return itemTimeSheet.findElement(By.tagName("ul")).getRect().height == 0;
+        return itemTimeSheet.findElement(By.tagName("ul")).isDisplayed();
     }
 
     public void clickItemMenu() {
@@ -56,7 +56,7 @@ public class MenuPage extends BasePage<MenuPage> {
     public void hoverMouseToAccountName() {
         WebElement itemProfile = getItemMenuInPosition(0);
         Actions builder = new Actions(getDriver());
-        builder.moveToElement(itemProfile.findElement(By.className("dropdown-toggle")).findElement(By.className("font-bold"))).build().perform();
+        builder.moveToElement(itemProfile.findElement(By.id("link-to-my-profile")).findElement(By.className("font-bold"))).build().perform();
     }
 
     public void clickMyTimeSheet() {
@@ -69,9 +69,8 @@ public class MenuPage extends BasePage<MenuPage> {
         WebElement itemTimeSheet = getItemMenuInPosition(2);
         WebElement myTimeSheet = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
         String color = myTimeSheet.findElement(By.tagName("a")).getCssValue("color");
-        String[] hexValue = color.replace("rgb(", "").replace(")", "").split(",");
-        String actualColor = String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
-        return actualColor.equals(whiteColor);
+        String actualColor = getColorString(color);
+        return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
     public void clickTimeSheetOfOthers() {
@@ -84,9 +83,8 @@ public class MenuPage extends BasePage<MenuPage> {
         WebElement itemTimeSheet = getItemMenuInPosition(2);
         WebElement myTimeSheetOfOthers = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
         String color = myTimeSheetOfOthers.findElement(By.tagName("a")).getCssValue("color");
-        String[] hexValue = color.replace("rgb(", "").replace(")", "").split(",");
-        String actualColor = String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
-        return actualColor.equals(whiteColor);
+        String actualColor = getColorString(color);
+        return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
     public void clickHomeItem() {
@@ -96,7 +94,7 @@ public class MenuPage extends BasePage<MenuPage> {
 
     public boolean checkItemLeaveClose() {
         WebElement itemLeave = getItemMenuInPosition(3);
-        return itemLeave.findElement(By.tagName("ul")).getRect().height == 0;
+        return itemLeave.findElement(By.tagName("ul")).isDisplayed();
     }
 
     public void clickItemLeave() {
@@ -107,9 +105,8 @@ public class MenuPage extends BasePage<MenuPage> {
     public boolean checkColorItemLeaveIsWhite(String whiteColor) {
         WebElement itemLeave = getItemMenuInPosition(3);
         String color = itemLeave.findElement(By.tagName("a")).getCssValue("color");
-        String[] hexValue = color.replace("rgb(", "").replace(")", "").split(",");
-        String actualColor = String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
-        return actualColor.equals(whiteColor);
+        String actualColor = getColorString(color);
+        return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
     public void clickMyLeave() {
@@ -122,9 +119,8 @@ public class MenuPage extends BasePage<MenuPage> {
         WebElement itemLeave = getItemMenuInPosition(3);
         WebElement myLeave = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
         String color = myLeave.findElement(By.tagName("a")).getCssValue("color");
-        String[] hexValue = color.replace("rgb(", "").replace(")", "").split(",");
-        String actualColor = String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
-        return actualColor.equals(whiteColor);
+        String actualColor = getColorString(color);
+        return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
     public void clickLeavePlanner() {
@@ -147,7 +143,7 @@ public class MenuPage extends BasePage<MenuPage> {
 
     public boolean checkItemOrganisationClose() {
         WebElement itemOrganisation = getItemMenuInPosition(4);
-        return itemOrganisation.findElement(By.tagName("ul")).getRect().height == 0;
+        return itemOrganisation.findElement(By.tagName("ul")).isDisplayed();
     }
 
     public void clickItemOrganisation() {

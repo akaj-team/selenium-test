@@ -5,7 +5,7 @@ Feature: Login AT Portal
   In order to check status item on menu
 
   Background: Check menu page
-    Given I am logged in as an android team manager
+    Given I am logged in as an "EM"
 
   Scenario:Login success with correct account
     When I should see the welcome message
@@ -81,7 +81,7 @@ Feature: Login AT Portal
 
   Scenario: Test click item wiki
     When I click item wiki
-    Then Should redirect to wiki page "/wiki"
+    Then Should redirect to wiki page "/wiki/168"
 
   Scenario Outline: Test click item administration
     Given I click item administration
@@ -99,29 +99,29 @@ Feature: Login AT Portal
     When I click child item device with "<position>"
     Then Should redirect to page "<path>"
     Examples:
-      | position | path                            |
-      | 0        | /equipments/inspection          |
-      | 1        | /equipments/inspection-approval |
-      | 2        | /equipments/dashboard           |
-      | 3        | /equipments                     |
-      | 4        | /equipments/assignments         |
-      | 5        | /equipments/categories          |
-      | 6        | /equipments/broken-status       |
-      | 7        | /equipments/my-equipment        |
+      | position | path                          |
+      | 0        | /equipments/tracking          |
+      | 1        | /equipments/tracking-approval |
+      | 2        | /equipments/dashboard         |
+      | 3        | /equipments                   |
+      | 4        | /equipments/assignments       |
+      | 5        | /equipments/categories        |
+      | 6        | /equipments/broken-status     |
+      | 7        | /equipments/my-equipment      |
 
   Scenario Outline: Test click item tools
     Given I click item tools
     When I click child item tools with "<position>"
     Then Should redirect to page "<path>"
     Examples:
-      | position | path                               |
-      | 0        | /tools/announcement                |
-      | 1        | /tools/email-signature             |
-      | 2        | /tools/attendance-record           |
-      | 3        | /tools/project-report              |
-      | 4        | /tools/timesheet-report            |
-      | 5        | /tools/equipment-report            |
-      | 6        | /tools/equipment-inspection-report |
+      | position | path                             |
+      | 0        | /tools/announcement              |
+      | 1        | /tools/email-signature           |
+      | 2        | /tools/attendance-record         |
+      | 3        | /tools/project-report            |
+      | 4        | /tools/timesheet-report          |
+      | 5        | /tools/equipment-report          |
+      | 6        | /tools/equipment-tracking-report |
 
   Scenario Outline: Test click item career
     Given I click item career
