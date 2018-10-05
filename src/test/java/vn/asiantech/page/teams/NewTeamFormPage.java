@@ -16,8 +16,6 @@ import java.util.Random;
  */
 public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
     private static final int MAX_LENGTH_NAME_TEAM = 50;
-    private static final String TYPE_VALID_HAS_WHITE_SPACE_AT_THE_BEGINNING = "whiteSpaceAtTheBeginning";
-    private static final String TYPE_VALID_HAS_WHITE_SPACE_AT_THE_END = "whiteSpaceAtTheEnd";
     @FindBy(css = ".wrapper.wrapper-content")
     private WebElement wrapper;
 
@@ -43,22 +41,17 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
         return stringBuilder;
     }
 
-    public final void sendKeyInputNameWithTypeValid(final String searchData, final String typeValid) {
-        wrapper.findElement(By.name("name")).clear();
-        if (typeValid != null) {
-            switch (typeValid) {
-                case TYPE_VALID_HAS_WHITE_SPACE_AT_THE_BEGINNING:
-                    wrapper.findElement(By.name("name")).sendKeys(" " + searchData);
-                    break;
-                case TYPE_VALID_HAS_WHITE_SPACE_AT_THE_END:
-                    wrapper.findElement(By.name("name")).sendKeys(searchData + " ");
-                    break;
-                default:
-                    wrapper.findElement(By.name("name")).sendKeys(searchData);
-            }
-        } else {
-            wrapper.findElement(By.name("name")).sendKeys(searchData);
+    public final void sendKeyInputName(final String searchData, final int whileSpaceBegging, final int whileSpaceEnd) {
+        wrapper.findElement(By.id("input-name")).clear();
+        wrapper.findElement(By.id("input-name")).sendKeys(setNumberWhileSpace(whileSpaceBegging) + searchData + setNumberWhileSpace(whileSpaceEnd));
+    }
+
+    private String setNumberWhileSpace(int number) {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < number; i++) {
+            str.append(" ");
         }
+        return str.toString();
     }
 
     public final Boolean isBtnSubmitEnable() {
@@ -82,8 +75,8 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
 
     public final void onClickBtnSubmit() {
         try {
-            if (wrapper.findElement(By.name("submit")).isDisplayed()) {
-                wrapper.findElement(By.name("submit")).click();
+            if (wrapper.findElement(By.id("btn-submit-create-team")).isDisplayed()) {
+                wrapper.findElement(By.id("btn-submit-create-team")).click();
             }
         } catch (NoSuchElementException e) {
             e.printStackTrace();
@@ -93,7 +86,7 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
     public final void clickDropDownListManager() {
         WebElement dropDownListManager = iboxContent.findElements(By.className("form-group")).get(1).findElement(By.className("col-md-8"));
         dropDownListManager.click();
-        itemManager = dropDownListManager.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
+        itemManager = dropDownListManager.findElement(By.id("dropdown-manager")).findElement(By.tagName("div"));
     }
 
     public final void selectManager() {

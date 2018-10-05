@@ -18,7 +18,7 @@ import vn.asiantech.page.teams.TeamsPage;
 public class NewTeamFormDefinitions extends DriverBase implements En {
     private static final String URL_PAGE_TEAMS = "http://portal-stg.asiantech.vn/organisation/teams";
     private static final String URL_PAGE_NEW_TEAM = "http://portal-stg.asiantech.vn/organisation/teams/new";
-    private static final int INDEX_ID_IN_URL = 5;
+    private static final int INDEX_ID_IN_UPDATE_TEAM_URL = 5;
     private static final int TIME_OUT_SECONDS_NORMAL = 10;
     private static final int TIME_OUT_SECOND_MAXIMUM = 20;
     private WebDriver driver;
@@ -52,17 +52,13 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
 
         // Validate Form
         Then("^Button submit is unable$", () -> Assert.assertFalse(newTeamFormPage.isBtnSubmitEnable()));
-        When("^I fill in inputName with \"([^\"]*)\" as type valid is \"([^\"]*)\"$", (String searchData, String typeValid) -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.name("name")));
-            newTeamFormPage.sendKeyInputNameWithTypeValid(searchData, typeValid);
-        });
-        When("^I fill in inputName with \"([^\"]*)\"$", (String name) -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.name("name")));
-            newTeamFormPage.sendKeyInputNameWithTypeValid(name, null);
+        When("^I fill in inputName with \"([^\"]*)\" with while space at begging and end are (.*), (.*)$", (String name, String whileSpaceBegging, String whileSpaceEnd) -> {
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.id("input-name")));
+            newTeamFormPage.sendKeyInputName(name, Integer.parseInt(whileSpaceBegging), Integer.parseInt(whileSpaceEnd));
         });
         When("^I fill in inputName with new name$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.name("name")));
-            newTeamFormPage.sendKeyInputNameWithTypeValid(newTeamFormPage.generateNameTeam().toString(), null);
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.id("input-name")));
+            newTeamFormPage.sendKeyInputName(newTeamFormPage.generateNameTeam().toString(), 0, 0);
         });
         Then("^Button submit is enable$", () -> Assert.assertTrue((newTeamFormPage.isBtnSubmitEnable())));
         And("^Message error is displayed$", () -> {
@@ -92,7 +88,7 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
         // Open successfully team detail page when click button submit
         Then("^Open successfully team detail page after created$", () -> {
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
-            String id = driver.getCurrentUrl().split("/")[INDEX_ID_IN_URL];
+            String id = driver.getCurrentUrl().split("/")[INDEX_ID_IN_UPDATE_TEAM_URL];
             Assert.assertEquals(driver.getCurrentUrl(), URL_PAGE_TEAMS + "/" + id);
         });
 

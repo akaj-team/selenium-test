@@ -37,7 +37,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
     }
 
     public final void searchNameTeam(final String name) {
-        WebElement search = sectionToolBox.findElement(By.name("search"));
+        WebElement search = sectionToolBox.findElement(By.id("input-filter"));
         search.sendKeys(name);
     }
 
@@ -52,22 +52,22 @@ public class TeamsPage extends BasePage<TeamsPage> {
     }
 
     public final String onClickAvatarTeam() {
-        return getViewContainerOfColumnName(By.tagName("img"));
+        return getViewContainerOfColumnName(By.className("avatar-sm"));
     }
 
     public final String onClickNameTeam() {
-        return getViewContainerOfColumnName(By.tagName("span"));
+        return getViewContainerOfColumnName(By.className("info-grouping-text"));
     }
 
     public final String onClickNameManager() {
         WebElement columnName = getColumnIndex(COLUMN_MANAGER, 0);
-        WebElement nameManager = columnName.findElement(By.tagName("a"));
+        WebElement nameManager = columnName.findElement(By.className("link-to-employee-detail"));
         nameManager.click();
         return nameManager.getAttribute("href");
     }
 
     public final String onClickNewTeam() {
-        WebElement newEmployee = titleAction.findElement(By.cssSelector(".btn.btn-sm.btn-default.btn-add"));
+        WebElement newEmployee = titleAction.findElement(By.id("link-to-team-create"));
         newEmployee.click();
         String href = "";
         try {
@@ -80,7 +80,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     public final String onClickUpdateTeam(final int position) {
         WebElement columnAction = getColumnIndex(COLUMN_ACTION, position);
-        WebElement aUpdate = columnAction.findElement(By.tagName("a"));
+        WebElement aUpdate = columnAction.findElement(By.className("link-to-team-edit"));
         aUpdate.click();
         String href = "";
         try {
@@ -93,7 +93,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     public final String onClickDeleteTeam(final int position) {
         WebElement columnAction = getColumnIndex(COLUMN_ACTION, position);
-        columnAction.findElement(By.tagName("button")).click();
+        columnAction.findElement(By.className("btn-delete-team")).click();
         WebElement columnName = getColumnIndex(COLUMN_NAME, position);
         return columnName.findElement(By.tagName("a")).findElement(By.tagName("span")).findElement(By.tagName("span")).getText();
     }
@@ -107,11 +107,11 @@ public class TeamsPage extends BasePage<TeamsPage> {
     }
 
     public final void onClickBtnCancelInDialogDelete() {
-        hiddenBody.findElement(By.className("btn-cancel")).click();
+        hiddenBody.findElement(By.id("btn-close-dialog-confirm")).click();
     }
 
     public final void onClickBtnDeleteInDialogDelete() {
-        hiddenBody.findElement(By.className("btn-submit")).click();
+        hiddenBody.findElement(By.id("btn-agree-dialog-confirm")).click();
     }
 
     private String getViewContainerOfColumnName(final By tagName) {

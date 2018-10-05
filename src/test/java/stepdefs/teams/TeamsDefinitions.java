@@ -50,9 +50,9 @@ public class TeamsDefinitions extends DriverBase implements En {
         });
 
         //Search teams with enter name team
-        When("^Enter search with name is \"([^\"]*)\"$", (String name) -> {
-            teamsPage.searchNameTeam(name);
-            String redirectUrl = URL_PAGE_TEAMS + ";name_cont=" + name;
+        When("^Enter search with name is \"([^\"]*)\"$", (String searchData) -> {
+            teamsPage.searchNameTeam(searchData);
+            String redirectUrl = URL_PAGE_TEAMS + ";name_cont=" + searchData;
             new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM).until(ExpectedConditions.urlToBe(redirectUrl));
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(webDriver -> webDriver.findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).isDisplayed());
         });
