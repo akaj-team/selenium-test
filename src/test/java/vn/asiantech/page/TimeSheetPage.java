@@ -12,10 +12,15 @@ import vn.asiantech.base.Constant;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author at-phuongdang
+ */
 public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     private static final int TIME_OUT_WAITED_ELEMENT = 5;
-    private static final int DEFAULT_COLUMS_TIME_SHEET = 7;
+    private static final int DEFAULT_COLUMNS_TIME_SHEET = 7;
+    private static final int POSITION_TASK = 3;
+    private static final int POSITION_FIRST_ITEM = 1;
 
     @FindBy(id = "side-menu")
     private
@@ -149,7 +154,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         List<WebElement> divs = calendar.findElements(By.tagName("div"));
         for (WebElement div : divs) {
             int columns = div.findElements(By.tagName("div")).size();
-            if (columns != DEFAULT_COLUMS_TIME_SHEET) {
+            if (columns != DEFAULT_COLUMNS_TIME_SHEET) {
                 isFull = false;
             }
         }
@@ -202,7 +207,9 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     public final Boolean getAddTimeSheetsClickable() {
         List<WebElement> listItems = calendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
         for (WebElement item : listItems) {
-            if (item.isEnabled()) return true;
+            if (item.isEnabled()) {
+                return true;
+            }
         }
         return false;
     }
@@ -256,7 +263,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         waitForElement(driver, taskContent, TIME_OUT_WAITED_ELEMENT);
         List<WebElement> taskList = taskContent.findElements(By.cssSelector("div.task-content"));
         List<WebElement> taskElement = taskList.get(0).findElements(By.cssSelector("div.row"));
-        String text = taskElement.get(1).findElement(By.tagName("span")).getText();
+        String text = taskElement.get(POSITION_FIRST_ITEM).findElement(By.tagName("span")).getText();
 
         return text.equals(title);
     }
@@ -265,7 +272,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         waitForElement(driver, taskContent, TIME_OUT_WAITED_ELEMENT);
         List<WebElement> taskList = taskContent.findElements(By.cssSelector("div.task-content"));
         List<WebElement> taskElement = taskList.get(0).findElements(By.cssSelector("div.row"));
-        String text = taskElement.get(1).findElement(By.tagName("label")).getText();
+        String text = taskElement.get(POSITION_FIRST_ITEM).findElement(By.tagName("label")).getText();
         return text.equals(title);
     }
 
@@ -338,10 +345,10 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     public final void selectItemOnDialogTask(final WebDriver driver, final String content) {
         waitForElement(driver, elementTitleTask, TIME_OUT_WAITED_ELEMENT);
         List<WebElement> items = elementTitleTask.findElements(By.tagName("div"));
-        List<WebElement> i = items.get(3).findElements(By.tagName("div"));
-        WebElement es = i.get(1).findElement(By.tagName("ul"));
-        waitForElement(driver, es, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> listUri = es.findElements(By.tagName("li"));
+        List<WebElement> itemTask = items.get(POSITION_TASK).findElements(By.tagName("div"));
+        WebElement element = itemTask.get(POSITION_FIRST_ITEM).findElement(By.tagName("ul"));
+        waitForElement(driver, element, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> listUri = element.findElements(By.tagName("li"));
         for (WebElement e : listUri) {
             if (e.getText().equals(content)) {
                 e.click();
@@ -388,13 +395,14 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
             WebElement titleProject = content.findElement(By.tagName("h4"));
             WebElement taskProject = content.findElement(By.tagName("span"));
             WebElement dateTime = content.findElement(By.cssSelector(".info-hour")).findElement(By.cssSelector(".item-date"));
-            if (!content.isEnabled() || !titleProject.isEnabled() || !taskProject.isEnabled() || !dateTime.isEnabled())
+            if (!content.isEnabled() || !titleProject.isEnabled() || !taskProject.isEnabled() || !dateTime.isEnabled()) {
                 return false;
+            }
         }
         return true;
     }
 
-    public void moveToTitleTimeSheet(final WebDriver driver) {
+    public final void moveToTitleTimeSheet(final WebDriver driver) {
         Actions action = new Actions(driver);
         waitForElement(driver, timeSheetBody, TIME_OUT_WAITED_ELEMENT);
         List<WebElement> items = timeSheetBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
@@ -469,7 +477,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
         WebElement listItems = dialogConfirmDelete.findElement(By.cssSelector(".text-right.m-b-xs"));
         List<WebElement> items = listItems.findElements(By.tagName("button"));
-        WebElement btnCancel = items.get(1);
+        WebElement btnCancel = items.get(POSITION_FIRST_ITEM);
         if (btnCancel != null && btnCancel.isEnabled()) {
             btnCancel.click();
         }
