@@ -124,7 +124,7 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         Then("^Element timeSheet is delete$", () -> Assert.assertTrue(myTimeSheet.isItemTimeSheetDelete(driver)));
     }
 
-    private void redirectPageWhenClickChildItem(String path) {
+    private void redirectPageWhenClickChildItem(final String path) {
         new WebDriverWait(getDriver(), TIME_SECOND).until(
                 webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
         );
