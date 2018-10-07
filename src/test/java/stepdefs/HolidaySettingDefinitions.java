@@ -15,6 +15,7 @@ import java.util.List;
 public class HolidaySettingDefinitions extends DriverBase implements En {
 
     private static final String TIME_SHEET_PAGE_URL = "http://portal-stg.asiantech.vn/admin/public-holiday";
+    private static final int TIME_SECOND = 10;
     private WebDriver driver;
     private WebElement usernameInput;
     private WebElement passwordInput;
@@ -30,7 +31,7 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
         holidaySettingPage = initPage(getDriver(), HolidaySettingPage.class);
         Given("^I logged in with a employee account$", () -> {
             driver.get("http://portal-stg.asiantech.vn");
-            new WebDriverWait(driver, 10).until(
+            new WebDriverWait(driver, TIME_SECOND).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             String url = driver.getCurrentUrl();
             if (url.endsWith("/auth/login")) {
@@ -41,7 +42,7 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
                 usernameInput.sendKeys("stg.tri.pham@asiantech.vn");
                 passwordInput.sendKeys("Abc123@@");
                 driver.findElement(By.className("btn-primary")).click();
-                new WebDriverWait(driver, 5).until(
+                new WebDriverWait(driver, TIME_SECOND).until(
                         webDriver -> webDriver.findElement(By.className("welcome-message")).isDisplayed());
                 Assert.assertTrue(driver.findElement(By.className("welcome-message")).isDisplayed());
             } else {
@@ -88,11 +89,21 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
         Given("^Enter full information$", () -> holidaySettingPage.enterFullInfo(driver));
         When("^Click button save$", () -> holidaySettingPage.clickButtonSave(driver));
         Then("^Message success is showing$", () -> Assert.assertTrue(true, holidaySettingPage.isMessageConfirmShowing(driver).toString()));
+        When("^Click item holiday$", () -> holidaySettingPage.clickItemHoliday(driver));
+        And("^Enable button delete$", () -> Assert.assertTrue(true, holidaySettingPage.isEnableButtonDelete(driver).toString()));
+        When("^Click button delete on dialog$", () -> holidaySettingPage.clickButtonDelete(driver));
+        Then("^Display dialog confirm delete$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayDialogDeleteConfirm(driver).toString()));
+        And("^Display title dialog confirm is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(true, holidaySettingPage.isTitleDialogConfirmDisplay(driver, content).toString()));
+        And("^Display content dialog confirm is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(true, holidaySettingPage.isContentDialogConfirmDisplay(driver, content).toString()));
+        When("^Click button cancel on dialog confirm delete$", () -> holidaySettingPage.clickButtonConfirmCancel(driver));
+        Then("^Dismiss dialog confirm delete$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmDelete(driver).toString()));
+        When("^Click button delete on dialog confirm delete$", () -> holidaySettingPage.clickButtonConfirmDelete(driver));
+        Then("^Item holiday is delete$", () -> Assert.assertTrue(true, holidaySettingPage.isHolidayDeleted(driver).toString()));
 
     }
 
     private void redirectPageWhenClickChildItem(String path) {
-        new WebDriverWait(getDriver(), 10).until(
+        new WebDriverWait(getDriver(), TIME_SECOND).until(
                 webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
         );
         String url = getDriver().getCurrentUrl();

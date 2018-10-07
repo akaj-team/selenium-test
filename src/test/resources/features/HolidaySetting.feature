@@ -61,3 +61,18 @@ Feature: Check holidays setting
     Given Enter full information
     When Click button save
     Then Message success is showing
+
+  Scenario: Delete holiday plain
+    Given I open holiday setting page
+    When Click item holiday
+    Then Display holiday detail dialog
+    And Enable button delete
+    When Click button delete on dialog
+    Then Display dialog confirm delete
+    And Display title dialog confirm is "Confirmation"
+    And Display content dialog confirm is "Are you about to delete this holiday?"
+    When Click button cancel on dialog confirm delete
+    Then Dismiss dialog confirm delete
+    When Click button delete on dialog confirm delete
+    Then Item holiday is delete
+    And Message success is showing

@@ -1,9 +1,6 @@
 package vn.asiantech.page;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
@@ -71,6 +68,22 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     @FindBy(css = ".app-alert.ng-star-inserted")
     private
     WebElement messageConfirm;
+
+    @FindBy(id = "btn-delete-holiday")
+    private
+    WebElement btnDelete;
+
+    @FindBy(id = "confirm-delete-holiday-wrapper")
+    private
+    WebElement dialogDeleteConfirm;
+
+    @FindBy(id = "btn-cancel-confirm-delete-holiday")
+    private
+    WebElement btnCancelDialogConfirm;
+
+    @FindBy(id = "btn-agree-confirm-delete-holiday")
+    private
+    WebElement btnDeleteDialogConfirm;
 
     @Override
     public HolidaySettingPage navigateTo(WebDriver webDriver) {
@@ -333,5 +346,91 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     public final Boolean isMessageConfirmShowing(final WebDriver driver) {
         waitForElement(driver, messageConfirm, TIME_OUT_WAITED_ELEMENT);
         return messageConfirm.isDisplayed();
+    }
+
+    public final void clickItemHoliday(final WebDriver driver) {
+        waitForElement(driver, calendarContent, TIME_OUT_WAITED_ELEMENT);
+        if (calendarContent != null && calendarContent.isEnabled()) {
+            WebElement itemHoliday = calendarContent.findElement(By.className("fc-event-container"));
+            if (itemHoliday != null) {
+                itemHoliday.click();
+            }
+        }
+    }
+
+    public final Boolean isEnableButtonDelete(final WebDriver driver) {
+        waitForElement(driver, btnDelete, TIME_OUT_WAITED_ELEMENT);
+        return btnDelete.isEnabled();
+    }
+
+    public final void clickButtonDelete(final WebDriver driver) {
+        waitForElement(driver, btnDelete, TIME_OUT_WAITED_ELEMENT);
+        if (btnDelete != null && btnDelete.isDisplayed()) {
+            btnDelete.click();
+        }
+    }
+
+    public final Boolean isDisplayDialogDeleteConfirm(final WebDriver driver) {
+        waitForElement(driver, dialogDeleteConfirm, TIME_OUT_WAITED_ELEMENT);
+        return dialogDeleteConfirm.isDisplayed();
+    }
+
+    public final void clickButtonConfirmCancel(final WebDriver driver) {
+        waitForElement(driver, btnCancelDialogConfirm, TIME_OUT_WAITED_ELEMENT);
+        if (btnCancelDialogConfirm != null && btnCancelDialogConfirm.isEnabled()) {
+            btnCancelDialogConfirm.click();
+        }
+    }
+
+    public final Boolean isTitleDialogConfirmDisplay(final WebDriver driver, final String content) {
+        waitForElement(driver, dialogDeleteConfirm, TIME_OUT_WAITED_ELEMENT);
+        if (dialogDeleteConfirm != null && dialogDeleteConfirm.isDisplayed()) {
+            WebElement titleDialog = dialogDeleteConfirm.findElement(By.tagName("h4"));
+            if (titleDialog != null && titleDialog.isEnabled()) {
+                return titleDialog.getText().equals(content);
+            }
+        }
+        return false;
+    }
+
+    public final Boolean isContentDialogConfirmDisplay(final WebDriver driver, final String content) {
+        waitForElement(driver, dialogDeleteConfirm, TIME_OUT_WAITED_ELEMENT);
+        if (dialogDeleteConfirm != null && dialogDeleteConfirm.isDisplayed()) {
+            WebElement contentDialog = dialogDeleteConfirm.findElement(By.className("m-b"));
+            if (contentDialog != null && contentDialog.isEnabled()) {
+                return contentDialog.getText().equals(content);
+            }
+        }
+        return false;
+    }
+
+    public final Boolean isDismissDialogConfirmDelete(final WebDriver driver) {
+        try {
+            waitForElement(driver, dialogDeleteConfirm, TIME_OUT_WAITED_ELEMENT);
+            return dialogDeleteConfirm.isDisplayed();
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public final void clickButtonConfirmDelete(final WebDriver driver) {
+        clickButtonDelete(driver);
+        waitForElement(driver, btnDeleteDialogConfirm, TIME_OUT_WAITED_ELEMENT);
+        if (btnDeleteDialogConfirm != null && btnDeleteDialogConfirm.isDisplayed()) {
+            btnDeleteDialogConfirm.click();
+        }
+    }
+
+    public final Boolean isHolidayDeleted(final WebDriver driver) {
+        waitForElement(driver, calendarContent, TIME_OUT_WAITED_ELEMENT);
+        if (calendarContent != null && calendarContent.isEnabled()) {
+            try {
+                WebElement itemHoliday = calendarContent.findElement(By.className("fc-event-container"));
+                return !itemHoliday.isDisplayed();
+            } catch (NoSuchElementException e) {
+                return true;
+            }
+        }
+        return false;
     }
 }
