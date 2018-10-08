@@ -27,9 +27,9 @@ public class EmployeesDefinitions extends DriverBase implements En {
     private String groupUrl;
     private String editEmployeeUrl;
     private String newEmployeeUrl;
-    private Boolean isShowPositionList;
-    private Boolean isShowTypeList;
-    private Boolean isShowStatusList;
+    private boolean isShowPositionList;
+    private boolean isShowTypeList;
+    private boolean isShowStatusList;
     private String employeePosition;
     private String employeeType;
     private String employeeStatus;
@@ -184,9 +184,17 @@ public class EmployeesDefinitions extends DriverBase implements En {
 
         Then("^Display a corresponding employee list$", () -> Assert.assertFalse(employeesPage.isEmployeeListEmpty()));
 
-        Then("^Employee type is chose$", () -> Assert.assertTrue(employeesPage.isTypeChose(employeeType)));
+        Then("^Employee type is chose$", () -> {
+            if (!employeeType.equals("")) {
+                Assert.assertTrue(employeesPage.isTypeChose(employeeType));
+            }
+        });
 
-        Then("^A status item is chose$", () -> Assert.assertTrue(employeesPage.isStatusChose(employeeStatus)));
+        Then("^A status item is chose$", () -> {
+            if (!employeeStatus.equals("")) {
+                Assert.assertTrue(employeesPage.isStatusChose(employeeStatus));
+            }
+        });
 
         And("^Fist indicator and back indicator are not clickable$", () -> Assert.assertFalse(employeesPage.isFirstAndBackIndicatorClickable()));
 

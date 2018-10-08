@@ -1,6 +1,7 @@
 package vn.asiantech.page.employee;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -29,17 +30,12 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private static final int EMPLOYEE_TEAM_COLUMN_INDEX = 4;
     private static final int EMPLOYEE_GROUP_COLUMN_INDEX = 5;
     private static final int EMPLOYEE_ACTION_COLUMN_INDEX = 6;
-    private static final int EMPLOYEE_POSITION_INDEX = 3;
     private static final int EMPLOYEE_TYPE_INDEX = 5;
     private static final int EMPLOYEE_STATUS_INDEX = 7;
 
     @FindBy(css = ".ui-datatable-data.ui-widget-content")
     @CacheLookup
     private WebElement tblBody;
-
-    @FindBy(css = ".title-action")
-    @CacheLookup
-    private WebElement actionTitle;
 
     @FindBy(css = ".is-top.ui-overflow-hidden")
     private WebElement hiddenBody;
@@ -50,12 +46,32 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     @FindBy(css = ".ui-paginator-bottom.ui-paginator.ui-widget.ui-widget-header.ui-unselectable-text.ui-helper-clearfix.ng-star-inserted")
     private WebElement bottomIndicator;
 
-    @FindBy(css = ".ui-paginator-left-content.ng-star-inserted")
+    @FindBy(id = "text-show-entry")
     private WebElement leftContent;
 
     @FindBy(css = ".toolbox-content")
     @CacheLookup
     private WebElement toolBox;
+
+    @FindBy(id = "input-filter")
+    @CacheLookup
+    private WebElement inputSearchEmployee;
+
+    @FindBy(id = "dropdown-filter-position")
+    @CacheLookup
+    private WebElement selectPositionElement;
+
+    @FindBy(id = "btn-promote-employee")
+    @CacheLookup
+    private WebElement btnPromotion;
+
+    @FindBy(id = "btn-award-employee")
+    @CacheLookup
+    private WebElement btnAwardCategory;
+
+    @FindBy(id = "link-to-employee-create")
+    @CacheLookup
+    private WebElement btnNewEmployee;
 
     private int indicatorIndex = 0;
     private WebElement firstIndicator;
@@ -82,13 +98,22 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public final String clickAndGetEmployeeCode() {
         WebElement employee = getEmployeeInfor(EMPLOYEE_CODE_COLUMN_INDEX);
-        employee.click();
+        try {
+            employee.click();
+        } catch (StaleElementReferenceException exception) {
+            System.out.println(exception.toString());
+        }
         return employee.getAttribute("href");
     }
 
     public final String clickAndGetEmployeeAvatar() {
         WebElement employee = getEmployeeInfor(EMPLOYEE_NAME_COLUMN_INDEX);
-        employee.findElement(By.tagName("span")).findElement(By.tagName("img")).click();
+        try {
+            WebElement avatar = employee.findElement(By.tagName("span")).findElement(By.tagName("img"));
+            avatar.click();
+        } catch (StaleElementReferenceException exception) {
+            System.out.println(exception.toString());
+        }
         return employee.getAttribute("href");
     }
 
@@ -118,7 +143,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final void clickPromotionButton() {
-        actionTitle.findElements(By.cssSelector(".btn.btn-sm.btn-default")).get(0).click();
+        btnPromotion.click();
     }
 
     public final boolean isAlertShowed(final String title) {
@@ -127,13 +152,12 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final void clickAwardCategory() {
-        actionTitle.findElements(By.cssSelector(".btn.btn-sm.btn-default")).get(1).click();
+        btnAwardCategory.click();
     }
 
     public final String clickNewEmployeeAndGetLink() {
-        WebElement newEmployee = actionTitle.findElement(By.cssSelector(".btn.btn-sm.btn-default.btn-add"));
-        newEmployee.click();
-        return newEmployee.getAttribute("href");
+        btnNewEmployee.click();
+        return btnNewEmployee.getAttribute("href");
     }
 
     public final int getCellSum() {
@@ -190,9 +214,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final boolean isIndicatorActive() {
-        String content = leftContent.findElement(By.tagName("small")).getText();
+        String content = leftContent.getText();
         String firstSub = content.substring(SPLIT_STRING_INDEX, content.length() - SPLIT_STRING_INDEX);
-        Integer sumCell = Integer.valueOf(firstSub.split("of")[1].trim());
+        int sumCell = Integer.valueOf(firstSub.split("of")[1].trim());
         switch (clickType) {
             case NEXT_INDICATOR_CLICK:
                 return indicatorIndex + 1 == findIndicatorIndex();
@@ -206,7 +230,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final boolean isLeftContentAndPageIndicatorCorrect() {
-        String content = leftContent.findElement(By.tagName("small")).getText();
+        String content = leftContent.getText();
         String firstSub = content.substring(SPLIT_STRING_INDEX, content.length() - SPLIT_STRING_INDEX);
         String secondSub = firstSub.split("of")[0];
         int topCell = Integer.parseInt(secondSub.split("-")[0].trim());
@@ -215,8 +239,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final void searchEmployee(final String name) {
-        WebElement search = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(1).findElement(By.tagName("input"));
-        search.sendKeys(name);
+        inputSearchEmployee.sendKeys(name);
     }
 
     public final boolean isEmployeeListEmpty() {
@@ -228,9 +251,8 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final boolean clickPositionView() {
-        WebElement positionView = toolBox.findElements(By.xpath("//div[contains(@class,'toolbox-item')]")).get(EMPLOYEE_POSITION_INDEX);
-        positionView.click();
-        positionList = positionView.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
+        selectPositionElement.click();
+        positionList = selectPositionElement.findElement(By.tagName("div"));
         return positionList.getAttribute("class").contains("ui-dropdown-open");
     }
 
@@ -267,8 +289,12 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final void selectPosition() {
-        List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
-        positions.get(0).click();
+        try {
+            List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
+            positions.get(0).click();
+        } catch (StaleElementReferenceException exception) {
+            System.out.println(exception.toString());
+        }
     }
 
     public final boolean getClickType() {
@@ -279,9 +305,14 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final String getSelectType() {
-        List<WebElement> types = typeList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
-        types.get(0).click();
-        return types.get(0).findElement(By.tagName("span")).getText();
+        try {
+            List<WebElement> types = typeList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
+            types.get(0).click();
+            return types.get(0).findElement(By.tagName("span")).getText();
+        } catch (StaleElementReferenceException exception) {
+            System.out.println(exception.toString());
+        }
+        return "";
     }
 
     public final boolean isTypeChose(final String type) {
@@ -296,16 +327,21 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final String selectStatus() {
-        List<WebElement> statuses = statusList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
-        statuses.get(0).click();
-        return statuses.get(0).findElement(By.tagName("span")).getText();
+        try {
+            List<WebElement> statuses = statusList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
+            statuses.get(0).click();
+            return statuses.get(0).findElement(By.tagName("span")).getText();
+        } catch (StaleElementReferenceException exception) {
+            System.out.println(exception.toString());
+        }
+        return "";
     }
 
     public final boolean isStatusChose(final String status) {
         return statusList.findElement(By.tagName("label")).getText().equals(status);
     }
 
-    private WebElement getEmployeeInfor(final Integer columnPosition) {
+    private WebElement getEmployeeInfor(final int columnPosition) {
         List<WebElement> cells = tblBody.findElements(By.tagName("tr"));
         return cells.get(0).findElements(By.tagName("td")).get(columnPosition).findElement(By.tagName("span")).findElement(By.tagName("a"));
     }
