@@ -3,7 +3,7 @@ Feature: Open Notification
   I want to login my account and check my notification
 
   Background: User navigates to home page and notification is displayed
-    Given I am logged in as an android team manager
+    Given I am logged in as an "EM"
 
   Scenario: Login success with correct account
     When I click on notification icon

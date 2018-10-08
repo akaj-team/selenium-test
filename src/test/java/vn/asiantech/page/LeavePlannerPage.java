@@ -51,17 +51,17 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
     }
 
     public final Boolean getClickable(final WebDriver driver) {
-        waitForElement(driver, btnThisWeek, TIME_OUT_SECOND);
+        waitForElementDisplay(driver, btnThisWeek, TIME_OUT_SECOND);
         return btnThisWeek.isEnabled();
     }
 
     public final void clickBackButton(final WebDriver driver) {
-        waitForElement(driver, btnThisWeek, TIME_OUT_SECOND);
+        waitForElementDisplay(driver, btnThisWeek, TIME_OUT_SECOND);
         btnBack.click();
     }
 
     public final void clickNextButton(final WebDriver driver) {
-        waitForElement(driver, btnThisWeek, TIME_OUT_SECOND);
+        waitForElementDisplay(driver, btnThisWeek, TIME_OUT_SECOND);
         btnNext.click();
     }
 
@@ -98,7 +98,7 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
 
     public final Boolean isDisplayFullColumns(final WebDriver driver) {
         boolean isFull = true;
-        waitForElement(driver, calendar, TIME_OUT_SECOND);
+        waitForElementDisplay(driver, calendar, TIME_OUT_SECOND);
         List<WebElement> divs = calendar.findElements(By.tagName("div"));
         for (WebElement div : divs) {
             int columns = div.findElements(By.tagName("div")).size();
@@ -118,7 +118,7 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
     }
 
     private String getColumnTime(final WebDriver driver, final Integer column) {
-        waitForElement(driver, calenderHead, TIME_OUT_SECOND);
+        waitForElementDisplay(driver, calenderHead, TIME_OUT_SECOND);
         return calenderHead.findElements(By.cssSelector(".calendar-cell.ng-star-inserted")).get(column).findElement(By.tagName("i")).getText();
     }
 

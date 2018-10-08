@@ -21,13 +21,13 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     @FindBy(css = ".fa.fa-bell")
     private WebElement notificationMenuIcon;
 
-    @FindBy(css = "div.text-center.link-block")
+    @FindBy(id = "link-to-homepage")
     private WebElement seeAllButton;
 
-    @FindBy(css = "span.pull-right.link-primary.text-normal.m-l-sm")
+    @FindBy(id = "btn-reload-notification")
     private WebElement reloadText;
 
-    @FindBy(css = "span.pull-right.link-primary.text-normal")
+    @FindBy(id = "btn-read-all-notification")
     private WebElement markAllAsReadText;
 
     private WebElement notificationList;
@@ -35,8 +35,6 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     private String destinationPath;
 
     public final void seeAll() {
-        WebElement seeAllTag = seeAllButton.findElement(By.tagName("a"));
-        setDestinationUrl(seeAllTag.getAttribute("href"));
         seeAllButton.click();
     }
 

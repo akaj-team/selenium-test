@@ -44,7 +44,7 @@ public class LoginPage extends BasePage<LoginPage> {
     }
 
     public LoginPage waitForLoginButton() {
-        waitForElement(driver, loginButton, 5);
+        waitForElementDisplay(driver, loginButton, 5);
         return this;
     }
 

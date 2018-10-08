@@ -3,7 +3,7 @@ Feature: Check user profile
   I want to login my account and check my information
 
   Background: User navigates to profile page
-    Given I am logged in as an android team manager
+    Given I am logged in as an "EM"
 
   Scenario: Login success with correct account
     When I click on my name
