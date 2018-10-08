@@ -1,6 +1,9 @@
 package vn.asiantech.page;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
@@ -126,6 +129,10 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     @FindBy(id = "input-description")
     private
     WebElement edtDescription;
+
+    @FindBy(className = "ui-dropdown-filter")
+    private
+    WebElement edtInputSearch;
 
     @Override
     public TimeSheetPage navigateTo(final WebDriver webDriver) {
@@ -511,4 +518,26 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         }
     }
 
+    public final void inputSearch(final WebDriver driver, final String content) {
+        waitForElement(driver, edtInputSearch, TIME_OUT_WAITED_ELEMENT);
+        if (edtInputSearch != null && edtInputSearch.isDisplayed()) {
+            edtInputSearch.clear();
+            edtInputSearch.sendKeys(content);
+        }
+    }
+
+    public final Boolean displaySearchResult(final WebDriver driver, final String content) {
+        waitForElement(driver, dialogTask, TIME_OUT_WAITED_ELEMENT);
+        if (dialogTask != null && dialogTask.isDisplayed()) {
+            WebElement resultItem = dialogTask.findElement(By.className("ui-dropdown-items-wrapper"));
+            WebElement element = resultItem.findElement(By.tagName("ul"));
+            List<WebElement> searchResults = element.findElements(By.tagName("li"));
+            for (WebElement result : searchResults) {
+                if(result.getText().equals(content)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

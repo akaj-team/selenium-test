@@ -48,6 +48,18 @@ Feature: Check TimeSheet
     And Display button Repeat every day is disable
     And Display button Save is disable
 
+  Scenario: Display dialog timesheet and input value search
+    Given I open my timesheet page
+    When Click on button timesheet
+    When Click first button add new timesheet
+    Then Display dialog timesheet
+    When Select first task on list task
+    Then Display dialog task
+    When Input search is "no data"
+    Then Display Search result is "No results found"
+    When Input search is "Coding"
+    Then Display Search result is "Coding"
+
   Scenario: Create and submit timesheet
     Given I open my timesheet page
     When Click first button add new timesheet
