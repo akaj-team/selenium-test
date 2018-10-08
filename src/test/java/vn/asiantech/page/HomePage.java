@@ -38,7 +38,7 @@ public class HomePage extends BasePage<HomePage> {
     @FindBy(className = "notification-container")
     private WebElement homeContentHasData;
 
-    @FindBy(name = "search")
+    @FindBy(id = "input-filter")
     private WebElement inputSearch;
 
     @Override
