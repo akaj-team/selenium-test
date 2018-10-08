@@ -119,9 +119,9 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         And("^Display button confirm cancel$", () -> Assert.assertTrue(myTimeSheet.displayCancelConfirmDialog(driver)));
 
         When("^Click button cancel$", () -> myTimeSheet.clickButtonCancelDialogConfirm(driver));
-        Then("^Dismiss dialog confirm delete$", () -> Assert.assertFalse(myTimeSheet.dismissDialogConfirmDelete(driver)));
+        Then("^Dismiss dialog confirm delete$", () -> Assert.assertFalse(myTimeSheet.dismissDialogConfirmDelete()));
         When("^Click button confirm delete$", () -> myTimeSheet.clickButtonConfirmDelete(driver));
-        Then("^Element timeSheet is delete$", () -> Assert.assertTrue(myTimeSheet.isItemTimeSheetDelete(driver)));
+        Then("^Element timeSheet is delete$", () -> Assert.assertFalse(myTimeSheet.isItemTimeSheetDelete(driver)));
     }
 
     private void redirectPageWhenClickChildItem(final String path) {

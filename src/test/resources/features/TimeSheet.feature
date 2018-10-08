@@ -3,14 +3,13 @@ Feature: Check TimeSheet
 
   Background: User navigation to My TimeSheet page
     Given I logged in with a employee account
-#    Given I am logged in as an android team manager
 
   Scenario: Login successfully with correct account
     When I click on Timesheet in menu
     Then Menu Timesheet drop down
     When I click on item My Timesheet
     Then My Timesheet page is displayed "/timesheet/submission"
-    And Title content is "Sep 24 - Sep 30"
+    And Title content is "Oct 08 - Oct 14"
     And Display full record timesheet
     And Disable button this week and can not click
     And Disable button submit and can not click
@@ -92,5 +91,4 @@ Feature: Check TimeSheet
     Then Dismiss dialog confirm delete
     When Click button confirm delete
     Then Element timeSheet is delete
-
-
+    And Display Dialog success is enable and show message
