@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.TimeSheetPage;
 
@@ -18,6 +17,7 @@ import java.util.List;
  * @author at-phuongdang
  */
 public class TimeSheetDefinitions extends DriverBase implements En {
+    private static final String TIME_SHEET_PAGE_URL = "http://portal-stg.asiantech.vn/timesheet/submission";
     private static final int TIME_SECOND = 10;
     private WebDriver driver;
     private WebElement usernameInput;
@@ -68,7 +68,7 @@ public class TimeSheetDefinitions extends DriverBase implements En {
 
         Given("^I open my timesheet page$", () -> {
             // Write code here that turns the phrase above into concrete actions
-            getDriver().get(Constant.TIME_SHEET_PAGE_URL);
+            getDriver().get(TIME_SHEET_PAGE_URL);
         });
         When("^Click on back button on timesheet$", () -> myTimeSheet.clickBackButtonOnTimeSheet(driver));
         When("^Click on next button on timesheet$", () -> myTimeSheet.clickNextButtonOnTimeSheet(driver));
@@ -123,7 +123,7 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         When("^Click button confirm delete$", () -> myTimeSheet.clickButtonConfirmDelete(driver));
         Then("^Element timeSheet is delete$", () -> Assert.assertFalse(myTimeSheet.isItemTimeSheetDelete(driver)));
         When("^Input search is \"([^\"]*)\"$", (String content) -> myTimeSheet.inputSearch(driver, content));
-        Then("^Display Search result is \"([^\"]*)\"$",  (String content) -> Assert.assertTrue(myTimeSheet.displaySearchResult(driver, content)));
+        Then("^Display Search result is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.displaySearchResult(driver, content)));
     }
 
     private void redirectPageWhenClickChildItem(final String path) {

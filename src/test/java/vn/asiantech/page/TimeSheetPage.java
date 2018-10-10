@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
-import vn.asiantech.base.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -183,7 +182,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public final Boolean getClickableTimeSheet(final WebDriver driver, final String view) {
-        if (view.equals(Constant.VIEW_BTN_THIS_WEEK)) {
+        if (view.equals(btnThisWeek)) {
             waitForElement(driver, btnThisWeek, TIME_OUT_WAITED_ELEMENT);
             return btnSubmit.isEnabled();
         }
@@ -533,7 +532,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
             WebElement element = resultItem.findElement(By.tagName("ul"));
             List<WebElement> searchResults = element.findElements(By.tagName("li"));
             for (WebElement result : searchResults) {
-                if(result.getText().equals(content)){
+                if (result.getText().equals(content)) {
                     return true;
                 }
             }
