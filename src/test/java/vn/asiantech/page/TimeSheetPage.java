@@ -20,6 +20,8 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     private static final int DEFAULT_COLUMNS_TIME_SHEET = 7;
     private static final int POSITION_TASK = 3;
     private static final int POSITION_FIRST_ITEM = 1;
+    private static final int TIME_OUT_WAITED_ELEMENT_DISPLAY = 2000;
+    private static final int HEIGHT_ITEM_RESIZE = -100;
 
     @FindBy(id = "side-menu")
     private
@@ -546,15 +548,15 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         List<WebElement> items = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         WebElement content = items.get(0).findElement(By.className("task-record"));
         WebElement resize = content.findElement(By.id("btn-resize-task-time"));
-        actionResize.moveToElement(resize).clickAndHold().moveByOffset(0, -100).release().perform();
+        actionResize.moveToElement(resize).clickAndHold().moveByOffset(0, HEIGHT_ITEM_RESIZE).release().perform();
         try {
-            Thread.sleep(2000);
+            Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean isTimeSheetChange(final WebDriver driver, final String content) {
+    public final boolean isTimeSheetChange(final WebDriver driver, final String content) {
         waitForElement(driver, calendarBody, TIME_OUT_WAITED_ELEMENT);
         List<WebElement> items = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         WebElement item = items.get(0).findElement(By.className("task-record"));
