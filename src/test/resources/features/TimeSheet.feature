@@ -85,6 +85,9 @@ Feature: Check TimeSheet
     When Move to title columns timesheet
     Then Display button add new timesheet
     And Display dialog title project
+    When Scroll edit timesheet
+    Then Change time sheet info is "6"
+    And Display Dialog success is enable and show message
 
   Scenario: Can click delete action
     Given I open my timesheet page

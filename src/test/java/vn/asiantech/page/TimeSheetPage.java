@@ -539,4 +539,26 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         }
         return false;
     }
+
+    public final void scrollChangeItemTimeSheet(final WebDriver driver) {
+        waitForElement(driver, calendarBody, TIME_OUT_WAITED_ELEMENT);
+        Actions actionResize = new Actions(driver);
+        List<WebElement> items = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        WebElement content = items.get(0).findElement(By.className("task-record"));
+        WebElement resize = content.findElement(By.id("btn-resize-task-time"));
+        actionResize.moveToElement(resize).clickAndHold().moveByOffset(0, -100).release().perform();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isTimeSheetChange(final WebDriver driver, final String content) {
+        waitForElement(driver, calendarBody, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> items = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        WebElement item = items.get(0).findElement(By.className("task-record"));
+        WebElement timeInfo = item.findElement(By.className("item-date"));
+        return timeInfo.getText().equals(content);
+    }
 }
