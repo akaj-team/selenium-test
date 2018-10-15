@@ -368,7 +368,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return 0;
     }
 
-    private boolean isFindElement(WebElement cell, int column) {
+    private boolean isFindElement(final WebElement cell, final int column) {
         try {
             cell.findElements(By.tagName("td")).get(column).findElement(By.tagName("span")).findElement(By.tagName("a"));
             return true;
