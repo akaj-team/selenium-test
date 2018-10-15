@@ -1,9 +1,6 @@
 package vn.asiantech.page.employee;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
@@ -15,8 +12,8 @@ import java.util.List;
  */
 public class EmployeesPage extends BasePage<EmployeesPage> {
 
-    public static final int TIME_OUT_SECOND = 10;
     public static final String EMPLOYEE_URL = "http://portal-stg.asiantech.vn/organisation/employees";
+    public static final int TIME_OUT_SECOND = 10;
     public static final int MAXIMUM_CELL = 50;
     private static final int SPLIT_STRING_INDEX = 7;
     private static final int LAST_INDICATOR_INDEX = 4;
@@ -46,30 +43,30 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     @FindBy(css = ".ui-paginator-bottom.ui-paginator.ui-widget.ui-widget-header.ui-unselectable-text.ui-helper-clearfix.ng-star-inserted")
     private WebElement bottomIndicator;
 
-    @FindBy(id = "text-show-entry")
-    private WebElement leftContent;
+    @FindBy(css = ".ui-paginator-left-content.ng-star-inserted")
+    private WebElement leftContentContainer;
 
     @FindBy(css = ".toolbox-content")
     @CacheLookup
     private WebElement toolBox;
 
-    @FindBy(id = "input-filter")
+    @FindBy(id = "employee-filter-wrapper")
     @CacheLookup
-    private WebElement inputSearchEmployee;
+    private WebElement inputSearchEmployeeContainer;
 
-    @FindBy(id = "dropdown-filter-position")
+    @FindBy(id = "position-filter-wrapper")
     @CacheLookup
-    private WebElement selectPositionElement;
+    private WebElement selectPositionContainer;
 
-    @FindBy(id = "btn-promote-employee")
+    @FindBy(id = "btn-import-promotion")
     @CacheLookup
     private WebElement btnPromotion;
 
-    @FindBy(id = "btn-award-employee")
+    @FindBy(id = "btn-import-award")
     @CacheLookup
     private WebElement btnAwardCategory;
 
-    @FindBy(id = "link-to-employee-create")
+    @FindBy(id = "btn-create-employee")
     @CacheLookup
     private WebElement btnNewEmployee;
 
@@ -85,20 +82,22 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     @Override
     public final EmployeesPage navigateTo(final WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn/organisation/employees");
+        webDriver.get(EMPLOYEE_URL);
         return this;
     }
 
     public final String clickAndGetEmployeeName() {
-        WebElement employee = getEmployeeInfor(EMPLOYEE_NAME_COLUMN_INDEX);
+        WebElement employee = getEmployeeInformation(EMPLOYEE_NAME_COLUMN_INDEX);
+        assert employee != null;
         WebElement employeeName = employee.findElement(By.tagName("span")).findElement(By.tagName("span"));
         employeeName.click();
         return employee.getAttribute("href");
     }
 
     public final String clickAndGetEmployeeCode() {
-        WebElement employee = getEmployeeInfor(EMPLOYEE_CODE_COLUMN_INDEX);
+        WebElement employee = getEmployeeInformation(EMPLOYEE_CODE_COLUMN_INDEX);
         try {
+            assert employee != null;
             employee.click();
         } catch (StaleElementReferenceException exception) {
             System.out.println(exception.toString());
@@ -107,8 +106,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final String clickAndGetEmployeeAvatar() {
-        WebElement employee = getEmployeeInfor(EMPLOYEE_NAME_COLUMN_INDEX);
+        WebElement employee = getEmployeeInformation(EMPLOYEE_NAME_COLUMN_INDEX);
         try {
+            assert employee != null;
             WebElement avatar = employee.findElement(By.tagName("span")).findElement(By.tagName("img"));
             avatar.click();
         } catch (StaleElementReferenceException exception) {
@@ -119,25 +119,32 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public final String clickAndGetManagerName() {
         List<WebElement> cells = tblBody.findElements(By.tagName("tr"));
-        WebElement manager = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_MANAGER_COLUMN_INDEX).findElement(By.tagName("span")).findElement(By.tagName("span")).findElement(By.tagName("a"));
-        manager.click();
-        return manager.getAttribute("href");
+        try {
+            WebElement manager = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_MANAGER_COLUMN_INDEX).findElement(By.tagName("span")).findElement(By.tagName("span")).findElement(By.tagName("a"));
+            manager.click();
+            return manager.getAttribute("href");
+        } catch (NoSuchElementException exception) {
+            return "";
+        }
     }
 
     public final String clickAndGetTeamName() {
-        WebElement team = getEmployeeInfor(EMPLOYEE_TEAM_COLUMN_INDEX);
+        WebElement team = getEmployeeInformation(EMPLOYEE_TEAM_COLUMN_INDEX);
+        assert team != null;
         team.click();
         return team.getAttribute("href");
     }
 
     public final String clickAndGetGroupName() {
-        WebElement group = getEmployeeInfor(EMPLOYEE_GROUP_COLUMN_INDEX);
+        WebElement group = getEmployeeInformation(EMPLOYEE_GROUP_COLUMN_INDEX);
+        assert group != null;
         group.click();
         return group.getAttribute("href");
     }
 
     public final String clickEditButtonAndGetLink() {
-        WebElement editEmployee = getEmployeeInfor(EMPLOYEE_ACTION_COLUMN_INDEX);
+        WebElement editEmployee = getEmployeeInformation(EMPLOYEE_ACTION_COLUMN_INDEX);
+        assert editEmployee != null;
         editEmployee.click();
         return editEmployee.getAttribute("href");
     }
@@ -214,7 +221,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final boolean isIndicatorActive() {
-        String content = leftContent.getText();
+        String content = leftContentContainer.findElement(By.tagName("small")).getText();
         String firstSub = content.substring(SPLIT_STRING_INDEX, content.length() - SPLIT_STRING_INDEX);
         int sumCell = Integer.valueOf(firstSub.split("of")[1].trim());
         switch (clickType) {
@@ -230,7 +237,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final boolean isLeftContentAndPageIndicatorCorrect() {
-        String content = leftContent.getText();
+        String content = leftContentContainer.findElement(By.tagName("small")).getText();
         String firstSub = content.substring(SPLIT_STRING_INDEX, content.length() - SPLIT_STRING_INDEX);
         String secondSub = firstSub.split("of")[0];
         int topCell = Integer.parseInt(secondSub.split("-")[0].trim());
@@ -239,7 +246,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final void searchEmployee(final String name) {
-        inputSearchEmployee.sendKeys(name);
+        inputSearchEmployeeContainer.findElement(By.tagName("input")).sendKeys(name);
     }
 
     public final boolean isEmployeeListEmpty() {
@@ -251,9 +258,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final boolean clickPositionView() {
-        selectPositionElement.click();
-        positionList = selectPositionElement.findElement(By.tagName("div"));
-        return positionList.getAttribute("class").contains("ui-dropdown-open");
+        selectPositionContainer.findElement(By.tagName("div")).click();
+        positionList = selectPositionContainer.findElement(By.cssSelector(".ui-dropdown-panel.ui-widget-content.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-panelState"));
+        return selectPositionContainer.findElement(By.tagName("div")).getAttribute("class").contains("ui-dropdown-open");
     }
 
     public final boolean isPositionSelected(final String positionName) {
@@ -341,9 +348,14 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return statusList.findElement(By.tagName("label")).getText().equals(status);
     }
 
-    private WebElement getEmployeeInfor(final int columnPosition) {
+    private WebElement getEmployeeInformation(final int columnPosition) {
         List<WebElement> cells = tblBody.findElements(By.tagName("tr"));
-        return cells.get(0).findElements(By.tagName("td")).get(columnPosition).findElement(By.tagName("span")).findElement(By.tagName("a"));
+        for (WebElement cell : cells) {
+            if (isFindElement(cell, columnPosition)) {
+                return cell.findElements(By.tagName("td")).get(columnPosition).findElement(By.tagName("span")).findElement(By.tagName("a"));
+            }
+        }
+        return null;
     }
 
     private int findIndicatorIndex() {
@@ -354,5 +366,14 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
             }
         }
         return 0;
+    }
+
+    private boolean isFindElement(WebElement cell, int column) {
+        try {
+            cell.findElements(By.tagName("td")).get(column).findElement(By.tagName("span")).findElement(By.tagName("a"));
+            return true;
+        } catch (NoSuchElementException exception) {
+            return false;
+        }
     }
 }

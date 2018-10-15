@@ -45,10 +45,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
         Given("Display employees page", () -> {
             driver.get(EMPLOYEE_URL);
             employeesPage = initPage(getDriver(), EmployeesPage.class);
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            Assert.assertEquals(EMPLOYEE_URL, driver.getCurrentUrl());
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ibox-content.main-content")));
+            waitForPageDisplayed(getDriver(), EMPLOYEE_URL, By.cssSelector(".ibox-content.main-content"));
         });
 
         Given("^Click on status view$", () -> isShowStatusList = employeesPage.clickStatus());
@@ -89,10 +86,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
             employeesPage.searchEmployee(name);
             String currentUrl = EMPLOYEE_URL + ";name_cont=" + name;
             driver.get(currentUrl);
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            Assert.assertEquals(currentUrl, driver.getCurrentUrl());
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ui-datatable-data.ui-widget-content")));
+            waitForPageDisplayed(getDriver(), currentUrl, By.cssSelector(".ui-datatable-data.ui-widget-content"));
         });
 
         When("^Search position with \"([^\"]*)\"$", (String position) -> {
@@ -121,31 +115,27 @@ public class EmployeesDefinitions extends DriverBase implements En {
         });
 
         Then("^Open successfully profile page of that employee$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
-            Assert.assertEquals(employeeProfileUrl, driver.getCurrentUrl());
+            if (!employeeProfileUrl.equals("")) {
+                waitForPageDisplayed(getDriver(), employeeProfileUrl, By.className("section-top"));
+            }
         });
 
         Then("^Open successfully profile page of that manager$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
-            Assert.assertEquals(managerUrl, driver.getCurrentUrl());
+            if (!managerUrl.equals("")) {
+                waitForPageDisplayed(getDriver(), managerUrl, By.className("section-top"));
+            }
         });
 
         Then("^Open successfully a team detail page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
-            Assert.assertEquals(teamUrl, driver.getCurrentUrl());
+            if (!teamUrl.equals("")) {
+                waitForPageDisplayed(getDriver(), teamUrl, By.className("section-top"));
+            }
         });
 
         Then("^Open successfully a group detail page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
-            Assert.assertEquals(groupUrl, driver.getCurrentUrl());
+            if (!groupUrl.equals("")) {
+                waitForPageDisplayed(getDriver(), groupUrl, By.className("section-top"));
+            }
         });
 
         Then("^Open successfully update employee page$", () -> {
