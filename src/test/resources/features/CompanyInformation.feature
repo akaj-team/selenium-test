@@ -34,9 +34,9 @@ Feature: Check display views and handle events with company information
     Then Calendar form of join date is showed
     Then Data in join date input displays correctly
 
-#    Examples:
-#      | code                                        | ahead space | behind space |
-#      | Code longer than thirty ten characters      | 0           | 0            |
-#      | Code with special characters ~!@#$%^&*()><? | 0           | 0            |
-#      | Code with spaces at the end of data         | 0           | 1            |
-#      | Code with spaces at the head of data        | 1           | 0            |
+    Examples:
+      | code                                        | ahead space | behind space |
+      | Code longer than thirty ten characters      | 0           | 0            |
+      | Code with special characters ~!@#$%^&*()><? | 0           | 0            |
+      | Code with spaces at the end of data         | 0           | 1            |
+      | Code with spaces at the head of data        | 1           | 0            |

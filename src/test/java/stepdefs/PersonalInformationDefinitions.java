@@ -37,10 +37,7 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
             driver.get(CURRENT_URL);
             personalInformationPage = initPage(getDriver(), PersonalInformationPage.class);
             companyInformationPage = initPage(getDriver(), CompanyInformationPage.class);
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ui-tabview-panel.ui-widget-content.ng-star-inserted")));
-            Assert.assertEquals(CURRENT_URL, driver.getCurrentUrl());
+            waitForPageDisplayed(getDriver(),CURRENT_URL,By.cssSelector(".ui-tabview-panel.ui-widget-content.ng-star-inserted"));
         });
 
         Then("^Personal information tab is active$", () -> Assert.assertTrue(personalInformationPage.isPersonalInformation()));
