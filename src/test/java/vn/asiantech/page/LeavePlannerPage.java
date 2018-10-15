@@ -38,8 +38,8 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
     @FindBy(css = ".calendar-head")
     private WebElement calenderHead;
 
-    @FindBy(id = "text-current-week")
-    private WebElement txtCurrentWeek;
+    @FindBy(css = ".directional-toolbox")
+    private WebElement toolBox;
 
     public LeavePlannerPage() {
     }
@@ -110,7 +110,7 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
     }
 
     public final String getHeaderTime() {
-        return txtCurrentWeek.getText();
+        return toolBox.findElement(By.tagName("span")).getText();
     }
 
     public final String getTableTime(final WebDriver driver) {
