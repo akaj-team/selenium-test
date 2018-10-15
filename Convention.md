@@ -170,27 +170,27 @@
    **GOOD**
         
    ```
-   public static String BASE_URL;
+   public static String BASE_URL = "https://portal.asiantech.vn/";
    ```
         
    **BAD**
          
    ```
-    String BASEURL;
+    String BASEURL = "https://portal.asiantech.vn/";
    ```
    
    **9. Comments**
    - Comments shall be used to explain the code to make the test scripts more readable for others.
    - Single line 
-   `// This is comment`
+   `// This is a comment`
    - Multiple line
-   `/* This is comment */`
+   `/* This is a comment */`
    
    **Comments in feature files (Cucumber)**
    - You can add your comments in the lines followed by the keywords `Feature`, `Scenario`, `Scenario Outline` or `Examples`.
    - Also you can use `#`  for line comments.
    
-       `# This is comment`
+       `# This is a comment`
   
 ## Locator
 
