@@ -43,13 +43,12 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     @FindBy(id = "btn-prev-tab")
     private WebElement btnTabBack;
 
-    private WebElement inputFirstName;
     private WebElement inputMiddleName;
     private WebElement inputLastName;
     private WebElement calendarForm;
 
     @Override
-    public PersonalInformationPage navigateTo(WebDriver webDriver) {
+    public final PersonalInformationPage navigateTo(final WebDriver webDriver) {
         return null;
     }
 
@@ -58,11 +57,11 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         return tabPersonalInfor.findElement(By.tagName("span")).getText().equals("Personal Infomation");
     }
 
-    public boolean isNextButtonClickable() {
+    public final boolean isNextButtonClickable() {
         return btnTabNext.isEnabled();
     }
 
-    public void clickNextButton(WebDriver driver) {
+    public final void clickNextButton(final WebDriver driver) {
         for (WebElement button : btnGroup.findElements(By.tagName("button"))) {
             waitForElement(driver, button, TIME_OUT_SECOND);
             if (button.findElement(By.tagName("i")).getAttribute("class").equals("fa fa-chevron-right") && button.isEnabled()) {
@@ -72,20 +71,20 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         }
     }
 
-    public boolean isBackButtonClickable() {
+    public final boolean isBackButtonClickable() {
         return btnTabBack.isEnabled();
     }
 
-    public boolean isSubmitClickable() {
+    public final boolean isSubmitClickable() {
         return btnSubmit.isEnabled();
     }
 
-    public void clickButtonSubmit() {
+    public final void clickButtonSubmit() {
         btnSubmit.click();
     }
 
-    public void fillFirstName(String firstName, int aheadSpace, int behindSpace) {
-        inputFirstName = nameContainer.findElement(By.xpath("//input[contains(@name,'first_name')]"));
+    public final void fillFirstName(final String firstName, final int aheadSpace, final int behindSpace) {
+        WebElement inputFirstName = nameContainer.findElement(By.xpath("//input[contains(@name,'first_name')]"));
         if (aheadSpace != 0 && behindSpace != 0) {
             inputFirstName.sendKeys(getNameWithSpace(firstName, aheadSpace, behindSpace));
         } else {
@@ -93,12 +92,12 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         }
     }
 
-    public void fillMiddleName(String middleName) {
+    public final void fillMiddleName(final String middleName) {
         inputMiddleName = nameContainer.findElement(By.xpath("//input[contains(@name,'middle_name')]"));
         inputMiddleName.sendKeys(middleName);
     }
 
-    public void fillLastName(String lastName, int aheadSpace, int behindSpace) {
+    public final void fillLastName(final String lastName, final int aheadSpace, final int behindSpace) {
         inputLastName = nameContainer.findElement(By.xpath("//input[contains(@name,'surname')]"));
         if (aheadSpace != 0 && behindSpace != 0) {
             inputLastName.sendKeys(getNameWithSpace(lastName, aheadSpace, behindSpace));
@@ -107,11 +106,11 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         }
     }
 
-    public void chooseGender() {
+    public final void chooseGender() {
         chkMale.click();
     }
 
-    public void chooseNationality(WebDriver driver) {
+    public final void chooseNationality(final WebDriver driver) {
         List<WebElement> forms = driver.findElements(By.cssSelector(".form-group"));
         WebElement nationity = null;
         for (WebElement form : forms) {
@@ -131,50 +130,50 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         }
     }
 
-    public boolean isFirstNameErrorMessageDisplayed() {
+    public final boolean isFirstNameErrorMessageDisplayed() {
         List<WebElement> formGroups = formContainer.findElement(By.cssSelector(".col-md-6.col-sm-8")).findElements(By.cssSelector(".form-group"));
         return formGroups.get(0).findElement(By.tagName("span")).isDisplayed();
     }
 
-    public void clearFocusMiddleName() {
+    public final void clearFocusMiddleName() {
         inputMiddleName.clear();
     }
 
-    public boolean isMiddleNameInvalid() {
+    public final boolean isMiddleNameInvalid() {
         return inputMiddleName.getAttribute("class").contains(" ng-invalid");
     }
 
-    public boolean isLastNameErrorMessageDisplayed() {
+    public final boolean isLastNameErrorMessageDisplayed() {
         List<WebElement> formGroups = formContainer.findElement(By.cssSelector(".col-md-6.col-sm-8")).findElements(By.cssSelector(".form-group"));
         return formGroups.get(2).findElement(By.tagName("span")).isDisplayed();
     }
 
-    public boolean isLastNameInvalid() {
+    public final boolean isLastNameInvalid() {
         return inputLastName.getAttribute("class").contains(" ng-invalid");
     }
 
-    public void clickCalendar(WebDriver driver) {
+    public final void clickCalendar(final WebDriver driver) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", inputCalendar);
         inputCalendar.click();
     }
 
-    public boolean isCalendarFormShowed() {
+    public final boolean isCalendarFormShowed() {
         calendarForm = inputCalendar.findElement(By.xpath("//div[contains(@class,'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-shadow ng-trigger ng-trigger-overlayState')]"));
         return calendarForm.isDisplayed();
     }
 
-    public Boolean isTimeCorrect() {
+    public final boolean isTimeCorrect() {
         String time = getMonth() + " " + getDate() + ", " + getYear();
         clickToDay();
         return inputCalendar.findElement(By.tagName("input")).getAttribute("value").equals(time);
     }
 
-    public void fillMobileInput(String phone, WebDriver driver) {
+    public final void fillMobileInput(final String phone, final WebDriver driver) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", inputMobile);
         inputMobile.sendKeys(phone);
     }
 
-    public boolean isMobileErrorMessageShowed(String message, WebDriver driver) {
+    public final boolean isMobileErrorMessageShowed(final String message, final WebDriver driver) {
         List<WebElement> forms = driver.findElements(By.cssSelector(".form-group"));
         for (WebElement form : forms) {
             if (isFindElement(form, "phone")) {
@@ -185,29 +184,20 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         return false;
     }
 
-    private boolean isFindElement(WebElement webElement, String name) {
-        try {
-            webElement.findElement(By.name(name));
-            return true;
-        } catch (NoSuchElementException ex) {
-            return false;
-        }
-    }
-
-    public boolean isMobileInvalid() {
+    public final boolean isMobileInvalid() {
         return inputMobile.getAttribute("class").contains(" ng-invalid");
     }
 
-    public void clearFocusMobile() {
+    public final void clearFocusMobile() {
         inputMobile.clear();
     }
 
-    public void fillTelephoneInput(String telephone, WebDriver driver) {
+    public final void fillTelephoneInput(final String telephone, final WebDriver driver) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", inputMobile);
         inputTelephone.sendKeys(telephone);
     }
 
-    public boolean isTelephoneErrorMessageShowed(String message, WebDriver driver) {
+    public final boolean isTelephoneErrorMessageShowed(final String message, final WebDriver driver) {
         List<WebElement> forms = driver.findElements(By.cssSelector(".form-group"));
         for (WebElement form : forms) {
             if (isFindElement(form, "telephone")) {
@@ -218,13 +208,23 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         return false;
     }
 
-    public boolean isTelephoneInvalid() {
+    public final boolean isTelephoneInvalid() {
         return inputTelephone.getAttribute("class").contains(" ng-invalid");
     }
 
-    public void clearFocusTelephone() {
+    public final void clearFocusTelephone() {
         inputTelephone.clear();
     }
+
+    private boolean isFindElement(final WebElement webElement, final String name) {
+        try {
+            webElement.findElement(By.name(name));
+            return true;
+        } catch (NoSuchElementException ex) {
+            return false;
+        }
+    }
+
 
     private String getMonth() {
         WebElement title = calendarForm.findElements(By.tagName("div")).get(1);
@@ -253,7 +253,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         toDay.findElement(By.tagName("a")).click();
     }
 
-    private String getNameWithSpace(String name, int aheadSpace, int behindSpace) {
+    private String getNameWithSpace(final String name, final int aheadSpace, final int behindSpace) {
         StringBuilder aheadSpaces = new StringBuilder();
         for (int i = 0; i < aheadSpace; i++) {
             aheadSpaces.append(" ");
