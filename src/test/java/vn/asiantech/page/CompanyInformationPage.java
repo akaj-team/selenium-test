@@ -6,35 +6,39 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
+import java.util.List;
+
 public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
+    private static final int TIME_OUT_SECOND = 10;
+
+    @FindBy(id = "employee-form-wrapper")
+    private WebElement formContainer;
 
     @FindBy(id = "available_for_project_assignment")
     private WebElement chbAssignment;
 
-    @FindBy(id = "calendar-join-date")
+    @FindBy(name = "joined_company_day")
     private WebElement inputJoinDate;
 
-    @FindBy(id = "dropdown-employee-type")
-    private WebElement dropDownEmpType;
-
-    @FindBy(id = "input-employee-code")
+    @FindBy(name = "employee_code")
     private WebElement inputEmpCode;
 
-    @FindBy(id = "dropdown-position")
-    private WebElement dropDownPosition;
+    @FindBy(name = "email")
+    private WebElement inputEmail;
 
-    @FindBy(id = "btn-agree-dialog-confirm")
+    @FindBy(css = ".btn.btn-sm.btn-primary.btn-submit.ng-star-inserted")
     private WebElement btnDialogSubmit;
 
     @FindBy(css = ".app-alert.ng-star-inserted")
     private WebElement alertError;
+    private WebElement dropDownEmpType;
+    private WebElement dropDownPosition;
     private WebElement dropDownLineManager;
     private WebElement calendarForm;
-    public static final int TIME_OUT_SECOND = 10;
-    boolean isCheckBoxChecked = false;
+    private boolean isCheckBoxChecked = false;
 
     @Override
-    public CompanyInformationPage navigateTo(WebDriver webDriver) {
+    public final CompanyInformationPage navigateTo(final WebDriver webDriver) {
         return null;
     }
 
@@ -62,16 +66,45 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         return inputJoinDate.findElement(By.tagName("input")).getAttribute("value").equals(time);
     }
 
-    public void selectEmpType() {
-        dropDownEmpType.findElement(By.tagName("div")).click();
-        dropDownEmpType.findElements(By.tagName("li")).get(0).click();
+    public void selectEmpType(String empType) {
+        List<WebElement> formGroups = formContainer.findElements(By.cssSelector(".form-group"));
+        for (WebElement formGroup : formGroups) {
+            if (formGroup.findElement(By.tagName("label")).getText().equals("Employee Type")) {
+                dropDownEmpType = formGroup.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
+                dropDownEmpType.click();
+                break;
+            }
+        }
+        for (WebElement li : dropDownEmpType.findElements(By.tagName("li"))) {
+            if (li.findElement(By.tagName("span")).getText().equals(empType)) {
+                li.click();
+                break;
+            }
+        }
     }
 
-    public void fillEmpCode(String code, int aheadSpace, int behindSpase) {
-        inputEmpCode.sendKeys(getCodeWithSpace(code, aheadSpace, behindSpase));
+    public boolean isEmployeeTypeDataCorrected(String empType) {
+        boolean isChbEmployee = false;
+        if (empType.equals("Employee")) {
+            isChbEmployee = formContainer.findElements(By.cssSelector(".checkbox.abc-checkbox.m-n")).get(1).isDisplayed();
+        } else {
+            isChbEmployee = true;
+        }
+        return dropDownEmpType.findElement(By.tagName("label")).getText().equals(empType) && isChbEmployee;
+    }
+
+    public void fillEmpCode(String code, int aheadSpace, int behindSpace) {
+        inputEmpCode.sendKeys(getCodeWithSpace(code, aheadSpace, behindSpace));
     }
 
     public void choosePosition() {
+        List<WebElement> formGroups = formContainer.findElements(By.cssSelector(".form-group"));
+        for (WebElement formGroup : formGroups) {
+            if (formGroup.findElement(By.tagName("label")).getText().equals("Position")) {
+                dropDownPosition = formGroup.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
+                break;
+            }
+        }
         dropDownPosition.click();
         dropDownPosition.findElements(By.tagName("li")).get(1).click();
     }
@@ -96,6 +129,53 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
     public boolean isErrorAlertShowed(WebDriver driver) {
         waitForElement(driver, alertError, TIME_OUT_SECOND);
         return alertError.isDisplayed();
+    }
+
+    public void clearFocusEmpCode() {
+        inputEmpCode.clear();
+    }
+
+    public boolean isEmpCodeErrorDisplayed(String error) {
+        List<WebElement> formGroups = formContainer.findElements(By.cssSelector(".form-group"));
+        for (WebElement formGroup : formGroups) {
+            if (formGroup.findElement(By.tagName("label")).getText().equals("Employee Code")) {
+                WebElement errorElement = formGroup.findElement(By.cssSelector(".help-block"));
+                return errorElement.isDisplayed() && errorElement.getText().equals(error);
+            }
+        }
+        return false;
+    }
+
+    public boolean isEmpCodeInvalid() {
+        return inputEmpCode.getAttribute("class").contains(" ng-invalid");
+    }
+
+    public boolean isEmailCorrected(String firstName, String lastName) {
+        String email = firstName + "." + lastName + "@asiantech.vn";
+        return inputEmail.getAttribute("value").equals(email.toLowerCase());
+    }
+
+    public void fillEmailInput(String data) {
+        inputEmail.sendKeys(data);
+    }
+
+    public void clearFocusEmail() {
+        inputEmail.clear();
+    }
+
+    public boolean isEmailErrorDisplayed(String error) {
+        List<WebElement> formGroups = formContainer.findElements(By.cssSelector(".form-group"));
+        for (WebElement formGroup : formGroups) {
+            if (formGroup.findElement(By.tagName("label")).getText().equals("Email")) {
+                WebElement errorElement = formGroup.findElement(By.cssSelector(".help-block"));
+                return errorElement.isDisplayed() && errorElement.getText().equals(error);
+            }
+        }
+        return false;
+    }
+
+    public boolean isEmailInvalid() {
+        return inputEmail.getAttribute("class").contains(" ng-invalid");
     }
 
     private String getMonth() {

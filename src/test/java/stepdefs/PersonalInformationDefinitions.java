@@ -1,18 +1,11 @@
 package stepdefs;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.CompanyInformationPage;
 import vn.asiantech.page.PersonalInformationPage;
-
-import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
 
 /**
  * @author at-hangtran
@@ -23,7 +16,6 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
 
     private WebDriver driver;
     private PersonalInformationPage personalInformationPage;
-    private CompanyInformationPage companyInformationPage;
     private boolean isCalendarFormShowed;
 
     public PersonalInformationDefinitions() {
@@ -36,8 +28,7 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
         Given("^Display new employee page$", () -> {
             driver.get(CURRENT_URL);
             personalInformationPage = initPage(getDriver(), PersonalInformationPage.class);
-            companyInformationPage = initPage(getDriver(), CompanyInformationPage.class);
-            waitForPageDisplayed(getDriver(),CURRENT_URL,By.cssSelector(".ui-tabview-panel.ui-widget-content.ng-star-inserted"));
+            waitForPageDisplayed(getDriver(), CURRENT_URL, By.id("employee-form-wrapper"));
         });
 
         Then("^Personal information tab is active$", () -> Assert.assertTrue(personalInformationPage.isPersonalInformation()));
@@ -106,10 +97,9 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
 
         Then("^Error message \"([^\"]*)\" of telephone is displayed$", (String errorMessage) -> Assert.assertTrue(personalInformationPage.isTelephoneErrorMessageShowed(errorMessage, driver)));
 
-        Then("^Open successfully company information tab$", () -> {
-            personalInformationPage.fillFirstName("Hien", 0, 0);
-            personalInformationPage.fillMiddleName("Thu");
-            personalInformationPage.fillLastName("Hoa", 0, 0);
+        Then("^Open successfully company information tab with FirstName \"([^\"]*)\", LastName \"([^\"]*)\"$", (String fistName, String lastName) -> {
+            personalInformationPage.fillFirstName(fistName, 0, 0);
+            personalInformationPage.fillLastName(lastName, 0, 0);
             personalInformationPage.chooseGender();
             personalInformationPage.chooseNationality(driver);
             personalInformationPage.clickNextButton(driver);

@@ -16,7 +16,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     @FindBy(className = "btn-group")
     private WebElement btnGroup;
 
-    @FindBy(id = "btn-submit-create-employee")
+    @FindBy(id = "btn-submit-employee")
     private WebElement btnSubmit;
 
     @FindBy(css = ".col-md-6.col-sm-8")
@@ -25,20 +25,17 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     @FindBy(id = "gender-male")
     private WebElement chkMale;
 
-    @FindBy(id = "input-mobile")
+    @FindBy(name = "phone")
     private WebElement inputMobile;
 
-    @FindBy(id = "input-telephone")
+    @FindBy(name = "telephone")
     private WebElement inputTelephone;
 
     @FindBy(css = ".col-md-4.calendar-fullwidth")
     private WebElement inputCalendar;
 
-    @FindBy(id = "text-error-first-name")
-    private WebElement txtFirstNameError;
-
-    @FindBy(id = "text-error-last-name")
-    private WebElement txtLastNameError;
+    @FindBy(id = "personal-info-tab-wrapper")
+    private WebElement formContainer;
 
     @FindBy(id = "btn-next-tab")
     private WebElement btnTabNext;
@@ -83,7 +80,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         return btnSubmit.isEnabled();
     }
 
-    public void clickButtonSubmit(){
+    public void clickButtonSubmit() {
         btnSubmit.click();
     }
 
@@ -135,7 +132,8 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     }
 
     public boolean isFirstNameErrorMessageDisplayed() {
-        return txtFirstNameError.isDisplayed();
+        List<WebElement> formGroups = formContainer.findElement(By.cssSelector(".col-md-6.col-sm-8")).findElements(By.cssSelector(".form-group"));
+        return formGroups.get(0).findElement(By.tagName("span")).isDisplayed();
     }
 
     public void clearFocusMiddleName() {
@@ -147,7 +145,8 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     }
 
     public boolean isLastNameErrorMessageDisplayed() {
-        return txtLastNameError.isDisplayed();
+        List<WebElement> formGroups = formContainer.findElement(By.cssSelector(".col-md-6.col-sm-8")).findElements(By.cssSelector(".form-group"));
+        return formGroups.get(2).findElement(By.tagName("span")).isDisplayed();
     }
 
     public boolean isLastNameInvalid() {
