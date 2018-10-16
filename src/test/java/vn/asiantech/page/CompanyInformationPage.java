@@ -42,31 +42,31 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         return null;
     }
 
-    public void clickAssignCheckbox() {
+    public final void clickAssignCheckbox() {
         isCheckBoxChecked = chbAssignment.isSelected();
         chbAssignment.click();
     }
 
-    public boolean isAssignmentCheckboxChecked() {
+    public final boolean isAssignmentCheckboxChecked() {
         return isCheckBoxChecked != chbAssignment.isSelected();
     }
 
-    public void clickJoinDateInput() {
+    public final void clickJoinDateInput() {
         inputJoinDate.click();
     }
 
-    public boolean isCalendarFormShowed() {
+    public final boolean isCalendarFormShowed() {
         calendarForm = inputJoinDate.findElements(By.xpath("//div[contains(@class,'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-shadow ng-trigger ng-trigger-overlayState')]")).get(1);
         return calendarForm.isDisplayed();
     }
 
-    public Boolean isTimeCorrect() {
+    public final boolean isTimeCorrect() {
         String time = getMonth() + " " + getDate() + ", " + getYear();
         clickToDay();
         return inputJoinDate.findElement(By.tagName("input")).getAttribute("value").equals(time);
     }
 
-    public void selectEmpType(String empType) {
+    public final void selectEmpType(final String empType) {
         List<WebElement> formGroups = formContainer.findElements(By.cssSelector(".form-group"));
         for (WebElement formGroup : formGroups) {
             if (formGroup.findElement(By.tagName("label")).getText().equals("Employee Type")) {
@@ -83,8 +83,8 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         }
     }
 
-    public boolean isEmployeeTypeDataCorrected(String empType) {
-        boolean isChbEmployee = false;
+    public final boolean isEmployeeTypeDataCorrected(final String empType) {
+        boolean isChbEmployee;
         if (empType.equals("Employee")) {
             isChbEmployee = formContainer.findElements(By.cssSelector(".checkbox.abc-checkbox.m-n")).get(1).isDisplayed();
         } else {
@@ -93,11 +93,11 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         return dropDownEmpType.findElement(By.tagName("label")).getText().equals(empType) && isChbEmployee;
     }
 
-    public void fillEmpCode(String code, int aheadSpace, int behindSpace) {
+    public final void fillEmpCode(final String code, final int aheadSpace, final int behindSpace) {
         inputEmpCode.sendKeys(getCodeWithSpace(code, aheadSpace, behindSpace));
     }
 
-    public void choosePosition() {
+    public final void choosePosition() {
         List<WebElement> formGroups = formContainer.findElements(By.cssSelector(".form-group"));
         for (WebElement formGroup : formGroups) {
             if (formGroup.findElement(By.tagName("label")).getText().equals("Position")) {
@@ -109,7 +109,7 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         dropDownPosition.findElements(By.tagName("li")).get(1).click();
     }
 
-    public void chooseLineManager(WebDriver driver) throws InterruptedException {
+    public final void chooseLineManager(final WebDriver driver) throws InterruptedException {
         for (int i = 0; i < driver.findElements(By.cssSelector(".form-group")).size(); i++) {
             if (driver.findElements(By.cssSelector(".form-group")).get(i).findElement(By.tagName("label")).getText().equals("Line Manager")) {
                 dropDownLineManager = driver.findElements(By.cssSelector(".form-group")).get(i).findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
@@ -122,20 +122,20 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         dropDownLineManager.findElements(By.tagName("li")).get(0).click();
     }
 
-    public void clickButtonDialogSubmit() {
+    public final void clickButtonDialogSubmit() {
         btnDialogSubmit.click();
     }
 
-    public boolean isErrorAlertShowed(WebDriver driver) {
+    public final boolean isErrorAlertShowed(final WebDriver driver) {
         waitForElement(driver, alertError, TIME_OUT_SECOND);
         return alertError.isDisplayed();
     }
 
-    public void clearFocusEmpCode() {
+    public final void clearFocusEmpCode() {
         inputEmpCode.clear();
     }
 
-    public boolean isEmpCodeErrorDisplayed(String error) {
+    public final boolean isEmpCodeErrorDisplayed(final String error) {
         List<WebElement> formGroups = formContainer.findElements(By.cssSelector(".form-group"));
         for (WebElement formGroup : formGroups) {
             if (formGroup.findElement(By.tagName("label")).getText().equals("Employee Code")) {
@@ -146,24 +146,24 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         return false;
     }
 
-    public boolean isEmpCodeInvalid() {
+    public final boolean isEmpCodeInvalid() {
         return inputEmpCode.getAttribute("class").contains(" ng-invalid");
     }
 
-    public boolean isEmailCorrected(String firstName, String lastName) {
+    public final boolean isEmailCorrected(final String firstName, final String lastName) {
         String email = firstName + "." + lastName + "@asiantech.vn";
         return inputEmail.getAttribute("value").equals(email.toLowerCase());
     }
 
-    public void fillEmailInput(String data) {
+    public final void fillEmailInput(final String data) {
         inputEmail.sendKeys(data);
     }
 
-    public void clearFocusEmail() {
+    public final void clearFocusEmail() {
         inputEmail.clear();
     }
 
-    public boolean isEmailErrorDisplayed(String error) {
+    public final boolean isEmailErrorDisplayed(final String error) {
         List<WebElement> formGroups = formContainer.findElements(By.cssSelector(".form-group"));
         for (WebElement formGroup : formGroups) {
             if (formGroup.findElement(By.tagName("label")).getText().equals("Email")) {
@@ -174,7 +174,7 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         return false;
     }
 
-    public boolean isEmailInvalid() {
+    public final boolean isEmailInvalid() {
         return inputEmail.getAttribute("class").contains(" ng-invalid");
     }
 
@@ -205,7 +205,7 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         toDay.findElement(By.tagName("a")).click();
     }
 
-    private String getCodeWithSpace(String code, int aheadSpace, int behindSpace) {
+    private String getCodeWithSpace(final String code, final int aheadSpace, final int behindSpace) {
         StringBuilder aheadSpaces = new StringBuilder();
         for (int i = 0; i < aheadSpace; i++) {
             aheadSpaces.append(" ");
