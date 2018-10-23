@@ -8,7 +8,11 @@ import java.util.List;
 
 import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
 
+/**
+ * @author at-hangtran
+ */
 public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
+    private static final int MONTH_INDEX = 3;
 
     @FindBy(css = ".ui-tabview-nav.ui-helper-reset.ui-helper-clearfix.ui-widget-header.ui-corner-all.ng-star-inserted")
     private WebElement listTabContainer;
@@ -52,7 +56,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         return null;
     }
 
-    public boolean isPersonalInformation() {
+    public final boolean isPersonalInformation() {
         WebElement tabPersonalInfor = listTabContainer.findElement(By.xpath("//li[contains(@class,'ui-state-active')]"));
         return tabPersonalInfor.findElement(By.tagName("span")).getText().equals("Personal Infomation");
     }
@@ -116,7 +120,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", nationality);
         nationality.click();
         WebElement nationContainer = nationality.findElement(By.cssSelector(".ui-dropdown-items-wrapper"));
-        waitForElement(driver, nationContainer, 10);
+        waitForElement(driver, nationContainer, TIME_OUT_SECOND);
         List<WebElement> nations = nationContainer.findElement(By.tagName("ul")).findElements(By.tagName("li"));
         if (nations.size() > 0) {
             nations.get(0).findElement(By.tagName("span")).click();
@@ -213,7 +217,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         WebElement title = calendarForm.findElements(By.tagName("div")).get(1);
         WebElement monthContainer = title.findElement(By.xpath("//select[contains(@class,'ui-datepicker-month')]"));
         String monthIndex = monthContainer.getAttribute("value");
-        return monthContainer.findElements(By.tagName("option")).get(Integer.parseInt(monthIndex)).getText().substring(0, 3);
+        return monthContainer.findElements(By.tagName("option")).get(Integer.parseInt(monthIndex)).getText().substring(0, MONTH_INDEX);
     }
 
     private String getYear() {

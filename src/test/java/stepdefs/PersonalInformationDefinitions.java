@@ -76,7 +76,6 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
 
         Then("^Data in calendar input displays correctly$", () -> {
             if (isCalendarFormShowed) {
-                Thread.sleep(1000);
                 Assert.assertTrue(personalInformationPage.isTimeCorrect());
             }
         });

@@ -4,13 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
 
 import java.util.List;
 
+/**
+ * @author at-hangtran
+ */
 public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
     private static final int TIME_OUT_SECOND = 10;
+    private static final int MONTH_INDEX = 3;
 
     @FindBy(id = "employee-form-wrapper")
     private WebElement formContainer;
@@ -171,7 +174,7 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         WebElement title = calendarForm.findElements(By.tagName("div")).get(1);
         WebElement monthContainer = title.findElement(By.tagName("select"));
         String monthIndex = monthContainer.getAttribute("value");
-        return monthContainer.findElements(By.tagName("option")).get(Integer.parseInt(monthIndex)).getText().substring(0, 3);
+        return monthContainer.findElements(By.tagName("option")).get(Integer.parseInt(monthIndex)).getText().substring(0, MONTH_INDEX);
     }
 
     private String getYear() {

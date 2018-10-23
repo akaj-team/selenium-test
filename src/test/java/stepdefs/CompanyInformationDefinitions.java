@@ -7,6 +7,9 @@ import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.CompanyInformationPage;
 import vn.asiantech.page.PersonalInformationPage;
 
+/**
+ * @author at-hangtran
+ */
 public class CompanyInformationDefinitions extends DriverBase implements En {
 
     private WebDriver driver;
