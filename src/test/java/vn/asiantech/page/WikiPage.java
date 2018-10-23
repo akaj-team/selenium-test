@@ -13,23 +13,23 @@ import vn.asiantech.base.BasePage;
 
 public class WikiPage extends BasePage<WikiPage> {
 
-    @FindBy(id = "link-to-employee-detail")
+    @FindBy(id = "link-to-wiki-author-detail")
     private WebElement txtAuthor;
 
-    @FindBy(id = "child-page-list-wrapper")
-    private WebElement listTitle;
-
-    @FindBy(css = ".ui-tree-container.ng-star-inserted")
+    @FindBy(id = "wiki-tree-wrapper")
     private WebElement treeContainer;
 
-    @FindBy(id = "link-to-wiki-create")
+    @FindBy(id = "btn-create-wiki")
     private WebElement btnChildPage;
 
     @FindBy(id = "btn-delete-wiki")
     private WebElement btnDelete;
 
-    @FindBy(id = "link-to-wiki-edit")
+    @FindBy(id = "btn-edit-wiki")
     private WebElement btnEdit;
+
+    @FindBy(id = "static-dialog-wrapper")
+    private WebElement dialog;
 
     @Override
     public final WikiPage navigateTo(final WebDriver webDriver) {
@@ -53,7 +53,7 @@ public class WikiPage extends BasePage<WikiPage> {
     }
 
     public final void clickTitle() {
-        listTitle.findElements(By.tagName("li")).get(0).click();
+        treeContainer.findElements(By.tagName("li")).get(0).click();
     }
 
     public final void clickIconPackageWikiHome() {
