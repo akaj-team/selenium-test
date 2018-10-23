@@ -33,18 +33,18 @@ Feature: Open home page
     Then I should see list feed is displayed
     Examples:
       | searchData |
-      | vi          |
-      | viet        |
-      | wh          |
+      | vi         |
+      | viet       |
+      | wh         |
 
   Scenario Outline: I fill to search and result is empty
     When I fill to search with value is "<searchData>"
     Then I should see message "No data available"
     Examples:
       | searchData |
-      | vivivivivi  |
-      | iviviviviv  |
-      | zzzzzzzzzz  |
+      | vivivivivi |
+      | iviviviviv |
+      | zzzzzzzzzz |
 
   Scenario: Click username on homeContent and open successfully profile page
     When I click on username in social-box
