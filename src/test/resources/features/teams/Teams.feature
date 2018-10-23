@@ -11,20 +11,20 @@ Feature: Check teams page
     When Enter search with name is "<searchData>"
     Then I should see list team
     Examples:
-      | searchData    |
-      | Android |
-      | BA      |
-      | IOS     |
+      | searchData |
+      | Android    |
+      | BA         |
+      | IOS        |
 
   Scenario Outline: Search teams with result is empty
     When Enter search with name is "<searchData>"
     Then I should see list team is empty
     And I should see message "No records found"
     Examples:
-      | searchData   |
-      | aaa999 |
-      | bbb888 |
-      | ccc777 |
+      | searchData |
+      | aaa999     |
+      | bbb888     |
+      | ccc777     |
 
   Scenario: Open successfully profile when click on avatar of team
     When I click on avatar of team

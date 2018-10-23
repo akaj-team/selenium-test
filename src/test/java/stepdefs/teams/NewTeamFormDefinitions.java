@@ -51,16 +51,16 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
         });
 
         // Validate Form
-        Then("^Button submit is unable$", () -> Assert.assertFalse(newTeamFormPage.isBtnSubmitEnable()));
+        Then("^Button submit is unable$", () -> Assert.assertFalse(newTeamFormPage.isButtonSubmitEnable()));
         When("^I fill in inputName with \"([^\"]*)\" with while space at begging and end are (.*), (.*)$", (String name, String whileSpaceBegging, String whileSpaceEnd) -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.id("input-name")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.name("name")));
             newTeamFormPage.sendKeyInputName(name, Integer.parseInt(whileSpaceBegging), Integer.parseInt(whileSpaceEnd));
         });
         When("^I fill in inputName with new name$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.id("input-name")));
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.name("name")));
             newTeamFormPage.sendKeyInputName(newTeamFormPage.generateNameTeam().toString(), 0, 0);
         });
-        Then("^Button submit is enable$", () -> Assert.assertTrue((newTeamFormPage.isBtnSubmitEnable())));
+        Then("^Button submit is enable$", () -> Assert.assertTrue((newTeamFormPage.isButtonSubmitEnable())));
         And("^Message error is displayed$", () -> {
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(webDriver -> webDriver.findElement(By.className("form-group")).findElement(By.className("help-block")).isDisplayed());
             Assert.assertTrue(newTeamFormPage.isMessageErrorShown());
@@ -70,7 +70,7 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
         // Click button Submit, redirect to Team Detail page
         When("^I click on button Submit$", () -> {
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.name("submit")));
-            newTeamFormPage.onClickBtnSubmit();
+            newTeamFormPage.onClickButtonSubmit();
         });
         Then("^Open successfully team detail page after update$", () -> {
             new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM).until(webDriver -> webDriver.findElement(By.className("section-top")).isDisplayed());

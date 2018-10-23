@@ -95,8 +95,8 @@ public class TeamsDefinitions extends DriverBase implements En {
         When("^I click on button delete team at position is (\\d+)$", (Integer position) -> nameTeam = teamsPage.onClickDeleteTeam(position));
         Then("^I should see dialog confirm delete team$", () -> Assert.assertTrue(teamsPage.isDeleteDialogShown()));
         And("^Name team is correct with team is chose$", () -> Assert.assertEquals("Are you sure to delete " + nameTeam + " team?", teamsPage.getNameTeamIsDeleted()));
-        When("^I choose button cancel on dialog$", () -> teamsPage.onClickBtnCancelInDialogDelete());
-        When("^I choose button ok on dialog$", () -> teamsPage.onClickBtnDeleteInDialogDelete());
+        When("^I choose button cancel on dialog$", () -> teamsPage.onClickButtonCancelInDialogDelete());
+        When("^I choose button ok on dialog$", () -> teamsPage.onClickButtonDeleteInDialogDelete());
         Then("^Dialog is dismiss$", () -> Assert.assertFalse(teamsPage.isDeleteDialogShown()));
         Then("^Team is chose would be deleted$", () -> {
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("app-alert")));

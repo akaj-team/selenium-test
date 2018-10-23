@@ -42,11 +42,11 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
     }
 
     public final void sendKeyInputName(final String searchData, final int whileSpaceBegging, final int whileSpaceEnd) {
-        wrapper.findElement(By.id("input-name")).clear();
-        wrapper.findElement(By.id("input-name")).sendKeys(setNumberWhileSpace(whileSpaceBegging) + searchData + setNumberWhileSpace(whileSpaceEnd));
+        wrapper.findElement(By.name("name")).clear();
+        wrapper.findElement(By.name("name")).sendKeys(setNumberWhileSpace(whileSpaceBegging) + searchData + setNumberWhileSpace(whileSpaceEnd));
     }
 
-    private String setNumberWhileSpace(int number) {
+    private String setNumberWhileSpace(final int number) {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < number; i++) {
             str.append(" ");
@@ -54,9 +54,9 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
         return str.toString();
     }
 
-    public final Boolean isBtnSubmitEnable() {
+    public final Boolean isButtonSubmitEnable() {
         try {
-            return wrapper.findElement(By.name("submit")).isEnabled();
+            return wrapper.findElement(By.id("btn-submit-team")).isEnabled();
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             return false;
@@ -73,10 +73,10 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
         }
     }
 
-    public final void onClickBtnSubmit() {
+    public final void onClickButtonSubmit() {
         try {
-            if (wrapper.findElement(By.id("btn-submit-create-team")).isDisplayed()) {
-                wrapper.findElement(By.id("btn-submit-create-team")).click();
+            if (wrapper.findElement(By.id("btn-submit-team")).isDisplayed()) {
+                wrapper.findElement(By.id("btn-submit-team")).click();
             }
         } catch (NoSuchElementException e) {
             e.printStackTrace();
@@ -86,11 +86,11 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
     public final void clickDropDownListManager() {
         WebElement dropDownListManager = iboxContent.findElements(By.className("form-group")).get(1).findElement(By.className("col-md-8"));
         dropDownListManager.click();
-        itemManager = dropDownListManager.findElement(By.id("dropdown-manager")).findElement(By.tagName("div"));
+        itemManager = dropDownListManager.findElement(By.tagName("div")).findElement(By.className("ui-dropdown-panel"));
     }
 
     public final void selectManager() {
-        List<WebElement> listManager = itemManager.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
+        List<WebElement> listManager = itemManager.findElement(By.className("ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
         listManager.get(1).click();
     }
 }
