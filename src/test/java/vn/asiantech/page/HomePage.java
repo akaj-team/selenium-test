@@ -61,13 +61,13 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public final void onClickTabInIBoxContent(final String position) {
-        if (getBtnTab(wapper, position) != null && isElementPresented(getBtnTab(wapper, position))) {
-            getBtnTab(wapper, position).click();
+        if (getButtonTab(wapper, position) != null && isElementPresented(getButtonTab(wapper, position))) {
+            getButtonTab(wapper, position).click();
         }
     }
 
     public final boolean isColorTabInIBoxContentCorrect(final String color, final String position) {
-        return getActualColor(getBtnTab(wapper, position)).equals(color);
+        return getActualColor(getButtonTab(wapper, position)).equals(color);
     }
 
     public final boolean isColorOtherTabInIBoxContentCorrect(final String color, final String position) {
@@ -75,13 +75,13 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public final void onClickTabInRightSideBar(final String position) {
-        if (getBtnTab(rightSideBar, position) != null && isElementPresented(getBtnTab(rightSideBar, position))) {
-            getBtnTab(rightSideBar, position).click();
+        if (getButtonTab(rightSideBar, position) != null && isElementPresented(getButtonTab(rightSideBar, position))) {
+            getButtonTab(rightSideBar, position).click();
         }
     }
 
     public final boolean isColorTabInRightSideBarCorrect(final String position, final String activeColor) {
-        return getActualColor(getBtnTab(rightSideBar, position)).equals(activeColor);
+        return getActualColor(getButtonTab(rightSideBar, position)).equals(activeColor);
     }
 
     public final boolean isColorOtherTabInRightSideBarCorrect(final String position, final String defaultColor) {
@@ -161,7 +161,7 @@ public class HomePage extends BasePage<HomePage> {
         scrollElementContent(listFeed, driver, isDown);
     }
 
-    private WebElement getBtnTab(final WebElement elementContent, final String position) {
+    private WebElement getButtonTab(final WebElement elementContent, final String position) {
         List<WebElement> listBtnTab = elementContent.findElement(By.className("ui-buttonset-3")).findElements(By.className("ui-button-text-only"));
         return listBtnTab.get(Integer.parseInt(position));
     }
