@@ -5,8 +5,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
 
 import java.util.List;
@@ -18,12 +16,11 @@ import java.util.List;
 public class HomePage extends BasePage<HomePage> {
     public static final String URL_HOME_PAGE = "http://portal-stg.asiantech.vn/homepage";
     public static final int TIME_OUT_SECOND_NORMAL = 10;
-    private static final int TIME_OUT_SECOND_MAXIMUM = 20;
 
     @FindBy(className = "welcome-message")
     private WebElement txtWelcome;
 
-    @FindBy(className = "fa-sign-out")
+    @FindBy(id = "btn-logout")
     private WebElement btnLogout;
 
     @FindBy(className = "wapper")
@@ -38,7 +35,7 @@ public class HomePage extends BasePage<HomePage> {
     @FindBy(className = "notification-container")
     private WebElement homeContentHasData;
 
-    @FindBy(id = "input-filter")
+    @FindBy(name = "search")
     private WebElement inputSearch;
 
     @Override
@@ -63,33 +60,28 @@ public class HomePage extends BasePage<HomePage> {
         btnLogout.click();
     }
 
-    public final void waitForElementsVisibility(final WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM);
-        wait.until(ExpectedConditions.visibilityOfAllElements(wapper, rightSideBar));
-    }
-
-    public final void onClickTabInIBoxContent(final String tabName) {
-        if (getBtnTab(wapper, tabName) != null && isElementPresented(getBtnTab(wapper, tabName))) {
-            getBtnTab(wapper, tabName).click();
+    public final void onClickTabInIBoxContent(final String position) {
+        if (getBtnTab(wapper, position) != null && isElementPresented(getBtnTab(wapper, position))) {
+            getBtnTab(wapper, position).click();
         }
     }
 
-    public final boolean isColorTabInIBoxContentCorrect(final String color, final String tabName) {
-        return getActualColor(getBtnTab(wapper, tabName)).equals(color);
+    public final boolean isColorTabInIBoxContentCorrect(final String color, final String position) {
+        return getActualColor(getBtnTab(wapper, position)).equals(color);
     }
 
     public final boolean isColorOtherTabInIBoxContentCorrect(final String color, final String position) {
         return isColorOtherTabCorrect(wapper, color, position);
     }
 
-    public final void onClickTabInRightSideBar(final String tabName) {
-        if (getBtnTab(rightSideBar, tabName) != null && isElementPresented(getBtnTab(rightSideBar, tabName))) {
-            getBtnTab(rightSideBar, tabName).click();
+    public final void onClickTabInRightSideBar(final String position) {
+        if (getBtnTab(rightSideBar, position) != null && isElementPresented(getBtnTab(rightSideBar, position))) {
+            getBtnTab(rightSideBar, position).click();
         }
     }
 
-    public final boolean isColorTabInRightSideBarCorrect(final String tabName, final String activeColor) {
-        return getActualColor(getBtnTab(rightSideBar, tabName)).equals(activeColor);
+    public final boolean isColorTabInRightSideBarCorrect(final String position, final String activeColor) {
+        return getActualColor(getBtnTab(rightSideBar, position)).equals(activeColor);
     }
 
     public final boolean isColorOtherTabInRightSideBarCorrect(final String position, final String defaultColor) {
@@ -130,21 +122,21 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public final void onClickUserName() {
-        List<WebElement> listUserName = wapper.findElements(By.cssSelector("span.name"));
+        List<WebElement> listUserName = homeContentHasData.findElements(By.className("name"));
         listUserName.get(0).click();
     }
 
     public final void onClickAvatarInIBoxContent() {
-        List<WebElement> listAvatar = homeContentHasData.findElements(By.cssSelector("img.img-circle.pull-left"));
+        List<WebElement> listAvatar = homeContentHasData.findElements(By.cssSelector(".img-circle.pull-left"));
         listAvatar.get(0).click();
     }
 
     public final void onClickAvatarInRightSideBar() {
-        List<WebElement> listAvatar = rightSideBar.findElements(By.cssSelector("img.img-circle"));
+        List<WebElement> listAvatar = rightSideBar.findElements(By.className("img-circle"));
         listAvatar.get(0).click();
     }
 
-    public final void onClickBtnReaction(final int position) {
+    public final void onClickButtonReaction(final int position) {
         List<WebElement> listBtnReaction = rightSideBar.findElements(By.className("event-block")).get(0).findElements(By.cssSelector("button.btn-reaction.congrafs-btn"));
         if (listBtnReaction.size() > 0) {
             listBtnReaction.get(position).click();

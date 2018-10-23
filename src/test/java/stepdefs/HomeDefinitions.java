@@ -29,12 +29,7 @@ public class HomeDefinitions extends DriverBase implements En {
         homePage = initPage(getDriver(), HomePage.class);
 
         // Check Home page is started
-        Given("^I am stayed in home page$", () -> {
-            driver.get(URL_HOME_PAGE);
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            homePage.waitForElementsVisibility(getDriver());
-            Assert.assertEquals(URL_HOME_PAGE, driver.getCurrentUrl());
-        });
+        Given("^I am stayed in home page$", () -> waitForPageDisplayed(driver,URL_HOME_PAGE,By.className("wapper")));
 
         // Check color and data of tab on navigation header when clicked
         When("^I click on tab item \"([^\"]*)\"$", (String position) -> homePage.onClickTabInIBoxContent(position));
@@ -75,8 +70,8 @@ public class HomeDefinitions extends DriverBase implements En {
         });
 
         // Show effect when click on Flowers and Congrats
-        When("^I click on button Flowers$", () -> homePage.onClickBtnReaction(0));
-        When("^I click on button Congrats$", () -> homePage.onClickBtnReaction(1));
+        When("^I click on button Flowers$", () -> homePage.onClickButtonReaction(0));
+        When("^I click on button Congrats$", () -> homePage.onClickButtonReaction(1));
         Then("^I should see Flowers is displayed$", () -> Assert.assertTrue(homePage.isShowEffectForReaction()));
         Then("^I should see Congrats is displayed$", () -> Assert.assertTrue(homePage.isShowEffectForReaction()));
 
