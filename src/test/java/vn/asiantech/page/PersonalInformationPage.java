@@ -1,6 +1,9 @@
 package vn.asiantech.page;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
@@ -202,16 +205,6 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     public final void clearFocusTelephone() {
         inputTelephone.clear();
     }
-
-//    private boolean isFindElement(final WebElement webElement, final String name) {
-//        try {
-//            webElement.findElement(By.name(name));
-//            return true;
-//        } catch (NoSuchElementException ex) {
-//            return false;
-//        }
-//    }
-
 
     private String getMonth() {
         WebElement title = calendarForm.findElements(By.tagName("div")).get(1);
