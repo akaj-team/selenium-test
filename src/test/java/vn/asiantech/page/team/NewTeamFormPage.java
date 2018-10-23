@@ -1,7 +1,6 @@
-package vn.asiantech.page.teams;
+package vn.asiantech.page.team;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,9 +17,6 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
     private static final int MAX_LENGTH_NAME_TEAM = 50;
     @FindBy(css = ".wrapper.wrapper-content")
     private WebElement wrapper;
-
-    @FindBy(className = "ibox-content")
-    private WebElement iboxContent;
 
     private WebElement itemManager;
 
@@ -46,51 +42,37 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
         wrapper.findElement(By.name("name")).sendKeys(setNumberWhileSpace(whileSpaceBegging) + searchData + setNumberWhileSpace(whileSpaceEnd));
     }
 
+    public final Boolean isButtonSubmitEnable() {
+        return wrapper.findElement(By.id("btn-submit-team")).isEnabled();
+    }
+
+    public final boolean isMessageErrorShown() {
+        WebElement parentContainer = wrapper.findElement(By.xpath("//label[contains(text(),'Name')]/.."));
+        return parentContainer.findElement(By.className("help-block")).isDisplayed();
+    }
+
+    public final void onClickButtonSubmit() {
+        if (isElementPresented(wrapper.findElement(By.id("btn-submit-team")))) {
+            wrapper.findElement(By.id("btn-submit-team")).click();
+        }
+    }
+
+    public final void clickDropDownListManager() {
+        WebElement parentContainer = wrapper.findElement(By.xpath("//label[contains(text(),'Manager')]/.."));
+        parentContainer.click();
+        itemManager = parentContainer.findElement(By.tagName("div")).findElement(By.className("ui-dropdown-panel"));
+    }
+
+    public final void selectManager() {
+        List<WebElement> listManager = itemManager.findElement(By.className("ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
+        listManager.get(1).click();
+    }
+
     private String setNumberWhileSpace(final int number) {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < number; i++) {
             str.append(" ");
         }
         return str.toString();
-    }
-
-    public final Boolean isButtonSubmitEnable() {
-        try {
-            return wrapper.findElement(By.id("btn-submit-team")).isEnabled();
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public final boolean isMessageErrorShown() {
-        List<WebElement> formGroup = iboxContent.findElements(By.className("form-group"));
-        try {
-            return formGroup.get(0).findElement(By.className("help-block")).isDisplayed();
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public final void onClickButtonSubmit() {
-        try {
-            if (wrapper.findElement(By.id("btn-submit-team")).isDisplayed()) {
-                wrapper.findElement(By.id("btn-submit-team")).click();
-            }
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public final void clickDropDownListManager() {
-        WebElement dropDownListManager = iboxContent.findElements(By.className("form-group")).get(1).findElement(By.className("col-md-8"));
-        dropDownListManager.click();
-        itemManager = dropDownListManager.findElement(By.tagName("div")).findElement(By.className("ui-dropdown-panel"));
-    }
-
-    public final void selectManager() {
-        List<WebElement> listManager = itemManager.findElement(By.className("ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
-        listManager.get(1).click();
     }
 }

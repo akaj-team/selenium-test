@@ -8,15 +8,15 @@ Feature: Check teams page
     And I am stayed in new team page
 
   Scenario Outline: I fill to inputName with name invalid, button Submit is unable and message error is showed
-    When I fill in inputName with "<name>" with while space at begging and end are <whileSpaceBegging>, <whileSpaceEnd>
+    When I fill in inputName with "<name>" with while space at begging and end are <whileSpaceBeginning>, <whileSpaceEnd>
     Then Button submit is unable
     And Message error is displayed
     Examples:
-      | name                                                        | whileSpaceBegging | whileSpaceEnd |
-      | football group football group football group football group | 0                 | 0             |
-      | football group !@#$%^&*                                     | 0                 | 0             |
-      | football group                                              | 10                | 0             |
-      | football group                                              | 0                 | 20            |
+      | name                                                        | whileSpaceBeginning | whileSpaceEnd |
+      | football group football group football group football group | 0                   | 0             |
+      | football group !@#$%^&*                                     | 0                   | 0             |
+      | football group                                              | 10                  | 0             |
+      | football group                                              | 0                   | 20            |
 
   Scenario: I selected a manager but not fill name team, button Submit is unable
     When I open dropdown Manager

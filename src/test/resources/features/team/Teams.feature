@@ -19,7 +19,7 @@ Feature: Check teams page
   Scenario Outline: Search teams with result is empty
     When Enter search with name is "<searchData>"
     Then I should see list team is empty
-    And I should see message "No records found"
+    And I should see alert message "No records found"
     Examples:
       | searchData |
       | aaa999     |

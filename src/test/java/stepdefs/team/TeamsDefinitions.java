@@ -1,14 +1,13 @@
-package stepdefs.teams;
+package stepdefs.team;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.teams.TeamsPage;
+import vn.asiantech.page.team.TeamsPage;
 
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
@@ -35,16 +34,12 @@ public class TeamsDefinitions extends DriverBase implements En {
         teamsPage = initPage(getDriver(), TeamsPage.class);
         And("^I am stayed in teams page$", () -> {
             driver.get(URL_PAGE_TEAMS);
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
-            Assert.assertEquals(URL_PAGE_TEAMS, driver.getCurrentUrl());
+            waitForPageDisplayed(driver, URL_PAGE_TEAMS, By.className("ibox-content"));
         });
 
         And("^I am stayed in dialog confirm delete team at position is (\\d+)$", (Integer position) -> {
             driver.get(URL_PAGE_TEAMS);
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
-            Assert.assertEquals(URL_PAGE_TEAMS, driver.getCurrentUrl());
+            waitForPageDisplayed(driver, URL_PAGE_TEAMS, By.className("ibox-content"));
             nameTeam = teamsPage.onClickDeleteTeam(position);
             Assert.assertTrue(teamsPage.isDeleteDialogShown());
         });
@@ -58,7 +53,7 @@ public class TeamsDefinitions extends DriverBase implements En {
         });
         Then("^I should see list team$", () -> Assert.assertFalse(teamsPage.isTeamListEmpty()));
         Then("^I should see list team is empty$", () -> Assert.assertTrue(teamsPage.isTeamListEmpty()));
-        And("^I should see message \"([^\"]*)\"$", (String message) -> Assert.assertEquals(message, teamsPage.showMessageEmptyTeam()));
+        And("^I should see alert message \"([^\"]*)\"$", (String message) -> Assert.assertEquals(message, teamsPage.showMessageEmptyTeam()));
 
         // Open successfully profile when click on avatar or name team
         When("^I click on avatar of team$", () -> teamDetailUrl = teamsPage.onClickAvatarTeam());

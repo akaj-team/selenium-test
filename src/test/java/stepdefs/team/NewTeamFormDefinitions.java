@@ -1,15 +1,14 @@
-package stepdefs.teams;
+package stepdefs.team;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.teams.NewTeamFormPage;
-import vn.asiantech.page.teams.TeamsPage;
+import vn.asiantech.page.team.NewTeamFormPage;
+import vn.asiantech.page.team.TeamsPage;
 
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
@@ -35,16 +34,12 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
         teamsPage = initPage(getDriver(), TeamsPage.class);
         And("^I am stayed in new team page$", () -> {
             driver.get(URL_PAGE_NEW_TEAM);
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
-            Assert.assertEquals(URL_PAGE_NEW_TEAM, driver.getCurrentUrl());
+            waitForPageDisplayed(driver, URL_PAGE_NEW_TEAM, By.className("ibox-content"));
         });
 
         And("^I am stayed in update team page at position is (\\d+)$", (Integer position) -> {
             driver.get(URL_PAGE_TEAMS);
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));
-            Assert.assertEquals(URL_PAGE_TEAMS, driver.getCurrentUrl());
+            waitForPageDisplayed(driver, URL_PAGE_TEAMS, By.className("ibox-content"));
             String updateTeamUrl = teamsPage.onClickUpdateTeam(position);
             new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM).until(ExpectedConditions.urlToBe(updateTeamUrl));
             new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("ibox-content")));

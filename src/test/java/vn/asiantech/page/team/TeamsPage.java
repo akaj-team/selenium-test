@@ -1,4 +1,4 @@
-package vn.asiantech.page.teams;
+package vn.asiantech.page.team;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -81,14 +81,9 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     public final String onClickUpdateTeam(final int position) {
         WebElement columnAction = getColumnIndex(COLUMN_ACTION, position);
-        WebElement aUpdate = columnAction.findElement(By.className("update"));
-        aUpdate.click();
-        String href = "";
-        try {
-            href = aUpdate.getAttribute("href");
-        } catch (StaleElementReferenceException e) {
-            e.printStackTrace();
-        }
+        WebElement updateTeamElement = columnAction.findElement(By.className("update"));
+        String href = updateTeamElement.getAttribute("href");
+        updateTeamElement.click();
         return href;
     }
 
