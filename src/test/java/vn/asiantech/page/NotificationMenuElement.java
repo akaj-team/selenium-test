@@ -44,6 +44,7 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     }
 
     public final void seeAll() {
+        setDestinationUrl(seeAllButton.getAttribute("href"));
         seeAllButton.click();
     }
 

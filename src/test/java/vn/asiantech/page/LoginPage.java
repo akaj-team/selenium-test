@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 import vn.asiantech.base.Constant;
 
+import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
+
 public class LoginPage extends BasePage<LoginPage> {
     @FindBy(css = "input[formcontrolname=email]")
     private WebElement usernameInput;
@@ -44,7 +46,7 @@ public class LoginPage extends BasePage<LoginPage> {
     }
 
     public LoginPage waitForLoginButton() {
-        waitForElementDisplay(driver, loginButton, 5);
+        waitForElementDisplay(driver, loginButton, TIME_OUT_SECOND);
         return this;
     }
 
