@@ -37,4 +37,3 @@ Feature: Open Notification
     Given Notification menu is displayed
     When I click on mark all as read text
     Then List notification should be hide
-

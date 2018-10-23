@@ -34,10 +34,6 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
 
     private String destinationPath;
 
-    public final void seeAll() {
-        seeAllButton.click();
-    }
-
     @Override
     public final NotificationMenuElement navigateTo(final WebDriver webDriver) {
         return this;
@@ -45,6 +41,10 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
 
     public final void openNotification() {
         notificationMenuIcon.click();
+    }
+
+    public final void seeAll() {
+        seeAllButton.click();
     }
 
     public final Boolean notificationElementIsDisplay() {
