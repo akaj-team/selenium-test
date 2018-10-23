@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
 
 import java.util.List;
@@ -67,14 +68,9 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
     }
 
     public final void selectEmpType(final String empType) {
-        List<WebElement> formGroups = formContainer.findElements(By.cssSelector(".form-group"));
-        for (WebElement formGroup : formGroups) {
-            if (formGroup.findElement(By.tagName("label")).getText().equals("Employee Type")) {
-                dropDownEmpType = formGroup.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
-                dropDownEmpType.click();
-                break;
-            }
-        }
+        WebElement empTypeContainer = formContainer.findElement(By.xpath("//label[contains(text(),'Employee Type')]/.."));
+        dropDownEmpType = empTypeContainer.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
+        dropDownEmpType.click();
         for (WebElement li : dropDownEmpType.findElements(By.tagName("li"))) {
             if (li.findElement(By.tagName("span")).getText().equals(empType)) {
                 li.click();
@@ -97,29 +93,32 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         inputEmpCode.sendKeys(getCodeWithSpace(code, aheadSpace, behindSpace));
     }
 
-    public final void choosePosition() {
-        List<WebElement> formGroups = formContainer.findElements(By.cssSelector(".form-group"));
-        for (WebElement formGroup : formGroups) {
-            if (formGroup.findElement(By.tagName("label")).getText().equals("Position")) {
-                dropDownPosition = formGroup.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
-                break;
-            }
-        }
-        dropDownPosition.click();
-        dropDownPosition.findElements(By.tagName("li")).get(1).click();
+    public final boolean choosePosition() {
+        List<WebElement> positions = dropDownPosition.findElements(By.tagName("li"));
+        String positionSelected = positions.get(1).findElement(By.tagName("span")).getText();
+        positions.get(1).click();
+        return positionSelected.equals(dropDownPosition.findElement(By.tagName("label")).getText());
     }
 
-    public final void chooseLineManager(final WebDriver driver) throws InterruptedException {
-        for (int i = 0; i < driver.findElements(By.cssSelector(".form-group")).size(); i++) {
-            if (driver.findElements(By.cssSelector(".form-group")).get(i).findElement(By.tagName("label")).getText().equals("Line Manager")) {
-                dropDownLineManager = driver.findElements(By.cssSelector(".form-group")).get(i).findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
-                break;
-            }
-        }
-        System.out.println(dropDownLineManager.getAttribute("class"));
+    public final void clickPosition() {
+        WebElement positionContainer = formContainer.findElement(By.xpath("//label[contains(text(),'Position')]/.."));
+        dropDownPosition = positionContainer.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
+        dropDownPosition.click();
+    }
+
+    public final void clickLineManager() {
+        WebElement lineManageContainer = formContainer.findElements(By.xpath("//label[contains(text(),'Line Manager')]/..")).get(1);
+        System.out.println(lineManageContainer.getAttribute("class"));
+        dropDownLineManager = lineManageContainer.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
         dropDownLineManager.click();
-        Thread.sleep(1000);
-        dropDownLineManager.findElements(By.tagName("li")).get(0).click();
+    }
+
+
+    public final boolean chooseLineManager() {
+        WebElement lineManagerName = dropDownLineManager.findElements(By.tagName("li")).get(0);
+        String managerSelected = lineManagerName.findElement(By.tagName("span")).getText();
+        lineManagerName.click();
+        return managerSelected.equals(dropDownLineManager.findElement(By.tagName("label")).getText());
     }
 
     public final void clickButtonDialogSubmit() {
@@ -136,14 +135,9 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
     }
 
     public final boolean isEmpCodeErrorDisplayed(final String error) {
-        List<WebElement> formGroups = formContainer.findElements(By.cssSelector(".form-group"));
-        for (WebElement formGroup : formGroups) {
-            if (formGroup.findElement(By.tagName("label")).getText().equals("Employee Code")) {
-                WebElement errorElement = formGroup.findElement(By.cssSelector(".help-block"));
-                return errorElement.isDisplayed() && errorElement.getText().equals(error);
-            }
-        }
-        return false;
+        WebElement empCodeContainer = formContainer.findElement(By.xpath("//label[contains(text(),'Employee Code')]/.."));
+        WebElement errorElement = empCodeContainer.findElement(By.cssSelector(".help-block"));
+        return errorElement.isDisplayed() && errorElement.getText().equals(error);
     }
 
     public final boolean isEmpCodeInvalid() {
@@ -164,14 +158,9 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
     }
 
     public final boolean isEmailErrorDisplayed(final String error) {
-        List<WebElement> formGroups = formContainer.findElements(By.cssSelector(".form-group"));
-        for (WebElement formGroup : formGroups) {
-            if (formGroup.findElement(By.tagName("label")).getText().equals("Email")) {
-                WebElement errorElement = formGroup.findElement(By.cssSelector(".help-block"));
-                return errorElement.isDisplayed() && errorElement.getText().equals(error);
-            }
-        }
-        return false;
+        WebElement emailContainer = formContainer.findElement(By.xpath("//label[contains(text(),'Email')]/.."));
+        WebElement errorElement = emailContainer.findElement(By.cssSelector(".help-block"));
+        return errorElement.isDisplayed() && errorElement.getText().equals(error);
     }
 
     public final boolean isEmailInvalid() {

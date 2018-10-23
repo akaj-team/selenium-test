@@ -12,6 +12,8 @@ public class CompanyInformationDefinitions extends DriverBase implements En {
     private WebDriver driver;
     private PersonalInformationPage personalInformationPage;
     private CompanyInformationPage companyInformationPage;
+    private boolean isPositionSelected = false;
+    private boolean isManagerSelected = false;
 
     public CompanyInformationDefinitions() {
         try {
@@ -41,7 +43,7 @@ public class CompanyInformationDefinitions extends DriverBase implements En {
         And("^Fill employee code input with \"([^\"]*)\", \"([^\"]*)\" and \"([^\"]*)\"$", (String code, String aheadSpace, String behindSpace) ->
                 companyInformationPage.fillEmpCode(code, 0, 0));
 
-        And("^Select position$", () -> companyInformationPage.choosePosition());
+        And("^Select position$", () -> isPositionSelected = companyInformationPage.choosePosition());
 
         And("^Click submit button$", () -> {
             if (personalInformationPage.isSubmitClickable()) {
@@ -49,7 +51,7 @@ public class CompanyInformationDefinitions extends DriverBase implements En {
             }
         });
 
-        And("^Select line manager$", () -> companyInformationPage.chooseLineManager(driver));
+        And("^Select line manager$", () -> isManagerSelected = companyInformationPage.chooseLineManager());
 
         And("^Click submit button of a dialog is showed$", () -> companyInformationPage.clickButtonDialogSubmit());
 
@@ -79,5 +81,13 @@ public class CompanyInformationDefinitions extends DriverBase implements En {
         Then("^Error message \"([^\"]*)\" of email is displayed$", (String error) -> Assert.assertTrue(companyInformationPage.isEmailErrorDisplayed(error)));
 
         And("^A red border of email input is displayed$", () -> Assert.assertTrue(companyInformationPage.isEmailInvalid()));
+
+        When("^Click on dropdown position$", () -> companyInformationPage.clickPosition());
+
+        When("^Data of dropdown position is correct$", () -> Assert.assertTrue(isPositionSelected));
+
+        When("^Click on line manager$", () -> companyInformationPage.clickLineManager());
+
+        Then("^Data of dropdown line manager is correct$", () -> Assert.assertTrue(isManagerSelected));
     }
 }

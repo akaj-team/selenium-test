@@ -111,18 +111,11 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     }
 
     public final void chooseNationality(final WebDriver driver) {
-        List<WebElement> forms = driver.findElements(By.cssSelector(".form-group"));
-        WebElement nationity = null;
-        for (WebElement form : forms) {
-            if (form.findElement(By.tagName("label")).getText().equals("Nationality")) {
-                nationity = form.findElement(By.xpath("//div[contains(@class,'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix')]"));
-                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", nationity);
-                nationity.click();
-                break;
-            }
-        }
-        assert nationity != null;
-        WebElement nationContainer = nationity.findElement(By.cssSelector(".ui-dropdown-items-wrapper"));
+        WebElement nationalityContainer = formContainer.findElement(By.xpath("//label[contains(text(),'Nationality')]/.."));
+        WebElement nationality = nationalityContainer.findElement(By.tagName("p-dropdown"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", nationality);
+        nationality.click();
+        WebElement nationContainer = nationality.findElement(By.cssSelector(".ui-dropdown-items-wrapper"));
         waitForElement(driver, nationContainer, 10);
         List<WebElement> nations = nationContainer.findElement(By.tagName("ul")).findElements(By.tagName("li"));
         if (nations.size() > 0) {
@@ -131,8 +124,8 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     }
 
     public final boolean isFirstNameErrorMessageDisplayed() {
-        List<WebElement> formGroups = formContainer.findElement(By.cssSelector(".col-md-6.col-sm-8")).findElements(By.cssSelector(".form-group"));
-        return formGroups.get(0).findElement(By.tagName("span")).isDisplayed();
+        WebElement firstNameContainer = formContainer.findElement(By.xpath("//label[contains(text(),'First Name')]/.."));
+        return firstNameContainer.findElement(By.tagName("span")).isDisplayed();
     }
 
     public final void clearFocusMiddleName() {
@@ -144,8 +137,8 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     }
 
     public final boolean isLastNameErrorMessageDisplayed() {
-        List<WebElement> formGroups = formContainer.findElement(By.cssSelector(".col-md-6.col-sm-8")).findElements(By.cssSelector(".form-group"));
-        return formGroups.get(2).findElement(By.tagName("span")).isDisplayed();
+        WebElement lastNameContainer = formContainer.findElement(By.xpath("//label[contains(text(),'Last Name')]/.."));
+        return lastNameContainer.findElement(By.tagName("span")).isDisplayed();
     }
 
     public final boolean isLastNameInvalid() {
@@ -173,15 +166,10 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         inputMobile.sendKeys(phone);
     }
 
-    public final boolean isMobileErrorMessageShowed(final String message, final WebDriver driver) {
-        List<WebElement> forms = driver.findElements(By.cssSelector(".form-group"));
-        for (WebElement form : forms) {
-            if (isFindElement(form, "phone")) {
-                WebElement errorSms = form.findElements(By.cssSelector(".help-block")).get(0);
-                return errorSms.isDisplayed() && errorSms.getText().equals(message);
-            }
-        }
-        return false;
+    public final boolean isMobileErrorMessageShowed(final String message) {
+        WebElement mobileContainer = formContainer.findElement(By.xpath("//label[contains(text(),'Phone')]/.."));
+        WebElement errorSms = mobileContainer.findElement(By.tagName("span"));
+        return errorSms.isDisplayed() && errorSms.getText().equals(message);
     }
 
     public final boolean isMobileInvalid() {
@@ -197,15 +185,10 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         inputTelephone.sendKeys(telephone);
     }
 
-    public final boolean isTelephoneErrorMessageShowed(final String message, final WebDriver driver) {
-        List<WebElement> forms = driver.findElements(By.cssSelector(".form-group"));
-        for (WebElement form : forms) {
-            if (isFindElement(form, "telephone")) {
-                WebElement errorSms = form.findElements(By.cssSelector(".help-block")).get(1);
-                return errorSms.isDisplayed() && errorSms.getText().equals(message);
-            }
-        }
-        return false;
+    public final boolean isTelephoneErrorMessageShowed(final String message) {
+        WebElement mobileContainer = formContainer.findElement(By.xpath("//label[contains(text(),'Telephone')]/.."));
+        WebElement errorSms = mobileContainer.findElement(By.tagName("span"));
+        return errorSms.isDisplayed() && errorSms.getText().equals(message);
     }
 
     public final boolean isTelephoneInvalid() {
@@ -216,14 +199,14 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         inputTelephone.clear();
     }
 
-    private boolean isFindElement(final WebElement webElement, final String name) {
-        try {
-            webElement.findElement(By.name(name));
-            return true;
-        } catch (NoSuchElementException ex) {
-            return false;
-        }
-    }
+//    private boolean isFindElement(final WebElement webElement, final String name) {
+//        try {
+//            webElement.findElement(By.name(name));
+//            return true;
+//        } catch (NoSuchElementException ex) {
+//            return false;
+//        }
+//    }
 
 
     private String getMonth() {

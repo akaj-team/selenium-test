@@ -81,7 +81,7 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
             }
         });
 
-        Then("^Error message \"([^\"]*)\" of mobile is displayed$", (String errorMessage) -> Assert.assertTrue(personalInformationPage.isMobileErrorMessageShowed(errorMessage, driver)));
+        Then("^Error message \"([^\"]*)\" of mobile is displayed$", (String errorMessage) -> Assert.assertTrue(personalInformationPage.isMobileErrorMessageShowed(errorMessage)));
 
         And("^A red border of mobile input is displayed$", () -> Assert.assertTrue(personalInformationPage.isMobileInvalid()));
 
@@ -95,7 +95,7 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
 
         Then("^A red border of telephone input is displayed$", () -> Assert.assertTrue(personalInformationPage.isTelephoneInvalid()));
 
-        Then("^Error message \"([^\"]*)\" of telephone is displayed$", (String errorMessage) -> Assert.assertTrue(personalInformationPage.isTelephoneErrorMessageShowed(errorMessage, driver)));
+        Then("^Error message \"([^\"]*)\" of telephone is displayed$", (String errorMessage) -> Assert.assertTrue(personalInformationPage.isTelephoneErrorMessageShowed(errorMessage)));
 
         Then("^Open successfully company information tab with FirstName \"([^\"]*)\", LastName \"([^\"]*)\"$", (String fistName, String lastName) -> {
             personalInformationPage.fillFirstName(fistName, 0, 0);
