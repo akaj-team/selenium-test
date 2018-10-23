@@ -10,7 +10,6 @@ import java.net.URL;
 
 import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
-import static vn.asiantech.base.DriverType.CHROME;
 import static vn.asiantech.base.DriverType.FIREFOX;
 
 public class DriverFactory {
