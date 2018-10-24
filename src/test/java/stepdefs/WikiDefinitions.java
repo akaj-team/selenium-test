@@ -20,7 +20,7 @@ import java.util.List;
  */
 
 public class WikiDefinitions extends DriverBase implements En {
-    private static final int TIMEOUTINSECONDS = 5;
+    private static final int TIME_OUT_IN_SECONDS = 5;
 
     private WebDriver driver;
     private WikiPage wikiPage;
@@ -37,7 +37,7 @@ public class WikiDefinitions extends DriverBase implements En {
         Given("^I am logged in as an team member$", () -> {
             driver.get("http://portal-stg.asiantech.vn");
             wikiPage = initPage(getDriver(), WikiPage.class);
-            new WebDriverWait(driver, TIMEOUTINSECONDS).until(
+            new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             String url = driver.getCurrentUrl();
             if (url.endsWith("/auth/login")) {
@@ -48,7 +48,7 @@ public class WikiDefinitions extends DriverBase implements En {
                 usernameInput.sendKeys("stg.thien.dang2@asiantech.vn");
                 passwordInput.sendKeys("Abc123@@");
                 driver.findElement(By.className("btn-primary")).click();
-                new WebDriverWait(driver, TIMEOUTINSECONDS).until(
+                new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
                         webDriver -> webDriver.findElement(By.className("welcome-message")).isDisplayed());
                 Assert.assertTrue(driver.findElement(By.className("welcome-message")).isDisplayed());
             } else {
@@ -91,9 +91,9 @@ public class WikiDefinitions extends DriverBase implements En {
 
     private void displayPage(final String path) {
         driver.get("http://portal-stg.asiantech.vn" + path);
-        new WebDriverWait(driver, TIMEOUTINSECONDS).until(
+        new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        new WebDriverWait(driver, TIMEOUTINSECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+        new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
         Assert.assertEquals("http://portal-stg.asiantech.vn" + path, driver.getCurrentUrl());
     }
 }

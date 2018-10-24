@@ -12,6 +12,8 @@ import vn.asiantech.base.BasePage;
  */
 
 public class WikiPage extends BasePage<WikiPage> {
+    private final int POS_ICON_PACKAGE = 5;
+    private final int POS_TITlE = 0;
 
     @FindBy(id = "link-to-wiki-author-detail")
     private WebElement txtAuthor;
@@ -27,9 +29,6 @@ public class WikiPage extends BasePage<WikiPage> {
 
     @FindBy(id = "btn-edit-wiki")
     private WebElement btnEdit;
-
-    @FindBy(id = "static-dialog-wrapper")
-    private WebElement dialog;
 
     @Override
     public final WikiPage navigateTo(final WebDriver webDriver) {
@@ -53,11 +52,11 @@ public class WikiPage extends BasePage<WikiPage> {
     }
 
     public final void clickTitle() {
-        treeContainer.findElements(By.tagName("li")).get(0).click();
+        treeContainer.findElements(By.tagName("li")).get(POS_TITlE).click();
     }
 
     public final void clickIconPackageWikiHome() {
-        getIconPackage(0).click();
+        getIconPackage(POS_TITlE).click();
     }
 
     public final boolean isRemoveCategories() {
@@ -71,11 +70,11 @@ public class WikiPage extends BasePage<WikiPage> {
 
     public final void clickIconPackageCompanyDocument() {
         clickIconPackageWikiHome();
-        getIconPackage(5).click();
+        getIconPackage(POS_ICON_PACKAGE).click();
     }
 
     public final void clickIconPackageCompanyDocumentAgain() {
-        getIconPackage(5).click();
+        getIconPackage(POS_ICON_PACKAGE).click();
     }
 
     public final boolean isHideCategoryInside() {
@@ -92,6 +91,6 @@ public class WikiPage extends BasePage<WikiPage> {
     }
 
     private WebElement getTitleCategory() {
-        return treeContainer.findElements(By.cssSelector(".ui-treenode.ng-star-inserted")).get(5);
+        return treeContainer.findElements(By.cssSelector(".ui-treenode.ng-star-inserted")).get(POS_ICON_PACKAGE);
     }
 }
