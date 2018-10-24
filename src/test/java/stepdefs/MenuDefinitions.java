@@ -8,7 +8,12 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.MenuPage;
 
+/**
+ * @author at-hanhnguyen
+ */
 public class MenuDefinitions extends DriverBase implements En {
+
+    private static final int TIME_WAIT = 10;
     private MenuPage menuPage;
 
     public MenuDefinitions() {
@@ -103,7 +108,7 @@ public class MenuDefinitions extends DriverBase implements En {
     }
 
     private void redirectPageWhenClickChildItem(String path) {
-        new WebDriverWait(getDriver(), 10).until(
+        new WebDriverWait(getDriver(), TIME_WAIT).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete")
         );
         String url = getDriver().getCurrentUrl();

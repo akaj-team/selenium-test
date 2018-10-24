@@ -13,6 +13,9 @@ import java.util.List;
 
 import static vn.asiantech.base.DriverBase.getDriver;
 
+/**
+ * @author at-hanhnguyen
+ */
 public class MenuPage extends BasePage<MenuPage> {
 
     private static final int MENU_ACCOUNT_NAME_POS = 0;
@@ -52,38 +55,38 @@ public class MenuPage extends BasePage<MenuPage> {
         return this;
     }
 
-    public boolean checkShowAccountNameShown() {
+    public final boolean checkShowAccountNameShown() {
         return accountName.isDisplayed();
     }
 
-    public boolean checkTextAccountName(String inputName) {
+    public final boolean checkTextAccountName(String inputName) {
         return accountName.getText().equals(inputName);
     }
 
-    public boolean checkColorItemHomeIsWhite(String whiteColor) {
+    public final boolean checkColorItemHomeIsWhite(String whiteColor) {
         WebElement itemHome = getItemMenuInPosition(MENU_HOME_POS);
         String color = itemHome.findElement(By.tagName("a")).getCssValue("color");
         String actualColor = getColorString(color);
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
-    public boolean checkItemTimeSheetClose() {
+    public final boolean checkItemTimeSheetClose() {
         WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
         return itemTimeSheet.findElement(By.tagName("ul")).isDisplayed();
     }
 
-    public void clickItemMenu() {
+    public final void clickItemMenu() {
         WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
         itemTimeSheet.click();
     }
 
-    public void hoverMouseToAccountName() {
+    public final void hoverMouseToAccountName() {
         WebElement itemProfile = getItemMenuInPosition(MENU_ACCOUNT_NAME_POS);
         Actions builder = new Actions(getDriver());
         builder.moveToElement(itemProfile.findElement(By.id("link-to-my-profile")).findElement(By.className("font-bold"))).build().perform();
     }
 
-    public void clickMyTimeSheet() {
+    public final void clickMyTimeSheet() {
         WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
         WebElement myTimeSheet = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_MY_TIME_SHEET_POS);
         myTimeSheet.click();
@@ -94,7 +97,7 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public boolean checkMyTimeSheetColor(String whiteColor) {
+    public final boolean checkMyTimeSheetColor(String whiteColor) {
         WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
         WebElement myTimeSheet = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_MY_TIME_SHEET_POS);
         String color = myTimeSheet.findElement(By.tagName("a")).getCssValue("color");
@@ -102,7 +105,7 @@ public class MenuPage extends BasePage<MenuPage> {
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
-    public void clickTimeSheetOfOthers() {
+    public final void clickTimeSheetOfOthers() {
         WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
         WebElement myTimeSheetOfOthers = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_TIME_SHEET_OTHER_POS);
         myTimeSheetOfOthers.click();
@@ -113,7 +116,7 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public boolean checkTimeSheetOfOtherColor(String whiteColor) {
+    public final boolean checkTimeSheetOfOtherColor(String whiteColor) {
         WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
         WebElement myTimeSheetOfOthers = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_TIME_SHEET_OTHER_POS);
         String color = myTimeSheetOfOthers.findElement(By.tagName("a")).getCssValue("color");
@@ -121,7 +124,7 @@ public class MenuPage extends BasePage<MenuPage> {
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
-    public void clickHomeItem() {
+    public final void clickHomeItem() {
         WebElement itemHome = getItemMenuInPosition(MENU_HOME_POS);
         itemHome.click();
         try {
@@ -131,24 +134,24 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public boolean checkItemLeaveClose() {
+    public final boolean checkItemLeaveClose() {
         WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         return itemLeave.findElement(By.tagName("ul")).isDisplayed();
     }
 
-    public void clickItemLeave() {
+    public final void clickItemLeave() {
         WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         itemLeave.click();
     }
 
-    public boolean checkColorItemLeaveIsWhite(String whiteColor) {
+    public final boolean checkColorItemLeaveIsWhite(String whiteColor) {
         WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         String color = itemLeave.findElement(By.tagName("a")).getCssValue("color");
         String actualColor = getColorString(color);
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
-    public void clickMyLeave() {
+    public final void clickMyLeave() {
         WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         WebElement myLeave = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_MY_LEAVE_POS);
         myLeave.click();
@@ -159,7 +162,7 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public boolean checkColorMyLeave(String whiteColor) {
+    public final boolean checkColorMyLeave(String whiteColor) {
         WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         WebElement myLeave = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_MY_LEAVE_POS);
         String color = myLeave.findElement(By.tagName("a")).getCssValue("color");
@@ -167,7 +170,7 @@ public class MenuPage extends BasePage<MenuPage> {
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
-    public void clickLeavePlanner() {
+    public final void clickLeavePlanner() {
         WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         WebElement leavePlanner = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_LEAVE_PLANNER_POS);
         leavePlanner.click();
@@ -178,7 +181,7 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public void clickLeaveOfOther() {
+    public final void clickLeaveOfOther() {
         WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         WebElement leaveOfOther = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_LEAVE_OTHER_POS);
         leaveOfOther.click();
@@ -189,7 +192,7 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public void clickLeaveBalance() {
+    public final void clickLeaveBalance() {
         WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         WebElement leaveBalance = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_LEAVE_BALANCE_POS);
         leaveBalance.click();
@@ -200,17 +203,17 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public boolean checkItemOrganisationClose() {
+    public final boolean checkItemOrganisationClose() {
         WebElement itemOrganisation = getItemMenuInPosition(MENU_ORGANISATION_POS);
         return itemOrganisation.findElement(By.tagName("ul")).isDisplayed();
     }
 
-    public void clickItemOrganisation() {
+    public final void clickItemOrganisation() {
         WebElement itemOrganisation = getItemMenuInPosition(MENU_ORGANISATION_POS);
         itemOrganisation.click();
     }
 
-    public void clickChildItemOrganisation(String childPosition) {
+    public final void clickChildItemOrganisation(String childPosition) {
         WebElement itemOrganisation = getItemMenuInPosition(MENU_ORGANISATION_POS);
         WebElement childItemOrganisation = getChildItemMenuInPosition(itemOrganisation, Integer.valueOf(childPosition));
         childItemOrganisation.click();
@@ -221,18 +224,18 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public boolean checkCountMyTeamIsZero() {
+    public final boolean checkCountMyTeamIsZero() {
         WebElement itemOrganisation = getItemMenuInPosition(MENU_ORGANISATION_POS);
         WebElement itemMyTeam = getChildItemMenuInPosition(itemOrganisation, CHILD_MENU_ORGANISATION_MY_TEAM_POS);
         return itemMyTeam.findElements(By.tagName("li")).size() == 0;
     }
 
-    public void clickItemProjectManagement() {
+    public final void clickItemProjectManagement() {
         WebElement itemProjectManagement = getItemMenuInPosition(MENU_PROJECT_MANAGEMENT_POS);
         itemProjectManagement.click();
     }
 
-    public void clickChildItemProjectManagement(String childPosition) {
+    public final void clickChildItemProjectManagement(String childPosition) {
         WebElement itemProjectManagement = getItemMenuInPosition(MENU_PROJECT_MANAGEMENT_POS);
         WebElement childItemProject = getChildItemMenuInPosition(itemProjectManagement, Integer.valueOf(childPosition));
         childItemProject.click();
@@ -243,7 +246,7 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public void clickItemWiki() {
+    public final void clickItemWiki() {
         WebElement itemWiki = getItemMenuInPosition(MENU_WIKI_POS);
         itemWiki.click();
         try {
@@ -253,12 +256,12 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public void clickItemAdministration() {
+    public final void clickItemAdministration() {
         WebElement itemAdministration = getItemMenuInPosition(MENU_ADMINISTRATION_POS);
         itemAdministration.click();
     }
 
-    public void clickChildItemAdministration(String childPosition) {
+    public final void clickChildItemAdministration(String childPosition) {
         WebElement itemAdministration = getItemMenuInPosition(MENU_ADMINISTRATION_POS);
         WebElement childItemAdministration = getChildItemMenuInPosition(itemAdministration, Integer.valueOf(childPosition));
         childItemAdministration.click();
@@ -269,12 +272,12 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public void clickItemDevice() {
+    public final void clickItemDevice() {
         WebElement itemDevice = getItemMenuInPosition(MENU_DEVICE_POS);
         itemDevice.click();
     }
 
-    public void clickChildItemDevice(String childPosition) {
+    public final void clickChildItemDevice(String childPosition) {
         WebElement itemDevice = getItemMenuInPosition(MENU_DEVICE_POS);
         WebElement childItemDevice = getChildItemMenuInPosition(itemDevice, Integer.valueOf(childPosition));
         childItemDevice.click();
@@ -285,12 +288,12 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public void clickItemTools() {
+    public final void clickItemTools() {
         WebElement itemTools = getItemMenuInPosition(MENU_TOOL_POS);
         itemTools.click();
     }
 
-    public void clickChildItemTools(String childPosition) {
+    public final void clickChildItemTools(String childPosition) {
         WebElement itemTools = getItemMenuInPosition(MENU_TOOL_POS);
         WebElement childItemTools = getChildItemMenuInPosition(itemTools, Integer.valueOf(childPosition));
         childItemTools.click();
@@ -301,12 +304,12 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public void clickItemCareer() {
+    public final void clickItemCareer() {
         WebElement itemCareer = getItemMenuInPosition(MENU_CAREER_POS);
         itemCareer.click();
     }
 
-    public void clickChildItemCareer(String childPosition) {
+    public final void clickChildItemCareer(String childPosition) {
         WebElement itemCareer = getItemMenuInPosition(MENU_CAREER_POS);
         WebElement childItemCareer = getChildItemMenuInPosition(itemCareer, Integer.valueOf(childPosition));
         childItemCareer.click();
