@@ -236,12 +236,12 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         // To-do later
     }
 
-    private WebElement findLeaveBalance(int pos) {
+    private WebElement findLeaveBalance(final int pos) {
         List<WebElement> balances = tableLeaveBalance.findElements(By.tagName("dd"));
         return balances.get(pos).findElement(By.tagName("span"));
     }
 
-    private void findDayLeave(String type, String day) {
+    private void findDayLeave(final String type,final String day) {
         WebElement data;
         WebElement item = null;
         if (type.equals("timeTo")) {
@@ -269,7 +269,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         }
     }
 
-    private WebElement findRadioButtonDateRequest(int col) {
+    private WebElement findRadioButtonDateRequest(final int col) {
         waitForElementDisplay(getDriver(), tableDateRequest, TIMEOUTINSECONDS);
         WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
 

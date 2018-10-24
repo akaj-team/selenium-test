@@ -45,7 +45,7 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
                 usernameInput.sendKeys("stg.thien.dang2@asiantech.vn");
                 passwordInput.sendKeys("Abc123@@");
                 driver.findElement(By.className("btn-primary")).click();
-                new WebDriverWait(driver, 5).until(
+                new WebDriverWait(driver, TIMEOUTINSECONDS).until(
                         webDriver -> webDriver.findElement(By.className("welcome-message")).isDisplayed());
                 Assert.assertTrue(driver.findElement(By.className("welcome-message")).isDisplayed());
             } else {
