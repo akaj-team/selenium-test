@@ -13,41 +13,42 @@ import static vn.asiantech.base.DriverBase.getDriver;
 public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     private static final int TIMEOUTINSECONDS = 5;
 
-    @FindBy(id = "leave-type-select")
+    @FindBy(xpath = "//label[contains(@class,'ui-inputtext')]")
     private WebElement inputTypeOfLeave;
 
-    @FindBy(id = "start-date-select")
-    private WebElement inputTimeFrom;
+    @FindBy(css = ".input-daterange.input-group")
+    private WebElement inputDateRange;
 
-    @FindBy(id = "end-date-select")
-    private WebElement inputTimeTo;
-
-    @FindBy(id = "start-date-select")
+    @FindBy(xpath = "//table[contains(@class,'ui-datepicker-calendar')]")
     private WebElement calendarTimeFrom;
 
-    @FindBy(id = "end-date-select")
+    @FindBy(xpath = "//table[contains(@class,'ui-datepicker-calendar')]")
     private WebElement calendarTimeTo;
 
-    @FindBy(id = "leave-request-content")
+    @FindBy(css = ".table.table-striped.table-vm.has-error")
     private WebElement tableDateRequest;
 
     @FindBy(id = "cke_1_contents")
     private WebElement inputMessage;
 
-    @FindBy(css = ".dl-horizontal.m-t-xs.ng-star-inserted")
+    @FindBy(id = "leave-balance-remain-wrapper")
     private WebElement tableLeaveBalance;
 
-    @FindBy(name = "submit")
+    @FindBy(id = "btn-submit-leave")
     private WebElement btnSubmit;
 
-    @FindBy(id = "leave-type-select")
+    @FindBy(className = "ui-dropdown-items-wrapper")
     private WebElement menuTypeOfLeave;
 
     @FindBy(css = ".text-center.m-t-xs.ng-star-inserted")
     private WebElement messageTypeOfLeave;
 
-    @FindBy(id = "static-dialog")
+    @FindBy(id = "static-dialog-wrapper")
     private WebElement dialog;
+
+    @FindBy(id = "btn-link-to-my-leave")
+    private WebElement btnMyLeave;
+
 
     @Override
 
@@ -121,11 +122,11 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final void clickTimeFromBox() {
-        inputTimeFrom.click();
+        inputDateRange.findElements(By.tagName("p-calendar")).get(0).click();
     }
 
     public final void clickTimeToBox() {
-        inputTimeTo.click();
+        inputDateRange.findElements(By.tagName("p-calendar")).get(1).click();
     }
 
     public final void chooseTime(String type) {
@@ -142,7 +143,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final boolean isDateRequestShow() {
-        waitForElementDisplay(getDriver(), tableDateRequest, TIMEOUTINSECONDS);
+        waitForElementDisplay(getDriver(), tableDateRequest, 5);
         return true;
     }
 
