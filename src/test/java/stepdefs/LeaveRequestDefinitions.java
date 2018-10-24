@@ -13,12 +13,16 @@ import vn.asiantech.page.LeaveRequestPage;
 
 import java.util.List;
 
+/**
+ * @author at-anh-quach
+ */
 public class LeaveRequestDefinitions extends DriverBase implements En {
+    private static final int TIMEOUTINSECONDS = 10;
+
     private WebDriver driver;
     private WebElement usernameInput;
     private WebElement passwordInput;
     private LeaveRequestPage leaveRequestPage;
-
 
     public LeaveRequestDefinitions() {
         try {
@@ -30,7 +34,7 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
         Given("^I am logged in as an team member$", () -> {
             driver.get("http://portal-stg.asiantech.vn");
             leaveRequestPage = initPage(getDriver(), LeaveRequestPage.class);
-            new WebDriverWait(driver, 10).until(
+            new WebDriverWait(driver, TIMEOUTINSECONDS).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             String url = driver.getCurrentUrl();
             if (url.endsWith("/auth/login")) {
@@ -51,9 +55,9 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         And("^Display leave request page$", () -> {
             driver.get("http://portal-stg.asiantech.vn/leave/request");
-            new WebDriverWait(driver, 10).until(
+            new WebDriverWait(driver, TIMEOUTINSECONDS).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+            new WebDriverWait(driver, TIMEOUTINSECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
             Assert.assertEquals("http://portal-stg.asiantech.vn/leave/request", driver.getCurrentUrl());
         });
 

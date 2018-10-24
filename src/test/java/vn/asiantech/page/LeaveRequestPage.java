@@ -10,6 +10,9 @@ import java.util.List;
 
 import static vn.asiantech.base.DriverBase.getDriver;
 
+/**
+ * @author at-anh-quach
+ */
 public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     private static final int TIMEOUTINSECONDS = 5;
 
@@ -57,20 +60,20 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         return this;
     }
 
-    public final boolean checkTextAnnualLeave(String annualLeave) {
+    public final boolean checkTextAnnualLeave(final String annualLeave) {
         waitForElementDisplay(getDriver(), tableLeaveBalance, TIMEOUTINSECONDS);
         return findLeaveBalance(0).getText().equals(annualLeave);
     }
 
-    public final boolean checkTextMarriageLeave(String marriageLeave) {
+    public final boolean checkTextMarriageLeave(final String marriageLeave) {
         return findLeaveBalance(1).getText().equals(marriageLeave);
     }
 
-    public final boolean checkTextOvertimeLeave(String overTimeLeave) {
+    public final boolean checkTextOvertimeLeave(final String overTimeLeave) {
         return findLeaveBalance(2).getText().equals(overTimeLeave);
     }
 
-    public final boolean checkTextPaternalLeave(String paternalLeave) {
+    public final boolean checkTextPaternalLeave(final String paternalLeave) {
         return findLeaveBalance(3).getText().equals(paternalLeave);
     }
 
@@ -82,7 +85,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         return menuTypeOfLeave.isDisplayed();
     }
 
-    public final void clickItemMenuType(String status) {
+    public final void clickItemMenuType(final String status) {
         waitForElementDisplay(getDriver(), menuTypeOfLeave, TIMEOUTINSECONDS);
 
         WebElement itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
@@ -117,7 +120,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         return btnSubmit.isEnabled();
     }
 
-    public final boolean isShowMessage(String mess) {
+    public final boolean isShowMessage(final String mess) {
         return messageTypeOfLeave.isDisplayed() && messageTypeOfLeave.getText().equals(mess);
     }
 
@@ -129,12 +132,12 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         inputDateRange.findElements(By.tagName("p-calendar")).get(1).click();
     }
 
-    public final void chooseTime(String type) {
+    public final void chooseTime(final String type) {
         java.util.Date date = new java.util.Date();
         findDayLeave(type, date.getDate() + "");
     }
 
-    public final boolean isCalendarShow(String type) {
+    public final boolean isCalendarShow(final String type) {
         if (type.equals("timeFrom")) {
             return calendarTimeFrom.isDisplayed();
         } else {
@@ -143,11 +146,11 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final boolean isDateRequestShow() {
-        waitForElementDisplay(getDriver(), tableDateRequest, 5);
+        waitForElementDisplay(getDriver(), tableDateRequest, TIMEOUTINSECONDS);
         return true;
     }
 
-    public final void setNonePaidInTypeOfLeave(String status) {
+    public final void setNonePaidInTypeOfLeave(final String status) {
         clickMenuTypeOfLeave();
         clickItemMenuType(status);
     }
@@ -176,13 +179,13 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         return findRadioButtonDateRequest(2).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
     }
 
-    public final boolean checkDateInDateRequest(int row, String date) {
+    public final boolean checkDateInDateRequest(final int row, final String date) {
         WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
         List<WebElement> rows = data.findElements(By.tagName("tr"));
         return rows.get(row).findElement(By.className("text-left")).getText().equals(date);
     }
 
-    public final void clickRemoveButton(int row) {
+    public final void clickRemoveButton(final int row) {
         WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
         List<WebElement> rows = data.findElements(By.tagName("tr"));
         rows.get(row).findElement(By.className("delete")).click();
