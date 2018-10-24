@@ -1,7 +1,6 @@
 package vn.asiantech.page.team;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -63,28 +62,18 @@ public class TeamsPage extends BasePage<TeamsPage> {
     public final String onClickNameManager() {
         WebElement columnName = getColumnIndex(COLUMN_MANAGER, 0);
         WebElement nameManager = columnName.findElement(By.tagName("a"));
-        nameManager.click();
-        return nameManager.getAttribute("href");
+        return onClickLinkAndReturnHref(nameManager);
     }
 
     public final String onClickNewTeam() {
         WebElement newEmployee = titleAction.findElement(By.id("btn-create-team"));
-        newEmployee.click();
-        String href = "";
-        try {
-            href = newEmployee.getAttribute("href");
-        } catch (StaleElementReferenceException e) {
-            e.printStackTrace();
-        }
-        return href;
+        return onClickLinkAndReturnHref(newEmployee);
     }
 
     public final String onClickUpdateTeam(final int position) {
         WebElement columnAction = getColumnIndex(COLUMN_ACTION, position);
         WebElement updateTeamElement = columnAction.findElement(By.className("update"));
-        String href = updateTeamElement.getAttribute("href");
-        updateTeamElement.click();
-        return href;
+        return onClickLinkAndReturnHref(updateTeamElement);
     }
 
     public final String onClickDeleteTeam(final int position) {
@@ -108,6 +97,12 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     public final void onClickButtonDeleteInDialogDelete() {
         hiddenBody.findElement(By.className("btn-submit")).click();
+    }
+
+    private String onClickLinkAndReturnHref(WebElement element) {
+        String href = element.getAttribute("href");
+        element.click();
+        return href;
     }
 
     private String getViewContainerOfColumnName(final By tagName) {
