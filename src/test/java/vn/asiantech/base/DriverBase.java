@@ -14,11 +14,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static vn.asiantech.utils.Constants.TIME_OUT_SECONDS_NORMAL;
-import static vn.asiantech.utils.Constants.TIME_OUT_SECOND_MAXIMUM;
-
 public class DriverBase {
 
+    private static final int TIME_OUT_SECONDS_NORMAL = 10;
+    private static final int TIME_OUT_SECOND_MAXIMUM = 20;
     private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
     private static ThreadLocal<DriverFactory> driverFactoryThread;
 
