@@ -99,7 +99,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
         hiddenBody.findElement(By.className("btn-submit")).click();
     }
 
-    private String onClickLinkAndReturnHref(WebElement element) {
+    private String onClickLinkAndReturnHref(final WebElement element) {
         String href = element.getAttribute("href");
         element.click();
         return href;
