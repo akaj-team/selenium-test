@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static vn.asiantech.utils.Constains.TIME_OUT_SECONDS_NORMAL;
-import static vn.asiantech.utils.Constains.TIME_OUT_SECOND_MAXIMUM;
+import static vn.asiantech.utils.Constants.TIME_OUT_SECONDS_NORMAL;
+import static vn.asiantech.utils.Constants.TIME_OUT_SECOND_MAXIMUM;
 
 public class DriverBase {
 
