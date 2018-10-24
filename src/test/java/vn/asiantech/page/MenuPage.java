@@ -14,6 +14,30 @@ import java.util.List;
 import static vn.asiantech.base.DriverBase.getDriver;
 
 public class MenuPage extends BasePage<MenuPage> {
+
+    private static final int MENU_ACCOUNT_NAME_POS = 0;
+    private static final int MENU_HOME_POS = 1;
+    private static final int MENU_TIME_SHEET_POS = 2;
+    private static final int MENU_LEAVE_POS = 3;
+    private static final int MENU_ORGANISATION_POS = 4;
+    private static final int MENU_PROJECT_MANAGEMENT_POS = 5;
+    private static final int MENU_WIKI_POS = 6;
+    private static final int MENU_ADMINISTRATION_POS = 7;
+    private static final int MENU_DEVICE_POS = 8;
+    private static final int MENU_TOOL_POS = 9;
+    private static final int MENU_CAREER_POS = 10;
+
+    private static final int CHILD_MENU_MY_TIME_SHEET_POS = 0;
+    private static final int CHILD_MENU_TIME_SHEET_OTHER_POS = 1;
+    private static final int CHILD_MENU_MY_LEAVE_POS = 0;
+    private static final int CHILD_MENU_LEAVE_PLANNER_POS = 1;
+    private static final int CHILD_MENU_LEAVE_OTHER_POS = 2;
+    private static final int CHILD_MENU_LEAVE_BALANCE_POS = 3;
+    private static final int CHILD_MENU_ORGANISATION_MY_TEAM_POS = 2;
+
+    private static final int TIME_SLEEP = 200;
+    private static final int TIME_SLEEP_WIKI = 500;
+
     @FindBy(id = "side-menu")
     private WebElement sideMenu;
     @FindBy(className = "font-bold")
@@ -37,190 +61,260 @@ public class MenuPage extends BasePage<MenuPage> {
     }
 
     public boolean checkColorItemHomeIsWhite(String whiteColor) {
-        WebElement itemHome = getItemMenuInPosition(1);
+        WebElement itemHome = getItemMenuInPosition(MENU_HOME_POS);
         String color = itemHome.findElement(By.tagName("a")).getCssValue("color");
         String actualColor = getColorString(color);
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
     public boolean checkItemTimeSheetClose() {
-        WebElement itemTimeSheet = getItemMenuInPosition(2);
+        WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
         return itemTimeSheet.findElement(By.tagName("ul")).isDisplayed();
     }
 
     public void clickItemMenu() {
-        WebElement itemTimeSheet = getItemMenuInPosition(2);
+        WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
         itemTimeSheet.click();
     }
 
     public void hoverMouseToAccountName() {
-        WebElement itemProfile = getItemMenuInPosition(0);
+        WebElement itemProfile = getItemMenuInPosition(MENU_ACCOUNT_NAME_POS);
         Actions builder = new Actions(getDriver());
         builder.moveToElement(itemProfile.findElement(By.id("link-to-my-profile")).findElement(By.className("font-bold"))).build().perform();
     }
 
     public void clickMyTimeSheet() {
-        WebElement itemTimeSheet = getItemMenuInPosition(2);
-        WebElement myTimeSheet = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
+        WebElement myTimeSheet = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_MY_TIME_SHEET_POS);
         myTimeSheet.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean checkMyTimeSheetColor(String whiteColor) {
-        WebElement itemTimeSheet = getItemMenuInPosition(2);
-        WebElement myTimeSheet = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
+        WebElement myTimeSheet = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_MY_TIME_SHEET_POS);
         String color = myTimeSheet.findElement(By.tagName("a")).getCssValue("color");
         String actualColor = getColorString(color);
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
     public void clickTimeSheetOfOthers() {
-        WebElement itemTimeSheet = getItemMenuInPosition(2);
-        WebElement myTimeSheetOfOthers = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
+        WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
+        WebElement myTimeSheetOfOthers = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_TIME_SHEET_OTHER_POS);
         myTimeSheetOfOthers.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean checkTimeSheetOfOtherColor(String whiteColor) {
-        WebElement itemTimeSheet = getItemMenuInPosition(2);
-        WebElement myTimeSheetOfOthers = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
+        WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
+        WebElement myTimeSheetOfOthers = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_TIME_SHEET_OTHER_POS);
         String color = myTimeSheetOfOthers.findElement(By.tagName("a")).getCssValue("color");
         String actualColor = getColorString(color);
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
     public void clickHomeItem() {
-        WebElement itemHome = getItemMenuInPosition(1);
+        WebElement itemHome = getItemMenuInPosition(MENU_HOME_POS);
         itemHome.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean checkItemLeaveClose() {
-        WebElement itemLeave = getItemMenuInPosition(3);
+        WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         return itemLeave.findElement(By.tagName("ul")).isDisplayed();
     }
 
     public void clickItemLeave() {
-        WebElement itemLeave = getItemMenuInPosition(3);
+        WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         itemLeave.click();
     }
 
     public boolean checkColorItemLeaveIsWhite(String whiteColor) {
-        WebElement itemLeave = getItemMenuInPosition(3);
+        WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         String color = itemLeave.findElement(By.tagName("a")).getCssValue("color");
         String actualColor = getColorString(color);
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
     public void clickMyLeave() {
-        WebElement itemLeave = getItemMenuInPosition(3);
-        WebElement myLeave = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
+        WebElement myLeave = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_MY_LEAVE_POS);
         myLeave.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean checkColorMyLeave(String whiteColor) {
-        WebElement itemLeave = getItemMenuInPosition(3);
-        WebElement myLeave = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
+        WebElement myLeave = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_MY_LEAVE_POS);
         String color = myLeave.findElement(By.tagName("a")).getCssValue("color");
         String actualColor = getColorString(color);
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
     public void clickLeavePlanner() {
-        WebElement itemLeave = getItemMenuInPosition(3);
-        WebElement leavePlanner = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
+        WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
+        WebElement leavePlanner = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_LEAVE_PLANNER_POS);
         leavePlanner.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickLeaveOfOther() {
-        WebElement itemLeave = getItemMenuInPosition(3);
-        WebElement leaveOfOther = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(2);
+        WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
+        WebElement leaveOfOther = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_LEAVE_OTHER_POS);
         leaveOfOther.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickLeaveBalance() {
-        WebElement itemLeave = getItemMenuInPosition(3);
-        WebElement leaveBalance = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(3);
+        WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
+        WebElement leaveBalance = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_LEAVE_BALANCE_POS);
         leaveBalance.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean checkItemOrganisationClose() {
-        WebElement itemOrganisation = getItemMenuInPosition(4);
+        WebElement itemOrganisation = getItemMenuInPosition(MENU_ORGANISATION_POS);
         return itemOrganisation.findElement(By.tagName("ul")).isDisplayed();
     }
 
     public void clickItemOrganisation() {
-        WebElement itemOrganisation = getItemMenuInPosition(4);
+        WebElement itemOrganisation = getItemMenuInPosition(MENU_ORGANISATION_POS);
         itemOrganisation.click();
     }
 
     public void clickChildItemOrganisation(String childPosition) {
-        WebElement itemOrganisation = getItemMenuInPosition(4);
+        WebElement itemOrganisation = getItemMenuInPosition(MENU_ORGANISATION_POS);
         WebElement childItemOrganisation = getChildItemMenuInPosition(itemOrganisation, Integer.valueOf(childPosition));
         childItemOrganisation.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean checkCountMyTeamIsZero() {
-        WebElement itemOrganisation = getItemMenuInPosition(4);
-        WebElement itemMyTeam = getChildItemMenuInPosition(itemOrganisation, 2);
+        WebElement itemOrganisation = getItemMenuInPosition(MENU_ORGANISATION_POS);
+        WebElement itemMyTeam = getChildItemMenuInPosition(itemOrganisation, CHILD_MENU_ORGANISATION_MY_TEAM_POS);
         return itemMyTeam.findElements(By.tagName("li")).size() == 0;
     }
 
     public void clickItemProjectManagement() {
-        WebElement itemProjectManagement = getItemMenuInPosition(5);
+        WebElement itemProjectManagement = getItemMenuInPosition(MENU_PROJECT_MANAGEMENT_POS);
         itemProjectManagement.click();
     }
 
     public void clickChildItemProjectManagement(String childPosition) {
-        WebElement itemProjectManagement = getItemMenuInPosition(5);
+        WebElement itemProjectManagement = getItemMenuInPosition(MENU_PROJECT_MANAGEMENT_POS);
         WebElement childItemProject = getChildItemMenuInPosition(itemProjectManagement, Integer.valueOf(childPosition));
         childItemProject.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickItemWiki() {
-        WebElement itemWiki = getItemMenuInPosition(6);
+        WebElement itemWiki = getItemMenuInPosition(MENU_WIKI_POS);
         itemWiki.click();
+        try {
+            Thread.sleep(TIME_SLEEP_WIKI);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickItemAdministration() {
-        WebElement itemAdministration = getItemMenuInPosition(7);
+        WebElement itemAdministration = getItemMenuInPosition(MENU_ADMINISTRATION_POS);
         itemAdministration.click();
     }
 
     public void clickChildItemAdministration(String childPosition) {
-        WebElement itemAdministration = getItemMenuInPosition(7);
+        WebElement itemAdministration = getItemMenuInPosition(MENU_ADMINISTRATION_POS);
         WebElement childItemAdministration = getChildItemMenuInPosition(itemAdministration, Integer.valueOf(childPosition));
         childItemAdministration.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickItemDevice() {
-        WebElement itemDevice = getItemMenuInPosition(8);
+        WebElement itemDevice = getItemMenuInPosition(MENU_DEVICE_POS);
         itemDevice.click();
     }
 
     public void clickChildItemDevice(String childPosition) {
-        WebElement itemDevice = getItemMenuInPosition(8);
+        WebElement itemDevice = getItemMenuInPosition(MENU_DEVICE_POS);
         WebElement childItemDevice = getChildItemMenuInPosition(itemDevice, Integer.valueOf(childPosition));
         childItemDevice.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickItemTools() {
-        WebElement itemTools = getItemMenuInPosition(9);
+        WebElement itemTools = getItemMenuInPosition(MENU_TOOL_POS);
         itemTools.click();
     }
 
     public void clickChildItemTools(String childPosition) {
-        WebElement itemTools = getItemMenuInPosition(9);
+        WebElement itemTools = getItemMenuInPosition(MENU_TOOL_POS);
         WebElement childItemTools = getChildItemMenuInPosition(itemTools, Integer.valueOf(childPosition));
         childItemTools.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickItemCareer() {
-        WebElement itemCareer = getItemMenuInPosition(10);
+        WebElement itemCareer = getItemMenuInPosition(MENU_CAREER_POS);
         itemCareer.click();
     }
 
     public void clickChildItemCareer(String childPosition) {
-        WebElement itemCareer = getItemMenuInPosition(10);
+        WebElement itemCareer = getItemMenuInPosition(MENU_CAREER_POS);
         WebElement childItemCareer = getChildItemMenuInPosition(itemCareer, Integer.valueOf(childPosition));
         childItemCareer.click();
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private WebElement getItemMenuInPosition(int position) {

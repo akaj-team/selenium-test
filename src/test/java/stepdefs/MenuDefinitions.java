@@ -2,6 +2,7 @@ package stepdefs;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
@@ -103,7 +104,7 @@ public class MenuDefinitions extends DriverBase implements En {
 
     private void redirectPageWhenClickChildItem(String path) {
         new WebDriverWait(getDriver(), 10).until(
-                webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
+                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete")
         );
         String url = getDriver().getCurrentUrl();
         Assert.assertEquals(path, url.substring(url.length() - path.length()));
