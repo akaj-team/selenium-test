@@ -1,13 +1,20 @@
 package vn.asiantech.base;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
 
 public class DriverBase {
 
@@ -46,5 +53,12 @@ public class DriverBase {
 
     protected <T> T initPage(WebDriver driver, Class<T> clazz) {
         return PageFactory.initElements(driver, clazz);
+    }
+
+    protected final void waitForPageDisplayed(final WebDriver driver, final String url, final By containerElement) {
+        new WebDriverWait(driver, TIME_OUT_SECOND).until(
+                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+        new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(containerElement));
+        Assert.assertEquals(url, driver.getCurrentUrl());
     }
 }
