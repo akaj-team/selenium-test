@@ -14,7 +14,7 @@ import java.util.Random;
  * Created by at-vietphan on 9/21/18.
  */
 public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
-    private static final int MAX_LENGTH_NAME_TEAM = 50;
+    private static final int MAX_LENGTH_NAME_TEAM = 45;
     @FindBy(css = ".wrapper.wrapper-content")
     private WebElement wrapper;
 
@@ -25,7 +25,7 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
         return null;
     }
 
-    public final StringBuilder generateNameTeam() {
+    public final String generateNameTeam() {
         String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder stringBuilder = new StringBuilder();
         Random random = new Random();
@@ -34,7 +34,7 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
             char c = alphabet.charAt(random.nextInt(alphabet.length()));
             stringBuilder.append(c);
         }
-        return stringBuilder;
+        return "Test " + stringBuilder;
     }
 
     public final void sendKeyInputName(final String searchData, final int whileSpaceBegging, final int whileSpaceEnd) {
