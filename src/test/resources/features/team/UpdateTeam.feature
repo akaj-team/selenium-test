@@ -8,15 +8,15 @@ Feature: Check update team page
     And I am stayed in update team page at position is 1
 
   Scenario Outline: I fill to inputName with name invalid, button Submit is unable and message error is showed
-    When I fill in inputName with "<name>" with while space at begging and end are <whileSpaceBegging>, <whileSpaceEnd>
+    When I fill in inputName with "<name>" with while space at begging and end are <whileSpaceBeginning>, <whileSpaceEnd>
     Then Button submit is unable
     And Message error is displayed
     Examples:
-      | name                                                        | whileSpaceBegging | whileSpaceEnd |
-      | football group football group football group football group | 0                 | 0             |
-      | football group !@#$%^&*                                     | 0                 | 0             |
-      | football group                                              | 3                 | 0             |
-      | football group                                              | 0                 | 5             |
+      | name                                                        | whileSpaceBeginning | whileSpaceEnd |
+      | football group football group football group football group | 0                   | 0             |
+      | football group !@#$%^&*                                     | 0                   | 0             |
+      | football group                                              | 3                   | 0             |
+      | football group                                              | 0                   | 5             |
 
   Scenario: I fill to inputName with name valid, button Submit will enable and message error is hidden
     When I fill in inputName with "football group" with while space at begging and end are 0, 0
