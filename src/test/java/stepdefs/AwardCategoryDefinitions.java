@@ -10,6 +10,11 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.AwardCategoryPage;
 
+/**
+ * @author at-anh.quach
+ * AwardCategoryDefinitions
+ */
+
 public class AwardCategoryDefinitions extends DriverBase implements En {
     private static final int TIMEOUT_IN_SECONDS = 5;
 
@@ -50,7 +55,7 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
         When("^I click submit button$", () -> awardCategoryPage.clickSubmit());
 
-        Then("^Table add one line$", () -> Assert.assertTrue(awardCategoryPage.checkAddLine(countCurrentLine+1)));
+        Then("^Table add one line$", () -> Assert.assertTrue(awardCategoryPage.checkAddLine(countCurrentLine)));
 
         And("^With description empty$", () -> Assert.assertTrue(awardCategoryPage.isDescriptionEmpty(countCurrentLine)));
 
@@ -68,7 +73,7 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
         But("^I click close button$", () -> awardCategoryPage.clickCloseDialog());
 
-        Then("^No line is added to table$", () -> Assert.assertTrue(awardCategoryPage.checkAddLine(countCurrentLine+1)));
+        Then("^No line is added to table$", () -> Assert.assertTrue(awardCategoryPage.checkAddLine(countCurrentLine)));
 
         And("^Disappear dialog$", () -> Assert.assertFalse(awardCategoryPage.isDisplayDialog()));
 

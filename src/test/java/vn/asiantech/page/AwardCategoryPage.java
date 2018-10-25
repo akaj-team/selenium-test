@@ -9,9 +9,15 @@ import vn.asiantech.base.BasePage;
 
 import java.util.List;
 
+/**
+ * @author at-anh.quach
+ * AwardCategoryPage
+ */
+
 public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
 
     private static final int POS_EDIT = 2;
+    private static final int POS_CATEGORY = 1;
 
     @FindBy(id = "award-list-wrapper")
     private WebElement tbCategory;
@@ -47,12 +53,11 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     }
 
     public final boolean checkAddLine(final int count) {
-        return getCountLine() < count;
+        return getCountLine() < count+1;
     }
 
     public final boolean isNameExist(final String name) {
         List<WebElement> list = tbCategory.findElements(By.tagName("tr"));
-        System.out.println("hh:" + tbCategory.findElements(By.tagName("tr")).size());
         for (WebElement aList : list) {
             if (name.equals(aList.findElements(By.tagName("td")).get(0).getText())) {
                 return true;
@@ -70,7 +75,7 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     }
 
     public final void clickEditButton() {
-        tbCategory.findElements(By.tagName("tr")).get(1).findElements(By.tagName("td")).get(POS_EDIT).
+        tbCategory.findElements(By.tagName("tr")).get(POS_CATEGORY).findElements(By.tagName("td")).get(POS_EDIT).
                 findElement(By.cssSelector(".update.ng-star-inserted")).click();
     }
 
@@ -96,7 +101,7 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     }
 
     public final boolean isDescriptionEmpty(final Integer count) {
-        return tbCategory.findElements(By.tagName("tr")).get(count - 2).findElements(By.tagName("td")).get(1).getText().equals("Empty");
+        return tbCategory.findElements(By.tagName("tr")).get(count - 2).findElements(By.tagName("td")).get(POS_CATEGORY).getText().equals("Empty");
     }
 
     public final void clearText(final String type) {
