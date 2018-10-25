@@ -57,18 +57,13 @@ public class DeviceTrackingDefinitions extends DriverBase implements En {
         Then("^Menu device drop down$", () -> Assert.assertFalse(holidaySettingPage.checkDeviceMenuDropDown()));
         When("^I click on item device tracking$", () -> holidaySettingPage.clickMenuDeviceTracking());
         Then("^Device tracking page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
-        And("^Display title content is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(holidaySettingPage.checkTitleContent(driver, content)));
+        And("^Display title content is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, holidaySettingPage.getTitleContent(driver)));
         And("^Display list content device$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayContentDevice(driver).toString()));
         And("^Display button next and previous$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonControl().toString()));
         And("^Display checkbox select all not tick$", () -> Assert.assertTrue(true, holidaySettingPage.isDefaultCheckboxSelectAll(driver).toString()));
         And("^Disable button this week and can not click$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonThisWeekDisable(driver).toString()));
-
         When("^Click button next on header$", () -> holidaySettingPage.clickButtonNext(driver));
-
-        Given("^I open device tracking page$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            getDriver().get(TIME_SHEET_PAGE_URL);
-        });
+        Given("^I open device tracking page$", () -> getDriver().get(TIME_SHEET_PAGE_URL));
         Then("^Can click this week button on header$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonThisWeekClickable(driver).toString()));
         When("^Click button previous on header$", () -> holidaySettingPage.clickButtonPrevious(driver));
         Then("^Display full seven columns title header device$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayFullDeviceHeader(driver).toString()));
@@ -94,7 +89,7 @@ public class DeviceTrackingDefinitions extends DriverBase implements En {
         When("^Click button submit$", () -> holidaySettingPage.clickButtonSubmit(driver));
         Then("^Display dialog confirm Submit$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayDialogConfirmSubmit(driver).toString()));
         And("^Display title dialog confirm submit is \"([^\"]*)\"$", (String title) -> Assert.assertTrue(true, holidaySettingPage.isDisplayTitleDialogConfirmSubmit(driver, title).toString()));
-        And("^Display message dialog confirm submit is \"([^\"]*)\"$", (String message) -> Assert.assertTrue(true, holidaySettingPage.isDisplayMessageDialogConfirmSubmit(driver, message).toString()));
+        And("^Display message dialog confirm submit is \"([^\"]*)\"$", (String message) -> Assert.assertEquals(message, holidaySettingPage.getMessageDialogConfirmSubmit(driver)));
         And("^Display button cancel and button submit$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonDialogSubmitControl(driver).toString()));
         When("^Click button close dialog confirm submit$", () -> holidaySettingPage.clickButtonCloseDialogConfirmSubmit(driver));
         Then("^Dismiss dialog confirm submit$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmSubmit(driver).toString()));
