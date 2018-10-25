@@ -20,6 +20,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     private static final String DEVICE_ITEM_BORDER_COLOR = "#676A6C";
     private static final String DEVICE_ITEM_BORDER_COLOR_SELECTED = "#D9EDF7";
     private static final String DEVICE_ITEM_TITLE = "LTA0010";
+    private static final int ITEM_DEVICE_TRACKING_MENU = 8;
 
     @FindBy(id = "side-menu")
     private
@@ -102,7 +103,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     WebElement tvMessageConfirm;
 
     @Override
-    public DeviceTrackingPage navigateTo(WebDriver webDriver) {
+    public DeviceTrackingPage navigateTo(final WebDriver webDriver) {
         return this;
     }
 
@@ -138,7 +139,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
                 countChildItem = items.get(i).findElements(By.tagName("li")).size();
             }
         }
-        return itemMenus.get(8);
+        return itemMenus.get(ITEM_DEVICE_TRACKING_MENU);
     }
 
     public final Boolean isDisplayContentDevice(final WebDriver driver) {
@@ -216,11 +217,9 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
         waitForElement(driver, viewDeviceBody, TIME_OUT_WAITED_ELEMENT);
         if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
             List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
-            for (int i = 1; i < bodyItems.size(); i++) {
-                String rgb[] = bodyItems.get(i).getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
+                String rgb[] = bodyItems.get(0).getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
                 String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
-                return bodyItems.get(i).getText().equals(DEVICE_ITEM_TITLE) && borderColor.equals(DEVICE_ITEM_BORDER_COLOR);
-            }
+                return bodyItems.get(0).getText().equals(DEVICE_ITEM_TITLE) && borderColor.equals(DEVICE_ITEM_BORDER_COLOR);
         }
         return true;
     }

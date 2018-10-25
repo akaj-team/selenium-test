@@ -101,7 +101,7 @@ public class DeviceTrackingDefinitions extends DriverBase implements En {
     }
 
 
-    private void redirectPageWhenClickChildItem(String path) {
+    private void redirectPageWhenClickChildItem(final String path) {
         new WebDriverWait(getDriver(), TIME_SECOND).until(
                 webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
         );
