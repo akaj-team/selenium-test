@@ -96,36 +96,25 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public final String clickAndGetEmployeeCode() {
         WebElement employee = getEmployeeInformation(EMPLOYEE_CODE_COLUMN_INDEX);
-        try {
-            assert employee != null;
-            employee.click();
-        } catch (StaleElementReferenceException exception) {
-            System.out.println(exception.toString());
-        }
+        assert employee != null;
+        employee.click();
         return employee.getAttribute("href");
     }
 
     public final String clickAndGetEmployeeAvatar() {
         WebElement employee = getEmployeeInformation(EMPLOYEE_NAME_COLUMN_INDEX);
-        try {
-            assert employee != null;
-            WebElement avatar = employee.findElement(By.tagName("span")).findElement(By.tagName("img"));
-            avatar.click();
-        } catch (StaleElementReferenceException exception) {
-            System.out.println(exception.toString());
-        }
+        assert employee != null;
+        WebElement avatar = employee.findElement(By.tagName("span")).findElement(By.tagName("img"));
+        avatar.click();
         return employee.getAttribute("href");
     }
 
     public final String clickAndGetManagerName() {
         List<WebElement> cells = tblBody.findElements(By.tagName("tr"));
-        try {
-            WebElement manager = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_MANAGER_COLUMN_INDEX).findElement(By.tagName("span")).findElement(By.tagName("span")).findElement(By.tagName("a"));
-            manager.click();
-            return manager.getAttribute("href");
-        } catch (NoSuchElementException exception) {
-            return "";
-        }
+        WebElement manager = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_MANAGER_COLUMN_INDEX).findElement(By.tagName("span")).findElement(By.tagName("span")).findElement(By.tagName("a"));
+        String managerUrl = manager.getAttribute("href");
+        manager.click();
+        return managerUrl;
     }
 
     public final String clickAndGetTeamName() {
@@ -296,12 +285,8 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final void selectPosition() {
-        try {
-            List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
-            positions.get(0).click();
-        } catch (StaleElementReferenceException exception) {
-            System.out.println(exception.toString());
-        }
+        List<WebElement> positions = positionList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
+        positions.get(0).click();
     }
 
     public final boolean getClickType() {
@@ -312,14 +297,10 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final String getSelectType() {
-        try {
-            List<WebElement> types = typeList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
-            types.get(0).click();
-            return types.get(0).findElement(By.tagName("span")).getText();
-        } catch (StaleElementReferenceException exception) {
-            System.out.println(exception.toString());
-        }
-        return "";
+        List<WebElement> types = typeList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
+        String type = types.get(0).findElement(By.tagName("span")).getText();
+        types.get(0).click();
+        return type;
     }
 
     public final boolean isTypeChose(final String type) {
@@ -334,14 +315,10 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final String selectStatus() {
-        try {
-            List<WebElement> statuses = statusList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
-            statuses.get(0).click();
-            return statuses.get(0).findElement(By.tagName("span")).getText();
-        } catch (StaleElementReferenceException exception) {
-            System.out.println(exception.toString());
-        }
-        return "";
+        List<WebElement> statuses = statusList.findElement(By.cssSelector(".ui-dropdown-items-wrapper")).findElement(By.tagName("ul")).findElements(By.tagName("li"));
+        String status = statuses.get(0).findElement(By.tagName("span")).getText();
+        statuses.get(0).click();
+        return status;
     }
 
     public final boolean isStatusChose(final String status) {
