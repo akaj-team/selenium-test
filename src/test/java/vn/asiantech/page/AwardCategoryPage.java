@@ -11,13 +11,15 @@ import java.util.List;
 
 public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
 
-    @FindBy(className = "ui-datatable-scrollable-table-wrapper")
+    private static final int POS_EDIT = 2;
+
+    @FindBy(id = "award-list-wrapper")
     private WebElement tbCategory;
 
-    @FindBy(id = "btn-award-create")
+    @FindBy(id = "btn-create-award")
     private WebElement btnNewAward;
 
-    @FindBy(css = ".btn.btn-sm.btn-primary.btn-submit")
+    @FindBy(id = "btn-submit-award")
     private WebElement btnSubmit;
 
     @FindBy(css = ".btn.btn-sm.btn-default.btn-cancel")
@@ -32,8 +34,8 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     @FindBy(className = "help-block")
     private WebElement txtNameError;
 
-    @FindBy(xpath = "//div[contains(@class, 'ui-dialog-titlebar')]")
-    private WebElement headerDialog;
+    @FindBy(id = "award-dialog-wrapper")
+    private WebElement dialog;
 
     @Override
     public final AwardCategoryPage navigateTo(final WebDriver webDriver) {
@@ -41,15 +43,16 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     }
 
     public final int getCountLine() {
-        return tbCategory.findElements(By.tagName("tr")).size();
+        return (tbCategory.findElements(By.tagName("tr")).size());
     }
 
-    public final boolean checkAddLine(int count) {
-        return getCountLine() == count;
+    public final boolean checkAddLine(final int count) {
+        return getCountLine() < count;
     }
 
-    public final boolean isNameExist(String name) {
+    public final boolean isNameExist(final String name) {
         List<WebElement> list = tbCategory.findElements(By.tagName("tr"));
+        System.out.println("hh:" + tbCategory.findElements(By.tagName("tr")).size());
         for (WebElement aList : list) {
             if (name.equals(aList.findElements(By.tagName("td")).get(0).getText())) {
                 return true;
@@ -67,11 +70,11 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     }
 
     public final void clickEditButton() {
-        tbCategory.findElements(By.tagName("tr")).get(0).findElements(By.tagName("td")).get(2).
+        tbCategory.findElements(By.tagName("tr")).get(1).findElements(By.tagName("td")).get(POS_EDIT).
                 findElement(By.cssSelector(".update.ng-star-inserted")).click();
     }
 
-    public final void enterName(String name) {
+    public final void enterName(final String name) {
         inputName.sendKeys(name);
     }
 
@@ -81,7 +84,7 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     }
 
     public final void clickCloseDialog() {
-        headerDialog.findElement(By.cssSelector(".fa.fa-fw.fa-close")).click();
+        dialog.findElement(By.cssSelector(".fa.fa-fw.fa-close")).click();
     }
 
     public final boolean isEnableSubmitButton() {
@@ -92,15 +95,11 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
         btnSubmit.click();
     }
 
-    public final boolean isDescriptionEmpty(Integer count) {
-        return tbCategory.findElements(By.tagName("tr")).get(count - 1).findElements(By.tagName("td")).get(1).getText().equals("Empty");
+    public final boolean isDescriptionEmpty(final Integer count) {
+        return tbCategory.findElements(By.tagName("tr")).get(count - 2).findElements(By.tagName("td")).get(1).getText().equals("Empty");
     }
 
-    public final boolean isNotEmptyName() {
-        return inputName.getText().length() != 0;
-    }
-
-    public final void clearText(String type) {
+    public final void clearText(final String type) {
         if (type.equals("name")) {
             inputName.clear();
             inputName.sendKeys("h");

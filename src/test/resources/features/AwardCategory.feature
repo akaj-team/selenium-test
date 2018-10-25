@@ -3,7 +3,7 @@ Feature: Check award category page
   Check display views and handle events
 
   Background: Login my account and go to award category page
-    Given I am logged in as an team member
+    Given I am logged in as a "BDM"
     And Award Category page displayed
 
   Scenario: Check click new award button
