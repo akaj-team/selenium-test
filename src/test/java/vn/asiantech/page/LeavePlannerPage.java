@@ -20,13 +20,13 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
     private static final int AVATAR = 3;
     private static final int COLUMN_NUMBER = 7;
 
-    @FindBy(css = ".btn.btn-sm.btn-white")
+    @FindBy(id = "btn-this-week")
     private WebElement btnThisWeek;
 
-    @FindBy(css = ".btn.control-item.prev")
+    @FindBy(id = "btn-prev-week")
     private WebElement btnBack;
 
-    @FindBy(css = ".btn.control-item.next")
+    @FindBy(id = "btn-next-week")
     private WebElement btnNext;
 
     @FindBy(css = ".calendar-grid")
