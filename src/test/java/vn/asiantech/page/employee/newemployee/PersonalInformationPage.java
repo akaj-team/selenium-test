@@ -1,4 +1,4 @@
-package vn.asiantech.page;
+package vn.asiantech.page.employee.newemployee;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -193,8 +193,8 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     }
 
     public final boolean isTelephoneErrorMessageShowed(final String message) {
-        WebElement mobileContainer = formContainer.findElement(By.xpath("//label[contains(text(),'Telephone')]/.."));
-        WebElement errorSms = mobileContainer.findElement(By.tagName("span"));
+        WebElement mobileContainer = formContainer.findElement(By.xpath("//label[contains(text(),'Phone')]/.."));
+        WebElement errorSms = mobileContainer.findElements(By.tagName("span")).get(1);
         return errorSms.isDisplayed() && errorSms.getText().equals(message);
     }
 

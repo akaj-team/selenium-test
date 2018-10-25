@@ -1,11 +1,11 @@
-package stepdefs;
+package stepdefs.employee.newemployee;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.PersonalInformationPage;
+import vn.asiantech.page.employee.newemployee.PersonalInformationPage;
 
 /**
  * @author at-hangtran
