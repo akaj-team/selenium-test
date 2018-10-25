@@ -328,8 +328,8 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return statusList.findElement(By.tagName("label")).getText().equals(status);
     }
 
-    public final boolean isImportButtonClickable(final String dialog) {
-        this.dialog = hiddenBody.findElement(By.xpath("//p-header[contains(text(),'" + dialog + "')]/../../.."));
+    public final boolean isImportButtonClickable(final String dialogName) {
+        this.dialog = hiddenBody.findElement(By.xpath("//p-header[contains(text(),'" + dialogName + "')]/../../.."));
         WebElement importButton = this.dialog.findElement(By.cssSelector(".btn.btn-sm.btn-primary.btn-submit.ng-star-inserted"));
         return importButton.isEnabled();
     }
