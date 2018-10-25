@@ -40,7 +40,7 @@ public class DriverBase {
 
     public static void closeDriverObjects() {
         for (DriverFactory driverFactory : webDriverThreadPool) {
-            driverFactory.quitDriver();
+//            driverFactory.quitDriver();
         }
     }
 

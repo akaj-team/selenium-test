@@ -5,7 +5,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.BasePage;
-
 import java.util.List;
 
 /**
@@ -16,9 +15,9 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     public static final int TIME_OUT_SECOND = 50;
 
     @FindBy(css = ".ui-datatable-data.ui-widget-content")
-    private WebElement listMember;
+    private WebElement lstMember;
 
-    @FindBy(className = "btn-edit")
+    @FindBy(id = "btn-edit-team")
     private WebElement btnUpdateTeam;
 
     @FindBy(className = "btn-list")
@@ -31,7 +30,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     private WebElement dlgAddMember;
 
     @FindBy(css = "input[type=\"text\"]")
-    private WebElement txtSearch;
+    private WebElement txtSearchMember;
 
     @FindBy(css = "input[class=\"ui-inputtext ui-widget ui-state-default ui-corner-all\"]")
     private WebElement txtSearch2;
@@ -41,6 +40,43 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
 
     @FindBy(css = ".btn.btn-sm.btn-default.btn-cancel")
     private WebElement btnClose;
+
+    @FindBy(name = "name")
+    private WebElement txtName;
+
+    @FindBy(css = ".ng-tns-c2-3.ui-dropdown.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix")
+    private WebElement ddlManager;
+
+    @FindBy(css = ".ui-dropdown-filter.ui-inputtext.ui-widget.ui-state-default.ui-corner-all")
+    private List<WebElement> txtSearchtoUpload;
+
+    @FindBy(className = "ui-dropdown-items-wrapper")
+    private List<WebElement> lstUsertoUpdate;
+
+    @FindBy(css = ".ng-tns-c2-4.ui-dropdown.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix")
+    private WebElement ddlTeamOfficer1;
+
+    @FindBy(css = ".ng-tns-c2-5.ui-dropdown.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix")
+    private WebElement ddlTeamOfficer2;
+
+    @FindBy(css = ".btn.btn-white.m-n")
+    private List<WebElement> btnDeleteTeamOfficer;
+
+    @FindBy(css = ".btn.btn-white.ng-star-inserted")
+    private WebElement btnAddTeamOfficer;
+
+    @FindBy(css = ".ui-fileupload-choose")
+    private WebElement btnChangeLogo;
+
+    @FindBy(name = "url")
+    private WebElement txtTeamFolder;
+
+    @FindBy(id = "cke_1_contents")
+    private WebElement txtDescription;
+
+    @FindBy(id = "btn-submit-team")
+    private WebElement btnSubmittoUpdateTeam;
+
 
     private String textAddUser = "";
     private String textSearch = "";
@@ -54,8 +90,8 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     }
 
     public final int checkNumberofTeam(final WebDriver driver) {
-        waitForElement(driver, listMember, TIME_OUT_SECOND);
-        List<WebElement> tr = listMember.findElements(By.tagName("tr"));
+        waitForElement(driver, lstMember, TIME_OUT_SECOND);
+        List<WebElement> tr = lstMember.findElements(By.tagName("tr"));
         int i = tr.size();
         return i;
     }
@@ -154,16 +190,16 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     }
 
     public final void inputUserNametoSearch(final WebDriver driver, final String username) {
-        waitForElement(driver, txtSearch, TIME_OUT_SECOND);
-        txtSearch.sendKeys(username);
-        txtSearch.sendKeys(Keys.ENTER);
+        waitForElement(driver, txtSearchMember, TIME_OUT_SECOND);
+        txtSearchMember.sendKeys(username);
+        txtSearchMember.sendKeys(Keys.ENTER);
         textSearch = username;
     }
 
     public final boolean verifySearchMemberResult(final WebDriver driver, final String n) {
         Integer k = 0;
-        waitForElement(driver, listMember, TIME_OUT_SECOND);
-        List<WebElement> tr = listMember.findElements(By.tagName("tr"));
+        waitForElement(driver, lstMember, TIME_OUT_SECOND);
+        List<WebElement> tr = lstMember.findElements(By.tagName("tr"));
         for (WebElement i : tr
         ) {
             WebElement userName = i.findElements(By.tagName("td")).get(0)
@@ -181,6 +217,97 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         } else {
             return false;
         }
+    }
+
+    public final void updateTeamInfo(final WebDriver driver, final String name, final String manager, final String teamOfficer1,
+                                     final String teamOfficer2, final String logo, final String teamFolder, final String description) {
+        //update Name of team
+        waitForElement(driver, txtName, TIME_OUT_SECOND);
+        txtName.clear();
+        txtName.sendKeys(name);
+
+        //update Manager
+        ddlManager.click();
+        waitForElement(driver, txtSearchtoUpload.get(0), TIME_OUT_SECOND);
+        txtSearchtoUpload.get(0).sendKeys(manager);
+        List<WebElement> listManager = lstUsertoUpdate.get(0).findElement(By.cssSelector(".ui-helper-reset.ng-tns-c2-3.ng-star-inserted"))
+                .findElements(By.tagName("li"));
+        listManager.get(0).click();
+
+        //update Team Officer
+        waitForElement(driver, ddlTeamOfficer1, TIME_OUT_SECOND);
+        ddlTeamOfficer1.click();
+        waitForElement(driver, txtSearchtoUpload.get(1), TIME_OUT_SECOND);
+        txtSearchtoUpload.get(1).sendKeys(teamOfficer1);
+        waitForElement(driver, lstUsertoUpdate.get(1), TIME_OUT_SECOND);
+        List<WebElement> listOfficer1 = lstUsertoUpdate.get(1).findElement(By.cssSelector(".ui-helper-reset.ng-tns-c2-4.ng-star-inserted"))
+                .findElements(By.tagName("li"));
+        listOfficer1.get(0).click();
+
+        //add the seoond Team Officer and then detele
+        btnAddTeamOfficer.click();
+        waitForElement(driver, ddlTeamOfficer2, TIME_OUT_SECOND);
+        ddlTeamOfficer2.click();
+        waitForElement(driver, txtSearchtoUpload.get(2), TIME_OUT_SECOND);
+        txtSearchtoUpload.get(2).sendKeys(teamOfficer2);
+        waitForElement(driver, lstUsertoUpdate.get(2), TIME_OUT_SECOND);
+        List<WebElement> listOfficer2 = lstUsertoUpdate.get(2).findElement(By.cssSelector(".ui-helper-reset.ng-tns-c2-5.ng-star-inserted"))
+                .findElements(By.tagName("li"));
+        listOfficer2.get(0).click();
+        btnDeleteTeamOfficer.get(1).click();
+
+        //update Logo team
+        waitForElement(driver, btnChangeLogo, TIME_OUT_SECOND);
+        WebElement logoFile = btnChangeLogo.findElement(By.cssSelector("input[type=\"file\"]"));
+        logoFile.sendKeys(logo);
+
+        //update Teamfolder
+        waitForElement(driver, txtTeamFolder, TIME_OUT_SECOND);
+        txtTeamFolder.clear();
+        txtTeamFolder.sendKeys(teamFolder);
+
+        //update Description
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("scroll(0,1000)", "");
+
+        waitForElement(driver, txtDescription, TIME_OUT_SECOND);
+        WebElement text = txtDescription.findElement(By.tagName("iframe"));
+        driver.switchTo().frame(text);
+
+        WebElement body = driver.findElement(By.tagName("body"));
+        body.clear();
+        body.sendKeys(description);
+        driver.switchTo().defaultContent();
+    }
+
+    public final void clickSubmitBtntoUpload(final WebDriver driver) {
+        waitForElement(driver, btnSubmittoUpdateTeam, TIME_OUT_SECOND);
+        btnSubmittoUpdateTeam.click();
+    }
+
+    public final void verifyUpdateTeamSuccessful(final WebDriver driver, final String name, final String manager, final String teamOfficer1,
+                                                 final String teamFolder, final String description) {
+        waitForElement(driver, btnUpdateTeam, TIME_OUT_SECOND);
+        driver.navigate().refresh();
+        clickUpdateTeamBtn(driver);
+
+        waitForElement(driver, txtName, TIME_OUT_SECOND);
+        Assert.assertEquals(txtName.getText(), name);
+
+        WebElement actualManager = ddlManager.findElement(By.tagName("label"));
+        Assert.assertEquals(actualManager.getText().contains(manager), true);
+
+        WebElement actualTeamOfficer = ddlTeamOfficer1.findElement(By.tagName("label"));
+        Assert.assertEquals(actualTeamOfficer.getText().contains(teamOfficer1), true);
+
+        Assert.assertEquals(txtTeamFolder.getText(), teamFolder);
+
+        waitForElement(driver, txtDescription, TIME_OUT_SECOND);
+        WebElement text = txtDescription.findElement(By.tagName("iframe"));
+        driver.switchTo().frame(text);
+        WebElement body = driver.findElement(By.tagName("body"));
+        Assert.assertEquals(body.getText(), description);
+
     }
 }
 

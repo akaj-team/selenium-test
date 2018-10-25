@@ -6,14 +6,14 @@ Feature: Check display views and handle events
   Background: User navigates to leave planner page
     Given I am logged in as an android team manager
     And Display leave planner page
-
+@a
   Scenario: Can not click  this week button
     Then Can not click this week button
-
+@b
   Scenario: Can click this week button after click back button
     When Click on back button
     Then Can click this week button
-
+@a
   Scenario: Can click this week button after click next button
     When Click on next button
     Then Can click this week button

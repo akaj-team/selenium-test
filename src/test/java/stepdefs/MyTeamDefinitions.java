@@ -1,5 +1,6 @@
 package stepdefs;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -57,6 +58,7 @@ public class MyTeamDefinitions extends DriverBase implements En {
 
         When("^I click on 'Update Team' button$", () -> {
             myTeamPage.clickUpdateTeamBtn(driver);
+            Thread.sleep(300);
         });
 
         Then("^The web page navigates to the \"([^\"]*)\" page$", (String page) -> {
@@ -100,6 +102,18 @@ public class MyTeamDefinitions extends DriverBase implements En {
 
         Then("^I verify that members of team are displayed correctly as \"([^\"]*)\"$", (String record) -> {
             myTeamPage.verifySearchMemberResult(driver, record);
+        });
+        When("^I input \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$",
+                (String name, String manager, String teamofficer1, String teamofficer2, String logo, String teamfolder, String description) -> {
+
+                    myTeamPage.updateTeamInfo(driver, name, manager, teamofficer1, teamofficer2, logo, teamfolder, description);
+                });
+        And("^I click on Submit button$", () -> {
+            myTeamPage.clickSubmitBtntoUpload(driver);
+        });
+
+        Then("^I verify that updating Team info successful with \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$", (String name, String manager, String teamofficer, String teamfolder, String description) -> {
+          myTeamPage.verifyUpdateTeamSuccessful(driver, name,manager,teamofficer,teamfolder,description);
         });
     }
 }
