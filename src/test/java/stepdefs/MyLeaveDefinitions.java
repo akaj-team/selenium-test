@@ -11,9 +11,8 @@ import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.MyLeavePage;
 
 /**
- * MyLeaveDefinitions
- *
  * @author at-anh.quach
+ *
  */
 
 public class MyLeaveDefinitions extends DriverBase implements En {

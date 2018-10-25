@@ -16,9 +16,8 @@ import java.util.List;
 import static vn.asiantech.base.DriverBase.getDriver;
 
 /**
- * MyLeavePage
- *
  * @author at-anh.quach
+ *
  */
 
 public class MyLeavePage extends BasePage<MyLeavePage> {
@@ -58,20 +57,20 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     private String sysid;
 
     @Override
-    public MyLeavePage navigateTo(WebDriver webDriver) {
+    public final MyLeavePage navigateTo(final WebDriver webDriver) {
         return this;
     }
 
-    public void clickMenuStatus() {
+    public final void clickMenuStatus() {
         waitForElementDisplay(getDriver(), inputStatus);
         inputStatus.click();
     }
 
-    public Boolean dropDownMenuStatus() {
+    public final Boolean dropDownMenuStatus() {
         return menuStatus.isDisplayed();
     }
 
-    public void clickItemMenuStatus(String status) {
+    public final void clickItemMenuStatus(final String status) {
         WebElement itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(ALL_STATUS);
         if (status.equals("Pending")) {
             itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(PENDING);
@@ -85,81 +84,81 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         itemStatus.click();
     }
 
-    public boolean checkTextStatusMenu(String status) {
+    public final boolean checkTextStatusMenu(final String status) {
         waitForElementDisplay(getDriver(), inputStatus);
         return inputStatus.findElement(By.tagName("label")).getText().equals(status);
     }
 
-    public boolean checkTextStatus(String status) {
+    public final boolean checkTextStatus(final String status) {
         return findDataLeave(POS_STATUS).getAttribute("class").equals(getNameIconStatus(status));
     }
 
-    public boolean checkTextApprover(String approver) {
+    public final boolean checkTextApprover(final String approver) {
         return findDataLeave(POS_APPROVER).getText().equals(approver);
     }
 
-    public boolean checkTextManager(String manager) {
+    public final boolean checkTextManager(final String manager) {
         return findDataLeave(POS_MANAGER).getText().equals(manager);
     }
 
-    public boolean checkTextAnnualLeave(String annualLeave) {
+    public final boolean checkTextAnnualLeave(final String annualLeave) {
         return findLeaveBalance(ANNUAL_LEAVE).getText().equals(annualLeave);
     }
 
-    public boolean checkTextMarriageLeave(String marriageLeave) {
+    public final boolean checkTextMarriageLeave(final String marriageLeave) {
         return findLeaveBalance(MARRIAGE_LEAVE).getText().equals(marriageLeave);
     }
 
-    public boolean checkTextOvertimeLeave(String overTimeLeave) {
+    public final boolean checkTextOvertimeLeave(final String overTimeLeave) {
         return findLeaveBalance(OVERTIME_LEAVE).getText().equals(overTimeLeave);
     }
 
-    public boolean checkTextPaternalLeave(String paternalLeave) {
+    public final boolean checkTextPaternalLeave(final String paternalLeave) {
         return findLeaveBalance(PATERNAL_LEAVE).getText().equals(paternalLeave);
     }
 
-    public boolean checkMenuStatusDropDown() {
+    public final boolean checkMenuStatusDropDown() {
         return menuStatus.isDisplayed();
     }
 
-    public boolean checkNoRecordsFound() {
+    public final boolean checkNoRecordsFound() {
         return findDataLeave(POS_SYSID).getText().equals("No records found");
     }
 
-    public void clickSYSID() {
+    public final void clickSYSID() {
         waitForElementDisplay(getDriver(), inputStatus);
         sysid = findDataLeave(POS_SYSID).getText();
         findDataLeave(POS_ICON).click();
     }
 
-    public void clickNameManager() {
+    public final void clickNameManager() {
         waitForElementDisplay(getDriver(), inputStatus);
         findDataLeave(POS_MANAGER).click();
     }
 
-    public void clickIconSearch() {
+    public final void clickIconSearch() {
         waitForElementDisplay(getDriver(), inputStatus);
         sysid = findDataLeave(POS_SYSID).getText();
         findDataLeave(POS_ICON).click();
     }
 
-    public void clickBtnLeaveRequest() {
+    public final void clickBtnLeaveRequest() {
         waitForElementDisplay(getDriver(), inputStatus);
         btnLeaveRequest.click();
     }
 
-    public void hoverMouseToStatus() {
+    public final void hoverMouseToStatus() {
         waitForElementDisplay(getDriver(), tableLeave);
         Actions builder = new Actions(getDriver());
         builder.moveToElement(findDataLeave(POS_STATUS)).build().perform();
     }
 
-    public boolean checkDisplayTipStatus(String status) {
+    public final boolean checkDisplayTipStatus(final String status) {
         System.out.println(toolTip.getText());
         return toolTip.isDisplayed() && toolTip.getText().equals(status);
     }
 
-    public void displayLeaveDetailPage(WebDriver driver) {
+    public final void displayLeaveDetailPage(final WebDriver driver) {
         driver.get("http://portal-stg.asiantech.vn/leave/" + sysid);
         new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
@@ -167,7 +166,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         Assert.assertEquals("http://portal-stg.asiantech.vn/leave/" + sysid, driver.getCurrentUrl());
     }
 
-    private WebElement findDataLeave(int col) {
+    private WebElement findDataLeave(final int col) {
         WebElement tableData = tableLeave.findElement(By.tagName("table"));
         List<WebElement> rows = tableData.findElements(By.tagName("tr"));
         List<WebElement> columns = rows.get(POS_SYSID).findElements(By.tagName("td"));
@@ -179,12 +178,12 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         }
     }
 
-    private WebElement findLeaveBalance(int pos) {
+    private WebElement findLeaveBalance(final int pos) {
         List<WebElement> balances = leaveBalance.findElements(By.tagName("dd"));
         return balances.get(pos).findElement(By.tagName("span"));
     }
 
-    private String getNameIconStatus(String status) {
+    private String getNameIconStatus(final String status) {
         String nameIcon = "icon default ng-star-inserted";
         if (status.equals("Approved")) {
             nameIcon = "icon approved ng-star-inserted";
