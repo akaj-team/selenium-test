@@ -4,14 +4,11 @@ import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.LeaveRequestPage;
-
-import java.util.List;
 
 /**
  * @author at-anh-quach
@@ -20,8 +17,6 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
     private static final int TIME_OUT_IN_SECONDS = 10;
 
     private WebDriver driver;
-    private WebElement usernameInput;
-    private WebElement passwordInput;
     private LeaveRequestPage leaveRequestPage;
 
     public LeaveRequestDefinitions() {
