@@ -4,7 +4,7 @@ Feature: Create new my leave
   In order to take a few days off work
 
   Background: User navigates to profile page
-    Given I am logged in as an team member
+    Given I am logged in as a "BDM"
     And Display leave request page
     And Annual Leave is "0"
     And Marriage Leave is "0"

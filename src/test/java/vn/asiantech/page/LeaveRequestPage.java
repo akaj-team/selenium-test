@@ -14,7 +14,18 @@ import static vn.asiantech.base.DriverBase.getDriver;
  * @author at-anh-quach
  */
 public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
-    private static final int TIMEOUTINSECONDS = 5;
+    private static final int TIME_OUT_IN_SECONDS = 5;
+    private static final int ANNUAL_LEAVE = 0;
+    private static final int MARRIAGE_LEAVE = 1;
+    private static final int OVERTIME_LEAVE = 2;
+    private static final int PATERNAL_LEAVE = 3;
+    private static final int NONE_PAID = 2;
+    private static final int POS_AFTERNOON = 1;
+    private static final int POS_MORNING = 0;
+    private static final int POS_ALL_DAY = 2;
+    private static final int POS_TIME_FROM = 0;
+    private static final int POS_TIME_TO = 1;
+
 
     @FindBy(xpath = "//label[contains(@class,'ui-inputtext')]")
     private WebElement inputTypeOfLeave;
@@ -61,20 +72,20 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final boolean checkTextAnnualLeave(final String annualLeave) {
-        waitForElementDisplay(getDriver(), tableLeaveBalance, TIMEOUTINSECONDS);
-        return findLeaveBalance(0).getText().equals(annualLeave);
+        waitForElementDisplay(getDriver(), tableLeaveBalance, TIME_OUT_IN_SECONDS);
+        return findLeaveBalance(ANNUAL_LEAVE).getText().equals(annualLeave);
     }
 
     public final boolean checkTextMarriageLeave(final String marriageLeave) {
-        return findLeaveBalance(1).getText().equals(marriageLeave);
+        return findLeaveBalance(MARRIAGE_LEAVE).getText().equals(marriageLeave);
     }
 
     public final boolean checkTextOvertimeLeave(final String overTimeLeave) {
-        return findLeaveBalance(2).getText().equals(overTimeLeave);
+        return findLeaveBalance(OVERTIME_LEAVE).getText().equals(overTimeLeave);
     }
 
     public final boolean checkTextPaternalLeave(final String paternalLeave) {
-        return findLeaveBalance(3).getText().equals(paternalLeave);
+        return findLeaveBalance(PATERNAL_LEAVE).getText().equals(paternalLeave);
     }
 
     public final void clickMenuTypeOfLeave() {
@@ -86,20 +97,20 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final void clickItemMenuType(final String status) {
-        waitForElementDisplay(getDriver(), menuTypeOfLeave, TIMEOUTINSECONDS);
+        waitForElementDisplay(getDriver(), menuTypeOfLeave, TIME_OUT_IN_SECONDS);
 
-        WebElement itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        WebElement itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(ANNUAL_LEAVE);
         if (status.equals("Marriage Leave")) {
-            itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
+            itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(MARRIAGE_LEAVE);
         }
         if (status.equals("None Paid")) {
-            itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(2);
+            itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(NONE_PAID);
         }
         if (status.equals("Overtime Leave")) {
-            itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(3);
+            itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(OVERTIME_LEAVE + 1);
         }
         if (status.equals("Paternal Leave")) {
-            itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(4);
+            itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(PATERNAL_LEAVE + 1);
         }
         itemStatus.click();
     }
@@ -107,7 +118,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     public final void withMessage() {
         String message = "Gui A Tien";
 
-        waitForElementDisplay(getDriver(), inputMessage, TIMEOUTINSECONDS);
+        waitForElementDisplay(getDriver(), inputMessage, TIME_OUT_IN_SECONDS);
 
         getDriver().switchTo().frame(getDriver().findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
 
@@ -125,11 +136,11 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final void clickTimeFromBox() {
-        inputDateRange.findElements(By.tagName("p-calendar")).get(0).click();
+        inputDateRange.findElements(By.tagName("p-calendar")).get(POS_TIME_FROM).click();
     }
 
     public final void clickTimeToBox() {
-        inputDateRange.findElements(By.tagName("p-calendar")).get(1).click();
+        inputDateRange.findElements(By.tagName("p-calendar")).get(POS_TIME_TO).click();
     }
 
     public final void chooseTime(final String type) {
@@ -146,7 +157,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final boolean isDateRequestShow() {
-        waitForElementDisplay(getDriver(), tableDateRequest, TIMEOUTINSECONDS);
+        waitForElementDisplay(getDriver(), tableDateRequest, TIME_OUT_IN_SECONDS);
         return true;
     }
 
@@ -165,18 +176,18 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final boolean chooseAfternoon() {
-        findRadioButtonDateRequest(1).click();
-        return findRadioButtonDateRequest(1).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
+        findRadioButtonDateRequest(POS_AFTERNOON).click();
+        return findRadioButtonDateRequest(POS_AFTERNOON).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
     }
 
     public final boolean chooseMorning() {
-        findRadioButtonDateRequest(0).click();
-        return findRadioButtonDateRequest(0).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
+        findRadioButtonDateRequest(POS_MORNING).click();
+        return findRadioButtonDateRequest(POS_MORNING).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
     }
 
     public final boolean chooseAllday() {
-        findRadioButtonDateRequest(2).click();
-        return findRadioButtonDateRequest(2).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
+        findRadioButtonDateRequest(POS_ALL_DAY).click();
+        return findRadioButtonDateRequest(POS_ALL_DAY).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
     }
 
     public final boolean checkDateInDateRequest(final int row, final String date) {
@@ -241,7 +252,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         return balances.get(pos).findElement(By.tagName("span"));
     }
 
-    private void findDayLeave(final String type,final String day) {
+    private void findDayLeave(final String type, final String day) {
         WebElement data;
         WebElement item = null;
         if (type.equals("timeTo")) {
@@ -270,7 +281,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     private WebElement findRadioButtonDateRequest(final int col) {
-        waitForElementDisplay(getDriver(), tableDateRequest, TIMEOUTINSECONDS);
+        waitForElementDisplay(getDriver(), tableDateRequest, TIME_OUT_IN_SECONDS);
         WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
 
         List<WebElement> rows = data.findElements(By.tagName("tr"));

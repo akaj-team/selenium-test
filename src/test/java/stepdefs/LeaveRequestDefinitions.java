@@ -17,7 +17,7 @@ import java.util.List;
  * @author at-anh-quach
  */
 public class LeaveRequestDefinitions extends DriverBase implements En {
-    private static final int TIMEOUTINSECONDS = 10;
+    private static final int TIME_OUT_IN_SECONDS = 10;
 
     private WebDriver driver;
     private WebElement usernameInput;
@@ -25,39 +25,19 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
     private LeaveRequestPage leaveRequestPage;
 
     public LeaveRequestDefinitions() {
+        leaveRequestPage = initPage(getDriver(), LeaveRequestPage.class);
+
         try {
             driver = getDriver();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        Given("^I am logged in as an team member$", () -> {
-            driver.get("http://portal-stg.asiantech.vn");
-            leaveRequestPage = initPage(getDriver(), LeaveRequestPage.class);
-            new WebDriverWait(driver, TIMEOUTINSECONDS).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            String url = driver.getCurrentUrl();
-            if (url.endsWith("/auth/login")) {
-                //Not logged in
-                List<WebElement> formInputs = driver.findElements(By.className("form-control"));
-                usernameInput = formInputs.get(0);
-                passwordInput = formInputs.get(1);
-                usernameInput.sendKeys("stg.thien.dang2@asiantech.vn");
-                passwordInput.sendKeys("Abc123@@");
-                driver.findElement(By.className("btn-primary")).click();
-                new WebDriverWait(driver, TIMEOUTINSECONDS).until(
-                        webDriver -> webDriver.findElement(By.className("welcome-message")).isDisplayed());
-                Assert.assertTrue(driver.findElement(By.className("welcome-message")).isDisplayed());
-            } else {
-                Assert.assertTrue(true);
-            }
-        });
-
         And("^Display leave request page$", () -> {
             driver.get("http://portal-stg.asiantech.vn/leave/request");
-            new WebDriverWait(driver, TIMEOUTINSECONDS).until(
+            new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIMEOUTINSECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+            new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
             Assert.assertEquals("http://portal-stg.asiantech.vn/leave/request", driver.getCurrentUrl());
         });
 
