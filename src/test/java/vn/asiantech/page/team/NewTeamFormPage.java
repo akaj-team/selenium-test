@@ -42,7 +42,7 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
         wrapper.findElement(By.name("name")).sendKeys(setNumberWhileSpace(whileSpaceBegging) + searchData + setNumberWhileSpace(whileSpaceEnd));
     }
 
-    public final Boolean isButtonSubmitEnable() {
+    public final boolean isButtonSubmitEnable() {
         return wrapper.findElement(By.id("btn-submit-team")).isEnabled();
     }
 

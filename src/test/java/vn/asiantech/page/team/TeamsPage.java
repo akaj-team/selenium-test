@@ -83,7 +83,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
         return columnName.findElement(By.tagName("a")).findElement(By.tagName("span")).findElement(By.tagName("span")).getText();
     }
 
-    public final Boolean isDeleteDialogShown() {
+    public final boolean isDeleteDialogShown() {
         return isElementPresented(hiddenBody);
     }
 
@@ -111,7 +111,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
         return columnName.findElement(By.tagName("a")).getAttribute("href");
     }
 
-    private WebElement getColumnIndex(final Integer column, final int position) {
+    private WebElement getColumnIndex(final int column, final int position) {
         List<WebElement> rows = tbBody.findElements(By.tagName("tr"));
         return rows.get(position).findElements(By.tagName("td")).get(column);
     }
