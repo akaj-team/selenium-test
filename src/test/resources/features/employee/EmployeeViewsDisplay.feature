@@ -87,3 +87,25 @@ Feature: Check display views after click views
     When Click on position view
     Then Show a position list
     And Item "All Position" is selected
+
+    # Promotion
+  Scenario: Check display of promotion dialog
+    When Click on promotion button
+    And Open an import promotion dialog
+    Then The import promotion button is clickable
+    When Click on cancel button
+    Then The import promotion dialog is dismissed
+
+    # Award
+  Scenario: Check display of award category dialog
+    When Click on award category button
+    And Open an import award dialog
+    Then The import award button is clickable
+    When Click on cancel button
+    Then The import award category dialog is dismissed
+
+  Scenario: Check display of award category dialog
+    When Click on award category button
+    And Open an import award dialog
+    And Select award category dropdown
+    Then Data in award category dropdown is correct

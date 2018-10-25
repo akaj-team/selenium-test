@@ -78,6 +78,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private WebElement typeList;
     private WebElement positionList;
     private WebElement statusList;
+    private WebElement dialog;
     private int clickType;
 
     @Override
@@ -143,8 +144,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final boolean isAlertShowed(final String title) {
-        hiddenBody.isDisplayed();
-        return hiddenBody.findElement(By.tagName("p-header")).getText().equals(title);
+        return hiddenBody.findElement(By.tagName("p-header")).getText().equals(title) && hiddenBody.isDisplayed();
     }
 
     public final void clickAwardCategory() {
@@ -323,6 +323,32 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public final boolean isStatusChose(final String status) {
         return statusList.findElement(By.tagName("label")).getText().equals(status);
+    }
+
+    public final boolean isImportButtonClickable(final String dialog) {
+        this.dialog = hiddenBody.findElement(By.xpath("//p-header[contains(text(),'" + dialog + "')]/../../.."));
+        WebElement importButton = this.dialog.findElement(By.cssSelector(".btn.btn-sm.btn-primary.btn-submit.ng-star-inserted"));
+        return importButton.isEnabled();
+    }
+
+    public final void clickCancelButton() {
+        dialog.findElement(By.cssSelector(".btn.btn-sm.btn-default.btn-cancel")).click();
+    }
+
+    public final boolean isPromotionDialogDismissed() {
+        return dialog.isDisplayed();
+    }
+
+    public final String selectAwardCategoryDropDown() {
+        hiddenBody.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div")).click();
+        WebElement awardItem = hiddenBody.findElements(By.tagName("li")).get(0);
+        String award = awardItem.findElement(By.tagName("span")).getText();
+        awardItem.click();
+        return award;
+    }
+
+    public final boolean isDataAwardCategoryCorrect() {
+        return hiddenBody.findElement(By.tagName("p-dropdown")).findElement(By.tagName("label")).getText().equals(selectAwardCategoryDropDown());
     }
 
     private WebElement getEmployeeInformation(final int columnPosition) {

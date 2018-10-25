@@ -191,5 +191,19 @@ public class EmployeesDefinitions extends DriverBase implements En {
         And("^Item \"([^\"]*)\" is selected$", (String position) -> Assert.assertTrue(employeesPage.isPositionSelected(position)));
 
         And("^Last indicator and next indicator are not clickable$", () -> Assert.assertFalse(employeesPage.isNextAndLastIndicatorClickable()));
+
+        Then("^The import promotion button is clickable$", () -> Assert.assertFalse(employeesPage.isImportButtonClickable("Import Promotion")));
+
+        When("^Click on cancel button$", () -> employeesPage.clickCancelButton());
+
+        Then("^The import promotion dialog is dismissed$", () -> Assert.assertFalse(employeesPage.isPromotionDialogDismissed()));
+
+        Then("^The import award category dialog is dismissed$", () -> Assert.assertFalse(employeesPage.isPromotionDialogDismissed()));
+
+        Then("^The import award button is clickable$", () -> Assert.assertFalse(employeesPage.isImportButtonClickable("Import Award")));
+
+        And("^Select award category dropdown$", () -> employeesPage.selectAwardCategoryDropDown());
+
+        Then("^Data in award category dropdown is correct$", () -> Assert.assertTrue(employeesPage.isDataAwardCategoryCorrect()));
     }
 }
