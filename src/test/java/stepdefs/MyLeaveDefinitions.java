@@ -4,14 +4,11 @@ import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.MyLeavePage;
-
-import java.util.List;
 
 /**
  * MyLeaveDefinitions
@@ -20,11 +17,9 @@ import java.util.List;
  */
 
 public class MyLeaveDefinitions extends DriverBase implements En {
-    private static final int TIMEOUTINSECONDS = 5;
+    private static final int TIMEOUT_IN_SECONDS = 5;
 
     private WebDriver driver;
-    private WebElement usernameInput;
-    private WebElement passwordInput;
 
     private MyLeavePage myLeavePage;
 
@@ -36,27 +31,6 @@ public class MyLeaveDefinitions extends DriverBase implements En {
         }
 
         myLeavePage = initPage(getDriver(), MyLeavePage.class);
-
-        Given("^I logged in with a employee account$", () -> {
-            driver.get("http://portal-stg.asiantech.vn");
-            new WebDriverWait(driver, TIMEOUTINSECONDS).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            String url = driver.getCurrentUrl();
-            if (url.endsWith("/auth/login")) {
-                //Not logged in
-                List<WebElement> formInputs = driver.findElements(By.className("form-control"));
-                usernameInput = formInputs.get(0);
-                passwordInput = formInputs.get(1);
-                usernameInput.sendKeys("stg.thien.dang2@asiantech.vn");
-                passwordInput.sendKeys("Abc123@@");
-                driver.findElement(By.className("btn-primary")).click();
-                new WebDriverWait(driver, TIMEOUTINSECONDS).until(
-                        webDriver -> webDriver.findElement(By.className("welcome-message")).isDisplayed());
-                Assert.assertTrue(driver.findElement(By.className("welcome-message")).isDisplayed());
-            } else {
-                Assert.assertTrue(true);
-            }
-        });
 
         Then("^My Leave page is displayed$", () -> displayPage("/leave/my-leave"));
 
@@ -88,10 +62,6 @@ public class MyLeaveDefinitions extends DriverBase implements En {
         Then("^Leave Request page is displayed$", () -> displayPage("/leave/request"));
 
         And("^Status Menu is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkTextStatusMenu(status)));
-
-        And("^SYSID is \"([^\"]*)\"$", (String sysid) -> Assert.assertTrue(myLeavePage.checkTextSYSID(sysid)));
-
-        And("^Type of Leave is \"([^\"]*)\"$", (String type) -> Assert.assertTrue(myLeavePage.checkTextTypeOfLeave(type)));
 
         And("^Status is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkTextStatus(status)));
 
@@ -132,9 +102,9 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
     private void displayPage(final String path) {
         driver.get("http://portal-stg.asiantech.vn" + path);
-        new WebDriverWait(driver, TIMEOUTINSECONDS).until(
+        new WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        new WebDriverWait(driver, TIMEOUTINSECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+        new WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
         Assert.assertEquals("http://portal-stg.asiantech.vn" + path, driver.getCurrentUrl());
     }
 }

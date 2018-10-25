@@ -22,9 +22,22 @@ import static vn.asiantech.base.DriverBase.getDriver;
  */
 
 public class MyLeavePage extends BasePage<MyLeavePage> {
-    private static final int TIMEOUTINSECONDS = 5;
+    private static final int TIME_OUT_IN_SECONDS = 5;
+    private static final int ANNUAL_LEAVE = 0;
+    private static final int MARRIAGE_LEAVE = 1;
+    private static final int OVERTIME_LEAVE = 2;
+    private static final int PATERNAL_LEAVE = 3;
+    private static final int ALL_STATUS = 0;
+    private static final int PENDING = 1;
+    private static final int APPROVED = 2;
+    private static final int REJECTED = 3;
+    private static final int POS_MANAGER = 6;
+    private static final int POS_ICON = 7;
+    private static final int POS_APPROVER = 5;
+    private static final int POS_SYSID = 0;
+    private static final int POS_STATUS = 2;
 
-    @FindBy(id = "filter-dropdown-status")
+    @FindBy(id = "status-filter-wrapper")
     private WebElement inputStatus;
 
     @FindBy(className = "ui-dropdown-items-wrapper")
@@ -33,10 +46,10 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     @FindBy(className = "ui-datatable-scrollable-table-wrapper")
     private WebElement tableLeave;
 
-    @FindBy(id = "leave-balance-content")
+    @FindBy(id = "leave-balance-remain-wrapper")
     private WebElement leaveBalance;
 
-    @FindBy(id = "leave-request")
+    @FindBy(id = "btn-request-leave")
     private WebElement btnLeaveRequest;
 
     @FindBy(css = ".ui-tooltip-text.ui-shadow.ui-corner-all")
@@ -59,15 +72,15 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public void clickItemMenuStatus(String status) {
-        WebElement itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        WebElement itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(ALL_STATUS);
         if (status.equals("Pending")) {
-            itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
+            itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(PENDING);
         }
         if (status.equals("Approved")) {
-            itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(2);
+            itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(APPROVED);
         }
         if (status.equals("Rejected")) {
-            itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(3);
+            itemStatus = menuStatus.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(REJECTED);
         }
         itemStatus.click();
     }
@@ -77,40 +90,32 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         return inputStatus.findElement(By.tagName("label")).getText().equals(status);
     }
 
-    public boolean checkTextSYSID(String sysid) {
-        return tableLeave.findElements(By.id("sysid")).get(0).getText().equals(sysid);
-    }
-
-    public boolean checkTextTypeOfLeave(String type) {
-        return tableLeave.findElements(By.id("leave-type")).get(0).getText().equals(type);
-    }
-
     public boolean checkTextStatus(String status) {
-        return tableLeave.findElements(By.id("status")).get(0).getAttribute("class").equals(getNameIconStatus(status));
+        return findDataLeave(POS_STATUS).getAttribute("class").equals(getNameIconStatus(status));
     }
 
     public boolean checkTextApprover(String approver) {
-        return findDataLeave(5).getText().equals(approver);
+        return findDataLeave(POS_APPROVER).getText().equals(approver);
     }
 
     public boolean checkTextManager(String manager) {
-        return findDataLeave(6).getText().equals(manager);
+        return findDataLeave(POS_MANAGER).getText().equals(manager);
     }
 
     public boolean checkTextAnnualLeave(String annualLeave) {
-        return findLeaveBalance(0).getText().equals(annualLeave);
+        return findLeaveBalance(ANNUAL_LEAVE).getText().equals(annualLeave);
     }
 
     public boolean checkTextMarriageLeave(String marriageLeave) {
-        return findLeaveBalance(1).getText().equals(marriageLeave);
+        return findLeaveBalance(MARRIAGE_LEAVE).getText().equals(marriageLeave);
     }
 
     public boolean checkTextOvertimeLeave(String overTimeLeave) {
-        return findLeaveBalance(2).getText().equals(overTimeLeave);
+        return findLeaveBalance(OVERTIME_LEAVE).getText().equals(overTimeLeave);
     }
 
     public boolean checkTextPaternalLeave(String paternalLeave) {
-        return findLeaveBalance(3).getText().equals(paternalLeave);
+        return findLeaveBalance(PATERNAL_LEAVE).getText().equals(paternalLeave);
     }
 
     public boolean checkMenuStatusDropDown() {
@@ -118,24 +123,24 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public boolean checkNoRecordsFound() {
-        return findDataLeave(0).getText().equals("No records found");
+        return findDataLeave(POS_SYSID).getText().equals("No records found");
     }
 
     public void clickSYSID() {
         waitForElementDisplay(getDriver(), inputStatus);
-        sysid = findDataLeave(0).getText();
-        findDataLeave(0).click();
+        sysid = findDataLeave(POS_SYSID).getText();
+        findDataLeave(POS_ICON).click();
     }
 
     public void clickNameManager() {
         waitForElementDisplay(getDriver(), inputStatus);
-        findDataLeave(6).click();
+        findDataLeave(POS_MANAGER).click();
     }
 
     public void clickIconSearch() {
         waitForElementDisplay(getDriver(), inputStatus);
-        sysid = findDataLeave(0).getText();
-        findDataLeave(7).click();
+        sysid = findDataLeave(POS_SYSID).getText();
+        findDataLeave(POS_ICON).click();
     }
 
     public void clickBtnLeaveRequest() {
@@ -146,7 +151,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     public void hoverMouseToStatus() {
         waitForElementDisplay(getDriver(), tableLeave);
         Actions builder = new Actions(getDriver());
-        builder.moveToElement(findDataLeave(2)).build().perform();
+        builder.moveToElement(findDataLeave(POS_STATUS)).build().perform();
     }
 
     public boolean checkDisplayTipStatus(String status) {
@@ -156,21 +161,21 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
 
     public void displayLeaveDetailPage(WebDriver driver) {
         driver.get("http://portal-stg.asiantech.vn/leave/" + sysid);
-        new WebDriverWait(driver, TIMEOUTINSECONDS).until(
+        new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        new WebDriverWait(driver, TIMEOUTINSECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+        new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
         Assert.assertEquals("http://portal-stg.asiantech.vn/leave/" + sysid, driver.getCurrentUrl());
     }
 
     private WebElement findDataLeave(int col) {
         WebElement tableData = tableLeave.findElement(By.tagName("table"));
         List<WebElement> rows = tableData.findElements(By.tagName("tr"));
-        List<WebElement> columns = rows.get(0).findElements(By.tagName("td"));
+        List<WebElement> columns = rows.get(POS_SYSID).findElements(By.tagName("td"));
 
-        if (col != 2) {
+        if (col != POS_STATUS) {
             return columns.get(col).findElement(By.tagName("span"));
         } else {
-            return columns.get(2).findElement(By.className("ui-cell-data")).findElement(By.tagName("span"));
+            return columns.get(POS_STATUS).findElement(By.className("ui-cell-data")).findElement(By.tagName("span"));
         }
     }
 

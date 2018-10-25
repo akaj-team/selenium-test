@@ -5,7 +5,7 @@ Feature: Check my leave
   I want to login my account and check my  plan leave
 
   Background: User navigation to My leave page
-    Given I logged in with a employee account
+    Given I am logged in as a "BDM"
     And My Leave page is displayed
 
   Scenario: Login successfully with correct account
@@ -42,13 +42,6 @@ Feature: Check my leave
     Then Menu status drop down
     When I click on Approved in menu
     Then My Leave page with status Approved is displayed
-    And My Leave page display No records found
-
-  Scenario: I want to check status Rejected
-    When I click on menu Status
-    Then Menu status drop down
-    When I click on Rejected in menu
-    Then My Leave page with status Rejected is displayed
     And My Leave page display No records found
 
   Scenario: I want to check leave detail
