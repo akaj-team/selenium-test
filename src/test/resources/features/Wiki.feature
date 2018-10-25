@@ -2,7 +2,7 @@
 Feature: Check wiki page
 
   Background: User navigates to profile page
-    Given I am logged in as an team member
+    Given I am logged in as a "BDM"
     And Wiki page displayed
 
   Scenario: Check click name author

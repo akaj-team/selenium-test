@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
+import static vn.asiantech.base.DriverBase.getDriver;
+
 /**
  * @author at-anh.quach
  * Wiki page
@@ -36,6 +38,7 @@ public class WikiPage extends BasePage<WikiPage> {
     }
 
     public final void clickAuthor() {
+        waitForElement(getDriver(), txtAuthor, 5);
         txtAuthor.click();
     }
 

@@ -11,10 +11,7 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.WikiPage;
 
-import java.util.List;
-
 /**
- *
  * @author at-anh.quach
  * WikiDefinitions
  */
@@ -33,28 +30,6 @@ public class WikiDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        Given("^I am logged in as an team member$", () -> {
-            driver.get("http://portal-stg.asiantech.vn");
-            wikiPage = initPage(getDriver(), WikiPage.class);
-            new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            String url = driver.getCurrentUrl();
-            if (url.endsWith("/auth/login")) {
-                //Not logged in
-                List<WebElement> formInputs = driver.findElements(By.className("form-control"));
-                usernameInput = formInputs.get(0);
-                passwordInput = formInputs.get(1);
-                usernameInput.sendKeys("stg.thien.dang2@asiantech.vn");
-                passwordInput.sendKeys("Abc123@@");
-                driver.findElement(By.className("btn-primary")).click();
-                new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
-                        webDriver -> webDriver.findElement(By.className("welcome-message")).isDisplayed());
-                Assert.assertTrue(driver.findElement(By.className("welcome-message")).isDisplayed());
-            } else {
-                Assert.assertTrue(true);
-            }
-        });
 
         When("^I click on name author$", () -> wikiPage.clickAuthor());
 
@@ -90,6 +65,7 @@ public class WikiDefinitions extends DriverBase implements En {
     }
 
     private void displayPage(final String path) {
+        wikiPage = initPage(getDriver(), WikiPage.class);
         driver.get("http://portal-stg.asiantech.vn" + path);
         new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
