@@ -14,8 +14,8 @@ import static vn.asiantech.base.DriverBase.getDriver;
  */
 
 public class WikiPage extends BasePage<WikiPage> {
-    private final int POS_ICON_PACKAGE = 5;
-    private final int POS_TITlE = 0;
+    private static final int POS_ICON_PACKAGE = 5;
+    private static final int POS_TITlE = 0;
 
     @FindBy(id = "link-to-wiki-author-detail")
     private WebElement txtAuthor;
@@ -38,7 +38,6 @@ public class WikiPage extends BasePage<WikiPage> {
     }
 
     public final void clickAuthor() {
-        waitForElement(getDriver(), txtAuthor, 5);
         txtAuthor.click();
     }
 

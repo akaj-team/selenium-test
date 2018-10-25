@@ -21,8 +21,6 @@ public class WikiDefinitions extends DriverBase implements En {
 
     private WebDriver driver;
     private WikiPage wikiPage;
-    private WebElement usernameInput;
-    private WebElement passwordInput;
 
     public WikiDefinitions() {
         try {
