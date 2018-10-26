@@ -51,7 +51,7 @@ public class MenuPage extends BasePage<MenuPage> {
     }
 
     @Override
-    public MenuPage navigateTo(WebDriver webDriver) {
+    public final MenuPage navigateTo(final WebDriver webDriver) {
         return this;
     }
 
@@ -59,11 +59,11 @@ public class MenuPage extends BasePage<MenuPage> {
         return accountName.isDisplayed();
     }
 
-    public final boolean checkTextAccountName(String inputName) {
+    public final boolean checkTextAccountName(final String inputName) {
         return accountName.getText().equals(inputName);
     }
 
-    public final boolean checkColorItemHomeIsWhite(String whiteColor) {
+    public final boolean checkColorItemHomeIsWhite(final String whiteColor) {
         WebElement itemHome = getItemMenuInPosition(MENU_HOME_POS);
         String color = itemHome.findElement(By.tagName("a")).getCssValue("color");
         String actualColor = getColorString(color);
@@ -97,7 +97,7 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public final boolean checkMyTimeSheetColor(String whiteColor) {
+    public final boolean checkMyTimeSheetColor(final String whiteColor) {
         WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
         WebElement myTimeSheet = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_MY_TIME_SHEET_POS);
         String color = myTimeSheet.findElement(By.tagName("a")).getCssValue("color");
@@ -116,7 +116,7 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public final boolean checkTimeSheetOfOtherColor(String whiteColor) {
+    public final boolean checkTimeSheetOfOtherColor(final String whiteColor) {
         WebElement itemTimeSheet = getItemMenuInPosition(MENU_TIME_SHEET_POS);
         WebElement myTimeSheetOfOthers = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_TIME_SHEET_OTHER_POS);
         String color = myTimeSheetOfOthers.findElement(By.tagName("a")).getCssValue("color");
@@ -144,7 +144,7 @@ public class MenuPage extends BasePage<MenuPage> {
         itemLeave.click();
     }
 
-    public final boolean checkColorItemLeaveIsWhite(String whiteColor) {
+    public final boolean checkColorItemLeaveIsWhite(final String whiteColor) {
         WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         String color = itemLeave.findElement(By.tagName("a")).getCssValue("color");
         String actualColor = getColorString(color);
@@ -162,7 +162,7 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    public final boolean checkColorMyLeave(String whiteColor) {
+    public final boolean checkColorMyLeave(final String whiteColor) {
         WebElement itemLeave = getItemMenuInPosition(MENU_LEAVE_POS);
         WebElement myLeave = itemLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(CHILD_MENU_MY_LEAVE_POS);
         String color = myLeave.findElement(By.tagName("a")).getCssValue("color");
@@ -213,7 +213,7 @@ public class MenuPage extends BasePage<MenuPage> {
         itemOrganisation.click();
     }
 
-    public final void clickChildItemOrganisation(String childPosition) {
+    public final void clickChildItemOrganisation(final String childPosition) {
         WebElement itemOrganisation = getItemMenuInPosition(MENU_ORGANISATION_POS);
         WebElement childItemOrganisation = getChildItemMenuInPosition(itemOrganisation, Integer.valueOf(childPosition));
         childItemOrganisation.click();
@@ -235,7 +235,7 @@ public class MenuPage extends BasePage<MenuPage> {
         itemProjectManagement.click();
     }
 
-    public final void clickChildItemProjectManagement(String childPosition) {
+    public final void clickChildItemProjectManagement(final String childPosition) {
         WebElement itemProjectManagement = getItemMenuInPosition(MENU_PROJECT_MANAGEMENT_POS);
         WebElement childItemProject = getChildItemMenuInPosition(itemProjectManagement, Integer.valueOf(childPosition));
         childItemProject.click();
@@ -261,7 +261,7 @@ public class MenuPage extends BasePage<MenuPage> {
         itemAdministration.click();
     }
 
-    public final void clickChildItemAdministration(String childPosition) {
+    public final void clickChildItemAdministration(final String childPosition) {
         WebElement itemAdministration = getItemMenuInPosition(MENU_ADMINISTRATION_POS);
         WebElement childItemAdministration = getChildItemMenuInPosition(itemAdministration, Integer.valueOf(childPosition));
         childItemAdministration.click();
@@ -277,7 +277,7 @@ public class MenuPage extends BasePage<MenuPage> {
         itemDevice.click();
     }
 
-    public final void clickChildItemDevice(String childPosition) {
+    public final void clickChildItemDevice(final String childPosition) {
         WebElement itemDevice = getItemMenuInPosition(MENU_DEVICE_POS);
         WebElement childItemDevice = getChildItemMenuInPosition(itemDevice, Integer.valueOf(childPosition));
         childItemDevice.click();
@@ -293,7 +293,7 @@ public class MenuPage extends BasePage<MenuPage> {
         itemTools.click();
     }
 
-    public final void clickChildItemTools(String childPosition) {
+    public final void clickChildItemTools(final String childPosition) {
         WebElement itemTools = getItemMenuInPosition(MENU_TOOL_POS);
         WebElement childItemTools = getChildItemMenuInPosition(itemTools, Integer.valueOf(childPosition));
         childItemTools.click();
@@ -309,7 +309,7 @@ public class MenuPage extends BasePage<MenuPage> {
         itemCareer.click();
     }
 
-    public final void clickChildItemCareer(String childPosition) {
+    public final void clickChildItemCareer(final String childPosition) {
         WebElement itemCareer = getItemMenuInPosition(MENU_CAREER_POS);
         WebElement childItemCareer = getChildItemMenuInPosition(itemCareer, Integer.valueOf(childPosition));
         childItemCareer.click();
@@ -320,7 +320,7 @@ public class MenuPage extends BasePage<MenuPage> {
         }
     }
 
-    private WebElement getItemMenuInPosition(int position) {
+    private WebElement getItemMenuInPosition(final int position) {
         List<WebElement> itemMenus = new ArrayList<>();
         int countChildItem;
         List<WebElement> items = sideMenu.findElements(By.tagName("li"));
@@ -334,7 +334,7 @@ public class MenuPage extends BasePage<MenuPage> {
         return itemMenus.get(position);
     }
 
-    private WebElement getChildItemMenuInPosition(WebElement itemMenu, int childPosition) {
+    private WebElement getChildItemMenuInPosition(final WebElement itemMenu, final int childPosition) {
         List<WebElement> itemChildMenus = new ArrayList<>();
         int countChildItem;
         List<WebElement> itemChild = itemMenu.findElement(By.tagName("ul")).findElements(By.tagName("li"));
@@ -348,7 +348,7 @@ public class MenuPage extends BasePage<MenuPage> {
         return itemChildMenus.get(childPosition);
     }
 
-    private String getColorString(String color) {
+    private String getColorString(final String color) {
         if (color.contains("rgba")) {
             return color;
         } else if (color.contains("rgb")) {

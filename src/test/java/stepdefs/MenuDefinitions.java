@@ -35,7 +35,7 @@ public class MenuDefinitions extends DriverBase implements En {
         When("^I click Home item$", () -> menuPage.clickHomeItem());
         Then("^Item home change color to \"([^\"]*)\"$", (String whiteColor) -> Assert.assertTrue(menuPage.checkColorItemHomeIsWhite(whiteColor)));
         And("^Should redirect to home page \"([^\"]*)\"$", (String path) -> {
-            new WebDriverWait(getDriver(), 10).until(
+            new WebDriverWait(getDriver(), TIME_WAIT).until(
                     webDriver -> webDriver.findElement(By.className("notification-header")).findElement(By.tagName("h2")).isDisplayed()
             );
             String url = getDriver().getCurrentUrl();
@@ -107,7 +107,7 @@ public class MenuDefinitions extends DriverBase implements En {
         When("^I click child item career with \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemCareer(position));
     }
 
-    private void redirectPageWhenClickChildItem(String path) {
+    private void redirectPageWhenClickChildItem(final String path) {
         new WebDriverWait(getDriver(), TIME_WAIT).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete")
         );
