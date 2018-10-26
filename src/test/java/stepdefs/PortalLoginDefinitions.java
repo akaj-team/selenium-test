@@ -26,7 +26,11 @@ public class PortalLoginDefinitions extends DriverBase implements En {
             loginPage = initPage(getDriver(), LoginPage.class);
         });
 
-        Given("^I enter my username with \"([^\"]*)\"$", (String email) -> loginPage.withUsername(email));
+        Given("^I enter my username with \"([^\"]*)\"$", (String email) -> {
+            if (loginPage.hasEmail()) {
+                loginPage.withUsername(email);
+            }
+        });
 
         And("^I fill in password with \"([^\"]*)\"$", (String pwd) -> loginPage.withPassword(pwd));
 
@@ -42,7 +46,7 @@ public class PortalLoginDefinitions extends DriverBase implements En {
         Then("^Login button will be disabled$", () -> Assert.assertFalse(loginPage.getLoginButton().isEnabled()));
 
         Then("^Error message should display and show \"([^\"]*)\"$", (String warning) -> {
-            loginPage.waitForErrorMessage(getDriver(), 5);
+            loginPage.waitForErrorMessage(getDriver(), Constant.DEFAULT_TIME_OUT);
             Assert.assertTrue(loginPage.errorMessageIsDisplayed());
             Assert.assertEquals(warning, loginPage.getErrorMessage());
         });

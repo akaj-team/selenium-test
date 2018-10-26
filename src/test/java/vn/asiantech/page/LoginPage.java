@@ -47,9 +47,8 @@ public class LoginPage extends BasePage<LoginPage> {
         return this;
     }
 
-    public LoginPage waitForLoginButton() {
+    public void waitForLoginButton() {
         waitForElement(driver, loginButton, Constant.DEFAULT_TIME_OUT);
-        return this;
     }
 
     public boolean hasEmail() {
@@ -68,9 +67,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return loginButton;
     }
 
-    public LoginPage waitForErrorMessage(WebDriver driver, int timeOutInSecond) {
+    public void waitForErrorMessage(WebDriver driver, int timeOutInSecond) {
         waitForElement(driver, errorText, timeOutInSecond);
-        return this;
     }
-
 }

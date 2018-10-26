@@ -1,8 +1,6 @@
 package vn.asiantech.base;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -59,15 +57,17 @@ public class DriverBase {
     protected final void waitForPageDisplayed(final WebDriver driver, final String url, final By containerElement) {
         new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        if (url.equals(Constant.LOGIN_PAGE_URL)) {
-            clearCookies();
-            if (!getDriver().getCurrentUrl().startsWith("data")) {
-                getDriver().executeScript("window.localStorage.clear();");
+        waitVisibilityOfElement(driver, containerElement);
+        if (driver.findElement(containerElement).isDisplayed()) {
+            if (url.equals(driver.getCurrentUrl())) {
+                Assert.assertEquals(url, driver.getCurrentUrl());
+            } else {
+                clearCookies();
+                if (!getDriver().getCurrentUrl().startsWith("data")) {
+                    getDriver().executeScript("window.localStorage.clear();");
+                }
+                isLogged = false;
             }
-            isLogged = false;
-        } else {
-            waitVisibilityOfElement(driver, containerElement);
-            Assert.assertEquals(url, driver.getCurrentUrl());
         }
     }
 
