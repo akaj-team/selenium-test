@@ -9,10 +9,17 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.LeaveOtherPage;
 
+/**
+ * @author at-hanhnguyen
+ */
 public class LeaveOtherDefinitions extends DriverBase implements En {
     private LeaveOtherPage leaveOtherPage;
     private WebDriver webDriver;
+
     private static final int TIME_OUT = 30;
+    private static final int EMPLOYER_ID_POS = 0;
+    private static final int EMPLOYER_NAME_POS = 1;
+
     private String pathOrganisationEmployer;
     private String pathEmployerName;
     private int countItem;
@@ -28,7 +35,7 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
             webDriver.get("http://portal-stg.asiantech.vn/leave/tracking");
             leaveOtherPage = initPage(getDriver(), LeaveOtherPage.class);
             new WebDriverWait(webDriver, TIME_OUT).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+                    driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"));
             Assert.assertEquals("http://portal-stg.asiantech.vn/leave/tracking", webDriver.getCurrentUrl());
         });
         And("^Wait for load data$", () -> leaveOtherPage.waitForLoadData(webDriver));
@@ -52,8 +59,8 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
 
         Given("^Leave of other have data$", () -> {
             Assert.assertFalse(leaveOtherPage.checkDataEmpty());
-            pathOrganisationEmployer = leaveOtherPage.getPathPageRedirect(0);
-            pathEmployerName = leaveOtherPage.getPathPageRedirect(1);
+            pathOrganisationEmployer = leaveOtherPage.getPathPageRedirect(EMPLOYER_ID_POS);
+            pathEmployerName = leaveOtherPage.getPathPageRedirect(EMPLOYER_NAME_POS);
             countItem = leaveOtherPage.countDataItem(webDriver);
         });
         When("^I click in employer id$", () -> leaveOtherPage.clickEmployerId());
@@ -69,7 +76,7 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
 
     private void redirectPage(final String path) {
         new WebDriverWait(getDriver(), TIME_OUT).until(
-                webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
+                driver -> driver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
         );
         String url = getDriver().getCurrentUrl();
         Assert.assertEquals(path, url.substring(url.length() - path.length()));
