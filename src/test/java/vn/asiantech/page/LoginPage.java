@@ -20,12 +20,6 @@ public class LoginPage extends BasePage<LoginPage> {
     @FindBy(className = "text-danger")
     private WebElement errorText;
 
-    private WebDriver driver;
-
-    public LoginPage(final WebDriver driver) {
-        this.driver = driver;
-    }
-
     @Override
     public final LoginPage navigateTo(final WebDriver webDriver) {
         webDriver.get(Constant.LOGIN_PAGE_URL);
@@ -47,7 +41,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return this;
     }
 
-    public final void waitForLoginButton() {
+    public final void waitForLoginButton(final WebDriver driver) {
         waitForElement(driver, loginButton, Constant.DEFAULT_TIME_OUT);
     }
 

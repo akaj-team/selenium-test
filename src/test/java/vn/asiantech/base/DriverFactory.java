@@ -48,7 +48,7 @@ public class DriverFactory {
         return driver;
     }
 
-    RemoteWebDriver getStoredDriver() {
+    final RemoteWebDriver getStoredDriver() {
         return driver;
     }
 

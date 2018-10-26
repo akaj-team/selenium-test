@@ -47,7 +47,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
             List<WebElement> rows = tbBody.findElements(By.tagName("tr"));
             return rows.get(0).getAttribute("class").contains("ui-datatable-emptymessage-row");
         } catch (StaleElementReferenceException exception) {
-            return true;
+            return false;
         }
     }
 

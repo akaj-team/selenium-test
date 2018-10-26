@@ -2,6 +2,7 @@ package vn.asiantech.base;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -37,7 +38,7 @@ public class DriverBase {
         return driverFactoryThread.get().getDriver();
     }
 
-    protected static void setLogState(boolean logState) {
+    protected static void setLogState(final boolean logState) {
         isLogged = logState;
     }
 
@@ -68,16 +69,14 @@ public class DriverBase {
         new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         waitVisibilityOfElement(driver, containerElement);
-        if (driver.findElement(containerElement).isDisplayed()) {
-            if (url.equals(driver.getCurrentUrl())) {
-                Assert.assertEquals(url, driver.getCurrentUrl());
-            } else {
-                clearCookies();
-                if (!getDriver().getCurrentUrl().startsWith("data")) {
-                    getDriver().executeScript("window.localStorage.clear();");
-                }
-                isLogged = false;
+        if (url.equals(driver.getCurrentUrl())) {
+            Assert.assertEquals(url, driver.getCurrentUrl());
+        } else {
+            clearCookies();
+            if (!getDriver().getCurrentUrl().startsWith("data")) {
+                getDriver().executeScript("window.localStorage.clear();");
             }
+            isLogged = false;
         }
     }
 
@@ -87,6 +86,10 @@ public class DriverBase {
     }
 
     protected final void waitVisibilityOfElement(final WebDriver driver, final By element) {
-        new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(element));
+        try {
+            new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(element));
+        } catch (TimeoutException exception) {
+            //no-opt
+        }
     }
 }

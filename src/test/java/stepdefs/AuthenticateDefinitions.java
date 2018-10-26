@@ -28,7 +28,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
                 Account account = accounts.get(position);
                 getDriver().get(Constant.LOGIN_PAGE_URL);
                 loginPage = initPage(getDriver(), LoginPage.class);
-                loginPage.waitForLoginButton();
+                loginPage.waitForLoginButton(getDriver());
                 loginPage.withUsername(account.email).withPassword(account.password).login();
 
                 HomePage homePage = initPage(getDriver(), HomePage.class);
