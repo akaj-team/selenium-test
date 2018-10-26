@@ -1,6 +1,7 @@
 package vn.asiantech.page.team;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -42,8 +43,12 @@ public class TeamsPage extends BasePage<TeamsPage> {
     }
 
     public final boolean isTeamListEmpty() {
-        List<WebElement> rows = tbBody.findElements(By.tagName("tr"));
-        return rows.get(0).getAttribute("class").contains("ui-datatable-emptymessage-row");
+        try {
+            List<WebElement> rows = tbBody.findElements(By.tagName("tr"));
+            return rows.get(0).getAttribute("class").contains("ui-datatable-emptymessage-row");
+        } catch (StaleElementReferenceException exception) {
+            return true;
+        }
     }
 
     public final String showMessageEmptyTeam() {
@@ -107,8 +112,9 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     private String getViewContainerOfColumnName(final By tagName) {
         WebElement columnName = getColumnIndex(COLUMN_NAME, 0);
+        String teamName = columnName.findElement(By.tagName("a")).getAttribute("href");
         columnName.findElement(By.tagName("a")).findElement(By.tagName("span")).findElement(tagName).click();
-        return columnName.findElement(By.tagName("a")).getAttribute("href");
+        return teamName;
     }
 
     private WebElement getColumnIndex(final int column, final int position) {

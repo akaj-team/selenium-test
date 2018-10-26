@@ -20,6 +20,7 @@ public class DriverBase {
     private static final int TIME_OUT_SECOND_MAXIMUM = 20;
     private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
     private static ThreadLocal<DriverFactory> driverFactoryThread;
+    protected static boolean isLogged = false;
 
     static void instantiateDriverObject() {
         driverFactoryThread = ThreadLocal.withInitial(() -> {
@@ -58,8 +59,16 @@ public class DriverBase {
     protected final void waitForPageDisplayed(final WebDriver driver, final String url, final By containerElement) {
         new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        waitVisibilityOfElement(driver, containerElement);
-        Assert.assertEquals(url, driver.getCurrentUrl());
+        if (url.equals(Constant.LOGIN_PAGE_URL)) {
+            clearCookies();
+            if (!getDriver().getCurrentUrl().startsWith("data")) {
+                getDriver().executeScript("window.localStorage.clear();");
+            }
+            isLogged = false;
+        } else {
+            waitVisibilityOfElement(driver, containerElement);
+            Assert.assertEquals(url, driver.getCurrentUrl());
+        }
     }
 
     protected final void waitForPageRedirected(final WebDriver driver, final String url, final By containerElement) {

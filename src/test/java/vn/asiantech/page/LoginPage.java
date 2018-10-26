@@ -4,14 +4,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 public class LoginPage extends BasePage<LoginPage> {
-    @FindBy(css = "input[formcontrolname=email]")
+
+    @FindBy(css = "input[type=email]")
     private WebElement usernameInput;
-    @FindBy(css = "input[formcontrolname=password]")
+
+    @FindBy(css = "input[type=password]")
     private WebElement passwordInput;
-    @FindBy(css = "button.btn-primary")
+
+    @FindBy(css = ".btn.btn-primary.block.full-width.m-b")
     private WebElement loginButton;
+
     @FindBy(className = "text-danger")
     private WebElement errorText;
 
@@ -23,7 +28,7 @@ public class LoginPage extends BasePage<LoginPage> {
 
     @Override
     public LoginPage navigateTo(WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn/auth/login");
+        webDriver.get(Constant.LOGIN_PAGE_URL);
         return this;
     }
 
@@ -43,7 +48,7 @@ public class LoginPage extends BasePage<LoginPage> {
     }
 
     public LoginPage waitForLoginButton() {
-        waitForElement(driver, loginButton, 5);
+        waitForElement(driver, loginButton, Constant.DEFAULT_TIME_OUT);
         return this;
     }
 

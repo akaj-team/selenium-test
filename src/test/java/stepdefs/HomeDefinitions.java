@@ -5,8 +5,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.HomePage;
+import vn.asiantech.page.LeavePlannerPage;
 
 import static vn.asiantech.page.HomePage.TIME_OUT_SECOND_NORMAL;
 import static vn.asiantech.page.HomePage.URL_HOME_PAGE;
@@ -28,7 +30,11 @@ public class HomeDefinitions extends DriverBase implements En {
         homePage = initPage(getDriver(), HomePage.class);
 
         // Check Home page is started
-        Given("^I am stayed in home page$", () -> waitForPageDisplayed(driver, URL_HOME_PAGE, By.className("wapper")));
+        Given("^I am stayed in home page$", () -> {
+            driver.get(Constant.HOME_PAGE_URL);
+            homePage = initPage(driver, HomePage.class);
+            waitForPageDisplayed(driver, URL_HOME_PAGE, By.className("wapper"));
+        });
 
         // Check color and data of tab on navigation header when clicked
         When("^I click on tab item \"([^\"]*)\"$", (String position) -> homePage.onClickTabInIBoxContent(position));
