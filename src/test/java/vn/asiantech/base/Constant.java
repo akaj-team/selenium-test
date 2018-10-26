@@ -1,8 +1,6 @@
 package vn.asiantech.base;
 
 /**
- * Constant class
- *
  * @author at-hangtran
  */
 public final class Constant {

@@ -38,7 +38,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return this;
     }
 
-    public void waitForLoginButton(WebDriver driver) {
+    public void waitForLoginButton(final WebDriver driver) {
         waitForElement(driver, loginButton, Constant.DEFAULT_TIME_OUT);
     }
 
@@ -58,7 +58,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return loginButton;
     }
 
-    public void waitForErrorMessage(WebDriver driver) {
+    public final void waitForErrorMessage(final WebDriver driver) {
         waitForElement(driver, errorText, Constant.DEFAULT_TIME_OUT);
     }
 }
