@@ -25,7 +25,9 @@ public class PortalLoginDefinitions extends DriverBase implements En {
         });
 
         Given("^I enter my username with \"([^\"]*)\"$", (String email) -> {
-            loginPage.withUsername(email);
+            if (loginPage.hasEmail()) {
+                loginPage.withUsername(email);
+            }
         });
 
         And("^I fill in password with \"([^\"]*)\"$", (String pwd) -> {
@@ -46,7 +48,7 @@ public class PortalLoginDefinitions extends DriverBase implements En {
         Then("^Login button will be disabled$", () -> Assert.assertFalse(loginPage.getLoginButton().isEnabled()));
 
         Then("^Error message should display and show \"([^\"]*)\"$", (String warning) -> {
-            loginPage.waitForErrorMessage(getDriver(), 5);
+            loginPage.waitForErrorMessage(getDriver());
             Assert.assertTrue(loginPage.errorMessageIsDisplayed());
             Assert.assertEquals(warning, loginPage.getErrorMessage());
         });

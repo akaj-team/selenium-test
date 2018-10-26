@@ -25,10 +25,13 @@ public class HomeDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        homePage = initPage(getDriver(), HomePage.class);
 
         // Check Home page is started
-        Given("^I am stayed in home page$", () -> waitForPageDisplayed(driver, URL_HOME_PAGE, By.className("wapper")));
+        Given("^I am stayed in home page$", () -> {
+            getDriver().get(URL_HOME_PAGE);
+            waitForPageDisplayed(driver, URL_HOME_PAGE, By.className("wapper"));
+            homePage = initPage(getDriver(), HomePage.class);
+        });
 
         // Check color and data of tab on navigation header when clicked
         When("^I click on tab item \"([^\"]*)\"$", (String position) -> homePage.onClickTabInIBoxContent(position));

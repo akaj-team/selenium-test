@@ -4,26 +4,22 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 public class LoginPage extends BasePage<LoginPage> {
+
     @FindBy(css = "input[formcontrolname=email]")
     private WebElement usernameInput;
     @FindBy(css = "input[formcontrolname=password]")
     private WebElement passwordInput;
-    @FindBy(css = "button.btn-primary")
+    @FindBy(css = ".btn.btn-primary.block.full-width.m-b")
     private WebElement loginButton;
     @FindBy(className = "text-danger")
     private WebElement errorText;
 
-    private WebDriver driver;
-
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
     @Override
     public LoginPage navigateTo(WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn/auth/login");
+        webDriver.get(Constant.LOGIN_PAGE_URL);
         return this;
     }
 
@@ -42,9 +38,8 @@ public class LoginPage extends BasePage<LoginPage> {
         return this;
     }
 
-    public LoginPage waitForLoginButton() {
-        waitForElement(driver, loginButton, 5);
-        return this;
+    public void waitForLoginButton(WebDriver driver) {
+        waitForElement(driver, loginButton, Constant.DEFAULT_TIME_OUT);
     }
 
     public boolean hasEmail() {
@@ -63,9 +58,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return loginButton;
     }
 
-    public LoginPage waitForErrorMessage(WebDriver driver, int timeOutInSecond) {
-        waitForElement(driver, errorText, timeOutInSecond);
-        return this;
+    public void waitForErrorMessage(WebDriver driver) {
+        waitForElement(driver, errorText, Constant.DEFAULT_TIME_OUT);
     }
-
 }
