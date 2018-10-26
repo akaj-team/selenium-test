@@ -8,4 +8,8 @@ public final class Constant {
     public static final String HOME_PAGE_URL = PORTAL_URL + "/homepage";
     public static final String LOGIN_PAGE_URL = PORTAL_URL + "/auth/login";
     public static final int DEFAULT_TIME_OUT = 10;
+
+    private Constant() {
+        // no-opt
+    }
 }

@@ -22,52 +22,52 @@ public class LoginPage extends BasePage<LoginPage> {
 
     private WebDriver driver;
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage(final WebDriver driver) {
         this.driver = driver;
     }
 
     @Override
-    public LoginPage navigateTo(WebDriver webDriver) {
+    public final LoginPage navigateTo(final WebDriver webDriver) {
         webDriver.get(Constant.LOGIN_PAGE_URL);
         return this;
     }
 
-    public LoginPage login() {
+    public final LoginPage login() {
         loginButton.click();
         return this;
     }
 
-    public LoginPage withUsername(String username) {
+    public final LoginPage withUsername(final String username) {
         usernameInput.sendKeys(username);
         return this;
     }
 
-    public LoginPage withPassword(String password) {
+    public final LoginPage withPassword(final String password) {
         passwordInput.sendKeys(password);
         return this;
     }
 
-    public void waitForLoginButton() {
+    public final void waitForLoginButton() {
         waitForElement(driver, loginButton, Constant.DEFAULT_TIME_OUT);
     }
 
-    public boolean hasEmail() {
+    public final boolean hasEmail() {
         return isElementPresented(usernameInput);
     }
 
-    public boolean errorMessageIsDisplayed() {
+    public final boolean errorMessageIsDisplayed() {
         return errorText.isDisplayed();
     }
 
-    public String getErrorMessage() {
+    public final String getErrorMessage() {
         return errorText.getText();
     }
 
-    public WebElement getLoginButton() {
+    public final WebElement getLoginButton() {
         return loginButton;
     }
 
-    public void waitForErrorMessage(WebDriver driver, int timeOutInSecond) {
+    public final void waitForErrorMessage(final WebDriver driver, final int timeOutInSecond) {
         waitForElement(driver, errorText, timeOutInSecond);
     }
 }

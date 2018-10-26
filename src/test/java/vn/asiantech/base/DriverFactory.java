@@ -37,7 +37,7 @@ public class DriverFactory {
         selectedDriverType = driverType;
     }
 
-    public RemoteWebDriver getDriver() {
+    public final RemoteWebDriver getDriver() {
         if (null == driver) {
             try {
                 instantiateWebDriver(selectedDriverType);
@@ -52,7 +52,7 @@ public class DriverFactory {
         return driver;
     }
 
-    void quitDriver() {
+    final void quitDriver() {
         if (null != driver) {
             driver.quit();
             driver = null;

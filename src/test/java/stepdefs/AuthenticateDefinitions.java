@@ -19,7 +19,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
     public AuthenticateDefinitions() {
         initMap();
         Given("^I am logged in as (a|an) \"([^\"]*)\"$", (String arg0, String position) -> {
-            if (!isLogged) {
+            if (!getLogState()) {
                 clearCookies();
 
                 if (!getDriver().getCurrentUrl().startsWith("data")) {
@@ -34,7 +34,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
                 HomePage homePage = initPage(getDriver(), HomePage.class);
                 homePage.waitForWelcomeMessage(getDriver());
                 Assert.assertTrue(homePage.welcomeTestIsDisplayed());
-                isLogged = true;
+                setLogState(true);
             }
         });
 
@@ -46,7 +46,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
         if (!getDriver().getCurrentUrl().startsWith("data")) {
             getDriver().executeScript("window.localStorage.clear();");
         }
-        isLogged = false;
+        setLogState(false);
     }
 
     private void initMap() {

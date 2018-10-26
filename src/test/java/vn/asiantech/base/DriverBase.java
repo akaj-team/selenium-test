@@ -1,6 +1,8 @@
 package vn.asiantech.base;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,7 +20,7 @@ public class DriverBase {
     private static final int TIME_OUT_SECOND_MAXIMUM = 20;
     private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
     private static ThreadLocal<DriverFactory> driverFactoryThread;
-    protected static boolean isLogged = false;
+    private static boolean isLogged = false;
 
     static void instantiateDriverObject() {
         driverFactoryThread = ThreadLocal.withInitial(() -> {
@@ -33,6 +35,14 @@ public class DriverBase {
             instantiateDriverObject();
         }
         return driverFactoryThread.get().getDriver();
+    }
+
+    protected static void setLogState(boolean logState) {
+        isLogged = logState;
+    }
+
+    protected static boolean getLogState() {
+        return isLogged;
     }
 
     @AfterMethod(alwaysRun = true)
