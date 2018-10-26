@@ -3,6 +3,9 @@ package stepdefs;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
@@ -21,6 +24,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
     public AuthenticateDefinitions() {
         initMap();
         Given("^I am logged in as (a|an) \"([^\"]*)\"$", (String arg0, String position) -> {
+            waitButtonLogout();
             if (!isButtonLogoutDisplayed()) {
                 clearCookies();
 
@@ -43,14 +47,24 @@ public class AuthenticateDefinitions extends DriverBase implements En {
     }
 
     private void logoutCurrentSession() {
-        clearCookies();
-        if (!getDriver().getCurrentUrl().startsWith("data")) {
-            getDriver().executeScript("window.localStorage.clear();");
+        if (isButtonLogoutDisplayed()) {
+            clearCookies();
+            if (!getDriver().getCurrentUrl().startsWith("data")) {
+                getDriver().executeScript("window.localStorage.clear();");
+            }
         }
     }
 
     private void initMap() {
-        accounts.put("EM", new Account("stg.tien.hoang@asiantech.vn", "Abc123@@"));
+        accounts.put("EM", new Account("stg.lam.le2@asiantech.vn", "Abc123@@"));
+    }
+
+    private void waitButtonLogout() {
+        try {
+            new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.id("btn-logout")));
+        } catch (TimeoutException exception) {
+            //no-opt
+        }
     }
 
     private boolean isButtonLogoutDisplayed() {

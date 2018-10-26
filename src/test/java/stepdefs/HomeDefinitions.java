@@ -28,9 +28,9 @@ public class HomeDefinitions extends DriverBase implements En {
 
         // Check Home page is started
         Given("^I am stayed in home page$", () -> {
-            getDriver().get(URL_HOME_PAGE);
-            waitForPageDisplayed(driver, URL_HOME_PAGE, By.className("wapper"));
+            driver.get(URL_HOME_PAGE);
             homePage = initPage(getDriver(), HomePage.class);
+            waitForPageDisplayed(driver, URL_HOME_PAGE, By.id("page-wrapper"));
         });
 
         // Check color and data of tab on navigation header when clicked
