@@ -4,8 +4,9 @@ Feature: Login AT Portal
   I want to test leave other page
 
   Background: Check leave other page
-    Given I am logged in as an android team manager
+    Given I am logged in as an "EM"
     And Open leave of other page
+    And Wait for load data
 
   Scenario: Test show dropdown popup when click items to sort on Leave Of Other page
     When I click status item
@@ -31,11 +32,23 @@ Feature: Login AT Portal
     When leave of other no data
     Then show empty message with text is "No records found"
 
-  Scenario: Test click item on leave of other
+  Scenario: Test click item on employer id
     Given Leave of other have data
     When I click in employer id
     Then Should redirect to organisation employees
+
+  Scenario: Test click item on employer name
+    Given Leave of other have data
     When I click in employees name
     Then Should redirect to profile detail
+
+  Scenario: Test click item on icon search
+    Given Leave of other have data
     When I click in icon search
     Then Should redirect to organisation employees
+
+  Scenario: Test show/hide button next
+    Given Leave of other have data
+    When Button next_to_end_page is shown
+    And I click button next_to_end_page
+    Then Should show end page

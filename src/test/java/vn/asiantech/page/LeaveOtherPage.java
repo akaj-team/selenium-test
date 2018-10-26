@@ -1,15 +1,20 @@
 package vn.asiantech.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import vn.asiantech.base.BasePage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class LeaveOtherPage {
+public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
+
+    @FindBy(css = ".ibox-content.main-content")
+    private WebElement iboxContent;
     @FindBy(className = "dropdown-sm")
     private WebElement statusItem;
     @FindBy(className = "dropdown-md")
@@ -20,97 +25,134 @@ public class LeaveOtherPage {
     private WebElement mainBody;
     @FindBy(css = ".ui-datatable.ui-widget.ui-datatable-scrollable")
     private WebElement tableData;
+    @FindBy(css = ".ui-widget-content.ui-datatable-emptymessage-row.ng-star-inserted")
+    private WebElement trEmptyMessage;
+    @FindBy(css = ".ui-paginator-last.ui-paginator-element.ui-state-default.ui-corner-all")
+    private WebElement btnLast;
 
     private static final String FORMAT_SLASH_MARK = "MMM dd, yyyy";
+    private static final int TIME_WAIT = 10;
 
-    public LeaveOtherPage() {
-        //no-up
+    @Override
+    public final LeaveOtherPage navigateTo(final WebDriver webDriver) {
+        return this;
     }
 
-    public void clickStatusItem() {
+    public final void waitForLoadData(final WebDriver driver) {
+        waitForElement(driver, iboxContent, TIME_WAIT);
+    }
+
+    public final void clickStatusItem() {
         statusItem.click();
     }
 
-    public boolean checkShowStatusDropdown() {
+    public final boolean checkShowStatusDropdown() {
         return statusItem.findElement(By.cssSelector(".ui-dropdown-panel.ui-widget-content.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-panelState")).isDisplayed();
     }
 
-    public void clickGroupByItem() {
+    public final void clickGroupByItem() {
         groupByItem.click();
     }
 
-    public boolean checkShowGroupByItem() {
+    public final boolean checkShowGroupByItem() {
         return groupByItem.findElement(By.cssSelector(".ui-dropdown-panel.ui-widget-content.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-panelState")).isDisplayed();
     }
 
-    public void clickItemStartDate() {
+    public final void clickItemStartDate() {
         itemTime.findElements(By.tagName("p-calendar")).get(0).click();
     }
 
-    public void clickItemEndDate() {
+    public final void clickItemEndDate() {
         itemTime.findElements(By.tagName("p-calendar")).get(1).click();
     }
 
-    public boolean checkShowStartDateDialog() {
+    public final boolean checkShowStartDateDialog() {
         return itemTime.findElements(By.tagName("p-calendar")).get(0).findElement(By.cssSelector(".ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-overlayState")).isDisplayed();
     }
 
-    public boolean checkShowEndDateDialog() {
+    public final boolean checkShowEndDateDialog() {
         return itemTime.findElements(By.tagName("p-calendar")).get(1).findElement(By.cssSelector(".ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-overlayState")).isDisplayed();
     }
 
-    public void chooseStartDate() {
-        itemTime.findElements(By.tagName("p-calendar")).get(0).findElement(By.cssSelector(".ui-datepicker-calendar.ng-star-inserted")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).get(4).findElements(By.tagName("td")).get(5).click();
+    public final void chooseStartDate() {
+        itemTime.findElements(By.tagName("p-calendar")).get(0).findElement(By.cssSelector(".ui-datepicker-calendar.ng-star-inserted")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).get(3).findElements(By.tagName("td")).get(5).click();
     }
 
-    public void chooseEndDate() {
-        itemTime.findElements(By.tagName("p-calendar")).get(1).findElement(By.cssSelector(".ui-datepicker-calendar.ng-star-inserted")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).get(4).findElements(By.tagName("td")).get(3).click();
+    public final void chooseEndDate() {
+        itemTime.findElements(By.tagName("p-calendar")).get(1).findElement(By.cssSelector(".ui-datepicker-calendar.ng-star-inserted")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).get(3).findElements(By.tagName("td")).get(3).click();
     }
 
-    public boolean compareTwoDate() {
+    public final boolean compareTwoDate() {
         Date startDate = convertStringToDate(itemTime.findElements(By.tagName("p-calendar")).get(0).findElement(By.cssSelector(".ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted")).getAttribute("value"));
         Date endDate = convertStringToDate(itemTime.findElements(By.tagName("p-calendar")).get(1).findElement(By.cssSelector(".ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted")).getAttribute("value"));
         return startDate != null && endDate != null && startDate.compareTo(endDate) > 0;
     }
 
-    public boolean checkShowErrorMessage(String message) {
+    public final boolean checkShowErrorMessage(final String message) {
         WebElement errorMessage = mainBody.findElement(By.tagName("app-error")).findElement(By.cssSelector(".app-alert.ng-star-inserted"));
         return errorMessage.isDisplayed() && errorMessage.getText().trim().contains(message);
     }
 
-    public boolean checkDataEmpty() {
-        return tableData.findElement(By.tagName("p-paginator")).findElements(By.tagName("div")).size() == 0;
+    public final boolean checkDataEmpty() {
+        return isElementPresented(trEmptyMessage);
     }
 
-    public boolean checkShowMessageEmpty(String message) {
+    public final boolean checkShowMessageEmpty(final String message) {
         return tableData.findElement(By.className("ui-datatable-scrollable-table-wrapper")).findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).findElement(By.tagName("td")).findElement(By.tagName("span")).getText().trim().equals(message);
     }
 
-    public void clickEmployerId() {
+    public final void clickEmployerId() {
         WebElement itemFirst = tableData.findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).findElements(By.tagName("tr")).get(0);
         WebElement employerId = itemFirst.findElements(By.tagName("td")).get(0);
         employerId.findElement(By.className("ng-star-inserted")).click();
     }
 
-    public String getPathPageRedirect(Integer position) {
+    public final String getPathPageRedirect(final Integer position) {
         WebElement itemFirst = tableData.findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).findElements(By.tagName("tr")).get(0);
         WebElement employerId = itemFirst.findElements(By.tagName("td")).get(position);
         return employerId.findElement(By.tagName("span")).findElement(By.tagName("a")).getAttribute("href");
     }
 
-    public void clickEmployerName() {
+    public final void clickEmployerName() {
         WebElement itemFirst = tableData.findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).findElements(By.tagName("tr")).get(0);
         WebElement employerName = itemFirst.findElements(By.tagName("td")).get(1);
         employerName.findElement(By.className("ng-star-inserted")).findElement(By.className("info-grouping")).click();
     }
 
-    public void clickSearchIcon() {
+    public final void clickSearchIcon() {
         WebElement itemFirst = tableData.findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).findElements(By.tagName("tr")).get(0);
         WebElement searchIcon = itemFirst.findElements(By.tagName("td")).get(8);
         searchIcon.findElement(By.cssSelector(".view.ng-star-inserted")).click();
     }
 
-    private Date convertStringToDate(String inputDate) {
+    public final int countDataItem(final WebDriver driver) {
+        String lineCountPage = driver.findElement(By.cssSelector(".show-entry.ng-star-inserted")).getText();
+        String countPage = lineCountPage.substring(lineCountPage.indexOf("of") + 2, lineCountPage.indexOf("entries"));
+        return Integer.valueOf(countPage.trim());
+    }
+
+    public final boolean checkButtonNextEndPageShown(final int countItem) {
+        return countItem / 50 > 5 || (countItem / 50 == 5 && countItem % 50 > 0);
+    }
+
+    public final void clickButtonLast() {
+        btnLast.click();
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public final String getPathLastPage(final int countItem) {
+        int numberPage = countItem / 50;
+        if (countItem % 50 > 0) {
+            numberPage = numberPage + 1;
+        }
+        return "http://portal-stg.asiantech.vn/leave/tracking;page=" + numberPage;
+    }
+
+    private Date convertStringToDate(final String inputDate) {
         SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_SLASH_MARK, Locale.getDefault());
         try {
             return sdf.parse(inputDate);
