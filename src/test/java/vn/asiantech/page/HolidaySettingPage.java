@@ -83,7 +83,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
 
     @Override
     public final HolidaySettingPage navigateTo(final WebDriver webDriver) {
-        return this;
+        return null;
     }
 
     public final void clickItemHolidaySetting() {
