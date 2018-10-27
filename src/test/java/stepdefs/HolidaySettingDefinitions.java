@@ -51,7 +51,7 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
         });
 
         When("^I click on holidays setting in menu$", () -> holidaySettingPage.clickItemHolidaySetting());
-        Then("^Menu Administration drop down$", () -> Assert.assertFalse(holidaySettingPage.checkDeviceMenuDropDown()));
+        Then("^Menu Administration drop down$", () -> Assert.assertFalse(holidaySettingPage.checkAdministrationMenuDropDown()));
         When("^I click on item Holidays Setting$", () -> holidaySettingPage.clickMenuHolidaySetting());
         Then("^Holiday setting page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
         And("^Display title content is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, holidaySettingPage.checkTitleContent()));
@@ -64,8 +64,8 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
             getDriver().get(TIME_SHEET_PAGE_URL);
         });
 
-        When("^Click button next on header$", () -> holidaySettingPage.clickOnButtonNext());
-        When("^Click button previous on header$", () -> holidaySettingPage.clickOnButtonPrevious());
+        When("^Click button next on header$", () -> holidaySettingPage.onClickOnButtonNext());
+        When("^Click button previous on header$", () -> holidaySettingPage.onClickOnButtonPrevious());
         Then("^Can click today button on header$", () -> Assert.assertTrue(true, holidaySettingPage.onButtonTodayClickable().toString()));
 
         Then("^Display full seven columns title header calendar$", () -> Assert.assertTrue(true, holidaySettingPage.displayFullTitleCalendar().toString()));

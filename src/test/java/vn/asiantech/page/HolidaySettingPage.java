@@ -15,6 +15,8 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     private static final int MENU_NAVIGATION_ITEM = 7;
     private static final int CONFIRM_DIALOG_BUTTON_CANCEL = 0;
     private static final int CONFIRM_DIALOG_BUTTON_DELETE = 1;
+    private static final int END_DATE_POSITION = 1;
+    private static final int FIRST_ITEM_SELECTED = 0;
 
     @FindBy(id = "side-menu")
     private
@@ -88,8 +90,8 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
 
     public final void clickMenuHolidaySetting() {
         WebElement itemHolidaySetting = getItemMenuInPosition();
-        WebElement device = itemHolidaySetting.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
-        device.click();
+        WebElement administration = itemHolidaySetting.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
+        administration.click();
     }
 
     public final String checkTitleContent() {
@@ -97,9 +99,9 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         return itemTitle.getText();
     }
 
-    public final boolean checkDeviceMenuDropDown() {
-        WebElement itemDevice = getItemMenuInPosition();
-        return itemDevice.findElement(By.tagName("ul")).getRect().height == 0;
+    public final boolean checkAdministrationMenuDropDown() {
+        WebElement itemAdministration = getItemMenuInPosition();
+        return itemAdministration.findElement(By.tagName("ul")).getRect().height == 0;
     }
 
     private WebElement getItemMenuInPosition() {
@@ -128,7 +130,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         return !btnToday.isEnabled();
     }
 
-    public final void clickOnButtonNext() {
+    public final void onClickOnButtonNext() {
         btnNext.click();
     }
 
@@ -136,7 +138,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         return btnToday.isEnabled();
     }
 
-    public final void clickOnButtonPrevious() {
+    public final void onClickOnButtonPrevious() {
         btnPrevious.click();
     }
 
@@ -167,8 +169,8 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
 
     public final void clickItemHolidayCalendar(final WebDriver driver) {
         waitForElement(driver, calendarContent, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> items = calendarContent.findElements(By.className("fc-content-skeleton"));
-        for (WebElement element : items) {
+        List<WebElement> itemCalendars = calendarContent.findElements(By.className("fc-content-skeleton"));
+        for (WebElement element : itemCalendars) {
             WebElement body = element.findElement(By.tagName("thead"));
             List<WebElement> columnsCalendar = body.findElements(By.tagName("td"));
             for (WebElement row : columnsCalendar) {
@@ -229,20 +231,20 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
 
     public final void clickBoxHolidayTimeTo() {
         List<WebElement> inputDates = dlgCalendar.findElements(By.cssSelector("p-calendar"));
-        WebElement boxTimeTo = inputDates.get(1).findElement(By.tagName("input"));
+        WebElement boxTimeTo = inputDates.get(END_DATE_POSITION).findElement(By.tagName("input"));
         boxTimeTo.click();
     }
 
     public final Boolean isDisplayCalendarDateTime(final WebDriver driver) {
         waitForElement(driver, dlgCalendar, TIME_OUT_WAITED_ELEMENT);
         List<WebElement> inputDates = dlgCalendar.findElements(By.cssSelector("p-calendar"));
-        List<WebElement> elements = inputDates.get(1).findElements(By.tagName("div"));
-        return elements.get(0).isDisplayed();
+        List<WebElement> elements = inputDates.get(END_DATE_POSITION).findElements(By.tagName("div"));
+        return elements.get(FIRST_ITEM_SELECTED).isDisplayed();
     }
 
     public final void chooseTodayOnDialogCalendar() {
         List<WebElement> inputDates = dlgCalendar.findElements(By.cssSelector("p-calendar"));
-        WebElement dateItem = inputDates.get(1).findElement(By.tagName("table"));
+        WebElement dateItem = inputDates.get(END_DATE_POSITION).findElement(By.tagName("table"));
         WebElement dateItemBody = dateItem.findElement(By.tagName("tbody"));
         List<WebElement> rows = dateItemBody.findElements(By.tagName("tr"));
         for (WebElement row : rows) {
