@@ -1,3 +1,4 @@
+@HolidaySetting
 Feature: Check holidays setting
   I want to login my account and check holidays setting page
 

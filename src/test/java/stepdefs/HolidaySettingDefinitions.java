@@ -54,7 +54,7 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
         Then("^Menu Administration drop down$", () -> Assert.assertFalse(holidaySettingPage.checkDeviceMenuDropDown()));
         When("^I click on item Holidays Setting$", () -> holidaySettingPage.clickMenuHolidaySetting());
         Then("^Holiday setting page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
-        And("^Display title content is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(holidaySettingPage.checkTitleContent(driver, content)));
+        And("^Display title content is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content,holidaySettingPage.checkTitleContent(driver)));
         And("^Display calendar content$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayCalendarContent(driver).toString()));
         And("^Display button next and previous$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonControl().toString()));
         And("^Disable button today and can not click$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonTodayDisable(driver).toString()));
@@ -87,7 +87,7 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
         When("^Choose today on dialog calendar date time$", () -> holidaySettingPage.chooseTodayOnDialogCalendar(driver));
         Then("^Enable button save$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonSaveEnable(driver).toString()));
         Given("^Enter full information$", () -> holidaySettingPage.enterFullInfo(driver));
-        When("^Click button save$", () -> holidaySettingPage.clickButtonSave(driver));
+        When("^Click button save$", () -> holidaySettingPage.clickButtonSave());
         Then("^Message success is showing$", () -> Assert.assertTrue(true, holidaySettingPage.isMessageConfirmShowing(driver).toString()));
         When("^Click item holiday$", () -> holidaySettingPage.clickItemHoliday(driver));
         And("^Enable button delete$", () -> Assert.assertTrue(true, holidaySettingPage.isEnableButtonDelete(driver).toString()));
