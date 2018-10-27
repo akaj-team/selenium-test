@@ -54,52 +54,51 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
         Then("^Menu Administration drop down$", () -> Assert.assertFalse(holidaySettingPage.checkDeviceMenuDropDown()));
         When("^I click on item Holidays Setting$", () -> holidaySettingPage.clickMenuHolidaySetting());
         Then("^Holiday setting page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
-        And("^Display title content is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content,holidaySettingPage.checkTitleContent(driver)));
-        And("^Display calendar content$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayCalendarContent(driver).toString()));
+        And("^Display title content is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, holidaySettingPage.checkTitleContent()));
+        And("^Display calendar content$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayCalendarContent().toString()));
         And("^Display button next and previous$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonControl().toString()));
-        And("^Disable button today and can not click$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonTodayDisable(driver).toString()));
+        And("^Disable button today and can not click$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonTodayDisable().toString()));
 
         Given("^I open holiday setting page$", () -> {
             // Write code here that turns the phrase above into concrete actions
             getDriver().get(TIME_SHEET_PAGE_URL);
         });
 
-        When("^Click button next on header$", () -> holidaySettingPage.clickOnButtonNext(driver));
-        When("^Click button previous on header$", () -> holidaySettingPage.clickOnButtonPrevious(driver));
-        Then("^Can click today button on header$", () -> Assert.assertTrue(true, holidaySettingPage.onButtonTodayClickable(driver).toString()));
+        When("^Click button next on header$", () -> holidaySettingPage.clickOnButtonNext());
+        When("^Click button previous on header$", () -> holidaySettingPage.clickOnButtonPrevious());
+        Then("^Can click today button on header$", () -> Assert.assertTrue(true, holidaySettingPage.onButtonTodayClickable().toString()));
 
-        Then("^Display full seven columns title header calendar$", () -> Assert.assertTrue(true, holidaySettingPage.displayFullTitleCalendar(driver).toString()));
-        And("^Display full item calendar day of month$", () -> Assert.assertTrue(true, holidaySettingPage.displayFullItemCalendar(driver).toString()));
+        Then("^Display full seven columns title header calendar$", () -> Assert.assertTrue(true, holidaySettingPage.displayFullTitleCalendar().toString()));
+        And("^Display full item calendar day of month$", () -> Assert.assertTrue(true, holidaySettingPage.displayFullItemCalendar().toString()));
 
         When("^Click item calendar holiday$", () -> holidaySettingPage.clickItemHolidayCalendar(driver));
         Then("^Display holiday detail dialog$", () -> Assert.assertTrue(true, holidaySettingPage.displayHolidayDetailDialog(driver).toString()));
-        And("^Display title holiday detail dialog is \"([^\"]*)\"$", (String title) -> Assert.assertTrue(true, holidaySettingPage.displayTitleHolidayDialog(driver, title).toString()));
-        And("^Display title input name$", () -> Assert.assertTrue(true, holidaySettingPage.displayTitleName(driver).toString()));
-        And("^Display title holiday time$", () -> Assert.assertTrue(true, holidaySettingPage.displayHolidayTime(driver).toString()));
-        And("^Display input description$", () -> Assert.assertTrue(true, holidaySettingPage.displayDescription(driver).toString()));
-        And("^Disable button save$", () -> Assert.assertTrue(true, holidaySettingPage.disableButtonSave(driver).toString()));
+        And("^Display title holiday detail dialog is \"([^\"]*)\"$", (String title) -> Assert.assertEquals(title, holidaySettingPage.getTitleHolidayDialog()));
+        And("^Display title input name$", () -> Assert.assertTrue(true, holidaySettingPage.displayTitleName().toString()));
+        And("^Display title holiday time$", () -> Assert.assertTrue(true, holidaySettingPage.displayHolidayTime().toString()));
+        And("^Display input description$", () -> Assert.assertTrue(true, holidaySettingPage.displayDescription().toString()));
+        And("^Disable button save$", () -> Assert.assertTrue(true, holidaySettingPage.disableButtonSave().toString()));
 
-        When("^Input Name is empty$", () -> holidaySettingPage.inputNameIsEmpty(driver));
-        Then("^Show message error validate is \"([^\"]*)\"$", (String message) -> Assert.assertTrue(true, holidaySettingPage.displayMessageValidate(driver, message).toString()));
-        When("^Input name is \"([^\"]*)\"$", (String value) -> holidaySettingPage.inputNameValue(driver, value));
-        When("^Click on box holiday time to$", () -> holidaySettingPage.clickBoxHolidayTimeTo(driver));
+        When("^Input Name is empty$", () -> holidaySettingPage.inputNameIsEmpty());
+        Then("^Show message error validate is \"([^\"]*)\"$", (String message) -> Assert.assertEquals(message, holidaySettingPage.getMessageValidate(driver)));
+        When("^Input name is \"([^\"]*)\"$", (String value) -> holidaySettingPage.inputNameValue(value));
+        When("^Click on box holiday time to$", () -> holidaySettingPage.clickBoxHolidayTimeTo());
         Then("^Display calendar date time$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayCalendarDateTime(driver).toString()));
-        When("^Choose today on dialog calendar date time$", () -> holidaySettingPage.chooseTodayOnDialogCalendar(driver));
+        When("^Choose today on dialog calendar date time$", () -> holidaySettingPage.chooseTodayOnDialogCalendar());
         Then("^Enable button save$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonSaveEnable(driver).toString()));
         Given("^Enter full information$", () -> holidaySettingPage.enterFullInfo(driver));
         When("^Click button save$", () -> holidaySettingPage.clickButtonSave());
         Then("^Message success is showing$", () -> Assert.assertTrue(true, holidaySettingPage.isMessageConfirmShowing(driver).toString()));
-        When("^Click item holiday$", () -> holidaySettingPage.clickItemHoliday(driver));
-        And("^Enable button delete$", () -> Assert.assertTrue(true, holidaySettingPage.isEnableButtonDelete(driver).toString()));
-        When("^Click button delete on dialog$", () -> holidaySettingPage.clickButtonDelete(driver));
+        When("^Click item holiday$", () -> holidaySettingPage.clickItemHoliday());
+        And("^Enable button delete$", () -> Assert.assertTrue(true, holidaySettingPage.isEnableButtonDelete().toString()));
+        When("^Click button delete on dialog$", () -> holidaySettingPage.clickButtonDelete());
         Then("^Display dialog confirm delete$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayDialogDeleteConfirm(driver).toString()));
-        And("^Display title dialog confirm is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(true, holidaySettingPage.isTitleDialogConfirmDisplay(driver, content).toString()));
-        And("^Display content dialog confirm is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(true, holidaySettingPage.isContentDialogConfirmDisplay(driver, content).toString()));
-        When("^Click button cancel on dialog confirm delete$", () -> holidaySettingPage.clickButtonConfirmCancel(driver));
+        And("^Display title dialog confirm is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, holidaySettingPage.getTitleDialogConfirmDisplay()));
+        And("^Display content dialog confirm is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, holidaySettingPage.getContentDialogConfirmDisplay()));
+        When("^Click button cancel on dialog confirm delete$", () -> holidaySettingPage.clickButtonConfirmCancel());
         Then("^Dismiss dialog confirm delete$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmDelete(driver).toString()));
-        When("^Click button delete on dialog confirm delete$", () -> holidaySettingPage.clickButtonConfirmDelete(driver));
-        Then("^Item holiday is delete$", () -> Assert.assertTrue(true, holidaySettingPage.isHolidayDeleted(driver).toString()));
-
+        When("^Click button delete on dialog confirm delete$", () -> holidaySettingPage.clickButtonConfirmDelete());
+        Then("^Item holiday is delete$", () -> Assert.assertTrue(true, holidaySettingPage.isHolidayDeleted().toString()));
     }
 
     private void redirectPageWhenClickChildItem(String path) {
