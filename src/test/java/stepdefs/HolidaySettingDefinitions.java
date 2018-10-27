@@ -12,6 +12,9 @@ import vn.asiantech.page.HolidaySettingPage;
 
 import java.util.List;
 
+/**
+ * @author at-phuongdang
+ */
 public class HolidaySettingDefinitions extends DriverBase implements En {
 
     private static final String TIME_SHEET_PAGE_URL = "http://portal-stg.asiantech.vn/admin/public-holiday";
@@ -58,19 +61,12 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
         And("^Display calendar content$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayCalendarContent().toString()));
         And("^Display button next and previous$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonControl().toString()));
         And("^Disable button today and can not click$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonTodayDisable().toString()));
-
-        Given("^I open holiday setting page$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            getDriver().get(TIME_SHEET_PAGE_URL);
-        });
-
+        Given("^I open holiday setting page$", () -> getDriver().get(TIME_SHEET_PAGE_URL));
         When("^Click button next on header$", () -> holidaySettingPage.onClickOnButtonNext());
         When("^Click button previous on header$", () -> holidaySettingPage.onClickOnButtonPrevious());
         Then("^Can click today button on header$", () -> Assert.assertTrue(true, holidaySettingPage.onButtonTodayClickable().toString()));
-
         Then("^Display full seven columns title header calendar$", () -> Assert.assertTrue(true, holidaySettingPage.displayFullTitleCalendar().toString()));
         And("^Display full item calendar day of month$", () -> Assert.assertTrue(true, holidaySettingPage.displayFullItemCalendar().toString()));
-
         When("^Click item calendar holiday$", () -> holidaySettingPage.clickItemHolidayCalendar(driver));
         Then("^Display holiday detail dialog$", () -> Assert.assertTrue(true, holidaySettingPage.displayHolidayDetailDialog(driver).toString()));
         And("^Display title holiday detail dialog is \"([^\"]*)\"$", (String title) -> Assert.assertEquals(title, holidaySettingPage.getTitleHolidayDialog()));
@@ -78,7 +74,6 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
         And("^Display title holiday time$", () -> Assert.assertTrue(true, holidaySettingPage.displayHolidayTime().toString()));
         And("^Display input description$", () -> Assert.assertTrue(true, holidaySettingPage.displayDescription().toString()));
         And("^Disable button save$", () -> Assert.assertTrue(true, holidaySettingPage.disableButtonSave().toString()));
-
         When("^Input Name is empty$", () -> holidaySettingPage.inputNameIsEmpty());
         Then("^Show message error validate is \"([^\"]*)\"$", (String message) -> Assert.assertEquals(message, holidaySettingPage.getMessageValidate(driver)));
         When("^Input name is \"([^\"]*)\"$", (String value) -> holidaySettingPage.inputNameValue(value));
@@ -101,7 +96,7 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
         Then("^Item holiday is delete$", () -> Assert.assertTrue(true, holidaySettingPage.isHolidayDeleted().toString()));
     }
 
-    private void redirectPageWhenClickChildItem(String path) {
+    private void redirectPageWhenClickChildItem(final String path) {
         new WebDriverWait(getDriver(), TIME_SECOND).until(
                 webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
         );

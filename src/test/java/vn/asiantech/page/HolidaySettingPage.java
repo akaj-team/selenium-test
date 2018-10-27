@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * @author at-phuongdang
+ */
 public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
 
     private static final int TIME_OUT_WAITED_ELEMENT = 5;
@@ -79,7 +82,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     WebElement dlgDeleteConfirm;
 
     @Override
-    public HolidaySettingPage navigateTo(final WebDriver webDriver) {
+    public final HolidaySettingPage navigateTo(final WebDriver webDriver) {
         return this;
     }
 
