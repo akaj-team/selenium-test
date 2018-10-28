@@ -9,7 +9,7 @@ Feature: Check TimeSheet
     Then Menu Timesheet drop down
     When I click on item My Timesheet
     Then My Timesheet page is displayed "/timesheet/submission"
-    And Title content is "Oct 08 - Oct 14"
+    And Title content is "Oct 29 - Nov 04"
     And Display full record timesheet
     And Disable button this week and can not click
     And Disable button submit and can not click
@@ -65,13 +65,11 @@ Feature: Check TimeSheet
     When Click first button add new timesheet
     Then Display dialog timesheet
     When Select first project on list project
-    Then Select item dialog project is "Non-Project"
-    And Display title dropdown default is "Non-Project"
-    And Disable dialog project
+    And Select item dialog project is "Non-Project"
+    Then Display title dropdown default is "Non-Project"
     When Select first task on list task
-    Then Display dialog task
     And Select item dialog task is "Coding"
-    And Display title dropdown task default is "Coding"
+    Then Display title dropdown task default is "Coding"
     And Display button Repeat every day is enable
     And Display button Save is enable
     When Click button Repeat every day
@@ -89,7 +87,7 @@ Feature: Check TimeSheet
     Then Change time sheet info is "6"
     And Display Dialog success is enable and show message
 
-  Scenario: Can click delete action
+  Scenario: Check click delete action control on timeSheet
     Given I open my timesheet page
     Then Display full record timesheet
     And Display element timeSheet
@@ -107,3 +105,12 @@ Feature: Check TimeSheet
     When Click button confirm delete
     Then Element timeSheet is delete
     And Display Dialog success is enable and show message
+
+    Scenario: Check click button save and submit for timeSheet
+      Given I open my timesheet page
+      When Click on first item add timesheet
+      Then Display dialog timesheet
+      When I fill information for timeSheet
+      And Click button save on timeSheet dialog
+      And Click button submit on timeSheet
+      Then Display Dialog success is enable and show message

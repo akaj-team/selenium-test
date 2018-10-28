@@ -61,7 +61,7 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         });
         When("^I click on item My Timesheet$", () -> myTimeSheet.clickMyTimeSheet());
         Then("^My Timesheet page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
-        And("^Title content is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.checkTextStatusMenu(content)));
+        And("^Title content is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content,myTimeSheet.checkTextStatusMenu()));
         And("^Display full record timesheet", () -> Assert.assertTrue(true, myTimeSheet.isDisplayFullColumns(driver).toString()));
         And("^Disable button this week and can not click", () -> Assert.assertTrue(true, myTimeSheet.getClickableTimeSheet(driver, "btnThisWeek").toString()));
         And("^Disable button submit and can not click", () -> Assert.assertTrue(true, myTimeSheet.getClickableTimeSheet(driver, "btnSubmit").toString()));
@@ -95,7 +95,6 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         When("^Create and submit timesheet$", () -> myTimeSheet.getAddTimeSheetsClickable());
         When("^Select first project on list project$", () -> myTimeSheet.selectedFirstValueProject(driver));
         Then("^Select item dialog project is \"([^\"]*)\"$", (String content) -> myTimeSheet.selectItemOnDialogProject(driver, content));
-        Then("^Disable dialog project$", () -> myTimeSheet.disableProjectDialog(driver));
         When("^Select first task on list task$", () -> myTimeSheet.selectedFirstValueTask(driver));
         Then("^Select item dialog task is \"([^\"]*)\"$", (String content) -> myTimeSheet.selectItemOnDialogTask(driver, content));
         Then("^Display dialog task$", () -> Assert.assertTrue(myTimeSheet.displayDialogTask(driver)));
@@ -126,6 +125,10 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         Then("^Display Search result is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.displaySearchResult(driver, content)));
         When("^Scroll edit timesheet$", () -> myTimeSheet.scrollChangeItemTimeSheet(driver));
         Then("^Change time sheet info is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isTimeSheetChange(driver, content)));
+        When("^Click on first item add timesheet$", () -> myTimeSheet.clickFirstItemTimeSheet(driver));
+        When("^I fill information for timeSheet$", () -> myTimeSheet.fillInformationForTimeSheet(driver));
+        When("^Click button save on timeSheet dialog$", () -> myTimeSheet.clickButtonSave(driver));
+        And("^Click button submit on timeSheet$", () -> myTimeSheet.clickButtonSubmit(driver));
     }
 
     private void redirectPageWhenClickChildItem(final String path) {
