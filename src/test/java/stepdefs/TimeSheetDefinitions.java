@@ -61,7 +61,7 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         });
         When("^I click on item My Timesheet$", () -> myTimeSheet.clickMyTimeSheet());
         Then("^My Timesheet page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
-        And("^Title content is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content,myTimeSheet.checkTextStatusMenu()));
+        And("^Title content is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, myTimeSheet.getStatusMenu()));
         And("^Display full record timesheet", () -> Assert.assertTrue(true, myTimeSheet.isDisplayFullColumns(driver).toString()));
         And("^Disable button this week and can not click", () -> Assert.assertTrue(true, myTimeSheet.getClickableTimeSheet(driver, "btnThisWeek").toString()));
         And("^Disable button submit and can not click", () -> Assert.assertTrue(true, myTimeSheet.getClickableTimeSheet(driver, "btnSubmit").toString()));
@@ -82,12 +82,12 @@ public class TimeSheetDefinitions extends DriverBase implements En {
 
         When("^Click first button add new timesheet$", () -> myTimeSheet.clickFirstItemAddTimeSheet(driver));
         Then("^Display dialog timesheet$", () -> Assert.assertTrue(true, myTimeSheet.isTimeSheetShowing(driver).toString()));
-        And("^Display title item project is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isTitleItemProjectShowing(driver, content)));
-        And("^Display title dropdown default is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isDefaultSelectProjectShowing(driver, content)));
-        And("^Display title item task is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isTitleTaskShowing(driver, content)));
-        And("^Display title dropdown task default is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isDefaultSelectTaskShowing(driver, content)));
-        And("^Display text area description default value is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isDescriptionShowing(driver, content)));
-        And("^Display text input time is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isDefaultInputTimeShowing(driver, content)));
+        And("^Display title item project is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, myTimeSheet.getTitleItemProjectShowing(driver)));
+        And("^Display title dropdown default is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, myTimeSheet.getDefaultSelectProjectShowing()));
+        And("^Display title item task is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, myTimeSheet.getTitleTaskShowing(driver)));
+        And("^Display title dropdown task default is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, myTimeSheet.getDefaultSelectTaskShowing(driver)));
+        And("^Display text area description default value is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isDescriptionShowing(content)));
+        And("^Display text input time is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, myTimeSheet.getDefaultInputTimeShowing()));
         And("^Display button Repeat every day is disable$", () -> Assert.assertTrue(myTimeSheet.checkButtonRepeatClickable(driver)));
         And("^Display button Save is disable$", () -> Assert.assertFalse(myTimeSheet.checkButtonSaveClickable(driver)));
 
@@ -104,24 +104,24 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         Then("^Display button submit is enable$", () -> Assert.assertTrue(myTimeSheet.checkButtonSubmitEnable(driver)));
         And("^Display Dialog success is enable and show message$", () -> Assert.assertTrue(myTimeSheet.displayDialogAlert(driver)));
 
-        And("^Display element timeSheet$", () -> Assert.assertTrue(myTimeSheet.isExistsElementTimeSheet(driver)));
+        And("^Display element timeSheet$", () -> Assert.assertTrue(myTimeSheet.isExistsElementTimeSheet()));
         When("^Move to title columns timesheet$", () -> myTimeSheet.moveToTitleTimeSheet(driver));
         And("^Display dialog title project$", () -> Assert.assertTrue(true, myTimeSheet.isDialogTitleProjectShowing(driver).toString()));
 
-        When("^Click on columns timesheet$", () -> myTimeSheet.clickColumnsTimeSheet(driver));
+        When("^Click on columns timesheet$", () -> myTimeSheet.clickColumnsTimeSheet());
         And("^Button delete is enable$", () -> Assert.assertTrue(myTimeSheet.isButtonDeleteShowing(driver)));
-        When("^Click on button delete$", () -> myTimeSheet.clickButtonDelete(driver));
+        When("^Click on button delete$", () -> myTimeSheet.clickButtonDelete());
         Then("^Display dialog confirm delete$", () -> Assert.assertTrue(myTimeSheet.displayDialogConfirmDelete(driver)));
-        And("^Display title is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.displayTitleConfirmDialog(driver, content)));
-        And("^Display message is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.displayMessageConfirmDialog(driver, content)));
+        And("^Display title is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, myTimeSheet.getTitleConfirmDialog(driver)));
+        And("^Display message is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, myTimeSheet.getMessageConfirmDialog(driver)));
         And("^Display button confirm delete$", () -> Assert.assertTrue(myTimeSheet.displayDeleteConfirmDialog(driver)));
-        And("^Display button confirm cancel$", () -> Assert.assertTrue(myTimeSheet.displayCancelConfirmDialog(driver)));
+        And("^Display button confirm cancel$", () -> Assert.assertTrue(myTimeSheet.displayCancelConfirmDialog()));
 
-        When("^Click button cancel$", () -> myTimeSheet.clickButtonCancelDialogConfirm(driver));
+        When("^Click button cancel$", () -> myTimeSheet.clickButtonCancelDialogConfirm());
         Then("^Dismiss dialog confirm delete$", () -> Assert.assertFalse(myTimeSheet.dismissDialogConfirmDelete()));
-        When("^Click button confirm delete$", () -> myTimeSheet.clickButtonConfirmDelete(driver));
+        When("^Click button confirm delete$", () -> myTimeSheet.clickButtonConfirmDelete());
         Then("^Element timeSheet is delete$", () -> Assert.assertFalse(myTimeSheet.isItemTimeSheetDelete(driver)));
-        When("^Input search is \"([^\"]*)\"$", (String content) -> myTimeSheet.inputSearch(driver, content));
+        When("^Input search is \"([^\"]*)\"$", (String content) -> myTimeSheet.inputSearch(content));
         Then("^Display Search result is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.displaySearchResult(driver, content)));
         When("^Scroll edit timesheet$", () -> myTimeSheet.scrollChangeItemTimeSheet(driver));
         Then("^Change time sheet info is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isTimeSheetChange(driver, content)));

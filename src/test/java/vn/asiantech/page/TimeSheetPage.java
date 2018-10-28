@@ -20,20 +20,22 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     private static final int DEFAULT_COLUMNS_TIME_SHEET = 7;
     private static final int POSITION_TASK = 3;
     private static final int POSITION_FIRST_ITEM = 1;
+    private static final int POSITION_CANCEL_CONFIRM = 1;
+    private static final int POSITION_DELETE_CONFIRM = 0;
     private static final int TIME_OUT_WAITED_ELEMENT_DISPLAY = 2000;
     private static final int HEIGHT_ITEM_RESIZE = -100;
 
     @FindBy(id = "side-menu")
     private
-    WebElement sideMenu;
+    WebElement menuNavigationMain;
 
     @FindBy(css = ".directional-toolbox")
     private
-    WebElement toolbox;
+    WebElement elementToolbox;
 
     @FindBy(css = ".timesheet-grid")
     private
-    WebElement calendar;
+    WebElement elementCalendar;
 
     @FindBy(id = "btn-this-week")
     private
@@ -53,7 +55,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     @FindBy(className = "timesheet-body")
     private
-    WebElement calendarBody;
+    WebElement elementCalendarBody;
 
     @FindBy(className = "task-record")
     private
@@ -61,11 +63,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     @FindBy(id = "task-panel-wrapper")
     private
-    WebElement dialogTimeSheet;
-
-    @FindBy(css = ".box-note")
-    private
-    WebElement boxNote;
+    WebElement dlgTimeSheet;
 
     @FindBy(className = "input-time")
     private
@@ -85,7 +83,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     @FindBy(xpath = "//*[@class ='task-content']/div[2]/div/div[1]/p-dropdown/div/div[4]")
     private
-    WebElement dialogTask;
+    WebElement dlgTask;
 
     @FindBy(id = "btn-repeat-task")
     private
@@ -97,7 +95,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     @FindBy(css = ".timesheet-body")
     private
-    WebElement timeSheetBody;
+    WebElement elementTimeSheetBody;
 
     @FindBy(id = "btn-delete-task")
     private
@@ -105,7 +103,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     @FindBy(id = "confirm-delete-task-panel-wrapper")
     private
-    WebElement dialogConfirmDelete;
+    WebElement dlgConfirmDelete;
 
     @FindBy(id = "btn-resize-task-time")
     private
@@ -120,8 +118,8 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     WebElement edtInputSearch;
 
     @Override
-    public TimeSheetPage navigateTo(final WebDriver webDriver) {
-        return this;
+    public final TimeSheetPage navigateTo(final WebDriver webDriver) {
+        return null;
     }
 
     public final void clickItemTimeSheet() {
@@ -138,21 +136,21 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public final void moveRowTimeSheet(final WebDriver driver) {
         Actions action = new Actions(driver);
-        waitForElement(driver, calendarBody, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> elementCalendar = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        waitForElement(driver, elementCalendarBody, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> elementCalendar = elementCalendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         for (WebElement anAvatar : elementCalendar) {
             action.moveToElement(anAvatar).build().perform();
         }
     }
 
-    public final String checkTextStatusMenu() {
-        return toolbox.findElement(By.className("content")).getText();
+    public final String getStatusMenu() {
+        return elementToolbox.findElement(By.className("content")).getText();
     }
 
     public final Boolean isDisplayFullColumns(final WebDriver driver) {
         boolean isFull = true;
-        waitForElement(driver, calendar, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> divs = calendar.findElements(By.tagName("div"));
+        waitForElement(driver, elementCalendar, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> divs = elementCalendar.findElements(By.tagName("div"));
         for (WebElement div : divs) {
             int columns = div.findElements(By.tagName("div")).size();
             if (columns != DEFAULT_COLUMNS_TIME_SHEET) {
@@ -194,7 +192,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     private WebElement getItemMenuInPosition() {
         List<WebElement> itemMenus = new ArrayList<>();
         int countChildItem;
-        List<WebElement> items = sideMenu.findElements(By.tagName("li"));
+        List<WebElement> items = menuNavigationMain.findElements(By.tagName("li"));
         for (int i = 0; i < items.size(); i = i + countChildItem + 1) {
             countChildItem = 0;
             itemMenus.add(items.get(i));
@@ -206,7 +204,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public final Boolean getAddTimeSheetsClickable() {
-        List<WebElement> listItems = calendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
+        List<WebElement> listItems = elementCalendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
         for (WebElement item : listItems) {
             if (item.isEnabled()) {
                 return true;
@@ -217,12 +215,12 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public final void clickAddTimeSheets(final WebDriver driver) {
         Actions action = new Actions(driver);
-        waitForElement(driver, calendarBody, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> elementCalendar = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        waitForElement(driver, elementCalendarBody, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> elementCalendar = elementCalendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         for (WebElement anAvatar : elementCalendar) {
             action.moveToElement(anAvatar).build().perform();
         }
-        List<WebElement> listItems = calendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
+        List<WebElement> listItems = elementCalendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
         for (WebElement listItem : listItems) {
             listItem.click();
         }
@@ -230,55 +228,53 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public final void clickFirstItemAddTimeSheet(final WebDriver driver) {
         Actions action = new Actions(driver);
-        waitForElement(driver, calendarBody, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> elementCalendar = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        waitForElement(driver, elementCalendarBody, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> elementCalendar = elementCalendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         for (WebElement anAvatar : elementCalendar) {
             action.moveToElement(anAvatar).build().perform();
         }
-        List<WebElement> listItems = calendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
+        List<WebElement> listItems = elementCalendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
         listItems.get(0).click();
     }
 
     public final Boolean isTimeSheetShowing(final WebDriver driver) {
-        waitForElement(driver, dialogTimeSheet, TIME_OUT_WAITED_ELEMENT);
-        return dialogTimeSheet.isDisplayed();
+        waitForElement(driver, dlgTimeSheet, TIME_OUT_WAITED_ELEMENT);
+        return dlgTimeSheet.isDisplayed();
     }
 
-    public final Boolean isTitleItemProjectShowing(final WebDriver driver, final String title) {
-        waitForElement(driver, dialogTimeSheet, TIME_OUT_WAITED_ELEMENT);
-        WebElement titleProjectContent = dialogTimeSheet.findElement(By.cssSelector(".col-md-12.project-form"));
+    public final String getTitleItemProjectShowing(final WebDriver driver) {
+        waitForElement(driver, dlgTimeSheet, TIME_OUT_WAITED_ELEMENT);
+        WebElement titleProjectContent = dlgTimeSheet.findElement(By.cssSelector(".col-md-12.project-form"));
         WebElement titleProject = titleProjectContent.findElement(By.className("title"));
-        return titleProject.isDisplayed() && titleProject.getText().equals(title);
+        return titleProject.getText();
     }
 
-    public final Boolean isDefaultSelectProjectShowing(final WebDriver driver, final String content) {
-        List<WebElement> itemDropDowns = dialogTimeSheet.findElements(By.tagName("p-dropdown"));
+    public final String getDefaultSelectProjectShowing() {
+        List<WebElement> itemDropDowns = dlgTimeSheet.findElements(By.tagName("p-dropdown"));
         WebElement titleItemProjects = itemDropDowns.get(0).findElement(By.tagName("label"));
-        return titleItemProjects.getText().equals(content);
+        return titleItemProjects.getText();
     }
 
-    public final Boolean isTitleTaskShowing(final WebDriver driver, final String title) {
-        waitForElement(driver, dialogTimeSheet, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> taskList = dialogTimeSheet.findElements(By.cssSelector("div.task-content"));
+    public final String getTitleTaskShowing(final WebDriver driver) {
+        waitForElement(driver, dlgTimeSheet, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> taskList = dlgTimeSheet.findElements(By.cssSelector("div.task-content"));
         List<WebElement> taskElement = taskList.get(0).findElements(By.cssSelector("div.row"));
-        String text = taskElement.get(POSITION_FIRST_ITEM).findElement(By.tagName("span")).getText();
-        return text.equals(title);
+        return taskElement.get(POSITION_FIRST_ITEM).findElement(By.tagName("span")).getText();
     }
 
-    public final Boolean isDefaultSelectTaskShowing(final WebDriver driver, final String title) {
-        waitForElement(driver, dialogTimeSheet, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> itemDropDown = dialogTimeSheet.findElements(By.tagName("p-dropdown"));
-        String text = itemDropDown.get(1).findElement(By.tagName("label")).getText();
-        return text.equals(title);
+    public final String getDefaultSelectTaskShowing(final WebDriver driver) {
+        waitForElement(driver, dlgTimeSheet, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> itemDropDown = dlgTimeSheet.findElements(By.tagName("p-dropdown"));
+        return itemDropDown.get(1).findElement(By.tagName("label")).getText();
     }
 
-    public final Boolean isDescriptionShowing(final WebDriver driver, final String title) {
+    public final Boolean isDescriptionShowing(final String title) {
         WebElement itemTextArea = edtDescription.findElement(By.className("form-control "));
         return itemTextArea.getAttribute("placeholder").equals(title);
     }
 
-    public final Boolean isDefaultInputTimeShowing(final WebDriver driver, final String title) {
-        return edtTime.getAttribute("value").equals(title);
+    public final String getDefaultInputTimeShowing() {
+        return edtTime.getAttribute("value");
     }
 
     public final Boolean checkButtonRepeatClickable(final WebDriver driver) {
@@ -293,14 +289,14 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
 
     public final void selectedFirstValueProject(final WebDriver driver) {
-        waitForElement(driver, dialogTimeSheet, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> itemDropDowns = dialogTimeSheet.findElements(By.tagName("p-dropdown"));
+        waitForElement(driver, dlgTimeSheet, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> itemDropDowns = dlgTimeSheet.findElements(By.tagName("p-dropdown"));
         itemDropDowns.get(0).click();
     }
 
     public final void selectItemOnDialogProject(final WebDriver driver, final String content) {
-        waitForElement(driver, dialogTimeSheet, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> itemDropDowns = dialogTimeSheet.findElements(By.tagName("p-dropdown"));
+        waitForElement(driver, dlgTimeSheet, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> itemDropDowns = dlgTimeSheet.findElements(By.tagName("p-dropdown"));
         WebElement dialogSelectProject = itemDropDowns.get(0).findElement(By.className("ui-dropdown-items-wrapper"));
         if (dialogSelectProject.isDisplayed()) {
             List<WebElement> items = dialogSelectProject.findElements(By.tagName("li"));
@@ -336,8 +332,8 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public final Boolean displayDialogTask(final WebDriver driver) {
         try {
-            waitForElement(driver, dialogTask, TIME_OUT_WAITED_ELEMENT);
-            return dialogTask.isEnabled();
+            waitForElement(driver, dlgTask, TIME_OUT_WAITED_ELEMENT);
+            return dlgTask.isEnabled();
         } catch (Exception e) {
             return false;
         }
@@ -363,9 +359,8 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         btnRespeatEnable.click();
     }
 
-    public final Boolean isExistsElementTimeSheet(final WebDriver driver) {
-        waitForElement(driver, timeSheetBody, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> items = timeSheetBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+    public final Boolean isExistsElementTimeSheet() {
+        List<WebElement> items = elementTimeSheetBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         for (int i = 0; i < items.size() - 2; i++) {
             WebElement element = items.get(i).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
             WebElement content = element.findElement(By.cssSelector(".info-content"));
@@ -381,8 +376,8 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public final void moveToTitleTimeSheet(final WebDriver driver) {
         Actions action = new Actions(driver);
-        waitForElement(driver, timeSheetBody, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> items = timeSheetBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        waitForElement(driver, elementTimeSheetBody, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> items = elementTimeSheetBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         for (int i = 0; i < items.size() - 2; i++) {
             WebElement element = items.get(i).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
             WebElement content = element.findElement(By.cssSelector(".info-content"));
@@ -397,9 +392,8 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         return driver.getPageSource().contains("Hover message");
     }
 
-    public final void clickColumnsTimeSheet(final WebDriver driver) {
-        waitForElement(driver, timeSheetBody, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> items = timeSheetBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+    public final void clickColumnsTimeSheet() {
+        List<WebElement> items = elementTimeSheetBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         for (int i = 0; i < items.size() - 2; i++) {
             WebElement element = items.get(i).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
             WebElement content = element.findElement(By.cssSelector(".info-content"));
@@ -415,40 +409,38 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         return btnDelete.isEnabled();
     }
 
-    public final void clickButtonDelete(final WebDriver driver) {
+    public final void clickButtonDelete() {
         btnDelete.click();
     }
 
     public final Boolean displayDialogConfirmDelete(final WebDriver driver) {
-        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
-        return dialogConfirmDelete.isDisplayed();
+        waitForElement(driver, dlgConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+        return dlgConfirmDelete.isDisplayed();
     }
 
-    public final Boolean displayTitleConfirmDialog(final WebDriver driver, final String content) {
-        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
-        WebElement title = dialogConfirmDelete.findElement(By.tagName("h4"));
-        return title.isDisplayed() && title.getText().equals(content);
+    public final String getTitleConfirmDialog(final WebDriver driver) {
+        waitForElement(driver, dlgConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+        return dlgConfirmDelete.findElement(By.tagName("h4")).getText();
     }
 
-    public final Boolean displayMessageConfirmDialog(final WebDriver driver, final String content) {
-        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
-        WebElement message = dialogConfirmDelete.findElement(By.cssSelector(".m-b"));
-        return message.isDisplayed() && message.getText().equals(content);
+    public final String getMessageConfirmDialog(final WebDriver driver) {
+        waitForElement(driver, dlgConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+        return dlgConfirmDelete.findElement(By.cssSelector(".m-b")).getText();
     }
 
     public final Boolean displayDeleteConfirmDialog(final WebDriver driver) {
-        waitForElement(driver, dialogConfirmDelete, TIME_OUT_WAITED_ELEMENT);
-        WebElement btnDelete = dialogConfirmDelete.findElement(By.cssSelector(".btn.btn-default.btn-sm.btn-delete"));
+        waitForElement(driver, dlgConfirmDelete, TIME_OUT_WAITED_ELEMENT);
+        WebElement btnDelete = dlgConfirmDelete.findElement(By.cssSelector(".btn.btn-default.btn-sm.btn-delete"));
         return btnDelete.isDisplayed();
     }
 
-    public final Boolean displayCancelConfirmDialog(final WebDriver driver) {
-        WebElement btnCancelConfirm = getElementControlDelete(1);
+    public final Boolean displayCancelConfirmDialog() {
+        WebElement btnCancelConfirm = getElementControlDelete(POSITION_CANCEL_CONFIRM);
         return btnCancelConfirm.isDisplayed();
     }
 
-    public final void clickButtonCancelDialogConfirm(final WebDriver driver) {
-        WebElement btnCancelConfirm = getElementControlDelete(1);
+    public final void clickButtonCancelDialogConfirm() {
+        WebElement btnCancelConfirm = getElementControlDelete(POSITION_CANCEL_CONFIRM);
         if (btnCancelConfirm.isDisplayed()) {
             btnCancelConfirm.click();
         }
@@ -456,23 +448,23 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public final Boolean dismissDialogConfirmDelete() {
         try {
-            return dialogConfirmDelete.isDisplayed();
+            return dlgConfirmDelete.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
     }
 
-    public final void clickButtonConfirmDelete(final WebDriver driver) {
-        clickButtonDelete(driver);
-        WebElement btnDeleteConfirm = getElementControlDelete(0);
+    public final void clickButtonConfirmDelete() {
+        clickButtonDelete();
+        WebElement btnDeleteConfirm = getElementControlDelete(POSITION_DELETE_CONFIRM);
         if (btnDeleteConfirm.isDisplayed()) {
             btnDeleteConfirm.click();
         }
     }
 
     public final Boolean isItemTimeSheetDelete(final WebDriver driver) {
-        waitForElement(driver, calendarBody, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> items = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        waitForElement(driver, elementCalendarBody, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> items = elementCalendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         try {
             WebElement element = items.get(0).findElement(By.className("cell-content"));
             return !element.isDisplayed();
@@ -481,18 +473,15 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         }
     }
 
-    public final void inputSearch(final WebDriver driver, final String content) {
-        waitForElement(driver, edtInputSearch, TIME_OUT_WAITED_ELEMENT);
-        if (edtInputSearch != null && edtInputSearch.isDisplayed()) {
-            edtInputSearch.clear();
-            edtInputSearch.sendKeys(content);
-        }
+    public final void inputSearch(final String content) {
+        edtInputSearch.clear();
+        edtInputSearch.sendKeys(content);
     }
 
     public final Boolean displaySearchResult(final WebDriver driver, final String content) {
-        waitForElement(driver, dialogTask, TIME_OUT_WAITED_ELEMENT);
-        if (dialogTask != null && dialogTask.isDisplayed()) {
-            WebElement resultItem = dialogTask.findElement(By.className("ui-dropdown-items-wrapper"));
+        waitForElement(driver, dlgTask, TIME_OUT_WAITED_ELEMENT);
+        if (dlgTask != null && dlgTask.isDisplayed()) {
+            WebElement resultItem = dlgTask.findElement(By.className("ui-dropdown-items-wrapper"));
             WebElement element = resultItem.findElement(By.tagName("ul"));
             List<WebElement> searchResults = element.findElements(By.tagName("li"));
             for (WebElement result : searchResults) {
@@ -505,9 +494,9 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public final void scrollChangeItemTimeSheet(final WebDriver driver) {
-        waitForElement(driver, calendarBody, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, elementCalendarBody, TIME_OUT_WAITED_ELEMENT);
         Actions actionResize = new Actions(driver);
-        List<WebElement> items = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        List<WebElement> items = elementCalendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         WebElement content = items.get(0).findElement(By.className("task-record"));
         WebElement resize = content.findElement(By.className("resize-handle-icon"));
         actionResize.moveToElement(resize).clickAndHold().moveByOffset(0, HEIGHT_ITEM_RESIZE).release().perform();
@@ -519,20 +508,20 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public final boolean isTimeSheetChange(final WebDriver driver, final String content) {
-        waitForElement(driver, calendarBody, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> items = calendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        waitForElement(driver, elementCalendarBody, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> items = elementCalendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         WebElement item = items.get(0).findElement(By.className("task-record"));
         WebElement timeInfo = item.findElement(By.className("item-date"));
         return timeInfo.getText().equals(content);
     }
 
     private WebElement getElementControlDelete(final int position) {
-        List<WebElement> itemsControl = dialogConfirmDelete.findElements(By.tagName("button"));
+        List<WebElement> itemsControl = dlgConfirmDelete.findElements(By.tagName("button"));
         return itemsControl.get(position);
     }
 
     public final void fillInformationForTimeSheet(final WebDriver driver) {
-        waitForElement(driver, dialogTimeSheet, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgTimeSheet, TIME_OUT_WAITED_ELEMENT);
         selectedFirstValueProject(driver);
         selectItemOnDialogProject(driver, "Non-Project");
         selectedFirstValueTask(driver);
@@ -540,22 +529,22 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public final void clickButtonSave(final WebDriver driver) {
-        waitForElement(driver, dialogTimeSheet, TIME_OUT_WAITED_ELEMENT);
-        WebElement btnSaveConfirm = dialogTimeSheet.findElement(By.id("btn-save-task"));
+        waitForElement(driver, dlgTimeSheet, TIME_OUT_WAITED_ELEMENT);
+        WebElement btnSaveConfirm = dlgTimeSheet.findElement(By.id("btn-save-task"));
         btnSaveConfirm.click();
         try {
-            Thread.sleep(1000);
+            Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     public final void clickFirstItemTimeSheet(final WebDriver driver) {
-        waitForElement(driver, calendarBody, TIME_OUT_WAITED_ELEMENT);
-        List<WebElement> listItems = calendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
+        waitForElement(driver, elementCalendarBody, TIME_OUT_WAITED_ELEMENT);
+        List<WebElement> listItems = elementCalendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
         listItems.get(0).click();
         try {
-            Thread.sleep(1000);
+            Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -564,7 +553,6 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     public void clickButtonSubmit(final WebDriver driver) {
         waitForElement(driver, btnSubmit, TIME_OUT_WAITED_ELEMENT);
         if (btnSubmit.isDisplayed()) {
-            System.out.println("xxxx");
 //            btnSubmit.click();
         }
     }
