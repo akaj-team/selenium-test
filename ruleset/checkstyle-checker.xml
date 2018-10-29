@@ -79,11 +79,10 @@
     <!-- </module> -->
 
     <module name="TreeWalker">
-
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         <!--<module name="JavadocMethod">-->
-            <!--<property name="scope" value="public"/>-->
+        <!--<property name="scope" value="public"/>-->
         <!--</module>-->
         <module name="JavadocType"/>
         <!--Disable check java doc for variable -->
