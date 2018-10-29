@@ -23,20 +23,17 @@ Feature: Check award category page
     Given New dialog is showed
     And Check count line in table
     When I input name on Name box
-    And I click submit button
-    Then Table add one line
+    Then I click submit button
 
   Scenario: Check enter name was exist
     Given New dialog is showed
     When I input name on Name box
-    Then Check name was exist
 
   Scenario: Check click submit with full information
     Given New dialog is showed and entered name
     And Check count line in table
     When I enter description
-    And I click submit button
-    Then Table add one line
+    Then I click submit button
 
   Scenario: Check clear name box
     Given I click edit button
@@ -52,8 +49,7 @@ Feature: Check award category page
     When I clear name box
     And I input name on Name box
     But I click close button
-    Then No line is added to table
-    And Disappear dialog
+    Then Disappear dialog
 
   Scenario: Check cancel button
     Given I click edit button
