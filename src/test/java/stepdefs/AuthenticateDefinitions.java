@@ -3,9 +3,6 @@ package stepdefs;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.object.Account;
@@ -23,7 +20,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
     public AuthenticateDefinitions() {
         initMap();
         Given("^I am logged in as (a|an) \"([^\"]*)\"$", (String arg0, String position) -> {
-            if(!isButtonLogoutDisplayed()){
+            if (!isButtonLogoutDisplayed()) {
                 Account account = accounts.get(position);
                 getDriver().get("http://portal-stg.asiantech.vn/auth/login");
                 loginPage = initPage(getDriver(), LoginPage.class);

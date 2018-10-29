@@ -65,8 +65,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return loginButton;
     }
 
-    public final void waitForErrorMessage(final WebDriver driver) {
-        waitForElement(driver, errorText, DEFAULT_TIME_OUT);
+    public final void waitForErrorMessage(final WebDriver webDriver) {
+        waitForElement(webDriver, errorText, DEFAULT_TIME_OUT);
     }
-
 }

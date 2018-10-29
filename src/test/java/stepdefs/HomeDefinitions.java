@@ -9,6 +9,7 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.HomePage;
 
+import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 import static vn.asiantech.base.Constant.HOME_PAGE_URL;
 import static vn.asiantech.page.HomePage.TIME_OUT_SECOND_NORMAL;
 import static vn.asiantech.page.HomePage.URL_HOME_PAGE;
@@ -32,7 +33,7 @@ public class HomeDefinitions extends DriverBase implements En {
         // Check Home page is started
         Given("^I am stayed in home page$", () -> {
             getDriver().get(HOME_PAGE_URL);
-            new WebDriverWait(getDriver(), 10).until(
+            new WebDriverWait(getDriver(), DEFAULT_TIME_OUT).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             waitForPageDisplayed(driver, HOME_PAGE_URL, By.cssSelector(".is-top.is-home"));
         });
