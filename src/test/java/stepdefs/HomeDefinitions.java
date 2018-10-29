@@ -39,7 +39,10 @@ public class HomeDefinitions extends DriverBase implements En {
         });
 
         // Check color and data of tab on navigation header when clicked
-        When("^I click on tab item \"([^\"]*)\"$", (String position) -> homePage.onClickTabInIBoxContent(position));
+        When("^I click on tab item \"([^\"]*)\"$", (String position) -> {
+            waitVisibilityOfElement(driver, By.id("new-feed-type-list-wrapper"));
+            homePage.onClickTabInIBoxContent(position);
+        });
         Then("^Color of tab \"([^\"]*)\" is \"([^\"]*)\"$", (String position, String activeColor) -> Assert.assertTrue(homePage.isColorTabInIBoxContentCorrect(activeColor, position)));
         And("^Color other tab \"([^\"]*)\" is \"([^\"]*)\"$", (String position, String defaultColor) -> Assert.assertTrue(homePage.isColorOtherTabInIBoxContentCorrect(defaultColor, position)));
         And("^I Should see data when has or no$", () -> Assert.assertTrue(homePage.isInIBoxContentShowed()));
@@ -56,19 +59,31 @@ public class HomeDefinitions extends DriverBase implements En {
         });
 
         // Check color and data of tab on right sideBar when clicked
-        When("^I click on tab item \"([^\"]*)\" in right sideBar$", (String position) -> homePage.onClickTabInRightSideBar(position));
+        When("^I click on tab item \"([^\"]*)\" in right sideBar$", (String position) -> {
+            waitVisibilityOfElement(driver, By.id("event-type-list-wrapper"));
+            homePage.onClickTabInRightSideBar(position);
+        });
         Then("^Color of tab \"([^\"]*)\" is \"([^\"]*)\" in right sideBar$", (String position, String activeColor) -> Assert.assertTrue(homePage.isColorTabInRightSideBarCorrect(position, activeColor)));
         And("^Color other tab \"([^\"]*)\" is \"([^\"]*)\" in right sideBar$", (String position, String defaultColor) -> Assert.assertTrue(homePage.isColorOtherTabInRightSideBarCorrect(position, defaultColor)));
         And("^I should see data Today's Event and Upcoming Event on right sideBar$", () -> Assert.assertTrue(homePage.isRightSideBarShowed()));
 
         // Click username on homeContent
-        When("^I click on username in social-box$", () -> homePage.onClickUserName());
+        When("^I click on username in social-box$", () -> {
+            waitVisibilityOfElement(driver, By.className("notification-container"));
+            homePage.onClickUserName();
+        });
 
         // Click avatar on homeContent
-        When("^I click on avatar in social-box$", () -> homePage.onClickAvatarInIBoxContent());
+        When("^I click on avatar in social-box$", () -> {
+            waitVisibilityOfElement(driver, By.className("notification-container"));
+            homePage.onClickAvatarInIBoxContent();
+        });
 
         // Click avatar on right sideBar
-        When("^I click on avatar in right sideBar$", () -> homePage.onClickAvatarInRightSideBar());
+        When("^I click on avatar in right sideBar$", () -> {
+            waitVisibilityOfElement(driver, By.className("sidebar-panel"));
+            homePage.onClickAvatarInRightSideBar();
+        });
 
         // Open successfully profile page
         Then("^Open successfully User Profile page$", () -> {
@@ -77,17 +92,35 @@ public class HomeDefinitions extends DriverBase implements En {
         });
 
         // Show effect when click on Flowers and Congrats
-        When("^I click on button Flowers$", () -> homePage.onClickButtonReaction(0));
-        When("^I click on button Congrats$", () -> homePage.onClickButtonReaction(1));
+        When("^I click on button Flowers$", () -> {
+            waitVisibilityOfElement(driver, By.className("sidebar-panel"));
+            homePage.onClickButtonReaction(0);
+        });
+        When("^I click on button Congrats$", () -> {
+            waitVisibilityOfElement(driver, By.className("sidebar-panel"));
+            homePage.onClickButtonReaction(1);
+        });
         Then("^I should see Flowers is displayed$", () -> Assert.assertTrue(homePage.isShowEffectForReaction()));
         Then("^I should see Congrats is displayed$", () -> Assert.assertTrue(homePage.isShowEffectForReaction()));
 
         // Check scrollview on homeContent
-        When("^I scroll down homeContent$", () -> homePage.scrollIBoxContent(driver, true));
-        Then("^I scroll up homeContent$", () -> homePage.scrollIBoxContent(driver, false));
+        When("^I scroll down homeContent$", () -> {
+            waitVisibilityOfElement(driver, By.id("new-feed-list-wrapper"));
+            homePage.scrollIBoxContent(driver, true);
+        });
+        Then("^I scroll up homeContent$", () -> {
+            waitVisibilityOfElement(driver, By.id("new-feed-list-wrapper"));
+            homePage.scrollIBoxContent(driver, false);
+        });
 
         // Check scrollview on right sideBar
-        When("^I scroll down right sideBar$", () -> homePage.scrollRightSideBar(driver, true));
-        Then("^I scroll up right sideBar$", () -> homePage.scrollRightSideBar(driver, false));
+        When("^I scroll down right sideBar$", () -> {
+            waitVisibilityOfElement(driver, By.id("today-event-list-wrapper"));
+            homePage.scrollRightSideBar(driver, true);
+        });
+        Then("^I scroll up right sideBar$", () -> {
+            waitVisibilityOfElement(driver, By.id("today-event-list-wrapper"));
+            homePage.scrollRightSideBar(driver, false);
+        });
     }
 }
