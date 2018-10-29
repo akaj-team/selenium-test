@@ -2,6 +2,7 @@ package stepdefs;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -28,7 +29,12 @@ public class HomeDefinitions extends DriverBase implements En {
         homePage = initPage(getDriver(), HomePage.class);
 
         // Check Home page is started
-        Given("^I am stayed in home page$", () -> waitForPageDisplayed(driver, URL_HOME_PAGE, By.className("wapper")));
+        Given("^I am stayed in home page$", () -> {
+            getDriver().get("http://portal-stg.asiantech.vn/homepage");
+            new WebDriverWait(getDriver(), 10).until(
+                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            waitForPageDisplayed(driver, URL_HOME_PAGE, By.cssSelector(".is-top.is-home"));
+        });
 
         // Check color and data of tab on navigation header when clicked
         When("^I click on tab item \"([^\"]*)\"$", (String position) -> homePage.onClickTabInIBoxContent(position));

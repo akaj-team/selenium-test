@@ -1,6 +1,11 @@
 package stepdefs;
 
 import cucumber.api.java8.En;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NotFoundException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.object.Account;
@@ -18,38 +23,41 @@ public class AuthenticateDefinitions extends DriverBase implements En {
     public AuthenticateDefinitions() {
         initMap();
         Given("^I am logged in as (a|an) \"([^\"]*)\"$", (String arg0, String position) -> {
-            clearCookies();
+            if(!isButtonLogoutDisplayed()){
+                Account account = accounts.get(position);
+                getDriver().get("http://portal-stg.asiantech.vn/auth/login");
+                loginPage = initPage(getDriver(), LoginPage.class);
+                loginPage.waitForLoginButton();
+                loginPage.withUsername(account.email).withPassword(account.password).login();
 
-            if (!getDriver().getCurrentUrl().startsWith("data")) {
-                getDriver().executeScript("window.localStorage.clear();");
+                HomePage homePage = initPage(getDriver(), HomePage.class);
+                homePage.waitForWelcomeMessage(getDriver());
+                Assert.assertTrue(homePage.welcomeTestIsDisplayed());
             }
-            Account account = accounts.get(position);
-            getDriver().get("http://portal-stg.asiantech.vn/auth/login");
-            loginPage = initPage(getDriver(), LoginPage.class);
-            loginPage.waitForLoginButton();
-            loginPage.withUsername(account.email).withPassword(account.password).login();
-
-            HomePage homePage = initPage(getDriver(), HomePage.class);
-            homePage.waitForWelcomeMessage(getDriver());
-            Assert.assertTrue(homePage.welcomeTestIsDisplayed());
         });
 
         Given("^I am an unauthenticated user$", this::logoutCurrentSession);
     }
 
     private void logoutCurrentSession() {
-        clearCookies();
-        if (!getDriver().getCurrentUrl().startsWith("data")) {
-            getDriver().executeScript("window.localStorage.clear();");
+        try {
+            getDriver().findElement(By.id("btn-logout")).click();
+        } catch (NotFoundException exception) {
+            //no-opt
+        }
+        waitVisibilityOfElement(getDriver(), By.cssSelector(".middle-box.text-center.loginscreen"));
+    }
+
+    private boolean isButtonLogoutDisplayed() {
+        try {
+            getDriver().findElement(By.id("btn-logout")).isDisplayed();
+            return true;
+        } catch (NotFoundException exception) {
+            return false;
         }
     }
 
     private void initMap() {
         accounts.put("EM", new Account("stg.tien.hoang@asiantech.vn", "Abc123@@"));
-        accounts.put("QCE", new Account("stg.lam.le2@asiantech.vn", "Abc123@@"));
-        accounts.put("AQC", new Account("stg.tu.le.2@asiantech.vn", "Abc123@@"));
-        accounts.put("SQCE", new Account("stg.hang.nguyen@asiantech.vn", "Abc123@@"));
-        accounts.put("SM", new Account("stg.tri.pham@asiantech.vn", "Abc123@@"));
-        accounts.put("BDM", new Account("stg.thien.dang2@asiantech.vn", "Abc123@@"));
     }
 }
