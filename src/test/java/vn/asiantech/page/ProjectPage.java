@@ -14,7 +14,7 @@ import static vn.asiantech.base.DriverBase.TIME_OUT_SECONDS_NORMAL;
  */
 public class ProjectPage extends BasePage<ProjectPage> {
 
-    @FindBy(css = "div.ui-datatable-scrollable-view.ui-datatable-frozen-view.ng-star-inserted")
+    @FindBy(className = "ui-datatable-scrollable-view")
     private WebElement projectPageContainer;
 
     @FindBy(css = "tbody.ui-datatable-data.ui-widget-content")
