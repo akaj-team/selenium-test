@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
-import static vn.asiantech.base.DriverBase.DEFAULT_TIMEOUT;
+import static vn.asiantech.base.DriverBase.TIME_OUT_SECONDS_NORMAL;
 
 public class ProjectPage extends BasePage<ProjectPage> {
     public static final String PROJECT_PAGE_URL = "http://portal-stg.asiantech.vn/project-management/projects";
@@ -46,24 +46,24 @@ public class ProjectPage extends BasePage<ProjectPage> {
     }
 
     public final int getProjectCount(final WebDriver driver) {
-        waitForElementDisplay(driver, projectList, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, projectList, TIME_OUT_SECONDS_NORMAL);
         return projectList.findElements(By.tagName("tr")).size();
     }
 
     public final ProjectPage searchWith(final WebDriver driver, final String key) {
-        waitForElementDisplay(driver, inputSearch, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, inputSearch, TIME_OUT_SECONDS_NORMAL);
         inputSearch.sendKeys(key);
         return this;
     }
 
     public final String getProjectName(final WebDriver driver) {
-        waitForElementDisplay(driver, projectList, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, projectList, TIME_OUT_SECONDS_NORMAL);
         WebElement firstProject = projectList.findElements(By.tagName("tr")).get(0);
         return firstProject.findElements(By.tagName("td")).get(1).findElement(By.tagName("strong")).getText();
     }
 
     public final ProjectPage projectNameClick(final WebDriver driver) {
-        waitForElementDisplay(driver, projectList, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, projectList, TIME_OUT_SECONDS_NORMAL);
         WebElement firstProject = projectList.findElements(By.tagName("tr")).get(0).findElements(By.tagName("td")).get(1);
         projectUrl = firstProject.findElement(By.tagName("a")).getAttribute("href");
         setProjectUrl(projectUrl);
@@ -72,7 +72,7 @@ public class ProjectPage extends BasePage<ProjectPage> {
     }
 
     public final ProjectPage projectAvatarClick(final WebDriver driver) {
-        waitForElementDisplay(driver, projectList, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, projectList, TIME_OUT_SECONDS_NORMAL);
         WebElement firstProject = projectList.findElements(By.tagName("tr")).get(0).findElements(By.tagName("td")).get(1);
         projectUrl = firstProject.findElement(By.tagName("a")).getAttribute("href");
         setProjectUrl(projectUrl);
@@ -81,7 +81,7 @@ public class ProjectPage extends BasePage<ProjectPage> {
     }
 
     public final ProjectPage projectCodeClick(final WebDriver driver) {
-        waitForElementDisplay(driver, projectList, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, projectList, TIME_OUT_SECONDS_NORMAL);
         WebElement firstProject = projectList.findElements(By.tagName("tr")).get(0).findElements(By.tagName("td")).get(0);
         projectUrl = firstProject.findElement(By.tagName("a")).getAttribute("href");
         setProjectUrl(projectUrl);
@@ -90,18 +90,18 @@ public class ProjectPage extends BasePage<ProjectPage> {
     }
 
     public final boolean tableFilterDisplayed(final WebDriver driver) {
-        waitForElementDisplay(driver, listTableOption, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, listTableOption, TIME_OUT_SECONDS_NORMAL);
         return listTableOption.isDisplayed();
     }
 
     public final ProjectPage statusFilterClick(final WebDriver driver) {
-        waitForElementDisplay(driver, tvStatus, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, tvStatus, TIME_OUT_SECONDS_NORMAL);
         tvStatus.click();
         return this;
     }
 
     public final ProjectPage filterItemClick(final WebDriver driver) {
-        waitForElementDisplay(driver, filterList, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, filterList, TIME_OUT_SECONDS_NORMAL);
         WebElement secondFilterItem = filterList.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
         String currentFilterStatus = secondFilterItem.findElement(By.tagName("span")).getText();
         setCurrentStatusFilter(currentFilterStatus);
@@ -110,17 +110,17 @@ public class ProjectPage extends BasePage<ProjectPage> {
     }
 
     public final String getStatusDisplayed(final WebDriver driver) {
-        waitForElementDisplay(driver, tvStatus, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, tvStatus, TIME_OUT_SECONDS_NORMAL);
         return tvStatus.getText();
     }
 
     public final Boolean filterListDisplayed(final WebDriver driver) {
-        waitForElementDisplay(driver, filterList, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, filterList, TIME_OUT_SECONDS_NORMAL);
         return filterList.isDisplayed();
     }
 
     public final ProjectPage currentTableOptionItemClick(final WebDriver driver) {
-        waitForElementDisplay(driver, tvTableOption, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, tvTableOption, TIME_OUT_SECONDS_NORMAL);
         tvTableOption.click();
         return this;
     }
@@ -154,7 +154,7 @@ public class ProjectPage extends BasePage<ProjectPage> {
     }
 
     public final ProjectPage tableOptionItemClick(final WebDriver driver) {
-        waitForElementDisplay(driver, listTableOption, DEFAULT_TIMEOUT);
+        waitForElementDisplay(driver, listTableOption, TIME_OUT_SECONDS_NORMAL);
         WebElement listOption = listTableOption.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
         setCurrentTableOption(listOption.findElement(By.tagName("label")).getText());
         listOption.findElement(By.tagName("label")).click();

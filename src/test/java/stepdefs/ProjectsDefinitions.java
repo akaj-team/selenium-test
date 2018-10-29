@@ -31,11 +31,11 @@ public class ProjectsDefinitions extends DriverBase implements En {
             Assert.assertEquals(ProjectPage.PROJECT_PAGE_URL, driver.getCurrentUrl());
         });
 
-        Then("^List project should display$", () -> Assert.assertTrue(ProjectPage.DEFAULT_PAGE_COUNT >= projectPage.getProjectCount(driver)));
+        Then("^List project should display$", () -> Assert.assertTrue(projectPage.getProjectCount(driver) != 0));
 
         When("^I search with \"([^\"]*)\"$", (String arg0) -> projectPage.searchWith(driver, arg0));
 
-        Then("^Should search with correct key is \"([^\"]*)\"$", (String arg0) -> new WebDriverWait(getDriver(), DEFAULT_TIMEOUT).until(
+        Then("^Should search with correct key is \"([^\"]*)\"$", (String arg0) -> new WebDriverWait(getDriver(), TIME_OUT_SECONDS_NORMAL).until(
                 webDriver -> !webDriver.getCurrentUrl().equals("http://portal-stg.asiantech.vn/project-management/projects;status_eq=in_progress;name_cont=" + arg0)));
 
         And("^Project name should be \"([^\"]*)\"$", (String arg0) -> Assert.assertEquals(arg0, projectPage.getProjectName(driver)));
@@ -43,7 +43,7 @@ public class ProjectsDefinitions extends DriverBase implements En {
         When("^I click on project name$", () -> projectPage.projectNameClick(driver));
 
         Then("^should go to correct detail page$", () -> {
-            new WebDriverWait(getDriver(), DEFAULT_TIMEOUT).until(
+            new WebDriverWait(getDriver(), TIME_OUT_SECONDS_NORMAL).until(
                     webDriver -> webDriver.getCurrentUrl().equals(projectPage.getProjectUrl()));
             Assert.assertEquals(projectPage.getProjectUrl(), driver.getCurrentUrl());
         });
@@ -68,9 +68,5 @@ public class ProjectsDefinitions extends DriverBase implements En {
             projectPage.currentTableOptionItemClick(driver);
             Assert.assertTrue(projectPage.tableFilterDisplayed(driver));
         });
-
-        When("^I click on end date item of table filter item$", () -> projectPage.tableOptionItemClick(driver));
-
-        Then("^End date should display as current choose$", () -> Assert.assertEquals(projectPage.getCurrentTableOption(), projectPage.tableOptionDisplayed()));
     }
 }

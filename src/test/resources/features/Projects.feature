@@ -2,16 +2,16 @@
 Feature: Check all projects on asiantech
 
   Background: User navigates to leave planner page
-    Given I am logged in as an android team manager
+    Given I am logged in as an "EM"
     And I access to projects page
 
   Scenario: I want to check all project on asiantech
     Then List project should display
 
   Scenario: I want to check status of portal project
-    When I search with "Link & Communication"
-    Then Should search with correct key is "Link & Communication"
-    And Project name should be "Link & Communication"
+    When I search with "Monstar-ch (BGM)"
+    Then Should search with correct key is "Monstar-ch (BGM)"
+    And Project name should be "Monstar-ch (BGM)"
 
   Scenario: I want to view project detail via project name
     When I click on project name
@@ -36,8 +36,3 @@ Feature: Check all projects on asiantech
   Scenario: I want to see list table fields option show
     When I click on table filter item
     Then Table of field should show
-
-  Scenario: I want to display end date of project on table list
-    Given Table of field is displayed
-    When I click on end date item of table filter item
-    Then End date should display as current choose
