@@ -20,16 +20,16 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     @FindBy(id = "btn-edit-team")
     private WebElement btnUpdateTeam;
 
-    @FindBy(className = "btn-list")
+    @FindBy(id = "btn-link-to-team-list")
     private WebElement btnTeams;
 
-    @FindBy(css = ".btn.btn-block.btn-white.btn-add")
+    @FindBy(id = "btn-add-member")
     private WebElement btnAddMember;
 
-    @FindBy(css = ".ng-tns-c0-1.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-dialogState")
+    @FindBy(id = "member-dialog-wrapper")
     private WebElement dlgAddMember;
 
-    @FindBy(css = "input[type=\"text\"]")
+    @FindBy(css = "input[name=\"search\"]")
     private WebElement txtSearchMember;
 
     @FindBy(css = "input[class=\"ui-inputtext ui-widget ui-state-default ui-corner-all\"]")
@@ -77,6 +77,11 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     @FindBy(id = "btn-submit-team")
     private WebElement btnSubmittoUpdateTeam;
 
+    @FindBy(linkText = "href=\"/organisation/teams/24\"")
+    private List<WebElement> lbTeamName;
+
+    @FindBy(id = "static-dialog-wrapper")
+    private WebElement dlgDeleteMember;
 
     private String textAddUser = "";
     private String textSearch = "";
@@ -185,12 +190,14 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
 
     public final boolean verifyAddMemberPopupDisappeared(final WebDriver driver) {
         waitForElement(driver, dlgAddMember, TIME_OUT_SECOND);
-        Assert.assertTrue(dlgAddMember.getAttribute("style").contains("display: none"));
+        WebElement status = dlgAddMember.findElement(By.cssSelector(".ng-tns-c0-1.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-dialogState"));
+        Assert.assertTrue(status.getAttribute("style").contains("display: none"));
         return true;
     }
 
     public final void inputUserNametoSearch(final WebDriver driver, final String username) {
         waitForElement(driver, txtSearchMember, TIME_OUT_SECOND);
+        txtSearchMember.clear();
         txtSearchMember.sendKeys(username);
         txtSearchMember.sendKeys(Keys.ENTER);
         textSearch = username;
@@ -202,13 +209,19 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         List<WebElement> tr = lstMember.findElements(By.tagName("tr"));
         for (WebElement i : tr
         ) {
-            WebElement userName = i.findElements(By.tagName("td")).get(0)
-                    .findElement(By.cssSelector("span[class=\"info-grouping-text truncate\"]"))
-                    .findElement(By.tagName("Strong"));
+            List<WebElement> tdList = i.findElements(By.tagName("td"));
+            if (tdList.size() > 1) {
 
-            waitForElement(driver, userName, TIME_OUT_SECOND);
-            if (userName.getText().toLowerCase().contains(textSearch.toLowerCase())) {
-                k++;
+                WebElement userName = i.findElements(By.tagName("td")).get(0)
+                        .findElement(By.cssSelector("span[class=\"info-grouping-text truncate\"]"))
+                        .findElement(By.tagName("Strong"));
+
+                waitForElement(driver, userName, TIME_OUT_SECOND);
+                if (userName.getText().toLowerCase().contains(textSearch.toLowerCase())) {
+                    k++;
+                }
+            } else {
+                break;
             }
         }
         if (1 == 1) {
@@ -285,29 +298,28 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         btnSubmittoUpdateTeam.click();
     }
 
-    public final void verifyUpdateTeamSuccessful(final WebDriver driver, final String name, final String manager, final String teamOfficer1,
-                                                 final String teamFolder, final String description) {
-        waitForElement(driver, btnUpdateTeam, TIME_OUT_SECOND);
-        driver.navigate().refresh();
-        clickUpdateTeamBtn(driver);
+    public final void clickDeleteBtn(final WebDriver driver) {
+        waitForElement(driver, lstMember, TIME_OUT_SECOND);
+        List<WebElement> tr = lstMember.findElements(By.tagName("tr"));
+        for (WebElement i : tr
+        ) {
+            WebElement btnDelete = i.findElements(By.tagName("td")).get(6)
+                    .findElement(By.cssSelector("span[class=\"ui-cell-data ng-star-inserted\"]"))
+                    .findElement(By.tagName("button"));
+            waitForElement(driver, btnDelete, TIME_OUT_SECOND);
+            btnDelete.click();
+            break;
+        }
+        WebElement btnDeleteConfirm = dlgDeleteMember.findElement(By.cssSelector(".ng-tns-c0-2.ui-dialog.ui-widget"))
+                .findElement(By.cssSelector(".ui-dialog-footer.ui-widget-content.ng-tns-c0-2"))
+                .findElement(By.cssSelector(".btn.btn-sm.btn-warning.btn-submit"));
+        btnDeleteConfirm.click();
+    }
 
-        waitForElement(driver, txtName, TIME_OUT_SECOND);
-        Assert.assertEquals(txtName.getText(), name);
-
-        WebElement actualManager = ddlManager.findElement(By.tagName("label"));
-        Assert.assertEquals(actualManager.getText().contains(manager), true);
-
-        WebElement actualTeamOfficer = ddlTeamOfficer1.findElement(By.tagName("label"));
-        Assert.assertEquals(actualTeamOfficer.getText().contains(teamOfficer1), true);
-
-        Assert.assertEquals(txtTeamFolder.getText(), teamFolder);
-
-        waitForElement(driver, txtDescription, TIME_OUT_SECOND);
-        WebElement text = txtDescription.findElement(By.tagName("iframe"));
-        driver.switchTo().frame(text);
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertEquals(body.getText(), description);
-
+    public final boolean verifyDeleteUserSuccessful(final WebDriver driver) {
+        inputUserNametoSearch(driver, textSearch);
+        Assert.assertEquals(true, verifySearchMemberResult(driver, "0"));
+        return true;
     }
 }
 

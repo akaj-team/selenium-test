@@ -1,6 +1,5 @@
 package stepdefs;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -11,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.MyTeamPage;
-
 import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
 
 /**
@@ -111,9 +109,11 @@ public class MyTeamDefinitions extends DriverBase implements En {
         And("^I click on Submit button$", () -> {
             myTeamPage.clickSubmitBtntoUpload(driver);
         });
-
-        Then("^I verify that updating Team info successful with \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$", (String name, String manager, String teamofficer, String teamfolder, String description) -> {
-          myTeamPage.verifyUpdateTeamSuccessful(driver, name,manager,teamofficer,teamfolder,description);
+        And("^I click on Delete button to delete searched user$", () -> {
+            myTeamPage.clickDeleteBtn(driver);
+        });
+        Then("^I verify that deleting user successful$", () -> {
+            myTeamPage.verifyDeleteUserSuccessful(driver);
         });
     }
 }
