@@ -58,8 +58,15 @@ public class DriverBase {
     protected final void waitForPageDisplayed(final WebDriver driver, final String url, final By containerElement) {
         new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        waitVisibilityOfElement(driver, containerElement);
+        if (containerElement != null) {
+            waitVisibilityOfElement(driver, containerElement);
+        }
         Assert.assertEquals(url, driver.getCurrentUrl());
+    }
+
+    protected final void waitRedirectToPage(final String destinationUrl) {
+        new WebDriverWait(getDriver(), TIME_OUT_SECONDS_NORMAL).until(
+                webDriver -> webDriver.getCurrentUrl().equals(destinationUrl));
     }
 
     protected final void waitForPageRedirected(final WebDriver driver, final String url, final By containerElement) {

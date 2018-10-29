@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import stepdefs.ProjectsDefinitions;
 import vn.asiantech.base.BasePage;
 
 import static vn.asiantech.base.DriverBase.TIME_OUT_SECONDS_NORMAL;
@@ -12,8 +13,6 @@ import static vn.asiantech.base.DriverBase.TIME_OUT_SECONDS_NORMAL;
  * @author at-vinhhuynh
  */
 public class ProjectPage extends BasePage<ProjectPage> {
-    public static final String PROJECT_PAGE_URL = "http://portal-stg.asiantech.vn/project-management/projects";
-    public static final int DEFAULT_PAGE_COUNT = 30;
 
     @FindBy(css = "div.ui-datatable-scrollable-view.ui-datatable-frozen-view.ng-star-inserted")
     private WebElement projectPageContainer;
@@ -40,11 +39,9 @@ public class ProjectPage extends BasePage<ProjectPage> {
 
     private String currentStatusFilter;
 
-    private String currentTableOption;
-
     @Override
     public final ProjectPage navigateTo(final WebDriver webDriver) {
-        webDriver.get(PROJECT_PAGE_URL);
+        webDriver.get(ProjectsDefinitions.PROJECT_PAGE_URL);
         return this;
     }
 
@@ -142,25 +139,5 @@ public class ProjectPage extends BasePage<ProjectPage> {
 
     private void setCurrentStatusFilter(final String currentStatusFilter) {
         this.currentStatusFilter = currentStatusFilter;
-    }
-
-    public final String tableOptionDisplayed() {
-        return tvTableOption.getText();
-    }
-
-    public final String getCurrentTableOption() {
-        return currentTableOption;
-    }
-
-    private void setCurrentTableOption(final String currentTableOption) {
-        this.currentTableOption = currentTableOption;
-    }
-
-    public final ProjectPage tableOptionItemClick(final WebDriver driver) {
-        waitForElementDisplay(driver, listTableOption, TIME_OUT_SECONDS_NORMAL);
-        WebElement listOption = listTableOption.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
-        setCurrentTableOption(listOption.findElement(By.tagName("label")).getText());
-        listOption.findElement(By.tagName("label")).click();
-        return this;
     }
 }

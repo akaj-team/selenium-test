@@ -1,20 +1,18 @@
 package stepdefs;
 
 import cucumber.api.java8.En;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.ProjectPage;
 
-import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
-
 /**
  * @author at-vinhhuynh
  */
 public class ProjectsDefinitions extends DriverBase implements En {
 
+    public static final String PROJECT_PAGE_URL = "http://portal-stg.asiantech.vn/project-management/projects";
     private WebDriver driver;
     private ProjectPage projectPage;
 
@@ -29,19 +27,17 @@ public class ProjectsDefinitions extends DriverBase implements En {
         Given("^I access to projects page$", () -> {
             // Write code here that turns the phrase above into concrete actions
             projectPage.navigateTo(driver);
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            Assert.assertEquals(ProjectPage.PROJECT_PAGE_URL, driver.getCurrentUrl());
+            waitForPageDisplayed(getDriver(), PROJECT_PAGE_URL, null);
         });
 
         Then("^List project should display$", () -> Assert.assertTrue(projectPage.getProjectCount(driver) != 0));
 
-        When("^I search with \"([^\"]*)\"$", (String arg0) -> projectPage.searchWith(driver, arg0));
+        When("^I search with \"([^\"]*)\"$", (String key) -> projectPage.searchWith(driver, key));
 
-        Then("^Should search with correct key is \"([^\"]*)\"$", (String arg0) -> new WebDriverWait(getDriver(), TIME_OUT_SECONDS_NORMAL).until(
-                webDriver -> !webDriver.getCurrentUrl().equals("http://portal-stg.asiantech.vn/project-management/projects;status_eq=in_progress;name_cont=" + arg0)));
+        Then("^Should search with correct key is \"([^\"]*)\"$", (String key) -> new WebDriverWait(getDriver(), TIME_OUT_SECONDS_NORMAL).until(
+                webDriver -> !webDriver.getCurrentUrl().equals(PROJECT_PAGE_URL + ";status_eq=in_progress;name_cont=" + key)));
 
-        And("^Project name should be \"([^\"]*)\"$", (String arg0) -> Assert.assertEquals(arg0, projectPage.getProjectName(driver)));
+        And("^Project name should be \"([^\"]*)\"$", (String projectName) -> Assert.assertEquals(projectName, projectPage.getProjectName(driver)));
 
         When("^I click on project name$", () -> projectPage.projectNameClick(driver));
 

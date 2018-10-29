@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import stepdefs.LeaveBalanceDefinitions;
 import vn.asiantech.base.BasePage;
 
 import static vn.asiantech.base.DriverBase.TIME_OUT_SECONDS_NORMAL;
@@ -41,7 +42,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
 
     @Override
     public final LeaveBalancePage navigateTo(final WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn/leave/balance");
+        webDriver.get(LeaveBalanceDefinitions.LEAVE_BALANCE_URL);
         return this;
     }
 
@@ -84,7 +85,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
                 .get(0).findElement(By.tagName("a")).findElement(By.cssSelector("span.info-grouping-text.truncate"));
 
         String profilePath = leaveBalanceList.findElements(By.tagName("tr")).get(0)
-                .findElements(By.cssSelector("td.col-major.has-avatar.ng-star-inserted"))
+                .findElements(By.className("has-avatar"))
                 .get(0).findElement(By.tagName("a")).getAttribute("href");
 
         setCurrentProfileUrl(profilePath);
@@ -102,9 +103,8 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
 
         String historyPath = leaveBalanceList.findElements(By.tagName("tr")).get(0)
                 .findElements(By.cssSelector("td.col-60.ng-star-inserted"))
-                .get(0).findElement(By.cssSelector("span.ui-cell-data.ng-star-inserted"))
+                .get(0).findElement(By.className("ui-cell-data"))
                 .findElement(By.tagName("a")).getAttribute("href");
-        System.out.println("Path is: " + historyPath);
         setCurrentLeaveHistoryUrl(historyPath);
         tvSysId.click();
         return this;
