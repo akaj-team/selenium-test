@@ -16,7 +16,7 @@ import java.util.List;
 public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public static final String EMPLOYEE_URL = "http://portal-stg.asiantech.vn/organisation/employees";
-    public static final int TIME_OUT_SECOND = 10;
+    private static final int TIME_OUT_SECOND = 10;
     public static final int MAXIMUM_CELL = 50;
     private static final int SPLIT_STRING_INDEX = 7;
     private static final int LAST_INDICATOR_INDEX = 4;
@@ -33,20 +33,20 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private static final int EMPLOYEE_TYPE_INDEX = 5;
     private static final int EMPLOYEE_STATUS_INDEX = 7;
 
-    @FindBy(css = ".ui-datatable-data.ui-widget-content")
+    @FindBy(className = "ui-datatable-data")
     @CacheLookup
     private WebElement tblBody;
 
-    @FindBy(css = ".is-top.ui-overflow-hidden")
+    @FindBy(className = "ui-overflow-hidden")
     private WebElement hiddenBody;
 
-    @FindBy(css = ".ui-paginator-pages")
+    @FindBy(className = "ui-paginator-pages")
     private WebElement indicatorPage;
 
-    @FindBy(css = ".ui-paginator-bottom.ui-paginator.ui-widget.ui-widget-header.ui-unselectable-text.ui-helper-clearfix.ng-star-inserted")
+    @FindBy(className = "ui-paginator-bottom")
     private WebElement bottomIndicator;
 
-    @FindBy(css = ".ui-paginator-left-content.ng-star-inserted")
+    @FindBy(className = "ui-paginator-left-content")
     private WebElement leftContentContainer;
 
     @FindBy(css = ".toolbox-content")
@@ -101,8 +101,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     public final String clickAndGetEmployeeCode() {
         WebElement employee = getEmployeeInformation(EMPLOYEE_CODE_COLUMN_INDEX);
         assert employee != null;
+        String employeeProfileLink = employee.getAttribute("href");
         employee.click();
-        return employee.getAttribute("href");
+        return employeeProfileLink;
     }
 
     public final String clickAndGetEmployeeAvatar() {
@@ -243,15 +244,12 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public final boolean isEmployeeListEmpty() {
         String emptyCell = tblBody.findElements(By.tagName("tr")).get(0).getAttribute("class");
-        if (emptyCell.contains("ui-datatable-emptymessage-row")) {
-            return true;
-        }
-        return tblBody.findElements(By.tagName("tr")).size() == 0;
+        return emptyCell.contains("ui-datatable-emptymessage-row");
     }
 
     public final boolean clickPositionView() {
         selectPositionContainer.findElement(By.tagName("div")).click();
-        positionList = selectPositionContainer.findElement(By.cssSelector(".ui-dropdown-panel.ui-widget-content.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-panelState"));
+        positionList = selectPositionContainer.findElement(By.className("ui-dropdown-panel"));
         return selectPositionContainer.findElement(By.tagName("div")).getAttribute("class").contains("ui-dropdown-open");
     }
 
@@ -276,8 +274,8 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return true;
     }
 
-    public final void searchPosition(final String positionName, final WebDriver driver) {
-        WebElement searchPosition = positionList.findElement(By.cssSelector(".ui-dropdown-filter.ui-inputtext.ui-widget.ui-state-default.ui-corner-all"));
+    public final void searchWithEmployeePosition(final String positionName, final WebDriver driver) {
+        WebElement searchPosition = positionList.findElement(By.className("ui-dropdown-filter"));
         waitForElement(driver, searchPosition, TIME_OUT_SECOND);
         searchPosition.sendKeys(positionName);
     }
@@ -330,12 +328,12 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
 
     public final boolean isImportButtonClickable(final String dialogName) {
         this.dialog = hiddenBody.findElement(By.xpath("//p-header[contains(text(),'" + dialogName + "')]/../../.."));
-        WebElement importButton = this.dialog.findElement(By.cssSelector(".btn.btn-sm.btn-primary.btn-submit.ng-star-inserted"));
+        WebElement importButton = this.dialog.findElement(By.className("btn-submit"));
         return importButton.isEnabled();
     }
 
     public final void clickCancelButton() {
-        dialog.findElement(By.cssSelector(".btn.btn-sm.btn-default.btn-cancel")).click();
+        dialog.findElement(By.className("btn-cancel")).click();
     }
 
     public final boolean isPromotionDialogDismissed() {
@@ -357,7 +355,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private WebElement getEmployeeInformation(final int columnPosition) {
         List<WebElement> cells = tblBody.findElements(By.tagName("tr"));
         for (WebElement cell : cells) {
-            if (isFindElement(cell, columnPosition)) {
+            if (isElementFound(cell, columnPosition)) {
                 return cell.findElements(By.tagName("td")).get(columnPosition).findElement(By.tagName("span")).findElement(By.tagName("a"));
             }
         }
@@ -374,7 +372,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return 0;
     }
 
-    private boolean isFindElement(final WebElement cell, final int column) {
+    private boolean isElementFound(final WebElement cell, final int column) {
         try {
             cell.findElements(By.tagName("td")).get(column).findElement(By.tagName("span")).findElement(By.tagName("a"));
             return true;

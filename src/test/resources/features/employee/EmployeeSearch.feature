@@ -4,7 +4,7 @@ Feature: Check display views after search
   Display corresponding employee list
 
   Background: User navigates to employees page
-    Given I am logged in as an "EM"
+    Given I am logged in as an "QCE"
     And Display employees page
 
   Scenario Outline: Search employees with name and having a result list
@@ -31,6 +31,8 @@ Feature: Check display views after search
     Given Click on position view
     When Search position with "<position>"
     Then  Display a corresponding employee list
+    And Display a corresponding position list with that position
+
     Examples:
       | position |
       | CEO      |

@@ -2,16 +2,12 @@ package stepdefs.employee;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.employee.EmployeesPage;
 
 import static vn.asiantech.page.employee.EmployeesPage.EMPLOYEE_URL;
-import static vn.asiantech.page.employee.EmployeesPage.TIME_OUT_SECOND;
 import static vn.asiantech.page.employee.EmployeesPage.MAXIMUM_CELL;
 
 /**
@@ -92,7 +88,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
         When("^Search position with \"([^\"]*)\"$", (String position) -> {
             if (isShowPositionList) {
                 employeePosition = position;
-                employeesPage.searchPosition(position, driver);
+                employeesPage.searchWithEmployeePosition(position, driver);
             }
         });
 
@@ -138,25 +134,17 @@ public class EmployeesDefinitions extends DriverBase implements En {
             }
         });
 
-        Then("^Open successfully update employee page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.urlToBe(editEmployeeUrl));
-        });
+        Then("^Open successfully update employee page$", () -> waitForPageDisplayed(driver, editEmployeeUrl, By.id("employee-form-wrapper")));
 
         Then("^Open an import promotion dialog$", () -> Assert.assertTrue(employeesPage.isAlertShowed("Import Promotion")));
 
         Then("^Open an import award dialog$", () -> Assert.assertTrue(employeesPage.isAlertShowed("Import Award")));
 
-        Then("^Open successfully new employee page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.urlToBe(newEmployeeUrl));
-        });
+        Then("^Open successfully new employee page$", () -> waitForPageDisplayed(driver, newEmployeeUrl, By.id("employee-form-wrapper")));
 
         Then("^Show maximum (\\d+) cells$", (Integer cell) -> Assert.assertTrue((employeesPage.getCellSum() >= 0 && employeesPage.getCellSum() <= MAXIMUM_CELL)));
 
-        Then("^Page indicator (\\d+) is active$", (Integer arg0) -> Assert.assertTrue(employeesPage.isOneIndicatorActive()));
+        Then("^Page indicator 1 is active$", () -> Assert.assertTrue(employeesPage.isOneIndicatorActive()));
 
         Then("^Corresponding page indicator is active$", () -> Assert.assertTrue(employeesPage.isIndicatorActive()));
 
@@ -167,8 +155,6 @@ public class EmployeesDefinitions extends DriverBase implements En {
         Then("^Show an empty message$", () -> Assert.assertTrue(employeesPage.isEmployeeListEmpty()));
 
         Then("^Show a position list$", () -> Assert.assertTrue(isShowPositionList));
-
-        Then("^Display a corresponding position list with that position$", () -> Assert.assertTrue(employeesPage.isShowCorrectPositionList(employeePosition)));
 
         Then("^Display \"([^\"]*)\" message$", (String message) -> Assert.assertTrue(employeesPage.isNoResultMessageShowed(message)));
 
@@ -185,6 +171,8 @@ public class EmployeesDefinitions extends DriverBase implements En {
                 Assert.assertTrue(employeesPage.isStatusChose(employeeStatus));
             }
         });
+
+        Then("^Display a corresponding position list with that position$", () -> Assert.assertTrue(employeesPage.isShowCorrectPositionList(employeePosition)));
 
         And("^Fist indicator and back indicator are not clickable$", () -> Assert.assertFalse(employeesPage.isFirstAndBackIndicatorClickable()));
 
