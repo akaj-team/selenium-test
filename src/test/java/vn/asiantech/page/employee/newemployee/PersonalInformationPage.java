@@ -17,7 +17,7 @@ import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
 public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     private static final int MONTH_INDEX = 3;
 
-    @FindBy(css = ".ui-tabview-nav.ui-helper-reset.ui-helper-clearfix.ui-widget-header.ui-corner-all.ng-star-inserted")
+    @FindBy(className = "ui-tabview-nav")
     private WebElement listTabContainer;
 
     @FindBy(className = "btn-group")
@@ -158,7 +158,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     }
 
     public final boolean isCalendarFormShowed() {
-        calendarForm = inputCalendar.findElement(By.xpath("//div[contains(@class,'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-shadow ng-trigger ng-trigger-overlayState')]"));
+        calendarForm = inputCalendar.findElement(By.xpath("//div[contains(@class,'ui-datepicker')]"));
         return calendarForm.isDisplayed();
     }
 

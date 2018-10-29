@@ -30,11 +30,12 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
     @FindBy(name = "email")
     private WebElement inputEmail;
 
-    @FindBy(css = ".btn.btn-sm.btn-primary.btn-submit.ng-star-inserted")
+    @FindBy(className = "btn-submit")
     private WebElement btnDialogSubmit;
 
-    @FindBy(css = ".app-alert.ng-star-inserted")
+    @FindBy(className = "app-alert")
     private WebElement alertError;
+
     private WebElement dropDownEmpType;
     private WebElement dropDownPosition;
     private WebElement dropDownLineManager;
@@ -60,7 +61,7 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
     }
 
     public final boolean isCalendarFormShowed() {
-        calendarForm = inputJoinDate.findElements(By.xpath("//div[contains(@class,'ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-shadow ng-trigger ng-trigger-overlayState')]")).get(1);
+        calendarForm = inputJoinDate.findElements(By.xpath("//div[contains(@class,'ui-datepicker')]")).get(1);
         return calendarForm.isDisplayed();
     }
 
@@ -111,7 +112,6 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
 
     public final void clickLineManager() {
         WebElement lineManageContainer = formContainer.findElements(By.xpath("//label[contains(text(),'Line Manager')]/..")).get(1);
-        System.out.println(lineManageContainer.getAttribute("class"));
         dropDownLineManager = lineManageContainer.findElement(By.tagName("p-dropdown")).findElement(By.tagName("div"));
         dropDownLineManager.click();
     }

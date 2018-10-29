@@ -4,7 +4,7 @@ Feature: Check display views and handle events with company information
   Check display views and handle events
 
   Background: User navigates to leave planner page
-    Given I am logged in as an "EM"
+    Given I am logged in as an "QCE"
     And Display new employee page
     Then Open successfully company information tab with FirstName "Abbey", LastName "Bly"
     And Display new employee page with company information tab
