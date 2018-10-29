@@ -26,7 +26,7 @@ public class DriverFactory {
     private DriverType selectedDriverType;
 
     public DriverFactory() {
-        DriverType driverType = CHROME;
+        DriverType driverType = FIREFOX;
         String browser = System.getProperty("browser", driverType.toString()).toUpperCase();
         try {
             driverType = DriverType.valueOf(browser);
