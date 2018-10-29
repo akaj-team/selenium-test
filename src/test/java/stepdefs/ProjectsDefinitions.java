@@ -10,6 +10,9 @@ import vn.asiantech.page.ProjectPage;
 
 import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
 
+/**
+ * @author at-vinhhuynh
+ */
 public class ProjectsDefinitions extends DriverBase implements En {
 
     private WebDriver driver;

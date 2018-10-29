@@ -8,6 +8,9 @@ import vn.asiantech.base.BasePage;
 
 import static vn.asiantech.base.DriverBase.TIME_OUT_SECONDS_NORMAL;
 
+/**
+ * @author at-vinhhuynh
+ */
 public class ProjectPage extends BasePage<ProjectPage> {
     public static final String PROJECT_PAGE_URL = "http://portal-stg.asiantech.vn/project-management/projects";
     public static final int DEFAULT_PAGE_COUNT = 30;
