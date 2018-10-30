@@ -25,10 +25,8 @@ public class CompanyInformationDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
 
-        Given("^Display new employee page with company information tab$", () -> {
-            personalInformationPage = initPage(getDriver(), PersonalInformationPage.class);
-            companyInformationPage = initPage(getDriver(), CompanyInformationPage.class);
-        });
+        personalInformationPage = initPage(getDriver(), PersonalInformationPage.class);
+        companyInformationPage = initPage(getDriver(), CompanyInformationPage.class);
 
         When("^Click the assign check box$", () -> companyInformationPage.clickAssignCheckbox());
 

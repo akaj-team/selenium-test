@@ -60,8 +60,8 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     }
 
     public final boolean isPersonalInformation() {
-        WebElement tabPersonalInfor = listTabContainer.findElement(By.xpath("//li[contains(@class,'ui-state-active')]"));
-        return tabPersonalInfor.findElement(By.tagName("span")).getText().equals("Personal Infomation");
+        WebElement tabPersonalInfo = listTabContainer.findElement(By.xpath("//li[contains(@class,'ui-state-active')]"));
+        return tabPersonalInfo.findElement(By.tagName("span")).getText().equals("Personal Infomation");
     }
 
     public final boolean isNextButtonClickable() {

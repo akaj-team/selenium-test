@@ -14,15 +14,14 @@ Feature: Check display views and handle events with personal information
     Then Submit button is not clickable
 
   Scenario Outline: Fill imperative properties with validate data and next button is clickable
-    When Fill First Name input with "<firstname>"
-    And Fill Middle Name input with "<middlename>"
-    And Fill Last Name input with "<lastname>"
+    When Fill First Name input with "<firstName>"
+    And Fill Middle Name input with "<middleName>"
+    And Fill Last Name input with "<lastName>"
     And Choose Gender check box
     And Choose nationality
     Then Next button is clickable
-
     Examples:
-      | firstname | middlename | lastname |
+      | firstName | middleName | lastName |
       | A         | B          | C        |
       | D         | E          | F        |
       | G         | H          | S        |
@@ -30,35 +29,35 @@ Feature: Check display views and handle events with personal information
       | K         | L          | M        |
 
   Scenario Outline: Check invalid data with first name input
-    When Fill First Name input with "<firstname>", "<ahead space>" and "<behind space>"
+    When Fill First Name input with "<firstName>", "<aheadSpace>" and "<behindSpace>"
     Then Error message of first name is displayed
     Examples:
-      | firstname                                         | ahead space | behind space |
-      | First name with number 123                        | 0           | 0            |
-      | First name longer than thirty five characters     | 0           | 0            |
-      | First name with special characters ~!@#$%^&*()><? | 0           | 0            |
-      | First name with spaces at the end of data         | 0           | 1            |
-      | First name with spaces at the head of data        | 1           | 0            |
+      | firstName                                         | aheadSpace | behindSpace |
+      | First name with number 123                        | 0          | 0           |
+      | First name longer than thirty five characters     | 0          | 0           |
+      | First name with special characters ~!@#$%^&*()><? | 0          | 0           |
+      | First name with spaces at the end of data         | 0          | 1           |
+      | First name with spaces at the head of data        | 1          | 0           |
 
   Scenario Outline: Check invalid data of middle name input
-    When Fill Middle Name input with "<middlename>"
+    When Fill Middle Name input with "<middleName>"
     And Click out of middle name input area
     And A red border of middle name is displayed
     Examples:
-      | middlename                                    |
+      | middleName                                    |
       | First name longer than thirty five characters |
 
   Scenario Outline: Check invalid data of last name input
-    When Fill Last Name input with a "<lastname>", "<ahead space>" and "<behind space>"
+    When Fill Last Name input with a "<lastName>", "<aheadSpace>" and "<behindSpace>"
     Then Error message of last name is displayed
     And A red border of last name is displayed
     Examples:
-      | lastname                                          | ahead space | behind space |
-      | First name with number 123                        | 0           | 0            |
-      | First name longer than thirty five characters     | 0           | 0            |
-      | First name with special characters ~!@#$%^&*()><? | 0           | 0            |
-      | First name with spaces at the end of data         | 0           | 1            |
-      | First name with spaces at the head of data        | 1           | 0            |
+      | lastName                                          | aheadSpace | behindSpace |
+      | First name with number 123                        | 0          | 0           |
+      | First name longer than thirty five characters     | 0          | 0           |
+      | First name with special characters ~!@#$%^&*()><? | 0          | 0           |
+      | First name with spaces at the end of data         | 0          | 1           |
+      | First name with spaces at the head of data        | 1          | 0           |
 
   Scenario: Check display of calendar form
     When Click to calendar input

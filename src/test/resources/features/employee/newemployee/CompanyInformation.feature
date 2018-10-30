@@ -7,7 +7,6 @@ Feature: Check display views and handle events with company information
     Given I am logged in as an "QCE"
     And Display new employee page
     Then Open successfully company information tab with FirstName "Abbey", LastName "Bly"
-    And Display new employee page with company information tab
 
   Scenario: Check creating new employee unsuccessfully
     When Click the assign check box

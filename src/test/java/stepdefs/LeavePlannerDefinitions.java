@@ -24,9 +24,10 @@ public class LeavePlannerDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
 
+        leavePlanerPage = initPage(driver, LeavePlannerPage.class);
+
         Given("^Display leave planner page$", () -> {
             driver.get(URL);
-            leavePlanerPage = initPage(driver, LeavePlannerPage.class);
             waitForPageDisplayed(getDriver(), URL, By.id("page-wrapper"));
         });
 
@@ -40,9 +41,7 @@ public class LeavePlannerDefinitions extends DriverBase implements En {
 
         When("^Click username$", () -> profileLink = leavePlanerPage.clickUserName());
 
-        Then("^Open successfully profile page of that user$", () -> {
-            waitForPageDisplayed(getDriver(), profileLink, By.className("section-top"));
-        });
+        Then("^Open successfully profile page of that user$", () -> waitForPageDisplayed(getDriver(), profileLink, By.className("section-top")));
 
         When("^Move to avatar user$", () -> leavePlanerPage.moveToAvatar(driver));
 

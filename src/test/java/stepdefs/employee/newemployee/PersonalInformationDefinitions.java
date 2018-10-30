@@ -25,9 +25,10 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
 
+        personalInformationPage = initPage(getDriver(), PersonalInformationPage.class);
+
         Given("^Display new employee page$", () -> {
             driver.get(CURRENT_URL);
-            personalInformationPage = initPage(getDriver(), PersonalInformationPage.class);
             waitForPageDisplayed(getDriver(), CURRENT_URL, By.id("employee-form-wrapper"));
         });
 
