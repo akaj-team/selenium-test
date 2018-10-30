@@ -5,9 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
-import vn.asiantech.base.Constant;
 
 import java.util.List;
+
+import static vn.asiantech.base.Constant.TEAM_PAGE_URL;
 
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
@@ -17,7 +18,6 @@ public class TeamsPage extends BasePage<TeamsPage> {
     private static final int COLUMN_NAME = 0;
     private static final int COLUMN_MANAGER = 1;
     private static final int COLUMN_ACTION = 3;
-    private static final String URL_TEAMS_PAGE = "http://portal-stg.asiantech.vn/organisation/teams";
 
     @FindBy(id = "team-filter-wrapper")
     private WebElement sectionToolBox;
@@ -31,9 +31,15 @@ public class TeamsPage extends BasePage<TeamsPage> {
     @FindBy(className = "ui-overflow-hidden")
     private WebElement hiddenBody;
 
+    private WebDriver driver;
+
+    public TeamsPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
     @Override
     public final TeamsPage navigateTo(final WebDriver webDriver) {
-        webDriver.get(URL_TEAMS_PAGE);
+        webDriver.get(TEAM_PAGE_URL);
         return this;
     }
 
@@ -42,8 +48,8 @@ public class TeamsPage extends BasePage<TeamsPage> {
         search.sendKeys(name);
     }
 
-    public final boolean isTeamListEmpty(final WebDriver driver) {
-        waitForElement(driver, tbBody.findElement(By.tagName("tr")), Constant.DEFAULT_TIME_OUT);
+    public final boolean isTeamListEmpty() {
+        waitForElement(driver, tbBody.findElement(By.tagName("tr")));
         List<WebElement> rows = tbBody.findElements(By.tagName("tr"));
         return rows.get(0).getAttribute("class").contains("ui-datatable-emptymessage-row");
     }

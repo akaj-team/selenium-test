@@ -4,7 +4,7 @@ Feature: Filter employees with position, type and status
   Display an employee list with that standard
 
   Background: User navigates to employees page
-    Given I am logged in as an "QCE"
+    Given I am logged in as a team manager
     And Display employees page
 
   Scenario: Filter employees with position and having a employee list
