@@ -8,7 +8,7 @@ Feature: Check user profile
   Scenario: Login success with correct account
     When I click on my name
     Then User profile is displayed
-    And "Employed Date:" is "Jul 23, 2018"
+    And "Employed Date:" is "Mar 03, 2015"
     And "Employee Type:" is "Employee"
-    And "Employee Code:" is "AT0514"
-    And "Position:" is "QC Engineer"
+    And "Employee Code:" is "AT0036"
+    And "Position:" is "Engineering Manager"
