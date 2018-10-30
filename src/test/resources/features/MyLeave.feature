@@ -11,7 +11,6 @@ Feature: Check my leave
   Scenario: Login successfully with correct account
     And Status Menu is "All Status"
     And Manager is "Toan Nguyen T."
-    And Status is "Pending"
     And Annual Leave is "0"
     And Marriage Leave is "0"
     And Overtime Leave is "0"
