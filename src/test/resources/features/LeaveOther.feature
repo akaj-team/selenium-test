@@ -28,6 +28,7 @@ Feature: Login AT Portal
     When end date less than start date
     Then show error message with text is "End date must be on or after start date."
 
+  @Ignore
   Scenario: Test show empty message when no data
     When leave of other no data
     Then show empty message with text is "No records found"
