@@ -4,6 +4,7 @@ import cucumber.api.java8.En;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.LeaveBalancePage;
 
@@ -12,7 +13,6 @@ import vn.asiantech.page.LeaveBalancePage;
  */
 public class LeaveBalanceDefinitions extends DriverBase implements En {
 
-    public static final String LEAVE_BALANCE_URL = "http://portal-stg.asiantech.vn/leave/balance";
     private static final int DEFAULT_PAGE_COUNT = 50;
     private WebDriver driver;
     private LeaveBalancePage leaveBalancePage;
@@ -25,13 +25,13 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
         }
 
         And("^Display leave balance page$", () -> {
-            driver.get(LEAVE_BALANCE_URL);
+            driver.get(Constant.LEAVE_BALANCE_PAGE_URL);
             leaveBalancePage = initPage(getDriver(), LeaveBalancePage.class);
-            waitForPageDisplayed(getDriver(), LEAVE_BALANCE_URL, null);
+            waitForPageDisplayed(getDriver(), Constant.LEAVE_BALANCE_PAGE_URL, null);
         });
 
         Given("^I click on all team filter$", () -> {
-            waitRedirectToPage(LEAVE_BALANCE_URL);
+            waitRedirectToPage(Constant.LEAVE_BALANCE_PAGE_URL);
             leaveBalancePage.openFilter(driver);
         });
 
@@ -57,7 +57,7 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
 
         Then("^Should show list result of employ with name is \"([^\"]*)\"$", (String employeeName) -> {
             new WebDriverWait(getDriver(), TIME_OUT_SECONDS_NORMAL).until(
-                    webDriver -> !webDriver.getCurrentUrl().equals(LEAVE_BALANCE_URL));
+                    webDriver -> !webDriver.getCurrentUrl().equals(Constant.LEAVE_BALANCE_PAGE_URL));
 
             Assert.assertEquals(leaveBalancePage.getCurrentEmployeeName(driver), employeeName);
         });
@@ -67,7 +67,7 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
         Then("^Team will display \"([^\"]*)\"$", (String teamName) -> Assert.assertEquals(leaveBalancePage.getFilterLabel(), teamName));
 
         And("^Show list result of employ on Android team$", () -> {
-            waitRedirectToPage(LEAVE_BALANCE_URL + ";team_id_eq=24");
+            waitRedirectToPage(Constant.LEAVE_BALANCE_PAGE_URL + ";team_id_eq=24");
             Assert.assertEquals(DEFAULT_PAGE_COUNT, leaveBalancePage.getLeaveBalanceListCount(driver));
         });
 
@@ -77,8 +77,8 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
         When("^I click on page number (\\d+)$", (Integer pageNum) -> leaveBalancePage.gotoPage(driver, pageNum - 1));
 
         Then("^Should load data at page (\\d+)$", (Integer pageIndex) -> {
-            waitRedirectToPage(LEAVE_BALANCE_URL + ";page=" + pageIndex);
-            Assert.assertEquals(LEAVE_BALANCE_URL + ";page=" + pageIndex, driver.getCurrentUrl());
+            waitRedirectToPage(Constant.LEAVE_BALANCE_PAGE_URL + ";page=" + pageIndex);
+            Assert.assertEquals(Constant.LEAVE_BALANCE_PAGE_URL + ";page=" + pageIndex, driver.getCurrentUrl());
         });
         When("^I click to name of an employee$", () -> leaveBalancePage.userNameClick(driver));
         Given("^I click to sysId of an employee on leave list$", () -> leaveBalancePage.sysIdClick(driver));

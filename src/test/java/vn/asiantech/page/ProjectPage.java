@@ -4,8 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import stepdefs.ProjectsDefinitions;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 import static vn.asiantech.base.DriverBase.TIME_OUT_SECONDS_NORMAL;
 
@@ -41,7 +41,7 @@ public class ProjectPage extends BasePage<ProjectPage> {
 
     @Override
     public final ProjectPage navigateTo(final WebDriver webDriver) {
-        webDriver.get(ProjectsDefinitions.PROJECT_PAGE_URL);
+        webDriver.get(Constant.PROJECT_PAGE_URL);
         return this;
     }
 

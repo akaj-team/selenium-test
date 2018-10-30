@@ -4,8 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import stepdefs.LeaveBalanceDefinitions;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 import static vn.asiantech.base.DriverBase.TIME_OUT_SECONDS_NORMAL;
 
@@ -42,7 +42,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
 
     @Override
     public final LeaveBalancePage navigateTo(final WebDriver webDriver) {
-        webDriver.get(LeaveBalanceDefinitions.LEAVE_BALANCE_URL);
+        webDriver.get(Constant.LEAVE_BALANCE_PAGE_URL);
         return this;
     }
 
