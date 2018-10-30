@@ -95,7 +95,8 @@ public class HomePage extends BasePage<HomePage> {
         return isElementPresented(homeContentNoData) && isElementPresented(homeContentNoData.findElement(By.tagName("h2")));
     }
 
-    public final void sendKeysSearch(final String valueSearch) {
+    public final void sendKeysSearch(final String valueSearch, final WebDriver driver) {
+        waitForElement(driver, inputSearch, TIME_OUT_SECOND_NORMAL);
         inputSearch.sendKeys(valueSearch);
     }
 

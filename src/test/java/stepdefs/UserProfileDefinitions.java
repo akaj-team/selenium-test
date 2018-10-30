@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 
 public class UserProfileDefinitions extends DriverBase implements En {
@@ -19,7 +20,7 @@ public class UserProfileDefinitions extends DriverBase implements En {
         }
         When("^I click on my name$", () -> {
             driver.findElement(By.className("font-bold")).click();
-            new WebDriverWait(driver, 10).until(
+            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
                     webDriver -> webDriver.findElement(By.className("section-top")).isDisplayed());
         });
 
@@ -30,7 +31,6 @@ public class UserProfileDefinitions extends DriverBase implements En {
             WebElement label = driver.findElement(By.xpath("//label[contains(text(), '" + key + "')]"));
             WebElement parent = label.findElement(By.xpath(".."));
             WebElement valueElement = parent.findElement(By.tagName("span"));
-//            System.out.println(valueElement.getText());
             Assert.assertEquals(valueElement.getText(), value);
         });
     }
