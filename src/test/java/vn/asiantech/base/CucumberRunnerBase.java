@@ -14,9 +14,10 @@ public class CucumberRunnerBase extends AbstractTestNGCucumberTests {
     }
 
     @BeforeSuite(alwaysRun = true)
-    public void beforeSuite() {
+    @Parameters("browserType")
+    public void beforeSuite(@Optional("browserType") String browserType) {
         System.out.println("instantiateDriverObject");
-        DriverBase.instantiateDriverObject();
+        DriverBase.instantiateDriverObject(browserType);
     }
 
     @AfterSuite(alwaysRun = true)

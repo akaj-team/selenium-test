@@ -1,4 +1,4 @@
-@TeamsPage
+@TeamsPage @Ignore
 Feature: Check function delete team in teams page
   I want to login as an EM an check function delete team
 

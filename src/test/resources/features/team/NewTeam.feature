@@ -1,4 +1,4 @@
-@NewTeamPage
+@NewTeamPage @Ignore
 Feature: Check teams page
   I Login as an EM and go to Teams page
   Check validate and button submit when fill in form create new team

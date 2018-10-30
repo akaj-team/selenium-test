@@ -1,4 +1,4 @@
-@LeavePlanner
+@LeavePlanner @Ignore
 Feature: Check display views and handle events
   Login my account and open leave planners page
   Check display views and handle events

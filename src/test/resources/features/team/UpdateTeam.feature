@@ -1,4 +1,4 @@
-@UpdateTeamPage
+@UpdateTeamPage @Ignore
 Feature: Check update team page
   I login as an EM
   Check validate fill in form update team and status enable of button submit

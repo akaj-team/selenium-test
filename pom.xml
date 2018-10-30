@@ -17,7 +17,7 @@
         <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
         <!--Configuration Properties-->
         <browser>chrome</browser>
-        <threads>1</threads>
+        <threads>2</threads>
         <remote>false</remote>
         <headless>true</headless>
     </properties>
@@ -130,7 +130,8 @@
                             </suiteXmlFiles>
                             <systemPropertyVariables>
                                 <test.test1>Bla ble</test.test1>
-                                <browser>${browser}</browser>
+                                <browser>firefox,chrome</browser>
+                                <!--<browser>${browser}</browser>-->
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
@@ -160,10 +161,11 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <version>${maven-failsafe-plugin.version}</version>
                         <configuration>
-                            <parallel>methods</parallel>
+                            <parallel>tests</parallel>
                             <threadCount>${threads}</threadCount>
                             <systemPropertyVariables>
-                                <browser>${browser}</browser>
+                                <!--<browser>${browser}</browser>-->
+                                <browser>firefox,chrome</browser>
                                 <screenshotDirectory>${project.build.directory}/screenshots</screenshotDirectory>
                                 <remoteDriver>${remote}</remoteDriver>
                                 <headless>${headless}</headless>

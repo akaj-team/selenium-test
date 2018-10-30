@@ -21,7 +21,11 @@ public class AuthenticateDefinitions extends DriverBase implements En {
             clearCookies();
 
             if (!getDriver().getCurrentUrl().startsWith("data")) {
-                getDriver().executeScript("window.localStorage.clear();");
+                try {
+                    getDriver().executeScript("window.localStorage.clear();");
+                } catch (Exception ex) {
+                    //no-up
+                }
             }
             Account account = accounts.get(position);
             getDriver().get("http://portal-stg.asiantech.vn/auth/login");

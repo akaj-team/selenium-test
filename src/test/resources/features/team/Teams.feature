@@ -1,4 +1,4 @@
-@TeamsPage
+@TeamsPage @Ignore
 Feature: Check teams page
   I login as an EM
   Check view displayed, fill search and click on button in teams page

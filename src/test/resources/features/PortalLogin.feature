@@ -9,6 +9,7 @@ Feature: Login AT Portal
     Given I am an unauthenticated user
     Then browser should redirect to "/auth/login"
 
+  @Ignore
   Scenario: Login success with correct account
     When I enter my username with "stg.tien.hoang@asiantech.vn"
     And I fill in password with "Abc123@@"

@@ -10,6 +10,7 @@ import java.net.URL;
 
 import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
+import static vn.asiantech.base.DriverType.CHROME;
 import static vn.asiantech.base.DriverType.FIREFOX;
 
 public class DriverFactory {
@@ -24,8 +25,19 @@ public class DriverFactory {
     private RemoteWebDriver driver;
     private DriverType selectedDriverType;
 
-    public DriverFactory() {
-        DriverType driverType = FIREFOX;
+    public DriverFactory(String browserType) {
+        DriverType driverType;
+        switch (browserType) {
+            case "chrome":
+                driverType = CHROME;
+                break;
+            case "firefox":
+                driverType = FIREFOX;
+                break;
+            default:
+                driverType = FIREFOX;
+        }
+
         String browser = System.getProperty("browser", driverType.toString()).toUpperCase();
         try {
             driverType = DriverType.valueOf(browser);

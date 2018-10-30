@@ -21,9 +21,9 @@ public class DriverBase {
     private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
     private static ThreadLocal<DriverFactory> driverFactoryThread;
 
-    static void instantiateDriverObject() {
+    static void instantiateDriverObject(String browserType) {
         driverFactoryThread = ThreadLocal.withInitial(() -> {
-            DriverFactory driverFactory = new DriverFactory();
+            DriverFactory driverFactory = new DriverFactory(browserType);
             webDriverThreadPool.add(driverFactory);
             return driverFactory;
         });
@@ -31,7 +31,7 @@ public class DriverBase {
 
     public static RemoteWebDriver getDriver() {
         if (driverFactoryThread == null) {
-            instantiateDriverObject();
+            instantiateDriverObject("chrome");
         }
         return driverFactoryThread.get().getDriver();
     }

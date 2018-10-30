@@ -1,4 +1,4 @@
-@HomePage
+@HomePage @Ignore
 Feature: Open home page
   I want to Login Portal and check home page
 

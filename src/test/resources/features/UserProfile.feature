@@ -1,4 +1,4 @@
-@UserProfile
+@UserProfile @Ignore
 Feature: Check user profile
   I want to login my account and check my information
 
