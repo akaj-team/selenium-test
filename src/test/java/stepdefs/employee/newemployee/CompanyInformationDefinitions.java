@@ -42,7 +42,7 @@ public class CompanyInformationDefinitions extends DriverBase implements En {
         And("^Choose employee type \"([^\"]*)\"$", (String empType) -> companyInformationPage.selectEmpType(empType));
 
         And("^Fill employee code input with \"([^\"]*)\", \"([^\"]*)\" and \"([^\"]*)\"$", (String code, String aheadSpace, String behindSpace) ->
-                companyInformationPage.fillEmpCode(code, 0, 0));
+                companyInformationPage.fillEmpCode(code, Integer.valueOf(aheadSpace),  Integer.valueOf(behindSpace)));
 
         And("^Select position$", () -> isPositionSelected = companyInformationPage.choosePosition());
 
