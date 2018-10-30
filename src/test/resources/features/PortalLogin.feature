@@ -5,9 +5,8 @@ Feature: Login AT Portal
   In order to check my profile
 
   Background: User navigates to Company home page
-    Given I open home page
-    Given I am an unauthenticated user
-    Then browser should redirect to "/auth/login"
+    Given I open login page
+    Then Browser should redirect to "/auth/login"
 
   Scenario: Login success with correct account
     When I enter my username with "stg.tien.hoang@asiantech.vn"
