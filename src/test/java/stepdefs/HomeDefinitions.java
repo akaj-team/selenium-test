@@ -12,6 +12,7 @@ import vn.asiantech.page.HomePage;
 import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 import static vn.asiantech.base.Constant.HOME_PAGE_URL;
 import static vn.asiantech.page.HomePage.TIME_OUT_SECOND_NORMAL;
+import static vn.asiantech.page.HomePage.URL_HOME_PAGE;
 
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
