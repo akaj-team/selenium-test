@@ -5,6 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
+import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
+import static vn.asiantech.base.Constant.LOGIN_PAGE_URL;
+
 public class LoginPage extends BasePage<LoginPage> {
     @FindBy(css = "input[formcontrolname=email]")
     private WebElement usernameInput;
@@ -22,8 +25,8 @@ public class LoginPage extends BasePage<LoginPage> {
     }
 
     @Override
-    public LoginPage navigateTo(WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn/auth/login");
+    public final LoginPage navigateTo(final WebDriver webDriver) {
+        webDriver.get(LOGIN_PAGE_URL);
         return this;
     }
 
@@ -32,40 +35,37 @@ public class LoginPage extends BasePage<LoginPage> {
         return this;
     }
 
-    public LoginPage withUsername(String username) {
+    public final LoginPage withUsername(final String username) {
         usernameInput.sendKeys(username);
         return this;
     }
 
-    public LoginPage withPassword(String password) {
+    public final LoginPage withPassword(final String password) {
         passwordInput.sendKeys(password);
         return this;
     }
 
-    public LoginPage waitForLoginButton() {
-        waitForElement(driver, loginButton, 5);
-        return this;
+    public final void waitForLoginButton() {
+        waitForElement(driver, loginButton, DEFAULT_TIME_OUT);
     }
 
-    public boolean hasEmail() {
+    public final boolean hasEmail() {
         return isElementPresented(usernameInput);
     }
 
-    public boolean errorMessageIsDisplayed() {
+    public final boolean errorMessageIsDisplayed() {
         return errorText.isDisplayed();
     }
 
-    public String getErrorMessage() {
+    public final String getErrorMessage() {
         return errorText.getText();
     }
 
-    public WebElement getLoginButton() {
+    public final WebElement getLoginButton() {
         return loginButton;
     }
 
-    public LoginPage waitForErrorMessage(WebDriver driver, int timeOutInSecond) {
-        waitForElement(driver, errorText, timeOutInSecond);
-        return this;
+    public final void waitForErrorMessage(final WebDriver webDriver) {
+        waitForElement(webDriver, errorText, DEFAULT_TIME_OUT);
     }
-
 }

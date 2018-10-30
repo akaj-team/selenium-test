@@ -2,11 +2,11 @@ package stepdefs;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.AccessControlPage;
 
@@ -15,8 +15,7 @@ import vn.asiantech.page.AccessControlPage;
  * Created by at-vietphan on 9/27/18.
  */
 public class AccessControlDefinitions extends DriverBase implements En {
-    private static final String URL_ACCESS_CONTROL_PAGE = "http://portal-stg.asiantech.vn/admin/acl";
-    private static final int TIME_OUT_SECOND_NORMAL = 10;
+
     private WebDriver driver;
     private AccessControlPage accessControlPage;
 
@@ -26,77 +25,82 @@ public class AccessControlDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         accessControlPage = initPage(driver, AccessControlPage.class);
+
         And("^I stayed in Access Control page$", () -> {
-            driver.get(URL_ACCESS_CONTROL_PAGE);
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> webDriver.findElement(By.cssSelector(".ibox-content.main-content")));
-            Assert.assertEquals(URL_ACCESS_CONTROL_PAGE, driver.getCurrentUrl());
+            driver.get(Constant.ACCESS_CONTROL_PAGE_URL);
+            waitForPageDisplayed(driver, Constant.ACCESS_CONTROL_PAGE_URL, By.cssSelector(".ibox-content.main-content"));
         });
 
         // Check color item in toolbox when I click on any item
-        When("^I click on tab item \"([^\"]*)\"$", (String position) -> accessControlPage.onClickItemInToolBox(position));
-        Then("^Color of tab \"([^\"]*)\" is \"([^\"]*)\"$", (String position, String activeColor) -> Assert.assertTrue(accessControlPage.isColorItemTabCorrect(position, activeColor)));
-        And("^Color other tab \"([^\"]*)\" is \"([^\"]*)\"$", (String position, String defaultColor) -> Assert.assertTrue(accessControlPage.isColorOtherTabCorrect(position, defaultColor)));
-        And("^Button Submit is enable$", () -> Assert.assertTrue(accessControlPage.isEnableBtnSubmit()));
-        And("^Button Submit is unable$", () -> Assert.assertFalse(accessControlPage.isEnableBtnSubmit()));
+        When("^I click on access control tab item \"([^\"]*)\"$", (String position) -> {
+            waitVisibilityOfElement(driver, By.className("ui-buttonset-4"));
+            accessControlPage.onClickItemInToolBox(position);
+        });
+        Then("^Color of access control tab \"([^\"]*)\" is \"([^\"]*)\"$", (String position, String activeColor) -> {
+            waitVisibilityOfElement(driver, By.className("ui-buttonset-4"));
+            Assert.assertTrue(accessControlPage.isColorItemTabCorrect(position, activeColor));
+        });
+        And("^Color other access control tab \"([^\"]*)\" is \"([^\"]*)\"$", (String position, String defaultColor) -> {
+            waitVisibilityOfElement(driver, By.className("ui-buttonset-4"));
+            Assert.assertTrue(accessControlPage.isColorOtherTabCorrect(position, defaultColor));
+        });
+        And("^Button Submit is enable$", () -> {
+            waitVisibilityOfElement(driver, By.id("btn-submit-permission"));
+            Assert.assertTrue(accessControlPage.isEnableBtnSubmit());
+        });
+        And("^Button Submit is unable$", () -> {
+            waitVisibilityOfElement(driver, By.id("btn-submit-permission"));
+            Assert.assertFalse(accessControlPage.isEnableBtnSubmit());
+        });
 
         // I click on tab Item, check view is displayed in this tab
         Then("^Has \"([^\"]*)\" drop down is displayed$", (String sum) -> {
             if (Integer.parseInt(sum) > 0) {
-                new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".toolbox-item.dropdown-md.ng-star-inserted")));
+                new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".toolbox-item.dropdown-md.ng-star-inserted")));
             }
             Assert.assertEquals(accessControlPage.getSumDropDown(), Integer.parseInt(sum));
-            System.out.print(accessControlPage.getSumDropDown() + " " + Integer.parseInt(sum));
         });
         And("^BodyTable is displayed$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("table-striped")));
-            Assert.assertTrue(accessControlPage.isBodyTableShown(driver));
+            waitVisibilityOfElement(driver, By.id("permission-list-wrapper"));
+            Assert.assertTrue(accessControlPage.isBodyTableShown());
         });
-        And("^Button Submit is \"([^\"]*)\"$", (String isEnable) -> {
-            Assert.assertEquals(accessControlPage.isEnableBtnSubmit(), Boolean.parseBoolean(isEnable));
-            System.out.print(accessControlPage.isEnableBtnSubmit() + " " + Boolean.parseBoolean(isEnable));
-
-        });
+        And("^Button Submit is \"([^\"]*)\"$", (String isEnable) -> Assert.assertEquals(accessControlPage.isEnableBtnSubmit(), Boolean.parseBoolean(isEnable)));
 
         // Open dropdown Role and click on any Role
         When("^I open dropDown Role$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.tagName("p-dropdown")));
+            waitVisibilityOfElement(driver, By.className("dropdown-md"));
             accessControlPage.onClickDropDownList(0);
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> webDriver.findElement(By.className("ui-dropdown-open")));
+            waitVisibilityOfElement(driver, By.className("ui-dropdown-open"));
         });
-        And("^I click on any role$", () -> {
-            accessControlPage.onSelectItemInDropDown(0);
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL);
-        });
+        And("^I click on any role$", () -> accessControlPage.onSelectItemInDropDown(0));
 
         // Open dropdown Team and click on any Team
         When("^I open DropDown Team$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.tagName("p-dropdown")));
+            waitVisibilityOfElement(driver, By.className("dropdown-md"));
             accessControlPage.onClickDropDownList(1);
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> webDriver.findElement(By.className("ui-dropdown-open")));
+            waitVisibilityOfElement(driver, By.className("ui-dropdown-open"));
         });
-        And("^I click on any team$", () -> {
-            accessControlPage.onSelectItemInDropDown(2);
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL);
-        });
+        And("^I click on any team$", () -> accessControlPage.onSelectItemInDropDown(2));
 
         // Open dropdown Group and click on any group
         When("^I open DropDown Group$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.tagName("p-dropdown")));
+            waitVisibilityOfElement(driver, By.className("dropdown-md"));
             accessControlPage.onClickDropDownList(1);
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> webDriver.findElement(By.className("ui-dropdown-open")));
+            waitVisibilityOfElement(driver, By.className("ui-dropdown-open"));
         });
-        And("^I click on any group$", () -> {
-            accessControlPage.onSelectItemInDropDown(1);
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL);
-        });
+        And("^I click on any group$", () -> accessControlPage.onSelectItemInDropDown(1));
 
         // Click on button Submit and show alert message
-        When("^I click on Button Submit$", () -> accessControlPage.onCLickBtnSubmit());
+        When("^I click on Button Submit$", () -> {
+            waitVisibilityOfElement(driver, By.id("btn-submit-permission"));
+            accessControlPage.onCLickButtonSubmit();
+        });
+
         Then("^I should see the alert message$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(By.className("app-alert")));
-            Assert.assertTrue(accessControlPage.isAlertMessageShown(driver));
+            waitVisibilityOfElement(driver, By.className("app-alert"));
+            Assert.assertTrue(accessControlPage.isAlertMessageShown());
         });
     }
 }

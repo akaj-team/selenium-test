@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 import java.util.List;
 
@@ -13,25 +14,33 @@ import java.util.List;
  * Created by at-vietphan on 9/27/18.
  */
 public class AccessControlPage extends BasePage<AccessControlPage> {
-    private static final String URL_PAGE_ACCESS_CONTROL = "http://portal-stg.asiantech.vn/admin/acl";
 
     @FindBy(className = "wrapper-content")
     private WebElement wrapperContent;
 
     @FindBy(className = "ui-buttonset-4")
-    private WebElement btnSetInToolBox;
+    private WebElement listItemInToolBox;
 
-    private By dropDown = By.cssSelector(".toolbox-item.dropdown-md.ng-star-inserted");
+    @FindBy(id = "btn-submit-permission")
+    private WebElement btnSubmit;
+
+    @FindBy(id = "permission-list-wrapper")
+    private WebElement dataTable;
+
+    @FindBy(className = "app-alert")
+    private WebElement appAlert;
+
+    private By dropDown = By.className("dropdown-md");
     private WebElement itemSpinner;
 
     @Override
     public final AccessControlPage navigateTo(final WebDriver webDriver) {
-        webDriver.get(URL_PAGE_ACCESS_CONTROL);
+        webDriver.get(Constant.ACCESS_CONTROL_PAGE_URL);
         return this;
     }
 
     public final void onClickItemInToolBox(final String position) {
-        if (isElementPresented(btnSetInToolBox)) {
+        if (isElementPresented(listItemInToolBox)) {
             getItemInToolBox(position).click();
         }
     }
@@ -41,20 +50,19 @@ public class AccessControlPage extends BasePage<AccessControlPage> {
     }
 
     public final boolean isEnableBtnSubmit() {
-        WebElement btnSubmit = wrapperContent.findElement(By.name("submit"));
         return btnSubmit.isEnabled();
     }
 
-    public final void onCLickBtnSubmit() {
-        wrapperContent.findElement(By.name("submit")).click();
+    public final void onCLickButtonSubmit() {
+        btnSubmit.click();
     }
 
-    public final boolean isAlertMessageShown(WebDriver driver) {
-        return isElementPresented(driver.findElement(By.className("app-alert")));
+    public final boolean isAlertMessageShown() {
+        return isElementPresented(appAlert);
     }
 
-    public final boolean isBodyTableShown(WebDriver driver) {
-        return isElementPresented(driver.findElement(By.className("table-striped")));
+    public final boolean isBodyTableShown() {
+        return isElementPresented(dataTable);
     }
 
     public final int getSumDropDown() {
@@ -73,7 +81,7 @@ public class AccessControlPage extends BasePage<AccessControlPage> {
     }
 
     public final boolean isColorOtherTabCorrect(final String position, final String defaultColor) {
-        List<WebElement> listBtnTab = btnSetInToolBox.findElements(By.className("ui-button-text-only"));
+        List<WebElement> listBtnTab = listItemInToolBox.findElements(By.className("ui-button-text-only"));
         for (int i = 0; i < listBtnTab.size(); i++) {
             if (i != Integer.parseInt(position)) {
                 return getActualColor(listBtnTab.get(i)).equals(defaultColor);
@@ -83,7 +91,7 @@ public class AccessControlPage extends BasePage<AccessControlPage> {
     }
 
     private WebElement getItemInToolBox(final String position) {
-        List<WebElement> listBtnTab = btnSetInToolBox.findElements(By.className("ui-button-text-only"));
+        List<WebElement> listBtnTab = listItemInToolBox.findElements(By.className("ui-button-text-only"));
         return listBtnTab.get(Integer.parseInt(position));
     }
 
