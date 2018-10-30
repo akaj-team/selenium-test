@@ -41,5 +41,4 @@ Feature: Check teams page
     And I open dropdown Manager
     And I select a item in manager list
     When I click on button Submit
-    Then Open successfully team detail page after created
     And I should see fail or success message

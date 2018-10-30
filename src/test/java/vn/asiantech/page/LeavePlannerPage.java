@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 import java.util.List;
 
@@ -65,11 +66,11 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
         btnNext.click();
     }
 
-    public final String clickUserName() {
+    public final String clickUserName(final WebDriver driver) {
         for (int column = 0; column < COLUMN_NUMBER; column++) {
             for (int cell = 0; cell < COLUMN_NUMBER; cell++) {
-                String link = getUserProfileLink(column, cell);
-                WebElement userName = getUserName(column, cell);
+                String link = getUserProfileLink(driver, column, cell);
+                WebElement userName = getUserName(driver, column, cell);
                 if (!link.equals("") && userName != null) {
                     userName.click();
                     return link;
@@ -83,7 +84,7 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
         Actions action = new Actions(driver);
         for (int column = 0; column < COLUMN_NUMBER; column++) {
             for (int cell = 0; cell < COLUMN_NUMBER; cell++) {
-                WebElement avatar = getAvatar(column, cell);
+                WebElement avatar = getAvatar(driver, column, cell);
                 if (avatar != null) {
                     action.moveToElement(avatar).build().perform();
                     break;
@@ -122,7 +123,8 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
         return calenderHead.findElements(By.cssSelector(".calendar-cell.ng-star-inserted")).get(column).findElement(By.tagName("i")).getText();
     }
 
-    private WebElement getItemInfor(final Integer column, final Integer position) {
+    private WebElement getItemInfor(final WebDriver driver, final Integer column, final Integer position) {
+        waitForElement(driver, calendarBody, Constant.DEFAULT_TIME_OUT);
         List<WebElement> columns = calendarBody.findElements(By.cssSelector(".calendar-cell.ng-star-inserted"));
         if (columns.size() != 0 && column < columns.size()) {
             List<WebElement> columnsItems = columns.get(column).findElements(By.cssSelector(".cell-content>div"));
@@ -133,23 +135,23 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
         return columns.get(0);
     }
 
-    private WebElement getUserName(final Integer column, final Integer position) {
-        if (isElementExisted(getItemInfor(column, position), USER_NAME)) {
-            return getItemInfor(column, position).findElement(By.tagName("a")).findElement(By.tagName("h4"));
+    private WebElement getUserName(final WebDriver driver, final Integer column, final Integer position) {
+        if (isElementExisted(getItemInfor(driver, column, position), USER_NAME)) {
+            return getItemInfor(driver, column, position).findElement(By.tagName("a")).findElement(By.tagName("h4"));
         }
         return null;
     }
 
-    private String getUserProfileLink(final Integer column, final Integer position) {
-        if (isElementExisted(getItemInfor(column, position), PROFILE_LINK)) {
-            return getItemInfor(column, position).findElement(By.tagName("a")).getAttribute("href");
+    private String getUserProfileLink(final WebDriver driver, final Integer column, final Integer position) {
+        if (isElementExisted(getItemInfor(driver, column, position), PROFILE_LINK)) {
+            return getItemInfor(driver, column, position).findElement(By.tagName("a")).getAttribute("href");
         }
         return "";
     }
 
-    private WebElement getAvatar(final Integer column, final Integer position) {
-        if (isElementExisted(getItemInfor(column, position), AVATAR)) {
-            return getItemInfor(column, position).findElement(By.tagName("a")).findElement(By.tagName("img"));
+    private WebElement getAvatar(final WebDriver driver, final Integer column, final Integer position) {
+        if (isElementExisted(getItemInfor(driver, column, position), AVATAR)) {
+            return getItemInfor(driver, column, position).findElement(By.tagName("a")).findElement(By.tagName("img"));
         }
         return null;
     }

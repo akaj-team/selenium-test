@@ -40,7 +40,7 @@ public class HomeDefinitions extends DriverBase implements En {
         And("^I Should see data when has or no$", () -> Assert.assertTrue(homePage.isInIBoxContentShowed()));
 
         // Check function search
-        When("^I fill to search with value is \"([^\"]*)\"$", (String searchData) -> homePage.sendKeysSearch(searchData));
+        When("^I fill to search with value is \"([^\"]*)\"$", (String searchData) -> homePage.sendKeysSearch(searchData, driver));
         Then("^I should see list feed is displayed$", () -> {
             new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> webDriver.findElement(By.className("notification-container")).findElement(By.className("social-feed-box")).isDisplayed());
             Assert.assertFalse(homePage.isFeedListEmpty());
