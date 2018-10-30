@@ -40,16 +40,16 @@ Feature: Check display views and handle events with company information
       | Intern       |
 
   Scenario Outline: Validate data of employee code input
-    When Fill employee code input with "<code>", "<ahead space>" and "<behind space>"
+    When Fill employee code input with "<code>", "<aheadSpace>" and "<behindSpace>"
     And Click out of employee code input area
     Then Error message "Please enter value" of employee code is displayed
     And  A red border of employee code input is displayed
     Examples:
-      | code                                        | ahead space | behind space |
-      | Code longer than thirty ten characters      | 0           | 0            |
-      | Code with special characters ~!@#$%^&*()><? | 0           | 0            |
-      | Code with spaces at the end of data         | 0           | 1            |
-      | Code with spaces at the head of data        | 1           | 0            |
+      | code                                        | aheadSpace | behindSpace |
+      | Code longer than thirty ten characters      | 0          | 0           |
+      | Code with special characters ~!@#$%^&*()><? | 0          | 0           |
+      | Code with spaces at the end of data         | 0          | 1           |
+      | Code with spaces at the head of data        | 1          | 0           |
 
   Scenario: Check display of email correctly
     Then Data in email input is correct with FirstName "Abbey", LastName "Bly"
