@@ -46,8 +46,8 @@ public class TeamsDefinitions extends DriverBase implements En {
             String redirectUrl = URL_PAGE_TEAMS + ";name_cont=" + searchData;
             waitForPageRedirected(driver, redirectUrl, By.cssSelector(".ui-datatable-data.ui-widget-content"));
         });
-        Then("^I should see list team$", () -> Assert.assertFalse(teamsPage.isTeamListEmpty()));
-        Then("^I should see list team is empty$", () -> Assert.assertTrue(teamsPage.isTeamListEmpty()));
+        Then("^I should see list team$", () -> Assert.assertFalse(teamsPage.isTeamListEmpty(driver)));
+        Then("^I should see list team is empty$", () -> Assert.assertTrue(teamsPage.isTeamListEmpty(driver)));
         And("^I should see alert message \"([^\"]*)\"$", (String message) -> Assert.assertEquals(message, teamsPage.showMessageEmptyTeam()));
 
         // Open successfully profile when click on avatar or name team
@@ -70,7 +70,7 @@ public class TeamsDefinitions extends DriverBase implements En {
 
         // Open successfully new team page when click on button New Team
         When("^I click on button New Team$", () -> {
-            waitVisibilityOfElement(driver, By.className("btn-create-team"));
+            waitVisibilityOfElement(driver, By.id("btn-create-team"));
             newTeamUrl = teamsPage.onClickNewTeam();
         });
         Then("^Page is redirected to New Team page$", () -> waitForPageRedirected(driver, newTeamUrl, By.className("ibox-content")));
