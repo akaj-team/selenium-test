@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
-import static vn.asiantech.base.DriverBase.getDriver;
-
 /**
  * @author at-anh.quach
  * Wiki page
@@ -15,7 +13,7 @@ import static vn.asiantech.base.DriverBase.getDriver;
 
 public class WikiPage extends BasePage<WikiPage> {
     private static final int POS_ICON_PACKAGE = 5;
-    private static final int POS_TITlE = 0;
+    private static final int POS_TITLE = 0;
 
     @FindBy(id = "link-to-wiki-author-detail")
     private WebElement txtAuthor;
@@ -54,11 +52,11 @@ public class WikiPage extends BasePage<WikiPage> {
     }
 
     public final void clickTitle() {
-        treeContainer.findElements(By.tagName("li")).get(POS_TITlE).click();
+        treeContainer.findElements(By.tagName("li")).get(POS_TITLE).click();
     }
 
     public final void clickIconPackageWikiHome() {
-        getIconPackage(POS_TITlE).click();
+        getIconPackage(POS_TITLE).click();
     }
 
     public final boolean isRemoveCategories() {
