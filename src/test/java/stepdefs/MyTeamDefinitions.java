@@ -2,20 +2,19 @@ package stepdefs;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.MyTeamPage;
-import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
 
 /**
  * @author at-huethai
  */
 public class MyTeamDefinitions extends DriverBase implements En {
+    private static final String URL_TEAM_PAGE = "http://portal-stg.asiantech.vn/organisation/teams/";
+    private static final int TEAM_CODE = 24;
+    private static final int TEAM_MEMBER_COUNT = 39;
+    private static final int TIME_SLEEP = 300;
 
     private WebDriver driver;
     private MyTeamPage myTeamPage;
@@ -28,93 +27,50 @@ public class MyTeamDefinitions extends DriverBase implements En {
         }
 
         Given("^Display My Team page$", () -> {
-            driver.get("http://portal-stg.asiantech.vn/organisation/teams/24");
+            driver.get(URL_TEAM_PAGE + TEAM_CODE);
             myTeamPage = initPage(getDriver(), MyTeamPage.class);
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-            Assert.assertEquals("http://portal-stg.asiantech.vn/organisation/teams/24", driver.getCurrentUrl());
+            waitForPageDisplayed(getDriver(), URL_TEAM_PAGE + TEAM_CODE, By.id("page-wrapper"));
         });
 
-        Then("^The member of Android team is displayed$", () -> {
-            Assert.assertEquals(39, myTeamPage.checkNumberofTeam(driver));
-        });
+        Then("^The member of Android team is displayed$", () -> Assert.assertEquals(TEAM_MEMBER_COUNT, myTeamPage.checkNumberofTeam(driver)));
 
-        And("^The \"([^\"]*)\" value is \"([^\"]*)\"$", (String key, String value) -> {
-            WebElement dt = driver.findElement(By.xpath("//dt[contains(text(), '" + key + "')]"));
-            WebElement dd = dt.findElement(By.xpath("following-sibling::dd"));
-            WebElement span = dd.findElement(By.tagName("span"));
-            String text = span.getText();
-
-            if (text != "") {
-                Assert.assertEquals(text, value);
-            } else {
-                WebElement a = dd.findElement(By.tagName("a"));
-                Assert.assertEquals(a.getText(), value);
-            }
-        });
+        And("^The \"([^\"]*)\" value is \"([^\"]*)\"$", (String key, String value) -> myTeamPage.verifyMyTeamInfo(driver,key,value));
 
         When("^I click on 'Update Team' button$", () -> {
             myTeamPage.clickUpdateTeamBtn(driver);
-            Thread.sleep(300);
+            Thread.sleep(TIME_SLEEP);
         });
 
-        Then("^The web page navigates to the \"([^\"]*)\" page$", (String page) -> {
-            myTeamPage.redirectPage(driver, page);
-        });
+        Then("^The web page navigates to the \"([^\"]*)\" page$", (String page) -> myTeamPage.redirectPage(driver, page));
 
-        When("^I click on 'Teams' button$", () -> {
-            myTeamPage.clickTeamsBtn(driver);
-        });
-        When("^I click on New Member button$", () -> {
-            myTeamPage.clickAddMemberBtn(driver);
-        });
+        When("^I click on 'Teams' button$", () -> myTeamPage.clickTeamsBtn(driver));
 
-        Then("^The Add Member popup is displayed$", () -> {
-            Assert.assertTrue(myTeamPage.getAddMemberPopupName(driver));
-        });
+        When("^I click on New Member button$", () -> myTeamPage.clickAddMemberBtn(driver));
 
-        When("^I input \"([^\"]*)\" into search textbox to add member$", (String username) -> {
-            myTeamPage.inputUserNametoAdd(driver, username);
-        });
+        Then("^The Add Member popup is displayed$", () -> Assert.assertTrue(myTeamPage.getAddMemberPopupName()));
 
-        Then("^I verify that search result list is correct with \"([^\"]*)\"$", (String n) -> {
-            Assert.assertTrue(myTeamPage.verifySearchResult(driver, n));
-        });
+        When("^I input \"([^\"]*)\" into search textbox to add member$", (String username) -> myTeamPage.inputUserNametoAdd(driver, username));
 
-        When("^I click on Add button$", () -> {
-            myTeamPage.clickAddBtn(driver);
-        });
+        Then("^I verify that search result list is correct with \"([^\"]*)\"$", (String n) -> Assert.assertTrue(myTeamPage.verifySearchResult(driver, n)));
 
-        When("^I click on Close button$", () -> {
-            myTeamPage.clickCloseBtn(driver);
-        });
+        When("^I click on Add button$", () -> myTeamPage.clickAddBtn(driver));
 
-        Then("^The Add Member popup is disappeared$", () -> {
-            Assert.assertTrue(myTeamPage.verifyAddMemberPopupDisappeared(driver));
-        });
+        When("^I click on Close button$", () -> myTeamPage.clickCloseBtn(driver));
 
-        When("^I input \"([^\"]*)\" into search textbox to search member$", (String username) -> {
-            myTeamPage.inputUserNametoSearch(driver, username);
-        });
+        Then("^The Add Member popup is disappeared$", () -> Assert.assertTrue(myTeamPage.verifyAddMemberPopupDisappeared(driver)));
 
-        Then("^I verify that members of team are displayed correctly as \"([^\"]*)\"$", (String record) -> {
-            myTeamPage.verifySearchMemberResult(driver, record);
-        });
+        When("^I input \"([^\"]*)\" into search textbox to search member$", (String username) -> myTeamPage.inputUserNametoSearch(driver, username));
+
+        Then("^I verify that members of team are displayed correctly as \"([^\"]*)\"$", (String record) -> myTeamPage.verifySearchMemberResult(driver, record));
+
         When("^I input \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$",
-                (String name, String manager, String teamofficer1, String teamofficer2, String logo, String teamfolder, String description) -> {
+                (String name, String manager, String teamofficer1, String teamofficer2, String logo, String teamfolder, String description) -> myTeamPage.updateTeamInfo(driver, name, manager, teamofficer1, teamofficer2, logo, teamfolder, description));
 
-                    myTeamPage.updateTeamInfo(driver, name, manager, teamofficer1, teamofficer2, logo, teamfolder, description);
-                });
-        And("^I click on Submit button$", () -> {
-            myTeamPage.clickSubmitBtntoUpload(driver);
-        });
-        And("^I click on Delete button to delete searched user$", () -> {
-            myTeamPage.clickDeleteBtn(driver);
-        });
-        Then("^I verify that deleting user successful$", () -> {
-            myTeamPage.verifyDeleteUserSuccessful(driver);
-        });
+        And("^I click on Submit button$", () -> myTeamPage.clickSubmitBtntoUpload(driver));
+
+        And("^I click on Delete button to delete searched user$", () -> myTeamPage.clickDeleteBtn(driver));
+
+        Then("^I verify that deleting user successful$", () -> myTeamPage.verifyDeleteUserSuccessful(driver));
     }
 }
 

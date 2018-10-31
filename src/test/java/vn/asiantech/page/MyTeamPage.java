@@ -14,7 +14,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
 
     public static final int TIME_OUT_SECOND = 50;
 
-    @FindBy(css = ".ui-datatable-data.ui-widget-content")
+    @FindBy(className = "ui-datatable-data")
     private WebElement lstMember;
 
     @FindBy(id = "btn-edit-team")
@@ -29,11 +29,11 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     @FindBy(id = "member-dialog-wrapper")
     private WebElement dlgAddMember;
 
-    @FindBy(css = "input[name=\"search\"]")
+    @FindBy(name = "search")
     private WebElement txtSearchMember;
 
-    @FindBy(css = "input[class=\"ui-inputtext ui-widget ui-state-default ui-corner-all\"]")
-    private WebElement txtSearch2;
+    @FindBy(css = ".ui-inputtext.ui-widget.ui-state-default")
+    private WebElement txtSearchtoAdd;
 
     @FindBy(className = "ui-listbox-list-wrapper")
     private WebElement listSearchResult;
@@ -44,19 +44,19 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     @FindBy(name = "name")
     private WebElement txtName;
 
-    @FindBy(css = ".ng-tns-c2-3.ui-dropdown.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix")
+    @FindBy(css = ".ng-tns-c2-3.ui-dropdown.ui-widget")
     private WebElement ddlManager;
 
-    @FindBy(css = ".ui-dropdown-filter.ui-inputtext.ui-widget.ui-state-default.ui-corner-all")
+    @FindBy(css = ".ui-dropdown-filter.ui-inputtext")
     private List<WebElement> txtSearchtoUpload;
 
     @FindBy(className = "ui-dropdown-items-wrapper")
     private List<WebElement> lstUsertoUpdate;
 
-    @FindBy(css = ".ng-tns-c2-4.ui-dropdown.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix")
+    @FindBy(css = ".ng-tns-c2-4.ui-dropdown.ui-widget")
     private WebElement ddlTeamOfficer1;
 
-    @FindBy(css = ".ng-tns-c2-5.ui-dropdown.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix")
+    @FindBy(css = ".ng-tns-c2-5.ui-dropdown.ui-widget")
     private WebElement ddlTeamOfficer2;
 
     @FindBy(css = ".btn.btn-white.m-n")
@@ -77,9 +77,6 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     @FindBy(id = "btn-submit-team")
     private WebElement btnSubmittoUpdateTeam;
 
-    @FindBy(linkText = "href=\"/organisation/teams/24\"")
-    private List<WebElement> lbTeamName;
-
     @FindBy(id = "static-dialog-wrapper")
     private WebElement dlgDeleteMember;
 
@@ -97,8 +94,21 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     public final int checkNumberofTeam(final WebDriver driver) {
         waitForElement(driver, lstMember, TIME_OUT_SECOND);
         List<WebElement> tr = lstMember.findElements(By.tagName("tr"));
-        int i = tr.size();
-        return i;
+        return tr.size();
+    }
+
+    public final void verifyMyTeamInfo(final WebDriver driver, String key, String value) {
+        WebElement dt = driver.findElement(By.xpath("//dt[contains(text(), '" + key + "')]"));
+        WebElement dd = dt.findElement(By.xpath("following-sibling::dd"));
+        WebElement span = dd.findElement(By.tagName("span"));
+        String text = span.getText();
+
+        if (!text.equals("")) {
+            Assert.assertEquals(text, value);
+        } else {
+            WebElement a = dd.findElement(By.tagName("a"));
+            Assert.assertEquals(a.getText(), value);
+        }
     }
 
     public final void clickUpdateTeamBtn(final WebDriver driver) {
@@ -123,7 +133,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         btnAddMember.click();
     }
 
-    public final boolean getAddMemberPopupName(final WebDriver driver) {
+    public final boolean getAddMemberPopupName() {
         try {
             dlgAddMember.isDisplayed();
             return true;
@@ -133,13 +143,13 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     }
 
     public final void inputUserNametoAdd(final WebDriver driver, final String username) {
-        waitForElement(driver, txtSearch2, TIME_OUT_SECOND);
-        txtSearch2.sendKeys(username);
+        waitForElement(driver, txtSearchtoAdd, TIME_OUT_SECOND);
+        txtSearchtoAdd.sendKeys(username);
         textAddUser = username;
     }
 
     public final boolean verifySearchResult(final WebDriver driver, final String n) {
-        Integer j = 0;
+        int j = 0;
         waitForElement(driver, listSearchResult, TIME_OUT_SECOND);
         List<WebElement> list = listSearchResult.findElement(By.className("ui-listbox-list")).findElements(By.tagName("li"));
         for (WebElement i : list
@@ -154,12 +164,8 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
                 j++;
             }
         }
-        if (1 == 1) {
-            Assert.assertEquals(j.toString(), n);
-            return true;
-        } else {
-            return false;
-        }
+        Assert.assertEquals(String.valueOf(j), n);
+        return true;
     }
 
     public final void clickAddBtn(final WebDriver driver) {
@@ -204,7 +210,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     }
 
     public final boolean verifySearchMemberResult(final WebDriver driver, final String n) {
-        Integer k = 0;
+        int k = 0;
         waitForElement(driver, lstMember, TIME_OUT_SECOND);
         List<WebElement> tr = lstMember.findElements(By.tagName("tr"));
         for (WebElement i : tr
@@ -220,16 +226,13 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
                 if (userName.getText().toLowerCase().contains(textSearch.toLowerCase())) {
                     k++;
                 }
-            } else {
+            }
+            else {
                 break;
             }
         }
-        if (1 == 1) {
-            Assert.assertEquals(k.toString(), n);
-            return true;
-        } else {
-            return false;
-        }
+        Assert.assertEquals(String.valueOf(k), n);
+        return true;
     }
 
     public final void updateTeamInfo(final WebDriver driver, final String name, final String manager, final String teamOfficer1,
@@ -316,10 +319,9 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         btnDeleteConfirm.click();
     }
 
-    public final boolean verifyDeleteUserSuccessful(final WebDriver driver) {
+    public final void verifyDeleteUserSuccessful(final WebDriver driver) {
         inputUserNametoSearch(driver, textSearch);
-        Assert.assertEquals(true, verifySearchMemberResult(driver, "0"));
-        return true;
+        Assert.assertTrue(verifySearchMemberResult(driver, "0"));
     }
 }
 
