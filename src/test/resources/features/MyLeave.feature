@@ -8,26 +8,11 @@ Feature: Check my leave
     Given I am logged in as a "BDM"
     And My Leave page is displayed
 
-  Scenario: Login successfully with correct account
-    And Status Menu is "All Status"
-    And Manager is "Toan Nguyen T."
-    And Annual Leave is "0"
-    And Marriage Leave is "0"
-    And Overtime Leave is "0"
-    And Paternal Leave is "0"
-
   Scenario: I want to check status Pending
     When I click on menu Status
     Then Menu status drop down
     When I click on Pending in menu
     Then My Leave page with status Pending is displayed
-    And Status Menu is "Pending"
-    And Manager is "Toan Nguyen T."
-    And Status is "Pending"
-    And Annual Leave is "0"
-    And Marriage Leave is "0"
-    And Overtime Leave is "0"
-    And Paternal Leave is "0"
 
   Scenario: I want to check status All Status
     Given My Leave page with status Pending displayed
