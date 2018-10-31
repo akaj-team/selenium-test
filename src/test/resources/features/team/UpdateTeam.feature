@@ -30,5 +30,4 @@ Feature: Check update team page
 
   Scenario: Click button Submit, redirect to Team Detail page
     When I click on button Submit
-    Then Open successfully team detail page after update
     And I should see fail or success message

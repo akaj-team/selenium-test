@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 import java.util.List;
 
@@ -41,7 +42,8 @@ public class TeamsPage extends BasePage<TeamsPage> {
         search.sendKeys(name);
     }
 
-    public final boolean isTeamListEmpty() {
+    public final boolean isTeamListEmpty(final WebDriver driver) {
+        waitForElement(driver, tbBody.findElement(By.tagName("tr")), Constant.DEFAULT_TIME_OUT);
         List<WebElement> rows = tbBody.findElements(By.tagName("tr"));
         return rows.get(0).getAttribute("class").contains("ui-datatable-emptymessage-row");
     }
@@ -107,8 +109,9 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     private String getViewContainerOfColumnName(final By tagName) {
         WebElement columnName = getColumnIndex(COLUMN_NAME, 0);
+        String teamPageUrl = columnName.findElement(By.tagName("a")).getAttribute("href");
         columnName.findElement(By.tagName("a")).findElement(By.tagName("span")).findElement(tagName).click();
-        return columnName.findElement(By.tagName("a")).getAttribute("href");
+        return teamPageUrl;
     }
 
     private WebElement getColumnIndex(final int column, final int position) {

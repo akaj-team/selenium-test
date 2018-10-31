@@ -62,10 +62,6 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
             waitVisibilityOfElement(driver, By.id("btn-submit-team"));
             newTeamFormPage.onClickButtonSubmit();
         });
-        Then("^Open successfully team detail page after update$", () -> {
-            waitVisibilityOfElement(driver, By.className("section-top"));
-            Assert.assertTrue(driver.findElement(By.className("section-top")).isDisplayed());
-        });
 
         // Dropdown Manager
         When("^I open dropdown Manager$", () -> {
@@ -73,12 +69,6 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
             waitVisibilityOfElement(driver, By.className("ui-dropdown-open"));
         });
         And("^I select a item in manager list$", () -> newTeamFormPage.selectManager());
-
-        // Open successfully team detail page when click button submit
-        Then("^Open successfully team detail page after created$", () -> {
-            String id = driver.getCurrentUrl().split("/")[INDEX_ID_IN_UPDATE_TEAM_URL];
-            waitForPageRedirected(driver, URL_PAGE_TEAMS + "/" + id, By.className("section-top"));
-        });
 
         Then("^I should see fail or success message$", () -> {
             waitVisibilityOfElement(driver, By.className("app-alert"));
