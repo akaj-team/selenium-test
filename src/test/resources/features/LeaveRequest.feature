@@ -6,10 +6,6 @@ Feature: Create new my leave
   Background: User navigates to profile page
     Given I am logged in as a "BDM"
     And Display leave request page
-    And Annual Leave is "0"
-    And Marriage Leave is "0"
-    And Overtime Leave is "0"
-    And Paternal Leave is "0"
 
   Scenario: Submit button is disabled when just enter the message
     When I enter the message
@@ -46,7 +42,6 @@ Feature: Create new my leave
     And I click menu type of leave
     Then Menu type of leave drop down
     When I choose type leave is "Paternal Leave"
-    Then Show message is "You have 0 days of left for type has chosen"
 
   Scenario: Check choose time
     Given I chose type leave is "None Paid"

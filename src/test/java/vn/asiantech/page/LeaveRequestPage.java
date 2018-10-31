@@ -27,7 +27,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     private static final int POS_TIME_TO = 1;
 
 
-    @FindBy(xpath = "//label[contains(@class,'ui-inputtext')]")
+    @FindBy(css = ".ui-dropdown-trigger.ui-state-default.ui-corner-right")
     private WebElement inputTypeOfLeave;
 
     @FindBy(css = ".input-daterange.input-group")
