@@ -38,7 +38,7 @@ public class LeavePlannerDefinitions extends DriverBase implements En {
 
         When("^Click on next button$", () -> leavePlanerPage.clickNextButton(driver));
 
-        When("^Click username$", () -> profileLink = leavePlanerPage.clickUserName());
+        When("^Click username$", () -> profileLink = leavePlanerPage.clickUserName(driver));
 
         Then("^Open successfully profile page of that user$", () -> {
             waitForPageDisplayed(getDriver(), profileLink, By.className("section-top"));

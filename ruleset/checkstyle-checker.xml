@@ -83,7 +83,7 @@
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         <!--<module name="JavadocMethod">-->
-            <!--<property name="scope" value="public"/>-->
+        <!--<property name="scope" value="public"/>-->
         <!--</module>-->
         <module name="JavadocType"/>
         <!--Disable check java doc for variable -->
@@ -149,7 +149,10 @@
         <module name="AvoidInlineConditionals"/>
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
-        <module name="HiddenField"/>
+        <module name="HiddenField">
+            <property name="ignoreSetter" value="true"/>
+            <property name="ignoreConstructorParameter" value="true"/>
+        </module>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
         <module name="MagicNumber"/>
