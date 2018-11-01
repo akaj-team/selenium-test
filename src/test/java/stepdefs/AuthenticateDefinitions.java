@@ -17,14 +17,14 @@ public class AuthenticateDefinitions extends DriverBase implements En {
         LoginPage loginPage = initPage(getDriver(), LoginPage.class);
         HomePage homePage = initPage(getDriver(), HomePage.class);
 
-        Given("^I am logged in as (a|an) \"([^\"]*)\"$", (String arg0, String position) -> {
+        Given("^I am logged in as a team manager$", () -> {
             if (!isButtonLogoutDisplayed()) {
                 Account account = new Account("stg.tien.hoang@asiantech.vn", "Abc123@@");
                 getDriver().get(Constant.LOGIN_PAGE_URL);
                 loginPage.waitForLoginButton();
                 loginPage.withUsername(account.email).withPassword(account.password).login();
 
-                homePage.waitForWelcomeMessage(getDriver());
+                homePage.waitForWelcomeMessage();
                 Assert.assertTrue(homePage.welcomeTestIsDisplayed());
             }
         });

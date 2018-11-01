@@ -10,6 +10,7 @@ import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 
 public class UserProfileDefinitions extends DriverBase implements En {
+
     private WebDriver driver;
 
     public UserProfileDefinitions() {
@@ -24,9 +25,8 @@ public class UserProfileDefinitions extends DriverBase implements En {
                     webDriver -> webDriver.findElement(By.className("section-top")).isDisplayed());
         });
 
-        Then("^User profile is displayed$", () -> {
-            Assert.assertTrue(driver.findElement(By.className("section-top")).isDisplayed());
-        });
+        Then("^User profile is displayed$", () -> Assert.assertTrue(driver.findElement(By.className("section-top")).isDisplayed()));
+
         And("^\"([^\"]*)\" is \"([^\"]*)\"$", (String key, String value) -> {
             WebElement label = driver.findElement(By.xpath("//label[contains(text(), '" + key + "')]"));
             WebElement parent = label.findElement(By.xpath(".."));
