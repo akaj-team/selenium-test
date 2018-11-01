@@ -10,13 +10,13 @@ import vn.asiantech.base.BasePage;
 
 import java.util.List;
 
+import static vn.asiantech.base.Constant.EMPLOYEE_PAGE_URL;
+
 /**
  * @author at-hangtran
  */
 public class EmployeesPage extends BasePage<EmployeesPage> {
 
-    public static final String EMPLOYEE_URL = "http://portal-stg.asiantech.vn/organisation/employees";
-    private static final int TIME_OUT_SECOND = 10;
     public static final int MAXIMUM_CELL = 50;
     private static final int SPLIT_STRING_INDEX = 7;
     private static final int LAST_INDICATOR_INDEX = 4;
@@ -83,10 +83,15 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private WebElement statusList;
     private WebElement dialog;
     private int clickType;
+    private WebDriver driver;
+
+    public EmployeesPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     @Override
     public final EmployeesPage navigateTo(final WebDriver webDriver) {
-        webDriver.get(EMPLOYEE_URL);
+        webDriver.get(EMPLOYEE_PAGE_URL);
         return this;
     }
 
@@ -94,8 +99,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         WebElement employee = getEmployeeInformation(EMPLOYEE_NAME_COLUMN_INDEX);
         assert employee != null;
         WebElement employeeName = employee.findElement(By.tagName("span")).findElement(By.tagName("span"));
+        String employeeUrlProfile = employee.getAttribute("href");
         employeeName.click();
-        return employee.getAttribute("href");
+        return employeeUrlProfile;
     }
 
     public final String clickAndGetEmployeeCode() {
@@ -110,8 +116,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         WebElement employee = getEmployeeInformation(EMPLOYEE_NAME_COLUMN_INDEX);
         assert employee != null;
         WebElement avatar = employee.findElement(By.tagName("span")).findElement(By.tagName("img"));
+        String employeeUrlProfile = employee.getAttribute("href");
         avatar.click();
-        return employee.getAttribute("href");
+        return employeeUrlProfile;
     }
 
     public final String clickAndGetManagerName() {
@@ -125,22 +132,25 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     public final String clickAndGetTeamName() {
         WebElement team = getEmployeeInformation(EMPLOYEE_TEAM_COLUMN_INDEX);
         assert team != null;
+        String teamUrl = team.getAttribute("href");
         team.click();
-        return team.getAttribute("href");
+        return teamUrl;
     }
 
     public final String clickAndGetGroupName() {
         WebElement group = getEmployeeInformation(EMPLOYEE_GROUP_COLUMN_INDEX);
         assert group != null;
+        String groupUrl = group.getAttribute("href");
         group.click();
-        return group.getAttribute("href");
+        return groupUrl;
     }
 
     public final String clickEditButtonAndGetLink() {
         WebElement editEmployee = getEmployeeInformation(EMPLOYEE_ACTION_COLUMN_INDEX);
         assert editEmployee != null;
+        String updateEmployeeUrl = editEmployee.getAttribute("href");
         editEmployee.click();
-        return editEmployee.getAttribute("href");
+        return updateEmployeeUrl;
     }
 
     public final void clickPromotionButton() {
@@ -156,8 +166,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     }
 
     public final String clickNewEmployeeAndGetLink() {
+        String newEmployeeUrl = btnNewEmployee.getAttribute("href");
         btnNewEmployee.click();
-        return btnNewEmployee.getAttribute("href");
+        return newEmployeeUrl;
     }
 
     public final int getCellSum() {
@@ -274,9 +285,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return true;
     }
 
-    public final void searchWithEmployeePosition(final String positionName, final WebDriver driver) {
+    public final void searchWithEmployeePosition(final String positionName) {
         WebElement searchPosition = positionList.findElement(By.className("ui-dropdown-filter"));
-        waitForElement(driver, searchPosition, TIME_OUT_SECOND);
+        waitForElement(driver, searchPosition);
         searchPosition.sendKeys(positionName);
     }
 

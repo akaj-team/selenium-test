@@ -7,12 +7,12 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.employee.newemployee.PersonalInformationPage;
 
+import static vn.asiantech.base.Constant.NEW_EMPLOYEE_PAGE_URL;
+
 /**
  * @author at-hangtran
  */
 public class PersonalInformationDefinitions extends DriverBase implements En {
-
-    private static final String CURRENT_URL = "http://portal-stg.asiantech.vn/organisation/employees/new";
 
     private WebDriver driver;
     private PersonalInformationPage personalInformationPage;
@@ -28,8 +28,8 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
         personalInformationPage = initPage(getDriver(), PersonalInformationPage.class);
 
         Given("^Display new employee page$", () -> {
-            driver.get(CURRENT_URL);
-            waitForPageDisplayed(getDriver(), CURRENT_URL, By.id("employee-form-wrapper"));
+            driver.get(NEW_EMPLOYEE_PAGE_URL);
+            waitForPageDisplayed(getDriver(), NEW_EMPLOYEE_PAGE_URL, By.id("employee-form-wrapper"));
         });
 
         Then("^Personal information tab is active$", () -> Assert.assertTrue(personalInformationPage.isPersonalInformation()));
@@ -48,7 +48,7 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
 
         And("^Choose Gender check box$", () -> personalInformationPage.chooseGender());
 
-        And("^Choose nationality$", () -> personalInformationPage.chooseNationality(driver));
+        And("^Choose nationality$", () -> personalInformationPage.chooseNationality());
 
         Then("^Next button is clickable$", () -> Assert.assertTrue(personalInformationPage.isNextButtonClickable()));
 
@@ -68,7 +68,7 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
 
         And("^A red border of last name is displayed$", () -> Assert.assertTrue(personalInformationPage.isLastNameInvalid()));
 
-        When("^Click to calendar input$", () -> personalInformationPage.clickCalendar(driver));
+        When("^Click to calendar input$", () -> personalInformationPage.clickCalendar());
 
         Then("^Calendar form is showed$", () -> {
             isCalendarFormShowed = personalInformationPage.isCalendarFormShowed();
@@ -85,11 +85,11 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
 
         And("^A red border of mobile input is displayed$", () -> Assert.assertTrue(personalInformationPage.isMobileInvalid()));
 
-        When("^Fill mobile input with \"([^\"]*)\"$", (String mobile) -> personalInformationPage.fillMobileInput(mobile, driver));
+        When("^Fill mobile input with \"([^\"]*)\"$", (String mobile) -> personalInformationPage.fillMobileInput(mobile));
 
         Then("^Click out of mobile input area$", () -> personalInformationPage.clearFocusMobile());
 
-        When("^Fill telephone input with \"([^\"]*)\"$", (String telephone) -> personalInformationPage.fillTelephoneInput(telephone, driver));
+        When("^Fill telephone input with \"([^\"]*)\"$", (String telephone) -> personalInformationPage.fillTelephoneInput(telephone));
 
         Then("^Click out of telephone input area$", () -> personalInformationPage.clearFocusTelephone());
 
@@ -101,8 +101,8 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
             personalInformationPage.fillFirstName(fistName, 0, 0);
             personalInformationPage.fillLastName(lastName, 0, 0);
             personalInformationPage.chooseGender();
-            personalInformationPage.chooseNationality(driver);
-            personalInformationPage.clickNextButton(driver);
+            personalInformationPage.chooseNationality();
+            personalInformationPage.clickNextButton();
         });
     }
 }

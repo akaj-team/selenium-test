@@ -7,7 +7,7 @@ Feature: Check display views after click views
   Display views after click page indicators and header
 
   Background: User navigates to employees page
-    Given I am logged in as an "QCE"
+    Given I am logged in as a team manager
     And Display employees page
 
   # Table

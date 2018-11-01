@@ -4,7 +4,7 @@ Feature: Check display views and handle events with personal information
   Check display views and handle events
 
   Background: User navigates to leave planner page
-    Given I am logged in as an "QCE"
+    Given I am logged in as a team manager
     And Display new employee page
 
   Scenario: Check default display of views in new employee page

@@ -42,7 +42,7 @@ public class CompanyInformationDefinitions extends DriverBase implements En {
         And("^Choose employee type \"([^\"]*)\"$", (String empType) -> companyInformationPage.selectEmpType(empType));
 
         And("^Fill employee code input with \"([^\"]*)\", \"([^\"]*)\" and \"([^\"]*)\"$", (String code, String aheadSpace, String behindSpace) ->
-                companyInformationPage.fillEmpCode(code, Integer.valueOf(aheadSpace),  Integer.valueOf(behindSpace)));
+                companyInformationPage.fillEmpCode(code, Integer.valueOf(aheadSpace), Integer.valueOf(behindSpace)));
 
         And("^Select position$", () -> isPositionSelected = companyInformationPage.choosePosition());
 
@@ -56,7 +56,7 @@ public class CompanyInformationDefinitions extends DriverBase implements En {
 
         And("^Click submit button of a dialog is showed$", () -> companyInformationPage.clickButtonDialogSubmit());
 
-        Then("^A error alert is showed$", () -> Assert.assertTrue(companyInformationPage.isErrorAlertShowed(driver)));
+        Then("^A error alert is showed$", () -> Assert.assertTrue(companyInformationPage.isErrorAlertShowed()));
 
         When("^Click to join date input$", () -> companyInformationPage.clickJoinDateInput());
 

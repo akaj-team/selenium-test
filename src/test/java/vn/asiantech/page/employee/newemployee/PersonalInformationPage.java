@@ -9,8 +9,6 @@ import vn.asiantech.base.BasePage;
 
 import java.util.List;
 
-import static vn.asiantech.page.LeavePlannerPage.TIME_OUT_SECOND;
-
 /**
  * @author at-hangtran
  */
@@ -53,6 +51,11 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     private WebElement inputMiddleName;
     private WebElement inputLastName;
     private WebElement calendarForm;
+    private WebDriver driver;
+
+    public PersonalInformationPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     @Override
     public final PersonalInformationPage navigateTo(final WebDriver webDriver) {
@@ -68,9 +71,9 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         return btnTabNext.isEnabled();
     }
 
-    public final void clickNextButton(final WebDriver driver) {
+    public final void clickNextButton() {
         for (WebElement button : btnGroup.findElements(By.tagName("button"))) {
-            waitForElement(driver, button, TIME_OUT_SECOND);
+            waitForElement(driver, button);
             if (button.findElement(By.tagName("i")).getAttribute("class").equals("fa fa-chevron-right") && button.isEnabled()) {
                 button.click();
                 break;
@@ -117,13 +120,13 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         chkMale.click();
     }
 
-    public final void chooseNationality(final WebDriver driver) {
+    public final void chooseNationality() {
         WebElement nationalityContainer = formContainer.findElement(By.xpath("//label[contains(text(),'Nationality')]/.."));
         WebElement nationality = nationalityContainer.findElement(By.tagName("p-dropdown"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", nationality);
         nationality.click();
         WebElement nationContainer = nationality.findElement(By.cssSelector(".ui-dropdown-items-wrapper"));
-        waitForElement(driver, nationContainer, TIME_OUT_SECOND);
+        waitForElement(driver, nationContainer);
         List<WebElement> nations = nationContainer.findElement(By.tagName("ul")).findElements(By.tagName("li"));
         if (nations.size() > 0) {
             nations.get(0).findElement(By.tagName("span")).click();
@@ -152,7 +155,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         return inputLastName.getAttribute("class").contains(" ng-invalid");
     }
 
-    public final void clickCalendar(final WebDriver driver) {
+    public final void clickCalendar() {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", inputCalendar);
         inputCalendar.click();
     }
@@ -168,7 +171,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         return inputCalendar.findElement(By.tagName("input")).getAttribute("value").equals(time);
     }
 
-    public final void fillMobileInput(final String phone, final WebDriver driver) {
+    public final void fillMobileInput(final String phone) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", inputMobile);
         inputMobile.sendKeys(phone);
     }
@@ -187,7 +190,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         inputMobile.clear();
     }
 
-    public final void fillTelephoneInput(final String telephone, final WebDriver driver) {
+    public final void fillTelephoneInput(final String telephone) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", inputMobile);
         inputTelephone.sendKeys(telephone);
     }

@@ -12,7 +12,7 @@ import java.util.List;
  * @author at-hangtran
  */
 public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
-    private static final int TIME_OUT_SECOND = 10;
+
     private static final int MONTH_INDEX = 3;
 
     @FindBy(id = "employee-form-wrapper")
@@ -41,6 +41,12 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
     private WebElement dropDownLineManager;
     private WebElement calendarForm;
     private boolean isCheckBoxChecked = false;
+
+    private WebDriver driver;
+
+    public CompanyInformationPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     @Override
     public final CompanyInformationPage navigateTo(final WebDriver webDriver) {
@@ -128,8 +134,8 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         btnDialogSubmit.click();
     }
 
-    public final boolean isErrorAlertShowed(final WebDriver driver) {
-        waitForElement(driver, alertError, TIME_OUT_SECOND);
+    public final boolean isErrorAlertShowed() {
+        waitForElement(driver, alertError);
         return alertError.isDisplayed();
     }
 

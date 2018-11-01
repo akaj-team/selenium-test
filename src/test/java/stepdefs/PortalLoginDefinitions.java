@@ -47,7 +47,7 @@ public class PortalLoginDefinitions extends DriverBase implements En {
 
         Then("^I should see the welcome message$", () -> {
             homePage = initPage(getDriver(), HomePage.class);
-            homePage.waitForWelcomeMessage(getDriver());
+            homePage.waitForWelcomeMessage();
             Assert.assertTrue(homePage.hasWelcomeMessage());
             Assert.assertTrue(homePage.welcomeTestIsDisplayed());
         });
@@ -55,7 +55,7 @@ public class PortalLoginDefinitions extends DriverBase implements En {
         Then("^Login button will be disabled$", () -> Assert.assertFalse(loginPage.getLoginButton().isEnabled()));
 
         Then("^Error message should display and show \"([^\"]*)\"$", (String warning) -> {
-            loginPage.waitForErrorMessage(getDriver());
+            loginPage.waitForErrorMessage();
             Assert.assertTrue(loginPage.errorMessageIsDisplayed());
             Assert.assertEquals(warning, loginPage.getErrorMessage());
         });

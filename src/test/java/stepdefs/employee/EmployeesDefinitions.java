@@ -7,7 +7,7 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.employee.EmployeesPage;
 
-import static vn.asiantech.page.employee.EmployeesPage.EMPLOYEE_URL;
+import static vn.asiantech.base.Constant.EMPLOYEE_PAGE_URL;
 import static vn.asiantech.page.employee.EmployeesPage.MAXIMUM_CELL;
 
 /**
@@ -41,8 +41,8 @@ public class EmployeesDefinitions extends DriverBase implements En {
         employeesPage = initPage(getDriver(), EmployeesPage.class);
 
         Given("Display employees page", () -> {
-            driver.get(EMPLOYEE_URL);
-            waitForPageDisplayed(getDriver(), EMPLOYEE_URL, By.cssSelector(".ibox-content.main-content"));
+            driver.get(EMPLOYEE_PAGE_URL);
+            waitForPageDisplayed(getDriver(), EMPLOYEE_PAGE_URL, By.cssSelector(".ibox-content.main-content"));
         });
 
         Given("^Click on status view$", () -> isShowStatusList = employeesPage.clickStatus());
@@ -81,7 +81,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
 
         When("^Enter search employee with \"([^\"]*)\"$", (String name) -> {
             employeesPage.searchEmployee(name);
-            String currentUrl = EMPLOYEE_URL + ";name_cont=" + name;
+            String currentUrl = EMPLOYEE_PAGE_URL + ";name_cont=" + name;
             driver.get(currentUrl);
             waitForPageDisplayed(getDriver(), currentUrl, By.cssSelector(".ui-datatable-data.ui-widget-content"));
         });
@@ -89,7 +89,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
         When("^Search position with \"([^\"]*)\"$", (String position) -> {
             if (isShowPositionList) {
                 employeePosition = position;
-                employeesPage.searchWithEmployeePosition(position, driver);
+                employeesPage.searchWithEmployeePosition(position);
             }
         });
 
