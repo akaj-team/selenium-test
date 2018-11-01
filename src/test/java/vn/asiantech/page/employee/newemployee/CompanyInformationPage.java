@@ -44,7 +44,7 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
 
     private WebDriver driver;
 
-    public CompanyInformationPage(WebDriver driver) {
+    public CompanyInformationPage(final WebDriver driver) {
         this.driver = driver;
     }
 

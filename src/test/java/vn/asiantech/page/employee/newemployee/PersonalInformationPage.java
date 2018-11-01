@@ -53,7 +53,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     private WebElement calendarForm;
     private WebDriver driver;
 
-    public PersonalInformationPage(WebDriver driver) {
+    public PersonalInformationPage(final WebDriver driver) {
         this.driver = driver;
     }
 
