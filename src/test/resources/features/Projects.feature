@@ -2,7 +2,7 @@
 Feature: Check all projects on asiantech
 
   Background: User navigates to leave planner page
-    Given I am logged in as an "EM"
+    Given I am logged in as a team manager
     And I access to projects page
 
   Scenario: I want to check all project on asiantech

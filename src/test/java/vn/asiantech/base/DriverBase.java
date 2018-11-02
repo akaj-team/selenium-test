@@ -14,10 +14,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
+
 public class DriverBase {
 
     public static final int TIME_OUT_SECONDS_NORMAL = 10;
-    private static final int TIME_OUT_SECOND_MAXIMUM = 20;
     private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
     private static ThreadLocal<DriverFactory> driverFactoryThread;
 
@@ -56,7 +57,7 @@ public class DriverBase {
     }
 
     protected final void waitForPageDisplayed(final WebDriver driver, final String url, final By containerElement) {
-        new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(
+        new WebDriverWait(driver, DEFAULT_TIME_OUT).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         if (containerElement != null) {
             waitVisibilityOfElement(driver, containerElement);
@@ -70,11 +71,11 @@ public class DriverBase {
     }
 
     protected final void waitForPageRedirected(final WebDriver driver, final String url, final By containerElement) {
-        new WebDriverWait(driver, TIME_OUT_SECOND_MAXIMUM).until(ExpectedConditions.urlToBe(url));
+        new WebDriverWait(driver, DEFAULT_TIME_OUT).until(ExpectedConditions.urlToBe(url));
         waitVisibilityOfElement(driver, containerElement);
     }
 
     protected final void waitVisibilityOfElement(final WebDriver driver, final By element) {
-        new WebDriverWait(driver, TIME_OUT_SECONDS_NORMAL).until(ExpectedConditions.visibilityOfElementLocated(element));
+        new WebDriverWait(driver, DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 }

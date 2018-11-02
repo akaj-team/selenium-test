@@ -7,12 +7,13 @@ import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.team.TeamsPage;
 
+import static vn.asiantech.base.Constant.TEAM_PAGE_URL;
+
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
  * Created by at-vietphan on 9/18/18.
  */
 public class TeamsDefinitions extends DriverBase implements En {
-    private static final String URL_PAGE_TEAMS = "http://portal-stg.asiantech.vn/organisation/teams";
     private WebDriver driver;
     private TeamsPage teamsPage;
     private String updateTeamUrl;
@@ -27,15 +28,16 @@ public class TeamsDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         teamsPage = initPage(getDriver(), TeamsPage.class);
 
         And("^I am stayed in teams page$", () -> {
-            driver.get(URL_PAGE_TEAMS);
-            waitForPageDisplayed(driver, URL_PAGE_TEAMS, By.className("ibox-content"));
+            driver.get(TEAM_PAGE_URL);
+            waitForPageDisplayed(driver, TEAM_PAGE_URL, By.className("ibox-content"));
         });
         And("^I am stayed in dialog confirm delete team at position is (\\d+)$", (Integer position) -> {
-            driver.get(URL_PAGE_TEAMS);
-            waitForPageDisplayed(driver, URL_PAGE_TEAMS, By.className("ibox-content"));
+            driver.get(TEAM_PAGE_URL);
+            waitForPageDisplayed(driver, TEAM_PAGE_URL, By.className("ibox-content"));
             nameTeam = teamsPage.onClickDeleteTeam(position);
             Assert.assertTrue(teamsPage.isDeleteDialogShown());
         });
@@ -43,7 +45,7 @@ public class TeamsDefinitions extends DriverBase implements En {
         //Search teams with enter name team
         When("^Enter search with name is \"([^\"]*)\"$", (String searchData) -> {
             teamsPage.searchNameTeam(searchData);
-            String redirectUrl = URL_PAGE_TEAMS + ";name_cont=" + searchData;
+            String redirectUrl = TEAM_PAGE_URL + ";name_cont=" + searchData;
             waitForPageRedirected(driver, redirectUrl, By.cssSelector(".ui-datatable-data.ui-widget-content"));
         });
         Then("^I should see list team$", () -> Assert.assertFalse(teamsPage.isTeamListEmpty()));
@@ -70,7 +72,7 @@ public class TeamsDefinitions extends DriverBase implements En {
 
         // Open successfully new team page when click on button New Team
         When("^I click on button New Team$", () -> {
-            waitVisibilityOfElement(driver, By.className("btn-create-team"));
+            waitVisibilityOfElement(driver, By.id("btn-create-team"));
             newTeamUrl = teamsPage.onClickNewTeam();
         });
         Then("^Page is redirected to New Team page$", () -> waitForPageRedirected(driver, newTeamUrl, By.className("ibox-content")));

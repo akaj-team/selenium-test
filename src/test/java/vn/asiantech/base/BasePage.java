@@ -22,8 +22,8 @@ public abstract class BasePage<T> {
         return true;
     }
 
-    public void waitForElement(WebDriver webDriver, WebElement element, int timeOutInSecond) {
-        new WebDriverWait(webDriver, timeOutInSecond).until(
+    protected void waitForElement(WebDriver webDriver, WebElement element) {
+        new WebDriverWait(webDriver, Constant.DEFAULT_TIME_OUT).until(
                 driver -> isElementPresented(element));
     }
 

@@ -14,7 +14,9 @@ import java.util.Random;
  * Created by at-vietphan on 9/21/18.
  */
 public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
+
     private static final int MAX_LENGTH_NAME_TEAM = 45;
+
     @FindBy(css = ".wrapper.wrapper-content")
     private WebElement wrapper;
 
