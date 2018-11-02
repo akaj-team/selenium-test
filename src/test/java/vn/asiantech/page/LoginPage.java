@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
-import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 import static vn.asiantech.base.Constant.LOGIN_PAGE_URL;
 
 public class LoginPage extends BasePage<LoginPage> {
@@ -46,7 +45,7 @@ public class LoginPage extends BasePage<LoginPage> {
     }
 
     public final void waitForLoginButton() {
-        waitForElement(driver, loginButton, DEFAULT_TIME_OUT);
+        waitForElement(driver, loginButton);
     }
 
     public final boolean hasEmail() {
@@ -65,7 +64,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return loginButton;
     }
 
-    public final void waitForErrorMessage(final WebDriver webDriver) {
-        waitForElement(webDriver, errorText, DEFAULT_TIME_OUT);
+    public final void waitForErrorMessage() {
+        waitForElement(driver, errorText);
     }
 }

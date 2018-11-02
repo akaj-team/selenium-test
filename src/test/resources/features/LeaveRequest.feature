@@ -4,7 +4,7 @@ Feature: Create new my leave
   In order to take a few days off work
 
   Background: User navigates to profile page
-    Given I am logged in as a "BDM"
+    Given I am logged in as a team manager
     And Display leave request page
 
   Scenario: Submit button is disabled when just enter the message
@@ -20,7 +20,7 @@ Feature: Create new my leave
     Given I enter the message
     And I click menu type of leave
     Then Menu type of leave drop down
-    When I choose type leave is "Annual Leave"
+    When I choose type leave is "Overtime Leave"
     Then Show message is "You have 0 days of left for type has chosen"
 
   Scenario: Show message 0 days when choose type Marriage Leave
