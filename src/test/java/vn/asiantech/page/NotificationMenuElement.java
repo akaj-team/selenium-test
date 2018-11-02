@@ -35,7 +35,7 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     private String destinationPath;
     private WebDriver driver;
 
-    public NotificationMenuElement(WebDriver driver) {
+    public NotificationMenuElement(final WebDriver driver) {
         this.driver = driver;
     }
 
