@@ -33,6 +33,11 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     private WebElement notificationList;
 
     private String destinationPath;
+    private WebDriver driver;
+
+    public NotificationMenuElement(WebDriver driver) {
+        this.driver = driver;
+    }
 
     @Override
     public final NotificationMenuElement navigateTo(final WebDriver webDriver) {
@@ -48,11 +53,11 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
         seeAllButton.click();
     }
 
-    public final Boolean notificationElementIsDisplay(WebDriver driver) {
+    public final Boolean notificationElementIsDisplay() {
         return notificationMenu.isDisplayed();
     }
 
-    public final void notificationMenuItemClick(final WebDriver driver) {
+    public final void notificationMenuItemClick() {
         waitForElementDisplay(driver, notificationMenu, Constant.DEFAULT_TIME_OUT);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
         WebElement firstItemNotification = notificationList.findElements(By.tagName("li")).get(0);
@@ -69,17 +74,17 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
         reloadText.click();
     }
 
-    public final void waitForNotificationReload(final WebDriver driver) {
+    public final void waitForNotificationReload() {
         waitForElementDisplay(driver, notificationMenu, Constant.DEFAULT_TIME_OUT / 2);
     }
 
-    public final int getNotificationList(final WebDriver driver) {
+    public final int getNotificationList() {
         waitForElementDisplay(driver, notificationMenu, Constant.DEFAULT_TIME_OUT);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
         return notificationList.findElements(By.cssSelector("li.ng-star-inserted")).size();
     }
 
-    public final void scrollToEndOfList(final WebDriver driver) {
+    public final void scrollToEndOfList() {
         waitForElementDisplay(driver, notificationMenu, Constant.DEFAULT_TIME_OUT);
         notificationList = notificationMenu.findElements(By.tagName("li")).get(1).findElement(By.tagName("ul"));
         By findCondition = By.cssSelector("li.ng-star-inserted");

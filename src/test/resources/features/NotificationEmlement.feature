@@ -14,7 +14,6 @@ Feature: Open Notification
     Then First ten notifications displayed
 
   Scenario: I want to see all notification
-#    Given Notification menu is displayed
     When I click on seeAll
     Then Should navigate to correct page
 
