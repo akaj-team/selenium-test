@@ -17,7 +17,6 @@ import static vn.asiantech.base.DriverBase.getDriver;
 
 /**
  * @author at-anh.quach
- *
  */
 
 public class MyLeavePage extends BasePage<MyLeavePage> {
@@ -62,7 +61,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final void clickMenuStatus() {
-        waitForElementDisplay(getDriver(), inputStatus);
+        waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
         inputStatus.click();
     }
 
@@ -85,7 +84,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final boolean checkTextStatusMenu(final String status) {
-        waitForElementDisplay(getDriver(), inputStatus);
+        waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
         return inputStatus.findElement(By.tagName("label")).getText().equals(status);
     }
 
@@ -126,29 +125,29 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final void clickSYSID() {
-        waitForElementDisplay(getDriver(), inputStatus);
+        waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
         sysid = findDataLeave(POS_SYSID).getText();
         findDataLeave(POS_ICON).click();
     }
 
     public final void clickNameManager() {
-        waitForElementDisplay(getDriver(), inputStatus);
+        waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
         findDataLeave(POS_MANAGER).click();
     }
 
     public final void clickIconSearch() {
-        waitForElementDisplay(getDriver(), inputStatus);
+        waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
         sysid = findDataLeave(POS_SYSID).getText();
         findDataLeave(POS_ICON).click();
     }
 
     public final void clickBtnLeaveRequest() {
-        waitForElementDisplay(getDriver(), inputStatus);
+        waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
         btnLeaveRequest.click();
     }
 
     public final void hoverMouseToStatus() {
-        waitForElementDisplay(getDriver(), tableLeave);
+        waitForElementDisplay(getDriver(), tableLeave, TIME_OUT_IN_SECONDS);
         Actions builder = new Actions(getDriver());
         builder.moveToElement(findDataLeave(POS_STATUS)).build().perform();
     }

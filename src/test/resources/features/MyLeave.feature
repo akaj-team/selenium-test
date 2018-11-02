@@ -5,7 +5,7 @@ Feature: Check my leave
   I want to login my account and check my  plan leave
 
   Background: User navigation to My leave page
-    Given I am logged in as a "BDM"
+    Given I am logged in as a team manager
     And My Leave page is displayed
 
   Scenario: I want to check status Pending
@@ -26,7 +26,6 @@ Feature: Check my leave
     Then Menu status drop down
     When I click on Approved in menu
     Then My Leave page with status Approved is displayed
-    And My Leave page display No records found
 
   Scenario: I want to check leave detail
     When I click an SYSID

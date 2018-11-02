@@ -45,8 +45,6 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         Then("^My Leave page with status Approved is displayed$", () -> displayPage("/leave/my-leave;status_eq=approved"));
 
-        And("^My Leave page display No records found$", () -> Assert.assertTrue(myLeavePage.checkNoRecordsFound()));
-
         When("^I click on Rejected in menu$", () -> myLeavePage.clickItemMenuStatus("Rejected"));
 
         Then("^My Leave page with status Rejected is displayed$", () ->
