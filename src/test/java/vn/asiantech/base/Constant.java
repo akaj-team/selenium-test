@@ -4,7 +4,7 @@ package vn.asiantech.base;
  * @author at-hangtran
  */
 public final class Constant {
-    private static final String PORTAL_URL = "http://portal-stg.asiantech.vn";
+    public static final String PORTAL_URL = "http://portal-stg.asiantech.vn";
     public static final String HOME_PAGE_URL = PORTAL_URL + "/homepage";
     public static final String LOGIN_PAGE_URL = PORTAL_URL + "/auth/login";
     public static final String TEAM_PAGE_URL = PORTAL_URL + "/organisation/teams";
