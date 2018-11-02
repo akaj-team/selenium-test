@@ -40,13 +40,19 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
 
     private String currentLeaveHistoryUrl;
 
+    private WebDriver driver;
+
+    public LeaveBalancePage(final WebDriver driver) {
+        this.driver = driver;
+    }
+
     @Override
     public final LeaveBalancePage navigateTo(final WebDriver webDriver) {
         webDriver.get(Constant.LEAVE_BALANCE_PAGE_URL);
         return this;
     }
 
-    public final LeaveBalancePage openFilter(final WebDriver driver) {
+    public final LeaveBalancePage openFilter() {
         waitForElementDisplay(driver, allTeamsView, TIME_OUT_SECONDS_NORMAL);
         allTeamsView.click();
         return this;
@@ -56,12 +62,12 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return filterElement.isDisplayed();
     }
 
-    public final int getLeaveBalanceListCount(final WebDriver driver) {
+    public final int getLeaveBalanceListCount() {
         waitForElementDisplay(driver, leaveBalanceList, TIME_OUT_SECONDS_NORMAL);
         return leaveBalanceList.findElements(By.tagName("tr")).size();
     }
 
-    public final LeaveBalancePage avatarClick(final WebDriver driver) {
+    public final LeaveBalancePage avatarClick() {
         waitForElementDisplay(driver, leaveBalanceList, TIME_OUT_SECONDS_NORMAL);
 
         WebElement imgAvatar = leaveBalanceList.findElements(By.tagName("tr")).get(0)
@@ -77,7 +83,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return this;
     }
 
-    public final LeaveBalancePage userNameClick(final WebDriver driver) {
+    public final LeaveBalancePage userNameClick() {
         waitForElementDisplay(driver, leaveBalanceList, TIME_OUT_SECONDS_NORMAL);
 
         WebElement tvUserName = leaveBalanceList.findElements(By.tagName("tr")).get(0)
@@ -93,7 +99,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return this;
     }
 
-    public final LeaveBalancePage sysIdClick(final WebDriver driver) {
+    public final LeaveBalancePage sysIdClick() {
         waitForElementDisplay(driver, leaveBalanceList, TIME_OUT_SECONDS_NORMAL);
 
         WebElement tvSysId = leaveBalanceList.findElements(By.tagName("tr")).get(0)
@@ -119,7 +125,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return this;
     }
 
-    public final LeaveBalancePage openLeaveHistory(final WebDriver driver) {
+    public final LeaveBalancePage openLeaveHistory() {
         waitForElementDisplay(driver, leaveBalanceList, TIME_OUT_SECONDS_NORMAL);
         WebElement imgLeaveHistory = leaveBalanceList.findElements(By.tagName("tr")).get(0)
                 .findElements(By.cssSelector("td.col-action.text-right.ng-star-inserted"))
@@ -138,13 +144,13 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return this;
     }
 
-    public final LeaveBalancePage searchWithKey(final WebDriver driver, final String key) {
+    public final LeaveBalancePage searchWithKey(final String key) {
         waitForElementDisplay(driver, inputViewSearchEmpty, TIME_OUT_SECONDS_NORMAL);
         inputViewSearchEmpty.sendKeys(key);
         return this;
     }
 
-    public final String getCurrentEmployeeName(final WebDriver driver) {
+    public final String getCurrentEmployeeName() {
         int currentCountLeaveList = leaveBalanceList.findElements(By.tagName("tr")).size();
         waitUntilCountDifference(driver, leaveBalanceList, By.tagName("tr"), currentCountLeaveList);
         WebElement nameElement = leaveBalanceList.findElements(By.tagName("tr")).get(0)
@@ -163,20 +169,20 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return allTeamsView.getText();
     }
 
-    public final String getYear(final WebDriver driver) {
+    public final String getYear() {
         waitForElementDisplay(driver, elementYearContainer, TIME_OUT_SECONDS_NORMAL);
         WebElement tvYear = elementYearContainer.findElement(By.cssSelector("span.content"));
         return tvYear.getText();
     }
 
-    public final LeaveBalancePage previous(final WebDriver driver) {
+    public final LeaveBalancePage previous() {
         waitForElementDisplay(driver, elementYearContainer, TIME_OUT_SECONDS_NORMAL);
         WebElement btnPrevious = elementYearContainer.findElement(By.cssSelector("button.btn.control-item.prev"));
         btnPrevious.click();
         return this;
     }
 
-    public final LeaveBalancePage gotoPage(final WebDriver driver, final int page) {
+    public final LeaveBalancePage gotoPage(final int page) {
         waitForElementDisplay(driver, pageinatorElement, TIME_OUT_SECONDS_NORMAL);
         pageinatorElement.findElements(By.tagName("a")).get(page).click();
         return this;

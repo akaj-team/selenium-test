@@ -30,16 +30,16 @@ public class ProjectsDefinitions extends DriverBase implements En {
             waitForPageDisplayed(getDriver(), Constant.PROJECT_PAGE_URL, null);
         });
 
-        Then("^List project should display$", () -> Assert.assertTrue(projectPage.getProjectCount(driver) != 0));
+        Then("^List project should display$", () -> Assert.assertTrue(projectPage.getProjectCount() != 0));
 
-        When("^I search with \"([^\"]*)\"$", (String key) -> projectPage.searchWith(driver, key));
+        When("^I search with \"([^\"]*)\"$", (String key) -> projectPage.searchWith(key));
 
         Then("^Should search with correct key is \"([^\"]*)\"$", (String key) -> new WebDriverWait(getDriver(), TIME_OUT_SECONDS_NORMAL).until(
                 webDriver -> !webDriver.getCurrentUrl().equals(Constant.PROJECT_PAGE_URL + ";status_eq=in_progress;name_cont=" + key)));
 
-        And("^Project name should be \"([^\"]*)\"$", (String projectName) -> Assert.assertEquals(projectName, projectPage.getProjectName(driver)));
+        And("^Project name should be \"([^\"]*)\"$", (String projectName) -> Assert.assertEquals(projectName, projectPage.getProjectName()));
 
-        When("^I click on project name$", () -> projectPage.projectNameClick(driver));
+        When("^I click on project name$", () -> projectPage.projectNameClick());
 
         Then("^should go to correct detail page$", () -> {
             new WebDriverWait(getDriver(), TIME_OUT_SECONDS_NORMAL).until(
@@ -47,25 +47,25 @@ public class ProjectsDefinitions extends DriverBase implements En {
             Assert.assertEquals(projectPage.getProjectUrl(), driver.getCurrentUrl());
         });
 
-        When("^I click status$", () -> projectPage.statusFilterClick(driver));
+        When("^I click status$", () -> projectPage.statusFilterClick());
 
-        Then("^List status should display$", () -> Assert.assertTrue(projectPage.filterListDisplayed(driver)));
+        Then("^List status should display$", () -> Assert.assertTrue(projectPage.filterListDisplayed()));
 
-        When("^I click on item of filter list$", () -> projectPage.statusFilterClick(driver).filterItemClick(driver));
+        When("^I click on item of filter list$", () -> projectPage.statusFilterClick().filterItemClick());
 
-        Then("^Filter tex should display correct$", () -> Assert.assertEquals(projectPage.getCurrentStatusFilter(), projectPage.getStatusDisplayed(driver)));
+        Then("^Filter tex should display correct$", () -> Assert.assertEquals(projectPage.getCurrentStatusFilter(), projectPage.getStatusDisplayed()));
 
-        When("^I click on project avatar$", () -> projectPage.projectAvatarClick(driver));
+        When("^I click on project avatar$", () -> projectPage.projectAvatarClick());
 
-        When("^I click on project code$", () -> projectPage.projectCodeClick(driver));
+        When("^I click on project code$", () -> projectPage.projectCodeClick());
 
-        When("^I click on table filter item$", () -> projectPage.currentTableOptionItemClick(driver));
+        When("^I click on table filter item$", () -> projectPage.currentTableOptionItemClick());
 
-        Then("^Table of field should show$", () -> Assert.assertTrue(projectPage.tableFilterDisplayed(driver)));
+        Then("^Table of field should show$", () -> Assert.assertTrue(projectPage.tableFilterDisplayed()));
 
         Given("^Table of field is displayed$", () -> {
-            projectPage.currentTableOptionItemClick(driver);
-            Assert.assertTrue(projectPage.tableFilterDisplayed(driver));
+            projectPage.currentTableOptionItemClick();
+            Assert.assertTrue(projectPage.tableFilterDisplayed());
         });
     }
 }
