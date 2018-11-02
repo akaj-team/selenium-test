@@ -26,11 +26,10 @@ public class NotificationElementDefinitions extends DriverBase implements En {
 
         When("^I click on notification icon$", () -> notificationMenuElement.openNotification());
 
-        Then("^Notification menu will display$", () -> Assert.assertTrue(notificationMenuElement.notificationElementIsDisplay()));
+        Then("^Notification menu will display$", () -> Assert.assertTrue(notificationMenuElement.notificationElementIsDisplay(getDriver())));
 
         Given("^Notification menu is displayed$", () -> {
-            notificationMenuElement.openNotification();
-            Assert.assertTrue(notificationMenuElement.notificationElementIsDisplay());
+            Assert.assertTrue(notificationMenuElement.notificationElementIsDisplay(getDriver()));
         });
 
         When("^I click on seeAll$", () -> notificationMenuElement.seeAll());
@@ -42,16 +41,19 @@ public class NotificationElementDefinitions extends DriverBase implements En {
 
         When("^I click on menu item$", () -> {
             notificationMenuElement.notificationMenuItemClick(getDriver());
-            waitAjaxLoadSuccess();
         });
 
-        Then("^Navigate to correct detail page", () -> Assert.assertEquals(getDriver().getCurrentUrl(), notificationMenuElement.getDestinationPath()));
+        Then("^Navigate to correct detail page", () -> {
+            waitAjaxLoadSuccess();
+            Assert.assertEquals(getDriver().getCurrentUrl(), notificationMenuElement.getDestinationPath());
+        });
 
         When("^I click on reload text$", () -> notificationMenuElement.reload());
 
         Then("^List notification should be reload$", () -> {
             notificationMenuElement.waitForNotificationReload(getDriver());
-            Assert.assertTrue(notificationMenuElement.notificationElementIsDisplay());
+            waitAjaxLoadSuccess();
+            Assert.assertTrue(notificationMenuElement.notificationElementIsDisplay(getDriver()));
         });
 
         Then("^First ten notifications displayed$", () -> Assert.assertEquals(notificationMenuElement.getNotificationList(getDriver()), NOTIFICATION_PER_PAGE));
@@ -70,7 +72,7 @@ public class NotificationElementDefinitions extends DriverBase implements En {
 
         When("^I click on mark all as read text$", () -> notificationMenuElement.markAllAsRead());
 
-        Then("^List notification should be hide$", () -> Assert.assertFalse(notificationMenuElement.notificationElementIsDisplay()));
+        Then("^List notification should be hide$", () -> Assert.assertFalse(notificationMenuElement.notificationElementIsDisplay(getDriver())));
     }
 
     private void waitAjaxLoadSuccess() {

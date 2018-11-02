@@ -3,7 +3,7 @@ Feature: Open Notification
   I want to login my account and check my notification
 
   Background: User navigates to home page and notification is displayed
-    Given I am logged in as an "EM"
+    Given I am logged in as a team manager
 
   Scenario: Login success with correct account
     When I click on notification icon
@@ -14,22 +14,23 @@ Feature: Open Notification
     Then First ten notifications displayed
 
   Scenario: I want to see all notification
-    Given Notification menu is displayed
+#    Given Notification menu is displayed
     When I click on seeAll
     Then Should navigate to correct page
 
   Scenario: I want to view detail a notification
-    Given Notification menu is displayed
+    Given I click on notification icon
+    And Notification menu is displayed
     When I click on menu item
     Then Navigate to correct detail page
 
   Scenario: I want to view next page on notification
-    Given Notification menu is displayed
+    Given I click on notification icon
+    And Notification menu is displayed
     When I scroll to item at last of list notification
     Then Next page of notification should displayed
 
   Scenario: I want to refresh list notification
-    Given Notification menu is displayed
     When I click on reload text
     Then List notification should be reload
 

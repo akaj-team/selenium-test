@@ -48,7 +48,7 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
         seeAllButton.click();
     }
 
-    public final Boolean notificationElementIsDisplay() {
+    public final Boolean notificationElementIsDisplay(WebDriver driver) {
         return notificationMenu.isDisplayed();
     }
 

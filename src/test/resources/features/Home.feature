@@ -3,7 +3,7 @@ Feature: Open home page
   I want to Login Portal and check home page
 
   Background: User navigates to home page
-    Given  I am logged in as an "EM"
+    Given I am logged in as a team manager
     And I am stayed in home page
 
   Scenario Outline: Check color and data of tab on navigation header when clicked

@@ -9,13 +9,13 @@ import vn.asiantech.base.BasePage;
 
 import java.util.List;
 
+import static vn.asiantech.base.Constant.HOME_PAGE_URL;
+
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
  * Created by at-vietphan on 02/09.
  */
 public class HomePage extends BasePage<HomePage> {
-    public static final String URL_HOME_PAGE = "http://portal-stg.asiantech.vn/homepage";
-    public static final int TIME_OUT_SECOND_NORMAL = 10;
 
     @FindBy(className = "welcome-message")
     private WebElement txtWelcome;
@@ -38,9 +38,15 @@ public class HomePage extends BasePage<HomePage> {
     @FindBy(name = "search")
     private WebElement inputSearch;
 
+    private WebDriver driver;
+
+    public HomePage(WebDriver driver) {
+        this.driver = driver;
+    }
+
     @Override
     public final HomePage navigateTo(final WebDriver webDriver) {
-        webDriver.get(URL_HOME_PAGE);
+        webDriver.get(HOME_PAGE_URL);
         return this;
     }
 
@@ -52,8 +58,8 @@ public class HomePage extends BasePage<HomePage> {
         return txtWelcome.isDisplayed();
     }
 
-    public final void waitForWelcomeMessage(final WebDriver driver) {
-        waitForElementDisplay(driver, txtWelcome, TIME_OUT_SECOND_NORMAL);
+    public final void waitForWelcomeMessage() {
+        waitForElement(driver, txtWelcome);
     }
 
     public final void logout() {
@@ -96,6 +102,7 @@ public class HomePage extends BasePage<HomePage> {
     }
 
     public final void sendKeysSearch(final String valueSearch) {
+        waitForElement(driver, inputSearch);
         inputSearch.sendKeys(valueSearch);
     }
 
@@ -151,14 +158,14 @@ public class HomePage extends BasePage<HomePage> {
         return true;
     }
 
-    public final void scrollIBoxContent(final WebDriver driver, final boolean isDown) {
+    public final void scrollIBoxContent(final boolean isDown) {
         List<WebElement> listFeed = homeContentHasData.findElements(By.cssSelector("div.social-feed-box.ng-star-inserted"));
-        scrollElementContent(listFeed, driver, isDown);
+        scrollElementContent(listFeed, isDown);
     }
 
-    public final void scrollRightSideBar(final WebDriver driver, final boolean isDown) {
+    public final void scrollRightSideBar(final boolean isDown) {
         List<WebElement> listFeed = rightSideBar.findElements(By.cssSelector("div.feed-element.ng-star-inserted"));
-        scrollElementContent(listFeed, driver, isDown);
+        scrollElementContent(listFeed, isDown);
     }
 
     private WebElement getButtonTab(final WebElement elementContent, final String position) {
@@ -187,7 +194,7 @@ public class HomePage extends BasePage<HomePage> {
         return String.format("#%01x%01x%01x", Integer.parseInt(hexValue[0].trim()), Integer.parseInt(hexValue[1].trim()), Integer.parseInt(hexValue[2].trim()));
     }
 
-    private void scrollElementContent(final List<WebElement> listElementContent, final WebDriver driver, final boolean isDown) {
+    private void scrollElementContent(final List<WebElement> listElementContent, final boolean isDown) {
         if (listElementContent.size() > 0) {
             if (isDown) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", listElementContent.get(listElementContent.size() - 1));
