@@ -6,6 +6,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.LeaveOtherPage;
 
@@ -32,11 +33,11 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
         }
 
         And("^Open leave of other page$", () -> {
-            webDriver.get("http://portal-stg.asiantech.vn/leave/tracking");
+            webDriver.get(Constant.LEAVE_TRACKING_PAGE_URL);
             leaveOtherPage = initPage(getDriver(), LeaveOtherPage.class);
             new WebDriverWait(webDriver, TIME_OUT).until(
                     driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"));
-            Assert.assertEquals("http://portal-stg.asiantech.vn/leave/tracking", webDriver.getCurrentUrl());
+            Assert.assertEquals(Constant.LEAVE_TRACKING_PAGE_URL, webDriver.getCurrentUrl());
         });
         And("^Wait for load data$", () -> leaveOtherPage.waitForLoadData(webDriver));
 
@@ -54,9 +55,6 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
         When("^end date less than start date$", () -> Assert.assertTrue(leaveOtherPage.compareTwoDate()));
         Then("^show error message with text is \"([^\"]*)\"$", (String message) -> Assert.assertTrue(leaveOtherPage.checkShowErrorMessage(message)));
 
-        When("^leave of other no data$", () -> Assert.assertTrue(leaveOtherPage.checkDataEmpty()));
-        Then("^show empty message with text is \"([^\"]*)\"$", (String message) -> Assert.assertTrue(leaveOtherPage.checkShowMessageEmpty(message)));
-
         Given("^Leave of other have data$", () -> {
             Assert.assertFalse(leaveOtherPage.checkDataEmpty());
             pathOrganisationEmployer = leaveOtherPage.getPathPageRedirect(EMPLOYER_ID_POS);
@@ -65,8 +63,10 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
         });
         When("^I click in employer id$", () -> leaveOtherPage.clickEmployerId());
         Then("^Should redirect to organisation employees$", () -> redirectPage(pathOrganisationEmployer));
+
         When("^I click in employees name$", () -> leaveOtherPage.clickEmployerName());
         Then("^Should redirect to profile detail$", () -> redirectPage(pathEmployerName));
+
         When("^I click in icon search$", () -> leaveOtherPage.clickSearchIcon());
 
         When("^Button next_to_end_page is shown$", () -> Assert.assertTrue(leaveOtherPage.checkButtonNextEndPageShown(countItem)));
@@ -82,4 +82,3 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
         Assert.assertEquals(path, url.substring(url.length() - path.length()));
     }
 }
-

@@ -4,7 +4,7 @@ Feature: Login AT Portal
   I want to test leave other page
 
   Background: Check leave other page
-    Given I am logged in as an "EM"
+    Given I am logged in as a team manager
     And Open leave of other page
     And Wait for load data
 
@@ -27,11 +27,6 @@ Feature: Login AT Portal
     Then I choose a end date
     When end date less than start date
     Then show error message with text is "End date must be on or after start date."
-
-  @Ignore
-  Scenario: Test show empty message when no data
-    When leave of other no data
-    Then show empty message with text is "No records found"
 
   Scenario: Test click item on employer id
     Given Leave of other have data

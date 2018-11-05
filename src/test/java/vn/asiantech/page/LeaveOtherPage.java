@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +37,7 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
     private static final String FORMAT_SLASH_MARK = "MMM dd, yyyy";
     private static final int TIME_WAIT = 10;
     private static final int TIME_SLEEP = 300; // millisecond
+    private static final int TIME_SLEEP_CLICK = 1000; // millisecond
 
     private static final int CALENDAR_START_POS = 0;
     private static final int CALENDAR_END_POS = 1;
@@ -44,7 +46,7 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
     private static final int CALENDAR_END_ITEM_CLICK_POS = 3;
 
     private static final int FIRST_ITEM_POS = 0;
-    private static final int EMPLOYER_ID_POS = 1;
+    private static final int EMPLOYER_ID_POS = 0;
     private static final int EMPLOYER_NAME_POS = 1;
     private static final int ICON_SEARCH_POS = 8;
 
@@ -57,7 +59,7 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
     }
 
     public final void waitForLoadData(final WebDriver driver) {
-        waitForElement(driver, iboxContent, TIME_WAIT);
+        waitForElement(driver, iboxContent);
     }
 
     public final void clickStatusItem() {
@@ -115,14 +117,15 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
         return isElementPresented(trEmptyMessage);
     }
 
-    public final boolean checkShowMessageEmpty(final String message) {
-        return tableData.findElement(By.className("ui-datatable-scrollable-table-wrapper")).findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).findElement(By.tagName("td")).findElement(By.tagName("span")).getText().trim().equals(message);
-    }
-
     public final void clickEmployerId() {
         WebElement itemFirst = tableData.findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).findElements(By.tagName("tr")).get(FIRST_ITEM_POS);
         WebElement employerId = itemFirst.findElements(By.tagName("td")).get(EMPLOYER_ID_POS);
         employerId.findElement(By.className("ng-star-inserted")).click();
+        try {
+            Thread.sleep(TIME_SLEEP_CLICK);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public final String getPathPageRedirect(final Integer position) {
@@ -135,12 +138,22 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
         WebElement itemFirst = tableData.findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).findElements(By.tagName("tr")).get(FIRST_ITEM_POS);
         WebElement employerName = itemFirst.findElements(By.tagName("td")).get(EMPLOYER_NAME_POS);
         employerName.findElement(By.className("ng-star-inserted")).findElement(By.className("info-grouping")).click();
+        try {
+            Thread.sleep(TIME_SLEEP_CLICK);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public final void clickSearchIcon() {
         WebElement itemFirst = tableData.findElement(By.cssSelector(".ui-datatable-data.ui-widget-content")).findElements(By.tagName("tr")).get(FIRST_ITEM_POS);
         WebElement searchIcon = itemFirst.findElements(By.tagName("td")).get(ICON_SEARCH_POS);
         searchIcon.findElement(By.cssSelector(".view.ng-star-inserted")).click();
+        try {
+            Thread.sleep(TIME_SLEEP_CLICK);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public final int countDataItem(final WebDriver driver) {
@@ -167,7 +180,7 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
         if (countItem % MAX_ITEM_ON_A_PAGE > 0) {
             numberPage = numberPage + 1;
         }
-        return "http://portal-stg.asiantech.vn/leave/tracking;page=" + numberPage;
+        return Constant.LEAVE_TRACKING_PAGE_URL + ";page=" + numberPage;
     }
 
     private Date convertStringToDate(final String inputDate) {
