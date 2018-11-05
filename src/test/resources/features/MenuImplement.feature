@@ -5,7 +5,7 @@ Feature: Login AT Portal
   In order to check status item on menu
 
   Background: Check menu page
-    Given I am logged in as an "EM"
+    Given I am logged in as a team manager
 
   Scenario:Login success with correct account
     When I should see the welcome message

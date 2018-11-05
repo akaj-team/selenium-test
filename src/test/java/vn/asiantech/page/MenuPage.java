@@ -38,8 +38,8 @@ public class MenuPage extends BasePage<MenuPage> {
     private static final int CHILD_MENU_LEAVE_BALANCE_POS = 3;
     private static final int CHILD_MENU_ORGANISATION_MY_TEAM_POS = 2;
 
-    private static final int TIME_SLEEP = 200;
-    private static final int TIME_SLEEP_WIKI = 500;
+    private static final int TIME_SLEEP = 1000;
+    private static final int TIME_SLEEP_WIKI = 1000;
 
     @FindBy(id = "side-menu")
     private WebElement sideMenu;
@@ -210,7 +210,9 @@ public class MenuPage extends BasePage<MenuPage> {
 
     public final void clickItemOrganisation() {
         WebElement itemOrganisation = getItemMenuInPosition(MENU_ORGANISATION_POS);
-        itemOrganisation.click();
+        if (!itemOrganisation.findElement(By.tagName("ul")).isDisplayed()) {
+            itemOrganisation.click();
+        }
     }
 
     public final void clickChildItemOrganisation(final String childPosition) {
@@ -232,7 +234,9 @@ public class MenuPage extends BasePage<MenuPage> {
 
     public final void clickItemProjectManagement() {
         WebElement itemProjectManagement = getItemMenuInPosition(MENU_PROJECT_MANAGEMENT_POS);
-        itemProjectManagement.click();
+        if (!itemProjectManagement.findElement(By.tagName("ul")).isDisplayed()) {
+            itemProjectManagement.click();
+        }
     }
 
     public final void clickChildItemProjectManagement(final String childPosition) {
@@ -258,7 +262,9 @@ public class MenuPage extends BasePage<MenuPage> {
 
     public final void clickItemAdministration() {
         WebElement itemAdministration = getItemMenuInPosition(MENU_ADMINISTRATION_POS);
-        itemAdministration.click();
+        if (!itemAdministration.findElement(By.tagName("ul")).isDisplayed()) {
+            itemAdministration.click();
+        }
     }
 
     public final void clickChildItemAdministration(final String childPosition) {
@@ -274,7 +280,9 @@ public class MenuPage extends BasePage<MenuPage> {
 
     public final void clickItemDevice() {
         WebElement itemDevice = getItemMenuInPosition(MENU_DEVICE_POS);
-        itemDevice.click();
+        if (!itemDevice.findElement(By.tagName("ul")).isDisplayed()) {
+            itemDevice.click();
+        }
     }
 
     public final void clickChildItemDevice(final String childPosition) {
@@ -290,7 +298,9 @@ public class MenuPage extends BasePage<MenuPage> {
 
     public final void clickItemTools() {
         WebElement itemTools = getItemMenuInPosition(MENU_TOOL_POS);
-        itemTools.click();
+        if (!itemTools.findElement(By.tagName("ul")).isDisplayed()) {
+            itemTools.click();
+        }
     }
 
     public final void clickChildItemTools(final String childPosition) {
@@ -306,7 +316,10 @@ public class MenuPage extends BasePage<MenuPage> {
 
     public final void clickItemCareer() {
         WebElement itemCareer = getItemMenuInPosition(MENU_CAREER_POS);
-        itemCareer.click();
+        if (!itemCareer.findElement(By.tagName("ul")).isDisplayed()) {
+            System.out.print("zo");
+            itemCareer.click();
+        }
     }
 
     public final void clickChildItemCareer(final String childPosition) {
