@@ -6,16 +6,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
-import vn.asiantech.base.Constant;
 
 import java.util.List;
+
+import static vn.asiantech.base.Constant.LEAVE_PLANNER_PAGE_URL;
 
 /**
  * @author at-hangtran
  */
 public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
 
-    public static final int TIME_OUT_SECOND = 10;
     private static final int USER_NAME = 1;
     private static final int PROFILE_LINK = 2;
     private static final int AVATAR = 3;
@@ -42,35 +42,38 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
     @FindBy(css = ".directional-toolbox")
     private WebElement toolBox;
 
-    public LeavePlannerPage() {
+    private WebDriver driver;
+
+    public LeavePlannerPage(WebDriver driver) {
+        this.driver = driver;
     }
 
     @Override
     public final LeavePlannerPage navigateTo(final WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn/leave/planning");
+        webDriver.get(LEAVE_PLANNER_PAGE_URL);
         return this;
     }
 
-    public final Boolean getClickable(final WebDriver driver) {
-        waitForElement(driver, btnThisWeek, TIME_OUT_SECOND);
+    public final Boolean getClickable() {
+        waitForElement(driver, btnThisWeek);
         return btnThisWeek.isEnabled();
     }
 
-    public final void clickBackButton(final WebDriver driver) {
-        waitForElement(driver, btnThisWeek, TIME_OUT_SECOND);
+    public final void clickBackButton() {
+        waitForElement(driver, btnThisWeek);
         btnBack.click();
     }
 
-    public final void clickNextButton(final WebDriver driver) {
-        waitForElement(driver, btnThisWeek, TIME_OUT_SECOND);
+    public final void clickNextButton() {
+        waitForElement(driver, btnThisWeek);
         btnNext.click();
     }
 
-    public final String clickUserName(final WebDriver driver) {
+    public final String clickUserName() {
         for (int column = 0; column < COLUMN_NUMBER; column++) {
             for (int cell = 0; cell < COLUMN_NUMBER; cell++) {
-                String link = getUserProfileLink(driver, column, cell);
-                WebElement userName = getUserName(driver, column, cell);
+                String link = getUserProfileLink(column, cell);
+                WebElement userName = getUserName(column, cell);
                 if (!link.equals("") && userName != null) {
                     userName.click();
                     return link;
@@ -80,11 +83,11 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
         return "";
     }
 
-    public final void moveToAvatar(final WebDriver driver) {
+    public final void moveToAvatar() {
         Actions action = new Actions(driver);
         for (int column = 0; column < COLUMN_NUMBER; column++) {
             for (int cell = 0; cell < COLUMN_NUMBER; cell++) {
-                WebElement avatar = getAvatar(driver, column, cell);
+                WebElement avatar = getAvatar(column, cell);
                 if (avatar != null) {
                     action.moveToElement(avatar).build().perform();
                     break;
@@ -93,13 +96,13 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
         }
     }
 
-    public final Boolean isShowLeaveMessage(final WebDriver driver) {
+    public final Boolean isShowLeaveMessage() {
         return driver.getPageSource().contains("Hover message");
     }
 
-    public final Boolean isDisplayFullColumns(final WebDriver driver) {
+    public final Boolean isDisplayFullColumns() {
         boolean isFull = true;
-        waitForElement(driver, calendar, TIME_OUT_SECOND);
+        waitForElement(driver, calendar);
         List<WebElement> divs = calendar.findElements(By.tagName("div"));
         for (WebElement div : divs) {
             int columns = div.findElements(By.tagName("div")).size();
@@ -114,17 +117,17 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
         return toolBox.findElement(By.tagName("span")).getText();
     }
 
-    public final String getTableTime(final WebDriver driver) {
-        return getColumnTime(driver, 0) + " - " + getColumnTime(driver, COLUMN_NUMBER - 1);
+    public final String getTableTime() {
+        return getColumnTime(0) + " - " + getColumnTime(COLUMN_NUMBER - 1);
     }
 
-    private String getColumnTime(final WebDriver driver, final Integer column) {
-        waitForElement(driver, calenderHead, TIME_OUT_SECOND);
+    private String getColumnTime(final Integer column) {
+        waitForElement(driver, calenderHead);
         return calenderHead.findElements(By.cssSelector(".calendar-cell.ng-star-inserted")).get(column).findElement(By.tagName("i")).getText();
     }
 
-    private WebElement getItemInfor(final WebDriver driver, final Integer column, final Integer position) {
-        waitForElement(driver, calendarBody, Constant.DEFAULT_TIME_OUT);
+    private WebElement getItemInfo(final Integer column, final Integer position) {
+        waitForElement(driver, calendarBody);
         List<WebElement> columns = calendarBody.findElements(By.cssSelector(".calendar-cell.ng-star-inserted"));
         if (columns.size() != 0 && column < columns.size()) {
             List<WebElement> columnsItems = columns.get(column).findElements(By.cssSelector(".cell-content>div"));
@@ -135,23 +138,23 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
         return columns.get(0);
     }
 
-    private WebElement getUserName(final WebDriver driver, final Integer column, final Integer position) {
-        if (isElementExisted(getItemInfor(driver, column, position), USER_NAME)) {
-            return getItemInfor(driver, column, position).findElement(By.tagName("a")).findElement(By.tagName("h4"));
+    private WebElement getUserName(final Integer column, final Integer position) {
+        if (isElementExisted(getItemInfo(column, position), USER_NAME)) {
+            return getItemInfo(column, position).findElement(By.tagName("a")).findElement(By.tagName("h4"));
         }
         return null;
     }
 
-    private String getUserProfileLink(final WebDriver driver, final Integer column, final Integer position) {
-        if (isElementExisted(getItemInfor(driver, column, position), PROFILE_LINK)) {
-            return getItemInfor(driver, column, position).findElement(By.tagName("a")).getAttribute("href");
+    private String getUserProfileLink(final Integer column, final Integer position) {
+        if (isElementExisted(getItemInfo(column, position), PROFILE_LINK)) {
+            return getItemInfo(column, position).findElement(By.tagName("a")).getAttribute("href");
         }
         return "";
     }
 
-    private WebElement getAvatar(final WebDriver driver, final Integer column, final Integer position) {
-        if (isElementExisted(getItemInfor(driver, column, position), AVATAR)) {
-            return getItemInfor(driver, column, position).findElement(By.tagName("a")).findElement(By.tagName("img"));
+    private WebElement getAvatar(final Integer column, final Integer position) {
+        if (isElementExisted(getItemInfo(column, position), AVATAR)) {
+            return getItemInfo(column, position).findElement(By.tagName("a")).findElement(By.tagName("img"));
         }
         return null;
     }

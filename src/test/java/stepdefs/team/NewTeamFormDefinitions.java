@@ -8,14 +8,14 @@ import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.team.NewTeamFormPage;
 import vn.asiantech.page.team.TeamsPage;
 
+import static vn.asiantech.base.Constant.NEW_TEAM_PAGE_URL;
+import static vn.asiantech.base.Constant.TEAM_PAGE_URL;
+
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
  * Created by at-vietphan on 9/21/18.
  */
 public class NewTeamFormDefinitions extends DriverBase implements En {
-    private static final String URL_PAGE_TEAMS = "http://portal-stg.asiantech.vn/organisation/teams";
-    private static final String URL_PAGE_NEW_TEAM = "http://portal-stg.asiantech.vn/organisation/teams/new";
-    private static final int INDEX_ID_IN_UPDATE_TEAM_URL = 5;
     private WebDriver driver;
     private NewTeamFormPage newTeamFormPage;
     private TeamsPage teamsPage;
@@ -30,25 +30,25 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
         teamsPage = initPage(getDriver(), TeamsPage.class);
 
         And("^I am stayed in new team page$", () -> {
-            driver.get(URL_PAGE_NEW_TEAM);
-            waitForPageDisplayed(driver, URL_PAGE_NEW_TEAM, By.className("ibox-content"));
+            driver.get(NEW_TEAM_PAGE_URL);
+            waitForPageDisplayed(driver, NEW_TEAM_PAGE_URL, By.className("ibox-content"));
         });
         And("^I am stayed in update team page at position is (\\d+)$", (Integer position) -> {
-            driver.get(URL_PAGE_TEAMS);
-            waitForPageDisplayed(driver, URL_PAGE_TEAMS, By.className("ibox-content"));
+            driver.get(TEAM_PAGE_URL);
+            waitForPageDisplayed(driver, TEAM_PAGE_URL, By.className("ibox-content"));
             String updateTeamUrl = teamsPage.onClickUpdateTeam(position);
             waitForPageRedirected(driver, updateTeamUrl, By.className("ibox-content"));
         });
 
         // Validate Form
         Then("^Button submit is unable$", () -> Assert.assertFalse(newTeamFormPage.isButtonSubmitEnable()));
-        When("^I fill in inputName with \"([^\"]*)\" with while space at begging and end are (.*), (.*)$", (String name, String whileSpaceBegging, String whileSpaceEnd) -> {
+        When("^I fill in inputName with \"([^\"]*)\" with while space at beginning and end are (.*), (.*)$", (String name, String whileSpaceBegging, String whileSpaceEnd) -> {
             waitVisibilityOfElement(driver, By.name("name"));
             newTeamFormPage.sendKeyInputName(name, Integer.parseInt(whileSpaceBegging), Integer.parseInt(whileSpaceEnd));
         });
         When("^I fill in inputName with new name$", () -> {
             waitVisibilityOfElement(driver, By.name("name"));
-            newTeamFormPage.sendKeyInputName(newTeamFormPage.generateNameTeam().toString(), 0, 0);
+            newTeamFormPage.sendKeyInputName(newTeamFormPage.generateNameTeam(), 0, 0);
         });
         Then("^Button submit is enable$", () -> Assert.assertTrue((newTeamFormPage.isButtonSubmitEnable())));
         And("^Message error is displayed$", () -> {
