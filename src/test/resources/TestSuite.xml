@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Suite" parallel="tests">
+<suite name="Suite" parallel="tests" verbose="1" configfailurepolicy="continue" thread-count="2">
 
     <test name="FireFox Test">
         <parameter name="browserType" value="firefox"/>

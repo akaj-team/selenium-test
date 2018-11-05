@@ -19,7 +19,6 @@ public class PortalLoginDefinitions extends DriverBase implements En {
     private HomePage homePage;
 
     public PortalLoginDefinitions() {
-        System.out.print("browserName: " + browserName);
         clearCookies();
         Given("^I open login page$", () -> getDriver().get(LOGIN_PAGE_URL));
 
@@ -79,7 +78,8 @@ public class PortalLoginDefinitions extends DriverBase implements En {
 
     private String getEmail() {
         String email;
-        switch (browserName) {
+        System.out.print("valueBrowserName: " + getDriver().getCapabilities().getBrowserName());
+        switch (getDriver().getCapabilities().getBrowserName()) {
             case Constant.BROWSER_CHROME:
                 email = "stg.tien.hoang@asiantech.vn";
                 break;

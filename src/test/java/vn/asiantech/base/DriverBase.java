@@ -20,14 +20,12 @@ public class DriverBase {
     private static final int TIME_OUT_SECONDS_NORMAL = 10;
     private static final int TIME_OUT_SECOND_MAXIMUM = 20;
     public static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
-    public static ThreadLocal<DriverFactory> driverFactoryThread;
-    public static String browserName;
+    public static ThreadLocal<DriverFactory> driverFactoryThread = new ThreadLocal<>();
 
     public static synchronized void instantiateDriverObject(String browserType) {
-        browserName = browserType;
         DriverFactory driverFactory = new DriverFactory(browserType);
         webDriverThreadPool.add(driverFactory);
-        driverFactoryThread = ThreadLocal.withInitial(() -> driverFactory);
+        driverFactoryThread.set(driverFactory);
     }
 
     public static synchronized RemoteWebDriver getDriver() {
