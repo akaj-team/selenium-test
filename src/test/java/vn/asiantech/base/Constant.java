@@ -14,6 +14,13 @@ public final class Constant {
     public static final int DEFAULT_TIME_OUT = 10;
     static final int MAXIMUM_TIME_OUT = 20;
 
+    public static final String BROWSER_CHROME = "chrome";
+    public static final String BROWSER_FIREFOX = "firefox";
+    public static final String BROWSER_SAFARI = "safari";
+    public static final String BROWSER_IE = "ie";
+    public static final String BROWSER_EDGE = "edge";
+    public static final String BROWSER_OPERA = "opera";
+
     private Constant() {
         // No-op
     }

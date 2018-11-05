@@ -10,7 +10,7 @@ import java.net.URL;
 
 import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
-import static vn.asiantech.base.DriverType.CHROME;
+import static vn.asiantech.base.DriverType.*;
 
 public class DriverFactory {
 
@@ -22,10 +22,9 @@ public class DriverFactory {
     private final Integer proxyPort = Integer.getInteger("proxyPort");
     private final String proxyDetails = String.format("%s:%d", proxyHostname, proxyPort);
     private RemoteWebDriver driver;
-    private DriverType selectedDriverType;
 
-    DriverFactory() {
-        DriverType driverType = CHROME;
+    public DriverFactory(String browserType) {
+        DriverType driverType = getDriverType(browserType);
         String browser = System.getProperty("browser", driverType.toString()).toUpperCase();
         try {
             driverType = DriverType.valueOf(browser);
@@ -34,17 +33,42 @@ public class DriverFactory {
         } catch (NullPointerException ignored) {
             System.err.println("No driver specified, defaulting to '" + driverType + "'...");
         }
-        selectedDriverType = driverType;
+
+        try {
+            instantiateWebDriver(driverType);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private DriverType getDriverType(String browserType) {
+        DriverType driverType;
+        switch (browserType) {
+            case Constant.BROWSER_CHROME:
+                driverType = CHROME;
+                break;
+            case Constant.BROWSER_FIREFOX:
+                driverType = FIREFOX;
+                break;
+            case Constant.BROWSER_SAFARI:
+                driverType = SAFARI;
+                break;
+            case Constant.BROWSER_IE:
+                driverType = IE;
+                break;
+            case Constant.BROWSER_EDGE:
+                driverType = EDGE;
+                break;
+            case Constant.BROWSER_OPERA:
+                driverType = OPERA;
+                break;
+            default:
+                driverType = CHROME;
+        }
+        return driverType;
     }
 
     public RemoteWebDriver getDriver() {
-        if (null == driver) {
-            try {
-                instantiateWebDriver(selectedDriverType);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-        }
         return driver;
     }
 
@@ -64,7 +88,7 @@ public class DriverFactory {
         System.out.println(" ");
         System.out.println("Local Operating System: " + operatingSystem);
         System.out.println("Local Architecture: " + systemArchitecture);
-        System.out.println("Selected Browser: " + selectedDriverType);
+        System.out.println("Selected Browser: " + driverType);
         System.out.println("Connecting to Selenium Grid: " + useRemoteWebDriver);
         System.out.println(" ");
 
@@ -91,7 +115,7 @@ public class DriverFactory {
                 desiredCapabilities.setVersion(desiredBrowserVersion);
             }
 
-            desiredCapabilities.setBrowserName(selectedDriverType.toString());
+            desiredCapabilities.setBrowserName(driverType.toString());
             driver = new RemoteWebDriver(seleniumGridURL, desiredCapabilities);
         } else {
             driver = driverType.getWebDriverObject(desiredCapabilities);

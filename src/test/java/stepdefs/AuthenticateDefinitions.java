@@ -19,7 +19,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
 
         Given("^I am logged in as a team manager$", () -> {
             if (!isButtonLogoutDisplayed()) {
-                Account account = new Account("stg.tien.hoang@asiantech.vn", "Abc123@@");
+                Account account = getAccount();
                 getDriver().get(Constant.LOGIN_PAGE_URL);
                 loginPage.waitForLoginButton();
                 loginPage.withUsername(account.email).withPassword(account.password).login();
@@ -30,6 +30,34 @@ public class AuthenticateDefinitions extends DriverBase implements En {
         });
 
         Given("^I am an unauthenticated user$", this::logoutCurrentSession);
+    }
+
+    private Account getAccount() {
+        Account account;
+        switch (getDriver().getCapabilities().getBrowserName()) {
+            case Constant.BROWSER_CHROME:
+                account = new Account("stg.tien.hoang@asiantech.vn", "Abc123@@");
+                break;
+            case Constant.BROWSER_FIREFOX:
+                account = new Account("stg.tu.le.2@asiantech.vn", "Abc123@@");
+                break;
+            case Constant.BROWSER_SAFARI:
+                account = new Account("stg.thien.dang2@asiantech.vn", "Abc123@@");
+                break;
+            case Constant.BROWSER_IE:
+                account = new Account("stg.hang.nguyen@asiantech.vn", "Abc123@@");
+                break;
+            case Constant.BROWSER_EDGE:
+                account = new Account("stg.lam.le2@asiantech.vn", "Abc123@@");
+                break;
+            case Constant.BROWSER_OPERA:
+                account = new Account("automation-01@asiantech.vn", "Abc123@@");
+                break;
+            default:
+                account = new Account("stg.tien.hoang@asiantech.vn", "Abc123@@");
+        }
+
+        return account;
     }
 
     private void logoutCurrentSession() {

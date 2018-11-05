@@ -9,8 +9,8 @@ Feature: Login AT Portal
     Then Browser should redirect to "/auth/login"
 
   Scenario: Login success with correct account
-    When I enter my username with "stg.tien.hoang@asiantech.vn"
-    And I fill in password with "Abc123@@"
+    When I enter my username
+    And I fill in password
     And I click on login button
     Then I should see the welcome message
 

@@ -1,7 +1,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Login Suite" verbose="1">
+<suite name="Suite" parallel="tests" verbose="1" configfailurepolicy="continue" thread-count="2">
 
-    <test name="Test Portal Page">
+    <test name="FireFox Test">
+        <parameter name="browserType" value="firefox"/>
+        <classes>
+            <class name="TestRunner"/>
+        </classes>
+    </test>
+
+    <test name="Chrome Test">
+        <parameter name="browserType" value="chrome"/>
         <classes>
             <class name="TestRunner"/>
         </classes>

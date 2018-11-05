@@ -20,19 +20,17 @@ import static vn.asiantech.base.Constant.MAXIMUM_TIME_OUT;
 public class DriverBase {
 
     private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
-    private static ThreadLocal<DriverFactory> driverFactoryThread;
+    private static ThreadLocal<DriverFactory> driverFactoryThread = new ThreadLocal<>();
 
-    static void instantiateDriverObject() {
-        driverFactoryThread = ThreadLocal.withInitial(() -> {
-            DriverFactory driverFactory = new DriverFactory();
-            webDriverThreadPool.add(driverFactory);
-            return driverFactory;
-        });
+    public static synchronized void instantiateDriverObject(String browserType) {
+        DriverFactory driverFactory = new DriverFactory(browserType);
+        webDriverThreadPool.add(driverFactory);
+        driverFactoryThread.set(driverFactory);
     }
 
-    public static RemoteWebDriver getDriver() {
+    public static synchronized RemoteWebDriver getDriver() {
         if (driverFactoryThread == null) {
-            instantiateDriverObject();
+            instantiateDriverObject(Constant.BROWSER_CHROME);
         }
         return driverFactoryThread.get().getDriver();
     }

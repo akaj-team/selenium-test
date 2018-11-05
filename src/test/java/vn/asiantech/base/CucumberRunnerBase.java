@@ -13,30 +13,16 @@ public class CucumberRunnerBase extends AbstractTestNGCucumberTests {
         return testNGCucumberRunner.provideScenarios();
     }
 
-    @BeforeSuite(alwaysRun = true)
-    public void beforeSuite() {
-        System.out.println("instantiateDriverObject");
-        DriverBase.instantiateDriverObject();
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void afterSuite() {
-        System.out.println("closeDriverObjects");
-        DriverBase.closeDriverObjects();
-    }
-
     @BeforeClass(alwaysRun = true)
-    @Override
-    public void setUpClass() throws Exception {
-        super.setUpClass();
-        System.out.println("setUpClass");
+    @Parameters("browserType")
+    public void setUpClass(String browserType) {
+        DriverBase.instantiateDriverObject(browserType);
         testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
     }
 
     @AfterClass(alwaysRun = true)
-    @Override
-    public void tearDownClass() throws Exception {
+    public void tearDownClass() {
         System.out.println("tearDownClass");
-        super.tearDownClass();
+        DriverBase.closeDriverObjects();
     }
 }
