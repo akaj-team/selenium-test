@@ -11,8 +11,6 @@ import vn.asiantech.page.HomePage;
 
 import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 import static vn.asiantech.base.Constant.HOME_PAGE_URL;
-import static vn.asiantech.page.HomePage.TIME_OUT_SECOND_NORMAL;
-import static vn.asiantech.page.HomePage.URL_HOME_PAGE;
 
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
@@ -28,6 +26,7 @@ public class HomeDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         homePage = initPage(getDriver(), HomePage.class);
 
         // Check Home page is started
@@ -48,13 +47,13 @@ public class HomeDefinitions extends DriverBase implements En {
         And("^I Should see data when has or no$", () -> Assert.assertTrue(homePage.isInIBoxContentShowed()));
 
         // Check function search
-        When("^I fill to search with value is \"([^\"]*)\"$", (String searchData) -> homePage.sendKeysSearch(searchData, driver));
+        When("^I fill to search with value is \"([^\"]*)\"$", (String searchData) -> homePage.sendKeysSearch(searchData));
         Then("^I should see list feed is displayed$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> webDriver.findElement(By.className("notification-container")).findElement(By.className("social-feed-box")).isDisplayed());
+            new WebDriverWait(driver, DEFAULT_TIME_OUT).until(webDriver -> webDriver.findElement(By.className("notification-container")).findElement(By.className("social-feed-box")).isDisplayed());
             Assert.assertFalse(homePage.isFeedListEmpty());
         });
         Then("^I should see message \"([^\"]*)\"$", (String message) -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> webDriver.findElement(By.cssSelector(".text-center.ng-star-inserted")).findElement(By.tagName("h2")).isDisplayed());
+            new WebDriverWait(driver, DEFAULT_TIME_OUT).until(webDriver -> webDriver.findElement(By.cssSelector(".text-center.ng-star-inserted")).findElement(By.tagName("h2")).isDisplayed());
             Assert.assertEquals(homePage.getEmptyTeamMessage(), message);
         });
 
@@ -87,7 +86,7 @@ public class HomeDefinitions extends DriverBase implements En {
 
         // Open successfully profile page
         Then("^Open successfully User Profile page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND_NORMAL).until(webDriver -> webDriver.findElement(By.className("section-top")).isDisplayed());
+            new WebDriverWait(driver, DEFAULT_TIME_OUT).until(webDriver -> webDriver.findElement(By.className("section-top")).isDisplayed());
             Assert.assertTrue(driver.findElement(By.className("section-top")).isDisplayed());
         });
 
@@ -106,21 +105,21 @@ public class HomeDefinitions extends DriverBase implements En {
         // Check scrollview on homeContent
         When("^I scroll down homeContent$", () -> {
             waitVisibilityOfElement(driver, By.id("new-feed-list-wrapper"));
-            homePage.scrollIBoxContent(driver, true);
+            homePage.scrollIBoxContent(true);
         });
         Then("^I scroll up homeContent$", () -> {
             waitVisibilityOfElement(driver, By.id("new-feed-list-wrapper"));
-            homePage.scrollIBoxContent(driver, false);
+            homePage.scrollIBoxContent(false);
         });
 
         // Check scrollview on right sideBar
         When("^I scroll down right sideBar$", () -> {
             waitVisibilityOfElement(driver, By.id("today-event-list-wrapper"));
-            homePage.scrollRightSideBar(driver, true);
+            homePage.scrollRightSideBar(true);
         });
         Then("^I scroll up right sideBar$", () -> {
             waitVisibilityOfElement(driver, By.id("today-event-list-wrapper"));
-            homePage.scrollRightSideBar(driver, false);
+            homePage.scrollRightSideBar(false);
         });
     }
 }
