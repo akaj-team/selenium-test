@@ -4,7 +4,7 @@ Feature: I login in AT Portal
   I want to check views in Access Control page
 
   Background: User navigates to Access Control page
-    Given I am logged in as an "EM"
+    Given I am logged in as a team manager
     And I stayed in Access Control page
 
   Scenario Outline: Check color item in toolbox when I click on any item
