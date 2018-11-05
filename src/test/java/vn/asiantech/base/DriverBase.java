@@ -14,24 +14,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 public class DriverBase {
 
     private static final int TIME_OUT_SECONDS_NORMAL = 10;
     private static final int TIME_OUT_SECOND_MAXIMUM = 20;
-    private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
-    private static ThreadLocal<DriverFactory> driverFactoryThread;
+    public static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
+    public static ThreadLocal<DriverFactory> driverFactoryThread;
+    public static String browserName;
 
-    static void instantiateDriverObject(String browserType) {
-        driverFactoryThread = ThreadLocal.withInitial(() -> {
-            DriverFactory driverFactory = new DriverFactory(browserType);
-            webDriverThreadPool.add(driverFactory);
-            return driverFactory;
-        });
+    public static synchronized void instantiateDriverObject(String browserType) {
+        browserName = browserType;
+        DriverFactory driverFactory = new DriverFactory(browserType);
+        webDriverThreadPool.add(driverFactory);
+        driverFactoryThread = ThreadLocal.withInitial(() -> driverFactory);
     }
 
-    public static RemoteWebDriver getDriver() {
+    public static synchronized RemoteWebDriver getDriver() {
         if (driverFactoryThread == null) {
-            instantiateDriverObject("chrome");
+            instantiateDriverObject(Constant.BROWSER_CHROME);
         }
         return driverFactoryThread.get().getDriver();
     }

@@ -23,6 +23,7 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
@@ -119,18 +120,20 @@
                         <artifactId>maven-resources-plugin</artifactId>
                         <version>2.4</version>
                     </plugin>
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>2.22.0</version>
                         <configuration>
                             <testFailureIgnore>true</testFailureIgnore>
+                            <forkCount>2</forkCount>
+                            <reuseForks>true</reuseForks>
                             <suiteXmlFiles>
-                                <file>src/test/resources/TestSuite.xml</file>
+                                <suiteXmlFile>src/test/resources/TestSuite.xml</suiteXmlFile>
                             </suiteXmlFiles>
                             <systemPropertyVariables>
                                 <test.test1>Bla ble</test.test1>
-                                <browser>firefox,chrome</browser>
                                 <!--<browser>${browser}</browser>-->
                             </systemPropertyVariables>
                         </configuration>
@@ -142,7 +145,7 @@
                         <executions>
                             <execution>
                                 <id>execution</id>
-                                <phase>verify</phase>
+                                <phase>test</phase>
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>
@@ -161,11 +164,8 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <version>${maven-failsafe-plugin.version}</version>
                         <configuration>
-                            <parallel>tests</parallel>
-                            <threadCount>${threads}</threadCount>
                             <systemPropertyVariables>
                                 <!--<browser>${browser}</browser>-->
-                                <browser>firefox,chrome</browser>
                                 <screenshotDirectory>${project.build.directory}/screenshots</screenshotDirectory>
                                 <remoteDriver>${remote}</remoteDriver>
                                 <headless>${headless}</headless>
