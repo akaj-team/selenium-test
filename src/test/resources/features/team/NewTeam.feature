@@ -4,11 +4,11 @@ Feature: Check teams page
   Check validate and button submit when fill in form create new team
 
   Background: User navigates to Company teams page
-    Given I am logged in as an "EM"
+    Given I am logged in as a team manager
     And I am stayed in new team page
 
   Scenario Outline: I fill to inputName with name invalid, button Submit is unable and message error is showed
-    When I fill in inputName with "<name>" with while space at begging and end are <whileSpaceBeginning>, <whileSpaceEnd>
+    When I fill in inputName with "<name>" with while space at beginning and end are <whileSpaceBeginning>, <whileSpaceEnd>
     Then Button submit is unable
     And Message error is displayed
     Examples:
@@ -24,13 +24,13 @@ Feature: Check teams page
     Then Button submit is unable
 
   Scenario: I fill to inputName with name valid and selected manager, button Submit is enable
-    When I fill in inputName with "football group" with while space at begging and end are 0, 0
+    When I fill in inputName with "football group" with while space at beginning and end are 0, 0
     And I open dropdown Manager
     And I select a item in manager list
     Then Button submit is enable
 
   Scenario: Show fail message when click button submit
-    When I fill in inputName with "Android" with while space at begging and end are 0, 0
+    When I fill in inputName with "Android" with while space at beginning and end are 0, 0
     And I open dropdown Manager
     And I select a item in manager list
     When I click on button Submit
@@ -41,5 +41,4 @@ Feature: Check teams page
     And I open dropdown Manager
     And I select a item in manager list
     When I click on button Submit
-    Then Open successfully team detail page after created
     And I should see fail or success message

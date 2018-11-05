@@ -4,7 +4,7 @@ Feature: Check display views and handle events
   Check display views and handle events
 
   Background: User navigates to leave planner page
-    Given I am logged in as an "EM"
+    Given I am logged in as a team manager
     And Display leave planner page
 @a
   Scenario: Can not click  this week button
