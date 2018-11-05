@@ -18,7 +18,6 @@ import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 
 public class DriverBase {
 
-    public static final int TIME_OUT_SECONDS_NORMAL = 10;
     private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
     private static ThreadLocal<DriverFactory> driverFactoryThread;
 
@@ -66,7 +65,7 @@ public class DriverBase {
     }
 
     protected final void waitRedirectToPage(final String destinationUrl) {
-        new WebDriverWait(getDriver(), TIME_OUT_SECONDS_NORMAL).until(
+        new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                 webDriver -> webDriver.getCurrentUrl().equals(destinationUrl));
     }
 

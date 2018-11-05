@@ -5,6 +5,10 @@ Feature: Check all projects on asiantech
     Given I am logged in as a team manager
     And I access to projects page
 
+  Scenario: I want to see list table fields option show
+    When I click on table filter item
+    Then Table of field should show
+
   Scenario: I want to check all project on asiantech
     Then List project should display
 
@@ -32,7 +36,3 @@ Feature: Check all projects on asiantech
   Scenario: Check current status filter
     When I click on item of filter list
     Then Filter tex should display correct
-
-  Scenario: I want to see list table fields option show
-    When I click on table filter item
-    Then Table of field should show

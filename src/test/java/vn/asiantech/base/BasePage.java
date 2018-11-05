@@ -7,8 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static vn.asiantech.base.DriverBase.TIME_OUT_SECONDS_NORMAL;
-
 public abstract class BasePage<T> {
 
     public abstract T navigateTo(WebDriver webDriver);
@@ -28,7 +26,7 @@ public abstract class BasePage<T> {
     }
 
     protected final void waitUntilCountDifference(final WebDriver webDriver, final WebElement element, final By by, final int count) {
-        new WebDriverWait(webDriver, TIME_OUT_SECONDS_NORMAL).until((ExpectedCondition<Boolean>) driver -> {
+        new WebDriverWait(webDriver, Constant.DEFAULT_TIME_OUT).until((ExpectedCondition<Boolean>) driver -> {
             int elementCount = element.findElements(by).size();
             return elementCount != count;
         });

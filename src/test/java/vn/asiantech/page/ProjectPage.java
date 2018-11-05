@@ -7,8 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 import vn.asiantech.base.Constant;
 
-import static vn.asiantech.base.DriverBase.TIME_OUT_SECONDS_NORMAL;
-
 /**
  * @author at-vinhhuynh
  */
@@ -17,19 +15,19 @@ public class ProjectPage extends BasePage<ProjectPage> {
     @FindBy(className = "ui-datatable-scrollable-view")
     private WebElement projectPageContainer;
 
-    @FindBy(css = "tbody.ui-datatable-data.ui-widget-content")
+    @FindBy(className = "ui-datatable-data")
     private WebElement projectList;
 
-    @FindBy(css = "input.form-control.ng-untouched.ng-pristine.ng-valid")
+    @FindBy(className = "form-control")
     private WebElement inputSearch;
 
-    @FindBy(css = "label.ng-tns-c1-1.ui-dropdown-label.ui-inputtext.ui-corner-all.ng-star-inserted")
+    @FindBy(className = "ui-dropdown-label")
     private WebElement tvStatus;
 
-    @FindBy(css = "div.ui-dropdown-items-wrapper")
+    @FindBy(className = "ui-dropdown-items-wrapper")
     private WebElement filterList;
 
-    @FindBy(css = "label.ui-multiselect-label.ui-corner-all")
+    @FindBy(className = "ui-multiselect-label")
     private WebElement tvTableOption;
 
     @FindBy(css = "div.ui-multiselect-panel.ui-widget.ui-widget-content.ui-corner-all.ui-shadow")
@@ -52,24 +50,24 @@ public class ProjectPage extends BasePage<ProjectPage> {
     }
 
     public final int getProjectCount() {
-        waitForElementDisplay(driver, projectList, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, projectList, Constant.DEFAULT_TIME_OUT);
         return projectList.findElements(By.tagName("tr")).size();
     }
 
     public final ProjectPage searchWith(final String key) {
-        waitForElementDisplay(driver, inputSearch, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, inputSearch, Constant.DEFAULT_TIME_OUT);
         inputSearch.sendKeys(key);
         return this;
     }
 
     public final String getProjectName() {
-        waitForElementDisplay(driver, projectList, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, projectList, Constant.DEFAULT_TIME_OUT);
         WebElement firstProject = projectList.findElements(By.tagName("tr")).get(0);
         return firstProject.findElements(By.tagName("td")).get(1).findElement(By.tagName("strong")).getText();
     }
 
     public final ProjectPage projectNameClick() {
-        waitForElementDisplay(driver, projectList, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, projectList, Constant.DEFAULT_TIME_OUT);
         WebElement firstProject = projectList.findElements(By.tagName("tr")).get(0).findElements(By.tagName("td")).get(1);
         projectUrl = firstProject.findElement(By.tagName("a")).getAttribute("href");
         setProjectUrl(projectUrl);
@@ -78,7 +76,7 @@ public class ProjectPage extends BasePage<ProjectPage> {
     }
 
     public final ProjectPage projectAvatarClick() {
-        waitForElementDisplay(driver, projectList, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, projectList, Constant.DEFAULT_TIME_OUT);
         WebElement firstProject = projectList.findElements(By.tagName("tr")).get(0).findElements(By.tagName("td")).get(1);
         projectUrl = firstProject.findElement(By.tagName("a")).getAttribute("href");
         setProjectUrl(projectUrl);
@@ -87,7 +85,7 @@ public class ProjectPage extends BasePage<ProjectPage> {
     }
 
     public final ProjectPage projectCodeClick() {
-        waitForElementDisplay(driver, projectList, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, projectList, Constant.DEFAULT_TIME_OUT);
         WebElement firstProject = projectList.findElements(By.tagName("tr")).get(0).findElements(By.tagName("td")).get(0);
         projectUrl = firstProject.findElement(By.tagName("a")).getAttribute("href");
         setProjectUrl(projectUrl);
@@ -96,18 +94,18 @@ public class ProjectPage extends BasePage<ProjectPage> {
     }
 
     public final boolean tableFilterDisplayed() {
-        waitForElementDisplay(driver, listTableOption, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, listTableOption, Constant.DEFAULT_TIME_OUT);
         return listTableOption.isDisplayed();
     }
 
     public final ProjectPage statusFilterClick() {
-        waitForElementDisplay(driver, tvStatus, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, tvStatus, Constant.DEFAULT_TIME_OUT);
         tvStatus.click();
         return this;
     }
 
     public final ProjectPage filterItemClick() {
-        waitForElementDisplay(driver, filterList, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, filterList, Constant.DEFAULT_TIME_OUT);
         WebElement secondFilterItem = filterList.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(1);
         String currentFilterStatus = secondFilterItem.findElement(By.tagName("span")).getText();
         setCurrentStatusFilter(currentFilterStatus);
@@ -116,17 +114,17 @@ public class ProjectPage extends BasePage<ProjectPage> {
     }
 
     public final String getStatusDisplayed() {
-        waitForElementDisplay(driver, tvStatus, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, tvStatus, Constant.DEFAULT_TIME_OUT);
         return tvStatus.getText();
     }
 
     public final Boolean filterListDisplayed() {
-        waitForElementDisplay(driver, filterList, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, filterList, Constant.DEFAULT_TIME_OUT);
         return filterList.isDisplayed();
     }
 
     public final ProjectPage currentTableOptionItemClick() {
-        waitForElementDisplay(driver, tvTableOption, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, tvTableOption, Constant.DEFAULT_TIME_OUT);
         tvTableOption.click();
         return this;
     }

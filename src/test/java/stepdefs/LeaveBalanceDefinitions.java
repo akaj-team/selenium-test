@@ -14,6 +14,7 @@ import vn.asiantech.page.LeaveBalancePage;
 public class LeaveBalanceDefinitions extends DriverBase implements En {
 
     private static final int DEFAULT_PAGE_COUNT = 50;
+    private static final int ANDROID_TEAM_ID = 24;
     private WebDriver driver;
     private LeaveBalancePage leaveBalancePage;
 
@@ -23,10 +24,10 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        leaveBalancePage = initPage(getDriver(), LeaveBalancePage.class);
 
         And("^Display leave balance page$", () -> {
             driver.get(Constant.LEAVE_BALANCE_PAGE_URL);
-            leaveBalancePage = initPage(getDriver(), LeaveBalancePage.class);
             waitForPageDisplayed(getDriver(), Constant.LEAVE_BALANCE_PAGE_URL, null);
         });
 
@@ -56,7 +57,7 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
         Given("^I fill in search view with name is \"([^\"]*)\"$", (String key) -> leaveBalancePage.searchWithKey(key));
 
         Then("^Should show list result of employ with name is \"([^\"]*)\"$", (String employeeName) -> {
-            new WebDriverWait(getDriver(), TIME_OUT_SECONDS_NORMAL).until(
+            new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                     webDriver -> !webDriver.getCurrentUrl().equals(Constant.LEAVE_BALANCE_PAGE_URL));
 
             Assert.assertEquals(leaveBalancePage.getCurrentEmployeeName(), employeeName);
@@ -67,7 +68,7 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
         Then("^Team will display \"([^\"]*)\"$", (String teamName) -> Assert.assertEquals(leaveBalancePage.getFilterLabel(), teamName));
 
         And("^Show list result of employ on Android team$", () -> {
-            waitRedirectToPage(Constant.LEAVE_BALANCE_PAGE_URL + ";team_id_eq=24");
+            waitRedirectToPage(Constant.LEAVE_BALANCE_PAGE_URL + ";team_id_eq=" + ANDROID_TEAM_ID);
             Assert.assertEquals(DEFAULT_PAGE_COUNT, leaveBalancePage.getLeaveBalanceListCount());
         });
 

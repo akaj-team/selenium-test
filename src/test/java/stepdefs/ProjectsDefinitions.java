@@ -34,7 +34,7 @@ public class ProjectsDefinitions extends DriverBase implements En {
 
         When("^I search with \"([^\"]*)\"$", (String key) -> projectPage.searchWith(key));
 
-        Then("^Should search with correct key is \"([^\"]*)\"$", (String key) -> new WebDriverWait(getDriver(), TIME_OUT_SECONDS_NORMAL).until(
+        Then("^Should search with correct key is \"([^\"]*)\"$", (String key) -> new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                 webDriver -> !webDriver.getCurrentUrl().equals(Constant.PROJECT_PAGE_URL + ";status_eq=in_progress;name_cont=" + key)));
 
         And("^Project name should be \"([^\"]*)\"$", (String projectName) -> Assert.assertEquals(projectName, projectPage.getProjectName()));
@@ -42,7 +42,7 @@ public class ProjectsDefinitions extends DriverBase implements En {
         When("^I click on project name$", () -> projectPage.projectNameClick());
 
         Then("^should go to correct detail page$", () -> {
-            new WebDriverWait(getDriver(), TIME_OUT_SECONDS_NORMAL).until(
+            new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                     webDriver -> webDriver.getCurrentUrl().equals(projectPage.getProjectUrl()));
             Assert.assertEquals(projectPage.getProjectUrl(), driver.getCurrentUrl());
         });

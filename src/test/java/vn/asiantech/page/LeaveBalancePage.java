@@ -7,19 +7,16 @@ import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 import vn.asiantech.base.Constant;
 
-import static vn.asiantech.base.DriverBase.TIME_OUT_SECONDS_NORMAL;
-
 /**
  * @author at-vinhhuynh
  */
 public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
 
-    @FindBy(css = "label.ui-multiselect-label.ui-corner-all")
+    @FindBy(className = "ui-multiselect-label")
     private WebElement allTeamsView;
 
-    @FindBy(css = "div.ui-multiselect-panel.ui-widget.ui-widget-content.ui-corner-all.ui-shadow")
+    @FindBy(className = "ui-multiselect-panel")
     private WebElement filterElement;
-
 
     @FindBy(css = "tbody.ui-datatable-data.ui-widget-content")
     private WebElement leaveBalanceList;
@@ -34,7 +31,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     private WebElement elementYearContainer;
 
     @FindBy(css = "span.ui-paginator-pages")
-    private WebElement pageinatorElement;
+    private WebElement pagePaginatorElement;
 
     private String currentProfileUrl;
 
@@ -53,22 +50,23 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     }
 
     public final LeaveBalancePage openFilter() {
-        waitForElementDisplay(driver, allTeamsView, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, allTeamsView, Constant.DEFAULT_TIME_OUT);
         allTeamsView.click();
         return this;
     }
 
     public final boolean filterElementDisplayed() {
+        waitForElementDisplay(driver, filterElement, Constant.DEFAULT_TIME_OUT);
         return filterElement.isDisplayed();
     }
 
     public final int getLeaveBalanceListCount() {
-        waitForElementDisplay(driver, leaveBalanceList, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, leaveBalanceList, Constant.DEFAULT_TIME_OUT);
         return leaveBalanceList.findElements(By.tagName("tr")).size();
     }
 
     public final LeaveBalancePage avatarClick() {
-        waitForElementDisplay(driver, leaveBalanceList, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, leaveBalanceList, Constant.DEFAULT_TIME_OUT);
 
         WebElement imgAvatar = leaveBalanceList.findElements(By.tagName("tr")).get(0)
                 .findElements(By.cssSelector("td.col-major.has-avatar.ng-star-inserted"))
@@ -84,7 +82,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     }
 
     public final LeaveBalancePage userNameClick() {
-        waitForElementDisplay(driver, leaveBalanceList, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, leaveBalanceList, Constant.DEFAULT_TIME_OUT);
 
         WebElement tvUserName = leaveBalanceList.findElements(By.tagName("tr")).get(0)
                 .findElements(By.cssSelector("td.col-major.has-avatar.ng-star-inserted"))
@@ -100,7 +98,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     }
 
     public final LeaveBalancePage sysIdClick() {
-        waitForElementDisplay(driver, leaveBalanceList, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, leaveBalanceList, Constant.DEFAULT_TIME_OUT);
 
         WebElement tvSysId = leaveBalanceList.findElements(By.tagName("tr")).get(0)
                 .findElements(By.cssSelector("td.col-60.ng-star-inserted"))
@@ -126,7 +124,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     }
 
     public final LeaveBalancePage openLeaveHistory() {
-        waitForElementDisplay(driver, leaveBalanceList, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, leaveBalanceList, Constant.DEFAULT_TIME_OUT);
         WebElement imgLeaveHistory = leaveBalanceList.findElements(By.tagName("tr")).get(0)
                 .findElements(By.cssSelector("td.col-action.text-right.ng-star-inserted"))
                 .get(0).findElement(By.tagName("a"));
@@ -145,7 +143,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     }
 
     public final LeaveBalancePage searchWithKey(final String key) {
-        waitForElementDisplay(driver, inputViewSearchEmpty, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, inputViewSearchEmpty, Constant.DEFAULT_TIME_OUT);
         inputViewSearchEmpty.sendKeys(key);
         return this;
     }
@@ -160,7 +158,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     }
 
     public final LeaveBalancePage filterItemClick(final int position) {
-        WebElement filterList = filterElement.findElement(By.cssSelector("ul.ui-multiselect-items.ui-multiselect-list.ui-widget-content.ui-widget.ui-corner-all.ui-helper-reset"));
+        WebElement filterList = filterElement.findElement(By.className("ui-multiselect-list"));
         filterList.findElements(By.tagName("li")).get(position).click();
         return this;
     }
@@ -170,21 +168,21 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     }
 
     public final String getYear() {
-        waitForElementDisplay(driver, elementYearContainer, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, elementYearContainer, Constant.DEFAULT_TIME_OUT);
         WebElement tvYear = elementYearContainer.findElement(By.cssSelector("span.content"));
         return tvYear.getText();
     }
 
     public final LeaveBalancePage previous() {
-        waitForElementDisplay(driver, elementYearContainer, TIME_OUT_SECONDS_NORMAL);
+        waitForElementDisplay(driver, elementYearContainer, Constant.DEFAULT_TIME_OUT);
         WebElement btnPrevious = elementYearContainer.findElement(By.cssSelector("button.btn.control-item.prev"));
         btnPrevious.click();
         return this;
     }
 
     public final LeaveBalancePage gotoPage(final int page) {
-        waitForElementDisplay(driver, pageinatorElement, TIME_OUT_SECONDS_NORMAL);
-        pageinatorElement.findElements(By.tagName("a")).get(page).click();
+        waitForElementDisplay(driver, pagePaginatorElement, Constant.DEFAULT_TIME_OUT);
+        pagePaginatorElement.findElements(By.tagName("a")).get(page).click();
         return this;
     }
 }
