@@ -317,7 +317,6 @@ public class MenuPage extends BasePage<MenuPage> {
     public final void clickItemCareer() {
         WebElement itemCareer = getItemMenuInPosition(MENU_CAREER_POS);
         if (!itemCareer.findElement(By.tagName("ul")).isDisplayed()) {
-            System.out.print("zo");
             itemCareer.click();
         }
     }
