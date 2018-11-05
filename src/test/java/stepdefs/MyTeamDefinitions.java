@@ -34,7 +34,7 @@ public class MyTeamDefinitions extends DriverBase implements En {
 
         Then("^The member of Android team is displayed$", () -> Assert.assertEquals(TEAM_MEMBER_COUNT, myTeamPage.checkNumberofTeam(driver)));
 
-        And("^The \"([^\"]*)\" value is \"([^\"]*)\"$", (String key, String value) -> myTeamPage.verifyMyTeamInfo(driver,key,value));
+        And("^The \"([^\"]*)\" value is \"([^\"]*)\"$", (String key, String value) -> myTeamPage.verifyMyTeamInfo(driver, key, value));
 
         When("^I click on 'Update Team' button$", () -> {
             myTeamPage.clickUpdateTeamBtn(driver);

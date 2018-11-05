@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,7 +47,7 @@ public class DriverBase {
 
     public static void closeDriverObjects() {
         for (DriverFactory driverFactory : webDriverThreadPool) {
-//            driverFactory.quitDriver();
+            driverFactory.quitDriver();
         }
     }
 

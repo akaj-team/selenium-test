@@ -83,6 +83,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     private String textAddUser = "";
     private String textSearch = "";
     private String emptyMsg = "No records found";
+    private static final int ID_DELETE_COLUMN = 6;
 
     public MyTeamPage() {
     }
@@ -98,7 +99,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         return tr.size();
     }
 
-    public final void verifyMyTeamInfo(final WebDriver driver, String key, String value) {
+    public final void verifyMyTeamInfo(final WebDriver driver, final String key, final String value) {
         WebElement dt = driver.findElement(By.xpath("//dt[contains(text(), '" + key + "')]"));
         WebElement dd = dt.findElement(By.xpath("following-sibling::dd"));
         WebElement span = dd.findElement(By.tagName("span"));
@@ -216,7 +217,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         List<WebElement> tr = lstMember.findElements(By.tagName("tr"));
         for (WebElement i : tr
         ) {
-            if (n != "0") {
+            if (!n.equals("0")) {
                 WebElement userName = i.findElements(By.tagName("td")).get(0)
                         .findElement(By.cssSelector("span[class=\"info-grouping-text truncate\"]"))
                         .findElement(By.tagName("Strong"));
@@ -224,12 +225,11 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
                 if (userName.getText().toLowerCase().contains(textSearch.toLowerCase())) {
                     k++;
                 }
-            }
-            else {
+            } else {
                 WebElement msg = i.findElements(By.tagName("td")).get(0)
                         .findElement(By.tagName("span"));
                 waitForElement(driver, msg);
-                Assert.assertEquals(msg.getText(),emptyMsg);
+                Assert.assertEquals(msg.getText(), emptyMsg);
                 break;
             }
         }
@@ -308,7 +308,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         List<WebElement> tr = lstMember.findElements(By.tagName("tr"));
         for (WebElement i : tr
         ) {
-            WebElement btnDelete = i.findElements(By.tagName("td")).get(6)
+            WebElement btnDelete = i.findElements(By.tagName("td")).get(ID_DELETE_COLUMN)
                     .findElement(By.cssSelector("span[class=\"ui-cell-data ng-star-inserted\"]"))
                     .findElement(By.tagName("button"));
             waitForElement(driver, btnDelete);
