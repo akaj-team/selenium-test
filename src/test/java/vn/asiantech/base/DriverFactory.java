@@ -4,8 +4,10 @@ import org.openqa.selenium.Platform;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
 import static vn.asiantech.base.DriverType.CHROME;
