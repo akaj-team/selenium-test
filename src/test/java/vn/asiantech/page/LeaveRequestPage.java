@@ -30,7 +30,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     @FindBy(css = ".ui-dropdown-trigger.ui-state-default.ui-corner-right")
     private WebElement inputTypeOfLeave;
 
-    @FindBy(css = ".input-daterange.input-group")
+    @FindBy(css = ".input-daterange.xinput-group")
     private WebElement inputDateRange;
 
     @FindBy(xpath = "//table[contains(@class,'ui-datepicker-calendar')]")
@@ -67,7 +67,6 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     @Override
 
     public final LeaveRequestPage navigateTo(final WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn/leave/request");
         return this;
     }
 
