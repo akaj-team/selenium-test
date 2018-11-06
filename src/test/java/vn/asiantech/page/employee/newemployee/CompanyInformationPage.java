@@ -122,7 +122,6 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
         dropDownLineManager.click();
     }
 
-
     public final boolean chooseLineManager() {
         WebElement lineManagerName = dropDownLineManager.findElements(By.tagName("li")).get(0);
         String managerSelected = lineManagerName.findElement(By.tagName("span")).getText();

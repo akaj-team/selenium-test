@@ -15,8 +15,8 @@ public class CompanyInformationDefinitions extends DriverBase implements En {
     private WebDriver driver;
     private PersonalInformationPage personalInformationPage;
     private CompanyInformationPage companyInformationPage;
-    private boolean isPositionSelected = false;
-    private boolean isManagerSelected = false;
+    private boolean isPositionSelected;
+    private boolean isManagerSelected;
 
     public CompanyInformationDefinitions() {
         try {
