@@ -107,7 +107,7 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
         return startDate != null && endDate != null && startDate.compareTo(endDate) > 0;
     }
 
-    public final boolean checkShowErrorMessage(final String message, WebDriver driver) {
+    public final boolean checkShowErrorMessage(final String message, final WebDriver driver) {
         WebElement errorMessage = mainBody.findElement(By.tagName("app-error")).findElement(By.cssSelector(".app-alert.ng-star-inserted"));
         waitForElement(driver, errorMessage);
         return errorMessage.getText().trim().contains(message);
