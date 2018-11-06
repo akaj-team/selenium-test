@@ -78,8 +78,7 @@ public class PortalLoginDefinitions extends DriverBase implements En {
 
     private String getEmail() {
         String email;
-        System.out.print("valueBrowserName: " + getDriver().getCapabilities().getBrowserName());
-        switch (getDriver().getCapabilities().getBrowserName()) {
+        switch (getDriver().getCapabilities().getBrowserName().toLowerCase()) {
             case Constant.BROWSER_CHROME:
                 email = "stg.tien.hoang@asiantech.vn";
                 break;

@@ -17,7 +17,6 @@
         <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
         <!--Configuration Properties-->
         <browser>chrome</browser>
-        <threads>2</threads>
         <remote>false</remote>
         <headless>true</headless>
     </properties>
@@ -127,7 +126,7 @@
                         <version>2.22.0</version>
                         <configuration>
                             <testFailureIgnore>true</testFailureIgnore>
-                            <forkCount>2</forkCount>
+                            <forkCount>3</forkCount>
                             <reuseForks>true</reuseForks>
                             <suiteXmlFiles>
                                 <suiteXmlFile>src/test/resources/TestSuite.xml</suiteXmlFile>

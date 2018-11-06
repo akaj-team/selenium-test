@@ -34,7 +34,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
 
     private Account getAccount() {
         Account account;
-        switch (getDriver().getCapabilities().getBrowserName()) {
+        switch (getDriver().getCapabilities().getBrowserName().toLowerCase()) {
             case Constant.BROWSER_CHROME:
                 account = new Account("stg.tien.hoang@asiantech.vn", "Abc123@@");
                 break;
