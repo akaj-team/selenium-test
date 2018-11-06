@@ -7,8 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
-import java.util.List;
-
 /**
  * @author at-anh.quach
  * AwardCategoryPage
@@ -43,27 +41,15 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     @FindBy(id = "award-dialog-wrapper")
     private WebElement dialog;
 
+    @FindBy(xpath = "//div[contains(@class,'alert-success')]")
+    private WebElement alertSuccess;
+
+    @FindBy(tagName = "app-error")
+    private WebElement appError;
+
     @Override
     public final AwardCategoryPage navigateTo(final WebDriver webDriver) {
         return null;
-    }
-
-    public final int getCountLine() {
-        return (tbCategory.findElements(By.tagName("tr")).size());
-    }
-
-    public final boolean checkAddLine(final int count) {
-        return getCountLine() < count+1;
-    }
-
-    public final boolean isNameExist(final String name) {
-        List<WebElement> list = tbCategory.findElements(By.tagName("tr"));
-        for (WebElement aList : list) {
-            if (name.equals(aList.findElements(By.tagName("td")).get(0).getText())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public final void clickNewAward() {
@@ -85,7 +71,7 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
 
     public final void enterDescription() {
         txaDescription.click();
-        txaDescription.sendKeys("Fast Retailing");
+        txaDescription.sendKeys("em khong the");
     }
 
     public final void clickCloseDialog() {
@@ -100,18 +86,10 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
         btnSubmit.click();
     }
 
-    public final boolean isDescriptionEmpty(final Integer count) {
-        return tbCategory.findElements(By.tagName("tr")).get(count - 2).findElements(By.tagName("td")).get(POS_CATEGORY).getText().equals("Empty");
-    }
-
-    public final void clearText(final String type) {
-        if (type.equals("name")) {
-            inputName.clear();
-            inputName.sendKeys("h");
-            inputName.sendKeys(Keys.BACK_SPACE);
-        } else {
-            txaDescription.clear();
-        }
+    public final void clearText() {
+        inputName.clear();
+        inputName.sendKeys("h");
+        inputName.sendKeys(Keys.BACK_SPACE);
     }
 
     public final boolean isShowError() {
@@ -120,5 +98,13 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
 
     public final void clickCancelButton() {
         btnCancel.click();
+    }
+
+    public final boolean isDisplayAlertSuccess() {
+        return appError.findElement(By.xpath("//div[contains(@class,'alert-success')]")).isDisplayed();
+    }
+
+    public final boolean isDisplayAlertDanger() {
+        return appError.findElement(By.cssSelector(".alert.alert-danger.alert-dismissible")).isDisplayed();
     }
 }

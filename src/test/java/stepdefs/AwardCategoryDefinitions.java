@@ -20,7 +20,6 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
     private AwardCategoryPage awardCategoryPage;
     private WebDriver driver;
-    private int countCurrentLine = 0;
 
     public AwardCategoryDefinitions() {
         try {
@@ -32,8 +31,6 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
         And("^Award Category page displayed$", this::displayPage);
 
-        When("^Check count line in table", () -> this.setCountCurrentLine(awardCategoryPage.getCountLine()));
-
         When("^I click new award button$", () -> awardCategoryPage.clickNewAward());
 
         Then("^Show dialog new award$", () -> Assert.assertTrue(awardCategoryPage.isDisplayDialog()));
@@ -44,7 +41,7 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
         Given("^New dialog is showed$", () -> awardCategoryPage.clickNewAward());
 
-        When("^I input name on Name box$", () -> awardCategoryPage.enterName("Best project" + countCurrentLine));
+        When("^I input name on Name box$", () -> awardCategoryPage.enterName("Best project" + System.currentTimeMillis()));
 
         Then("^Submit change from disable to enable$", () -> Assert.assertTrue(awardCategoryPage.isEnableSubmitButton()));
 
@@ -55,17 +52,13 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
         When("^I click submit button$", () -> awardCategoryPage.clickSubmit());
 
-        Then("^Table add one line$", () -> Assert.assertTrue(awardCategoryPage.checkAddLine(countCurrentLine)));
-
-        And("^With description empty$", () -> Assert.assertTrue(awardCategoryPage.isDescriptionEmpty(countCurrentLine)));
-
         When("^I enter description$", () -> awardCategoryPage.enterDescription());
 
         Given("^Dialog edit is showed$", () -> {
             Assert.assertTrue(awardCategoryPage.isDisplayDialog());
         });
 
-        When("^I clear name box$", () -> awardCategoryPage.clearText("name"));
+        When("^I clear name box$", () -> awardCategoryPage.clearText());
 
         Then("^Display message \"([^\"]*)\"$", (String message) -> Assert.assertTrue(awardCategoryPage.isShowError()));
 
@@ -73,13 +66,15 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
         But("^I click close button$", () -> awardCategoryPage.clickCloseDialog());
 
-        Then("^No line is added to table$", () -> Assert.assertTrue(awardCategoryPage.checkAddLine(countCurrentLine)));
-
         And("^Disappear dialog$", () -> Assert.assertFalse(awardCategoryPage.isDisplayDialog()));
 
         When("^I click cancel button$", () -> awardCategoryPage.clickCancelButton());
 
-        Then("^Check name was exist$", () -> Assert.assertTrue(awardCategoryPage.isNameExist("Best project")));
+        Then("^Alert category has been created show$", () -> Assert.assertTrue(awardCategoryPage.isDisplayAlertSuccess()));
+
+        When("^I input name was exist on Name box$", () -> awardCategoryPage.enterName("Best project"));
+
+        Then("^Alert danger show$", () -> Assert.assertTrue(awardCategoryPage.isDisplayAlertDanger()));
     }
 
     private void displayPage() {
@@ -88,9 +83,5 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         new WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
         Assert.assertEquals("http://portal-stg.asiantech.vn" + "/admin/award-category", driver.getCurrentUrl());
-    }
-
-    private void setCountCurrentLine(int count) {
-        this.countCurrentLine = count;
     }
 }
