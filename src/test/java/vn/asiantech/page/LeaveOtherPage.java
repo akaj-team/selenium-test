@@ -35,7 +35,6 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
     private WebElement btnLast;
 
     private static final String FORMAT_SLASH_MARK = "MMM dd, yyyy";
-    private static final int TIME_WAIT = 10;
     private static final int TIME_SLEEP = 300; // millisecond
     private static final int TIME_SLEEP_CLICK = 1000; // millisecond
 
@@ -108,9 +107,10 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
         return startDate != null && endDate != null && startDate.compareTo(endDate) > 0;
     }
 
-    public final boolean checkShowErrorMessage(final String message) {
+    public final boolean checkShowErrorMessage(final String message, WebDriver driver) {
         WebElement errorMessage = mainBody.findElement(By.tagName("app-error")).findElement(By.cssSelector(".app-alert.ng-star-inserted"));
-        return errorMessage.isDisplayed() && errorMessage.getText().trim().contains(message);
+        waitForElement(driver, errorMessage);
+        return errorMessage.getText().trim().contains(message);
     }
 
     public final boolean checkDataEmpty() {
