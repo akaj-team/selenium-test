@@ -1,10 +1,10 @@
 @TimeSheetOthers
-Feature: I want to see timesheet of others members
+Feature: I want to see timeSheet of others members
   As a manager I want to tracking status timeSheet of members
   I want to approve or reject members timeSheet
 
-  Background: User navigates to timesheet of others page
-    Given I am logged in as an android team manager
+  Background: User navigates to timeSheet of others page
+    Given I am logged in as a team manager
     Given I move to timeSheet of others page
 
   Scenario: Title timesheet of others is display
@@ -26,8 +26,8 @@ Feature: I want to see timesheet of others members
     Then I see checkbox "Pending" is selected
     And I see dropdown status change to "Pending"
 
-  Scenario: Check subordinator dropdown
-    Then I see dropdown subordinator with "All Subordinator" is default value
+  Scenario: Check Subordinator dropdown
+    Then I see dropdown Subordinator with "All Subordinator" is default value
 
   Scenario: Check status button this week
     When I click on pre button

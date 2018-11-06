@@ -24,7 +24,7 @@ public class DriverFactory {
     private RemoteWebDriver driver;
     private DriverType selectedDriverType;
 
-    public DriverFactory() {
+    DriverFactory() {
         DriverType driverType = CHROME;
         String browser = System.getProperty("browser", driverType.toString()).toUpperCase();
         try {
@@ -48,11 +48,11 @@ public class DriverFactory {
         return driver;
     }
 
-    public RemoteWebDriver getStoredDriver() {
+    RemoteWebDriver getStoredDriver() {
         return driver;
     }
 
-    public void quitDriver() {
+    void quitDriver() {
         if (null != driver) {
             driver.quit();
             driver = null;

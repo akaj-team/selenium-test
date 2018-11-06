@@ -1,6 +1,5 @@
 package vn.asiantech.page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -40,98 +39,98 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
 
 
     @Override
-    public TimeSheetOthers navigateTo(WebDriver webDriver) {
+    public final TimeSheetOthers navigateTo(final WebDriver webDriver) {
         webDriver.get("http://portal-stg.asiantech.vn/timesheet/approval");
         return this;
     }
 
-    public WebElement getThisWeekButton(WebDriver driver) {
-        waitForListElement(driver, btnThisWeek, 10);
+    public final WebElement getThisWeekButton(final WebDriver driver) {
+        waitForListElement(driver, btnThisWeek);
         return btnThisWeek.get(0);
     }
 
-    public WebElement getNextButton(WebDriver driver) {
-        waitForElement(driver, btnNext, 10);
+    public final WebElement getNextButton(final WebDriver driver) {
+        waitForElement(driver, btnNext);
         return btnNext;
     }
 
-    public WebElement getPreButton(WebDriver driver) {
-        waitForElement(driver, btnBack, 10);
+    public final WebElement getPreButton(final WebDriver driver) {
+        waitForElement(driver, btnBack);
         return btnBack;
     }
 
-    public WebElement getDefaultGroupBy(WebDriver driver) {
-        waitForElement(driver, defaultGroupBy, 10);
+    public final WebElement getDefaultGroupBy(final WebDriver driver) {
+        waitForElement(driver, defaultGroupBy);
         return defaultGroupBy;
     }
 
-    public WebElement getDropDownStatus(WebDriver driver) {
-        waitForElement(driver, dropDownStatus, 10);
+    public final WebElement getDropDownStatus(final WebDriver driver) {
+        waitForElement(driver, dropDownStatus);
         return dropDownStatus;
     }
 
-    public TimeSheetOthers clickThisWeek() {
+    public final TimeSheetOthers clickThisWeek() {
         btnThisWeek.get(0).click();
         return this;
     }
 
-    public TimeSheetOthers clickNext() {
+    public final TimeSheetOthers clickNext() {
         btnNext.click();
         return this;
     }
 
-    public TimeSheetOthers clickPre() {
+    public final TimeSheetOthers clickPre() {
         btnBack.click();
         return this;
     }
 
-    public WebElement getSelectedTab(WebDriver driver) {
-        waitForElement(driver, selectedTab, 10);
+    public final WebElement getSelectedTab(final WebDriver driver) {
+        waitForElement(driver, selectedTab);
         return selectedTab;
     }
 
-    public WebElement getLabelSubmitted(WebDriver driver) {
-        waitForElement(driver, labelSubmitted, 10);
+    public final WebElement getLabelSubmitted(final WebDriver driver) {
+        waitForElement(driver, labelSubmitted);
         return labelSubmitted;
     }
 
-    public WebElement getDropDownSubordinator(WebDriver driver) {
-        waitForElement(driver, dropDownSubordinator, 10);
+    public final WebElement getDropDownSubordinator(final WebDriver driver) {
+        waitForElement(driver, dropDownSubordinator);
         return dropDownSubordinator;
     }
 
-    public WebElement getLabelApproved(WebDriver driver) {
-        waitForElement(driver, labelApproved, 10);
+    public final WebElement getLabelApproved(final WebDriver driver) {
+        waitForElement(driver, labelApproved);
         return labelApproved;
     }
 
-    public WebElement getLabelRejected(WebDriver driver) {
-        waitForElement(driver, labelRejected, 10);
+    public final WebElement getLabelRejected(final WebDriver driver) {
+        waitForElement(driver, labelRejected);
         return labelRejected;
     }
 
-    public WebElement getTimeSheetTile(WebDriver driver) {
-        waitForElement(driver, timeSheetTile, 10);
+    public final WebElement getTimeSheetTile(final WebDriver driver) {
+        waitForElement(driver, timeSheetTile);
         return timeSheetTile;
     }
 
-    public List<WebElement> getListStatus(WebDriver driver) {
-        waitForListElement(driver, listStatus, 10);
+    public final List<WebElement> getListStatus(final WebDriver driver) {
+        waitForListElement(driver, listStatus);
         return listStatus;
     }
 
-    public WebElement getTabNotSelected(WebDriver driver) {
-        waitForElement(driver, tabNotSelected, 10);
+    public final WebElement getTabNotSelected(final WebDriver driver) {
+        waitForElement(driver, tabNotSelected);
         return tabNotSelected;
     }
 
-    public WebElement findCheckboxPending(WebDriver driver) {
-        waitForListElement(driver, listStatus, 10);
+    public final WebElement findCheckboxPending(final WebDriver driver) {
+        waitForListElement(driver, listStatus);
         return listStatus.get(0);
     }
 
-    public List<WebElement> getListCheckBox(WebDriver driver) {
-        waitForListElement(driver, listCheckBox, 10);
+    public final List<WebElement> getListCheckBox(final WebDriver driver) {
+        waitForListElement(driver, listCheckBox);
         return listCheckBox;
     }
 }
