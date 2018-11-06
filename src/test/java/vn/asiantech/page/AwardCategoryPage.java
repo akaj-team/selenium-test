@@ -41,9 +41,6 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     @FindBy(id = "award-dialog-wrapper")
     private WebElement dialog;
 
-    @FindBy(xpath = "//div[contains(@class,'alert-success')]")
-    private WebElement alertSuccess;
-
     @FindBy(tagName = "app-error")
     private WebElement appError;
 
