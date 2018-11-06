@@ -25,11 +25,11 @@ public class PersonalInformationDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
 
-        personalInformationPage = initPage(getDriver(), PersonalInformationPage.class);
+        personalInformationPage = initPage(driver, PersonalInformationPage.class);
 
         Given("^Display new employee page$", () -> {
             driver.get(NEW_EMPLOYEE_PAGE_URL);
-            waitForPageDisplayed(getDriver(), NEW_EMPLOYEE_PAGE_URL, By.id("employee-form-wrapper"));
+            waitForPageDisplayed(driver, NEW_EMPLOYEE_PAGE_URL, By.id("employee-form-wrapper"));
         });
 
         Then("^Personal information tab is active$", () -> Assert.assertTrue(personalInformationPage.isPersonalInformation()));
