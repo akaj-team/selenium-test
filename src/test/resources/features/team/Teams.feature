@@ -4,7 +4,7 @@ Feature: Check teams page
   Check view displayed, fill search and click on button in teams page
 
   Background: User navigates to Company teams page
-    Given I am logged in as an "EM"
+    Given I am logged in as a team manager
     And I am stayed in teams page
 
   Scenario Outline: Search teams with result is list team
