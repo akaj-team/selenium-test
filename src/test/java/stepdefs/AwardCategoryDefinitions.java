@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.AwardCategoryPage;
 
@@ -16,7 +17,7 @@ import vn.asiantech.page.AwardCategoryPage;
  */
 
 public class AwardCategoryDefinitions extends DriverBase implements En {
-    private static final int TIMEOUT_IN_SECONDS = 5;
+    private static final int TIMEOUT_IN_SECONDS = 10;
 
     private AwardCategoryPage awardCategoryPage;
     private WebDriver driver;
@@ -54,9 +55,7 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
         When("^I enter description$", () -> awardCategoryPage.enterDescription());
 
-        Given("^Dialog edit is showed$", () -> {
-            Assert.assertTrue(awardCategoryPage.isDisplayDialog());
-        });
+        Given("^Dialog edit is showed$", () -> Assert.assertTrue(awardCategoryPage.isDisplayDialog()));
 
         When("^I clear name box$", () -> awardCategoryPage.clearText());
 
@@ -78,10 +77,10 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
     }
 
     private void displayPage() {
-        driver.get("http://portal-stg.asiantech.vn" + "/admin/award-category");
+        driver.get(Constant.AWARD_CATEGORY_PAGE_URL);
         new WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         new WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-        Assert.assertEquals("http://portal-stg.asiantech.vn" + "/admin/award-category", driver.getCurrentUrl());
+        Assert.assertEquals(Constant.AWARD_CATEGORY_PAGE_URL, driver.getCurrentUrl());
     }
 }

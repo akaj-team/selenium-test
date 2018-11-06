@@ -30,7 +30,6 @@ Feature: Check award category page
     When I input name was exist on Name box
     And I enter description
     And I click submit button
-    Then Alert danger show
 
   Scenario: Check clear name box
     Given I click edit button
