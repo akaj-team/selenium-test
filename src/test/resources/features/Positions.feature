@@ -4,7 +4,7 @@ Feature: See, create, edit, search position
   I want to check display and edit position of members
 
   Background: User navigates to leave planner page
-    Given I am logged in as a "SQCE"
+    Given I am logged in as a team manager
     And Display "/organisation/positions" page
 
   Scenario:  I see title is display
@@ -36,7 +36,6 @@ Feature: See, create, edit, search position
   Scenario Outline: Check search position function
     When I write "<text>" and press enter on search field
     Then The table show positions with long name are contains "<text>" value
-
     Examples:
       | text    |
       | manager |

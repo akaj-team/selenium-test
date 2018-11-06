@@ -8,13 +8,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.PositionsPage;
 
 import java.util.List;
 import java.util.regex.Pattern;
-
-import static vn.asiantech.page.PositionsPage.TIME_OUT_SECOND;
 
 /**
  * @author at-trungnguyen
@@ -35,40 +34,34 @@ public class PositionsDefinitions extends DriverBase implements En {
         And("^Display \"([^\"]*)\" page$", (String arg0) -> {
             driver.get("http://portal-stg.asiantech.vn" + arg0);
             positionsPage = initPage(getDriver(), PositionsPage.class);
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
+            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
             Assert.assertEquals("http://portal-stg.asiantech.vn" + arg0, driver.getCurrentUrl());
         });
 
-        Then("^I see header title \"([^\"]*)\" is display$", (String arg0) -> {
-            Assert.assertEquals(positionsPage.getTitle(driver).getText(), arg0);
-        });
+        Then("^I see header title \"([^\"]*)\" is display$", (String arg0) -> Assert.assertEquals(positionsPage.getTitle(driver), arg0));
 
         Then("^I see button new position and career path is display$", () -> {
             Assert.assertTrue(positionsPage.getBtnCareerPath(driver).isDisplayed());
             Assert.assertTrue(positionsPage.getBtnCareerPath(driver).isDisplayed());
         });
 
-        When("^I click on new position button$", () -> {
-            positionsPage.getBtnNewPosition(driver).click();
-        });
+        When("^I click on new position button$", () -> positionsPage.getBtnNewPosition(driver).click());
 
         Then("^I move to new position page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-submit")));
+            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-submit")));
             Assert.assertEquals(driver.getCurrentUrl(), "http://portal-stg.asiantech.vn/organisation/positions/new");
         });
 
-        When("^I click on career path button$", () -> {
-            positionsPage.getBtnCareerPath(driver).click();
-        });
+        When("^I click on career path button$", () -> positionsPage.getBtnCareerPath(driver).click());
 
         Then("^I move to career path page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("panel-heading")));
+            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.className("panel-heading")));
             Assert.assertEquals(driver.getCurrentUrl(), "http://portal-stg.asiantech.vn/organisation/positions/tree");
         });
 
@@ -80,9 +73,9 @@ public class PositionsDefinitions extends DriverBase implements En {
         });
 
         Then("^I move to position detail page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
+            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
             Assert.assertEquals(driver.getCurrentUrl(), positionsPage.getUrlOfCell());
         });
 
@@ -94,9 +87,9 @@ public class PositionsDefinitions extends DriverBase implements En {
         });
 
         Then("^I move to update position page$", () -> {
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(
+            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_SECOND).until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-submit")));
+            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-submit")));
             Assert.assertEquals(driver.getCurrentUrl(), positionsPage.getUpdatePositionUrl());
         });
 
@@ -107,12 +100,11 @@ public class PositionsDefinitions extends DriverBase implements En {
             }
         });
 
-        Then("^I see dialog confirm delete position is display$", () -> {
-            Assert.assertTrue(positionsPage.isDialogConfirmDeleteDisplay(driver));
-        });
+        Then("^I see dialog confirm delete position is display$", () -> Assert.assertTrue(positionsPage.isDialogConfirmDeleteDisplay(driver)));
 
         When("^I write \"([^\"]*)\" and press enter on search field$", (String arg0) -> {
             positionsPage.searchPosition(driver, arg0);
+            waitVisibilityOfElement(driver, By.cssSelector(".ui-widget-content.ng-star-inserted"));
         });
 
         Then("^The table show positions with long name are contains \"([^\"]*)\" value$", (String arg0) -> {

@@ -15,8 +15,6 @@ import java.util.List;
  */
 public class PositionsPage extends BasePage<PositionsPage> {
 
-    public static final int TIME_OUT_SECOND = 10;
-
     @FindBy(tagName = "h2")
     private WebElement title;
     @FindBy(className = "btn-add")
@@ -32,7 +30,6 @@ public class PositionsPage extends BasePage<PositionsPage> {
     private String positionDetailUrl;
     private String updatePositionUrl;
 
-
     @Override
     public final PositionsPage navigateTo(final WebDriver webDriver) {
         webDriver.get("http://portal-stg.asiantech.vn/organisation/positions");
@@ -43,34 +40,34 @@ public class PositionsPage extends BasePage<PositionsPage> {
         return positionDetailUrl;
     }
 
-    public final WebElement getTitle(final WebDriver driver) {
-        waitForElement(driver, title, TIME_OUT_SECOND);
-        return title;
+    public final String getTitle(final WebDriver driver) {
+        waitForElement(driver, title);
+        return title.getText();
     }
 
     public final WebElement getBtnNewPosition(final WebDriver driver) {
-        waitForElement(driver, btnNewPosition, TIME_OUT_SECOND);
+        waitForElement(driver, btnNewPosition);
         return btnNewPosition;
     }
 
     public final WebElement getBtnCareerPath(final WebDriver driver) {
-        waitForElement(driver, btnCareerPath, TIME_OUT_SECOND);
+        waitForElement(driver, btnCareerPath);
         return btnCareerPath;
     }
 
     public final WebElement getSearchBox(final WebDriver driver) {
-        waitForElement(driver, searchBox, TIME_OUT_SECOND);
+        waitForElement(driver, searchBox);
         return searchBox;
     }
 
     public final void searchPosition(final WebDriver driver, final String text) {
-        waitForElement(driver, searchBox, TIME_OUT_SECOND);
+        waitForElement(driver, searchBox);
         searchBox.sendKeys(text);
         searchBox.sendKeys(Keys.RETURN);
     }
 
     private WebElement getDataTable(final WebDriver driver) {
-        waitForElement(driver, dataTable, TIME_OUT_SECOND);
+        waitForElement(driver, dataTable);
         return dataTable;
     }
 
@@ -150,7 +147,7 @@ public class PositionsPage extends BasePage<PositionsPage> {
     }
 
     private WebElement getDialogConfirmDelete(final WebDriver driver) {
-        waitForElement(driver, dialogConfirmDelete, TIME_OUT_SECOND);
+        waitForElement(driver, dialogConfirmDelete);
         return dialogConfirmDelete;
     }
 }

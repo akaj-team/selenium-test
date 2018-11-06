@@ -141,7 +141,7 @@
                         <executions>
                             <execution>
                                 <id>execution</id>
-                                <phase>verify</phase>
+                                <phase>test</phase>
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>
