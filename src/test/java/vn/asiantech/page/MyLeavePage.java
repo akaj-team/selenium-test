@@ -120,10 +120,6 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         return menuStatus.isDisplayed();
     }
 
-    public final boolean checkNoRecordsFound() {
-        return findDataLeave(POS_SYSID).getText().equals("No records found");
-    }
-
     public final void clickSYSID() {
         waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
         sysid = findDataLeave(POS_SYSID).getText();

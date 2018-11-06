@@ -7,12 +7,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.MyLeavePage;
 
 /**
  * @author at-anh.quach
- *
  */
 
 public class MyLeaveDefinitions extends DriverBase implements En {
@@ -98,10 +98,10 @@ public class MyLeaveDefinitions extends DriverBase implements En {
     }
 
     private void displayPage(final String path) {
-        driver.get("http://portal-stg.asiantech.vn" + path);
+        driver.get(Constant.PORTAL_URL + path);
         new WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         new WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-        Assert.assertEquals("http://portal-stg.asiantech.vn" + path, driver.getCurrentUrl());
+        Assert.assertEquals(Constant.PORTAL_URL + path, driver.getCurrentUrl());
     }
 }
