@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.WikiPage;
 
@@ -27,6 +28,8 @@ public class WikiDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        wikiPage = initPage(getDriver(), WikiPage.class);
 
         When("^I click on name author$", () -> wikiPage.clickAuthor());
 
@@ -62,11 +65,10 @@ public class WikiDefinitions extends DriverBase implements En {
     }
 
     private void displayPage(final String path) {
-        wikiPage = initPage(getDriver(), WikiPage.class);
-        driver.get("http://portal-stg.asiantech.vn" + path);
+        driver.get(Constant.PORTAL_URL + path);
         new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-        Assert.assertEquals("http://portal-stg.asiantech.vn" + path, driver.getCurrentUrl());
+        Assert.assertEquals(Constant.PORTAL_URL + path, driver.getCurrentUrl());
     }
 }
