@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.LeaveRequestPage;
 
@@ -29,11 +30,11 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
         }
 
         And("^Display leave request page$", () -> {
-            driver.get("http://portal-stg.asiantech.vn/leave/request");
+            driver.get(Constant.LEAVE_REQUEST_PAGE_URL);
             new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-            Assert.assertEquals("http://portal-stg.asiantech.vn/leave/request", driver.getCurrentUrl());
+            Assert.assertEquals(Constant.LEAVE_REQUEST_PAGE_URL, driver.getCurrentUrl());
         });
 
         And("^Marriage Leave is \"([^\"]*)\"$", (String number) -> Assert.assertTrue(leaveRequestPage.checkTextMarriageLeave(number)));
@@ -72,7 +73,7 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         Then("^Calendar timeTo display$", () -> Assert.assertTrue(leaveRequestPage.isCalendarShow("timeTo")));
 
-        And("^I choose all day on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseAllday()));
+        And("^I choose all day on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseAllDay()));
 
         And("^Check date is \"([^\"]*)\"$", (String date) -> Assert.assertTrue(leaveRequestPage.checkDateInDateRequest(0, date)));
 
@@ -82,7 +83,7 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         Given("^I chose type leave is \"([^\"]*)\"$", (String status) -> leaveRequestPage.setNonePaidInTypeOfLeave(status));
 
-        Given("^Enter full information$", () -> leaveRequestPage.enterFullInfor());
+        Given("^Enter full information$", () -> leaveRequestPage.enterFullInfo());
 
         When("^I click submit$", () -> leaveRequestPage.clickSubmit());
 

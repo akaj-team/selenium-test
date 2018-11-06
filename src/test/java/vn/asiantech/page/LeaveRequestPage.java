@@ -185,7 +185,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         return findRadioButtonDateRequest(POS_MORNING).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
     }
 
-    public final boolean chooseAllday() {
+    public final boolean chooseAllDay() {
         findRadioButtonDateRequest(POS_ALL_DAY).click();
         return findRadioButtonDateRequest(POS_ALL_DAY).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
     }
@@ -202,7 +202,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         rows.get(row).findElement(By.className("delete")).click();
     }
 
-    public final void enterFullInfor() {
+    public final void enterFullInfo() {
         setNonePaidInTypeOfLeave("None Paid");
         clickTimeFromBox();
         chooseTime("timeFrom");
@@ -220,7 +220,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final void showDialog() {
-        enterFullInfor();
+        enterFullInfo();
         clickSubmit();
     }
 
