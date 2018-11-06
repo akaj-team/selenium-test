@@ -40,7 +40,7 @@ public class CompanyInformationPage extends BasePage<CompanyInformationPage> {
     private WebElement dropDownPosition;
     private WebElement dropDownLineManager;
     private WebElement calendarForm;
-    private boolean isCheckBoxChecked = false;
+    private boolean isCheckBoxChecked;
 
     private WebDriver driver;
 
