@@ -155,11 +155,11 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final void displayLeaveDetailPage(final WebDriver driver) {
-        driver.get(Constant.My_LEAVE_PAGE_URL + sysid);
+        driver.get(Constant.MY_LEAVE_PAGE_URL + sysid);
         new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-        Assert.assertEquals(Constant.My_LEAVE_PAGE_URL + sysid, driver.getCurrentUrl());
+        Assert.assertEquals(Constant.MY_LEAVE_PAGE_URL + sysid, driver.getCurrentUrl());
     }
 
     private WebElement findDataLeave(final int col) {

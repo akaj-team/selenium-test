@@ -11,7 +11,9 @@ public final class Constant {
     public static final String NEW_TEAM_PAGE_URL = PORTAL_URL + "/organisation/teams/new";
     public static final String EMPLOYEE_PAGE_URL = PORTAL_URL + "/organisation/employees";
     public static final String LEAVE_PLANNER_PAGE_URL = PORTAL_URL + "/leave/planning";
-    public static final String My_LEAVE_PAGE_URL = PORTAL_URL + "/leave/";
+    public static final String MY_LEAVE_PAGE_URL = PORTAL_URL + "/leave/";
+    public static final String ACCESS_CONTROL_PAGE_URL = PORTAL_URL + "/admin/acl";
+
     public static final int DEFAULT_TIME_OUT = 10;
     static final int MAXIMUM_TIME_OUT = 20;
 
