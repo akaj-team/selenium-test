@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 import java.util.List;
 
@@ -154,11 +155,11 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final void displayLeaveDetailPage(final WebDriver driver) {
-        driver.get("http://portal-stg.asiantech.vn/leave/" + sysid);
+        driver.get(Constant.My_LEAVE_PAGE_URL + sysid);
         new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-        Assert.assertEquals("http://portal-stg.asiantech.vn/leave/" + sysid, driver.getCurrentUrl());
+        Assert.assertEquals(Constant.My_LEAVE_PAGE_URL + sysid, driver.getCurrentUrl());
     }
 
     private WebElement findDataLeave(final int col) {
