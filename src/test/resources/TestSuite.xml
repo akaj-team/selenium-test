@@ -2,21 +2,21 @@
 <suite name="Suite" parallel="tests" verbose="1" configfailurepolicy="continue" thread-count="3">
 
     <test name="FireFox Test">
-        <parameter name="browserType" value="firefox"/>
+        <parameter name="browserName" value="firefox"/>
         <classes>
             <class name="TestRunner"/>
         </classes>
     </test>
 
     <test name="Chrome Test">
-        <parameter name="browserType" value="chrome"/>
+        <parameter name="browserName" value="chrome"/>
         <classes>
             <class name="TestRunner"/>
         </classes>
     </test>
 
     <test name="Safari Test">
-        <parameter name="browserType" value="safari"/>
+        <parameter name="browserName" value="safari"/>
         <classes>
             <class name="TestRunner"/>
         </classes>

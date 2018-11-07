@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import vn.asiantech.object.Account;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,17 +23,21 @@ public class DriverBase {
     private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
     private static ThreadLocal<DriverFactory> driverFactoryThread = new ThreadLocal<>();
 
-    public static synchronized void instantiateDriverObject(String browserType) {
-        DriverFactory driverFactory = new DriverFactory(browserType);
+    static synchronized void instantiateDriverObject(final String browserName) {
+        DriverFactory driverFactory = new DriverFactory(browserName);
         webDriverThreadPool.add(driverFactory);
         driverFactoryThread.set(driverFactory);
     }
 
     public static synchronized RemoteWebDriver getDriver() {
-        if (driverFactoryThread == null) {
+        if (driverFactoryThread.get() == null) {
             instantiateDriverObject(Constant.BROWSER_CHROME);
         }
         return driverFactoryThread.get().getDriver();
+    }
+
+    protected Account getAccount() {
+        return driverFactoryThread.get().getAccountCanUse();
     }
 
     @AfterMethod(alwaysRun = true)

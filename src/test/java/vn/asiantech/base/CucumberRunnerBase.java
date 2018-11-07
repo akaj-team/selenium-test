@@ -14,9 +14,9 @@ public class CucumberRunnerBase extends AbstractTestNGCucumberTests {
     }
 
     @BeforeClass(alwaysRun = true)
-    @Parameters("browserType")
-    public void setUpClass(String browserType) {
-        DriverBase.instantiateDriverObject(browserType);
+    @Parameters("browserName")
+    public void setUpClass(final String browserName) {
+        DriverBase.instantiateDriverObject(browserName);
         testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
     }
 

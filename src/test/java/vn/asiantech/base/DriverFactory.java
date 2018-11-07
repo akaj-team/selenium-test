@@ -4,9 +4,12 @@ import org.openqa.selenium.Platform;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import vn.asiantech.object.Account;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
@@ -23,8 +26,27 @@ public class DriverFactory {
     private final String proxyDetails = String.format("%s:%d", proxyHostname, proxyPort);
     private RemoteWebDriver driver;
 
-    public DriverFactory(String browserType) {
-        DriverType driverType = getDriverType(browserType);
+    private static List<Integer> busyAccounts = new ArrayList<>();
+    private Account accountCanUse;
+
+    Account getAccountCanUse() {
+        return accountCanUse;
+    }
+
+    private void initSessionAccounts() {
+        for (Account account : Constant.accountLogin) {
+            if (!busyAccounts.contains(account.hashCode())) {
+                busyAccounts.add(account.hashCode());
+                accountCanUse = account;
+                System.out.println("Using first login account: " + account.email);
+                break;
+            }
+        }
+    }
+
+    DriverFactory(final String browserName) {
+        initSessionAccounts();
+        DriverType driverType = getDriverType(browserName);
         String browser = System.getProperty("browser", driverType.toString()).toUpperCase();
         try {
             driverType = DriverType.valueOf(browser);
@@ -68,7 +90,7 @@ public class DriverFactory {
         return driverType;
     }
 
-    public RemoteWebDriver getDriver() {
+    public final RemoteWebDriver getDriver() {
         return driver;
     }
 
@@ -78,12 +100,13 @@ public class DriverFactory {
 
     void quitDriver() {
         if (null != driver) {
+            busyAccounts.clear();
             driver.quit();
             driver = null;
         }
     }
 
-    private void instantiateWebDriver(DriverType driverType) throws MalformedURLException {
+    private void instantiateWebDriver(final DriverType driverType) throws MalformedURLException {
         //TODO add in a real logger instead of System.out
         System.out.println(" ");
         System.out.println("Local Operating System: " + operatingSystem);
