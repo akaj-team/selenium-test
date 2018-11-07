@@ -2,10 +2,7 @@ package stepdefs;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
@@ -28,7 +25,7 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        awardCategoryPage = initPage(getDriver(), AwardCategoryPage.class);
+        awardCategoryPage = initPage(driver, AwardCategoryPage.class);
 
         And("^Award Category page displayed$", this::displayPage);
 
@@ -74,13 +71,16 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
         When("^I input name was exist on Name box$", () -> awardCategoryPage.enterName("Best project"));
 
         Then("^Alert danger show$", () -> Assert.assertTrue(awardCategoryPage.isDisplayAlertDanger()));
+
+        When("^I click Delete button$", () -> awardCategoryPage.clickDeleteButton());
+
+        Then("^I click delete confirm button$", () -> awardCategoryPage.clickDeleteConfirm());
+
+        Then("^Alert delete success is showed$", () -> Assert.assertTrue(awardCategoryPage.isDisplayAlertDeleteSuccess()));
     }
 
     private void displayPage() {
         driver.get(Constant.AWARD_CATEGORY_PAGE_URL);
-        new WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(
-                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        new WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-        Assert.assertEquals(Constant.AWARD_CATEGORY_PAGE_URL, driver.getCurrentUrl());
+        waitForPageDisplayed(driver, Constant.AWARD_CATEGORY_PAGE_URL, By.id("page-wrapper"));
     }
 }

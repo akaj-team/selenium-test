@@ -51,3 +51,8 @@ Feature: Check award category page
     And Dialog edit is showed
     When I click cancel button
     Then Disappear dialog
+
+  Scenario: Check when click delete button
+    When I click Delete button
+    And I click delete confirm button
+    Then Alert delete success is showed

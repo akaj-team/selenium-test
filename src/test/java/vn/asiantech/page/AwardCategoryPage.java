@@ -15,6 +15,7 @@ import vn.asiantech.base.BasePage;
 public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
 
     private static final int POS_EDIT = 2;
+    private static final int POS_DELETE = 2;
     private static final int POS_CATEGORY = 1;
 
     @FindBy(id = "award-list-wrapper")
@@ -26,13 +27,13 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     @FindBy(id = "btn-submit-award")
     private WebElement btnSubmit;
 
-    @FindBy(css = ".btn.btn-sm.btn-default.btn-cancel")
+    @FindBy(className = "btn-cancel")
     private WebElement btnCancel;
 
     @FindBy(name = "name")
     private WebElement inputName;
 
-    @FindBy(css = ".form-control.ng-untouched.ng-pristine.ng-valid")
+    @FindBy(className = "ng-valid")
     private WebElement txaDescription;
 
     @FindBy(className = "help-block")
@@ -43,6 +44,9 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
 
     @FindBy(tagName = "app-error")
     private WebElement appError;
+
+    @FindBy(className = "btn-warning")
+    private WebElement btnDeleteConfirm;
 
     @Override
     public final AwardCategoryPage navigateTo(final WebDriver webDriver) {
@@ -62,13 +66,18 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
                 findElement(By.cssSelector(".update.ng-star-inserted")).click();
     }
 
+    public final void clickDeleteButton() {
+        tbCategory.findElements(By.tagName("tr")).get(POS_CATEGORY).findElements(By.tagName("td")).get(POS_DELETE).
+                findElement(By.cssSelector(".delete.ng-star-inserted")).click();
+    }
+
     public final void enterName(final String name) {
         inputName.sendKeys(name);
     }
 
     public final void enterDescription() {
         txaDescription.click();
-        txaDescription.sendKeys("em khong the");
+        txaDescription.sendKeys("Fast etailing");
     }
 
     public final void clickCloseDialog() {
@@ -103,5 +112,13 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
 
     public final boolean isDisplayAlertDanger() {
         return appError.findElement(By.cssSelector(".alert.alert-danger.alert-dismissible")).isDisplayed();
+    }
+
+    public final boolean isDisplayAlertDeleteSuccess() {
+        return appError.findElement(By.cssSelector(".app-alert.ng-star-inserted")).isDisplayed();
+    }
+
+    public final void clickDeleteConfirm() {
+        btnDeleteConfirm.click();
     }
 }
