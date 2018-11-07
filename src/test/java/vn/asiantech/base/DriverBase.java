@@ -22,7 +22,7 @@ public class DriverBase {
 
     private static ThreadLocal<DriverFactory> driverFactoryThread = new ThreadLocal<>();
 
-    static synchronized void instantiateDriverObject(XmlTest xmlTest) {
+    static synchronized void instantiateDriverObject(final XmlTest xmlTest) {
         DriverFactory driverFactory = new DriverFactory(xmlTest);
         driverFactoryThread.set(driverFactory);
     }

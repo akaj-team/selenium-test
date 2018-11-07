@@ -45,7 +45,7 @@ class DriverFactory {
         }
     }
 
-    DriverFactory(XmlTest xmlTest) {
+    DriverFactory(final XmlTest xmlTest) {
         initSessionAccounts();
         //get param suite
         String browserName = xmlTest.getParameter("browserName");
