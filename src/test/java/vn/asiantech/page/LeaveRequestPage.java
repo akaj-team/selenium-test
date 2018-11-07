@@ -26,7 +26,6 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     private static final int POS_TIME_FROM = 0;
     private static final int POS_TIME_TO = 1;
 
-
     @FindBy(className = "fa-caret-down")
     private WebElement inputTypeOfLeave;
 
