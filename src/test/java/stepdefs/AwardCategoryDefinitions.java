@@ -14,8 +14,6 @@ import vn.asiantech.page.AwardCategoryPage;
  */
 
 public class AwardCategoryDefinitions extends DriverBase implements En {
-    private static final int TIMEOUT_IN_SECONDS = 10;
-
     private AwardCategoryPage awardCategoryPage;
     private WebDriver driver;
 
