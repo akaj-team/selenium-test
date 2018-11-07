@@ -2,10 +2,7 @@ package stepdefs;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
@@ -17,8 +14,6 @@ import vn.asiantech.page.WikiPage;
  */
 
 public class WikiDefinitions extends DriverBase implements En {
-    private static final int TIME_OUT_IN_SECONDS = 5;
-
     private WebDriver driver;
     private WikiPage wikiPage;
 
@@ -66,9 +61,6 @@ public class WikiDefinitions extends DriverBase implements En {
 
     private void displayPage(final String path) {
         driver.get(Constant.PORTAL_URL + path);
-        new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
-                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-        Assert.assertEquals(Constant.PORTAL_URL + path, driver.getCurrentUrl());
+        waitForPageDisplayed(driver, Constant.PORTAL_URL + path, By.id("page-wrapper"));
     }
 }
