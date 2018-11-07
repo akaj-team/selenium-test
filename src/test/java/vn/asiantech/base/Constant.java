@@ -24,7 +24,7 @@ public final class Constant {
     static final String BROWSER_OPERA = "opera";
 
     //init Account
-    static final Account[] accountLogin = new Account[]{
+    static final Account[] ACCOUNT_LOGIN = new Account[]{
             new Account("stg.tien.hoang@asiantech.vn", "Abc123@@"),
             new Account("stg.tu.le.2@asiantech.vn", "Abc123@@"),
             new Account("stg.thien.dang2@asiantech.vn", "Abc123@@"),

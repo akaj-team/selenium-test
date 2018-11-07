@@ -29,12 +29,12 @@ public class DriverFactory {
     private static List<Integer> busyAccounts = new ArrayList<>();
     private Account accountCanUse;
 
-    Account getAccountCanUse() {
+    final Account getAccountCanUse() {
         return accountCanUse;
     }
 
     private void initSessionAccounts() {
-        for (Account account : Constant.accountLogin) {
+        for (Account account : Constant.ACCOUNT_LOGIN) {
             if (!busyAccounts.contains(account.hashCode())) {
                 busyAccounts.add(account.hashCode());
                 accountCanUse = account;
@@ -62,7 +62,7 @@ public class DriverFactory {
         }
     }
 
-    private DriverType getDriverType(String browserName) {
+    private DriverType getDriverType(final String browserName) {
         DriverType driverType;
         switch (browserName) {
             case Constant.BROWSER_CHROME:

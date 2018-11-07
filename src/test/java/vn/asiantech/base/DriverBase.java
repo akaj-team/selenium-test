@@ -36,7 +36,7 @@ public class DriverBase {
         return driverFactoryThread.get().getDriver();
     }
 
-    protected Account getAccount() {
+    protected final Account getAccount() {
         return driverFactoryThread.get().getAccountCanUse();
     }
 
