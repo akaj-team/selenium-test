@@ -2,6 +2,7 @@ package vn.asiantech.base;
 
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 import cucumber.api.testng.TestNGCucumberRunner;
+import org.testng.ITestContext;
 import org.testng.annotations.*;
 
 @Listeners(ScreenShotListener.class)
@@ -14,9 +15,8 @@ public class CucumberRunnerBase extends AbstractTestNGCucumberTests {
     }
 
     @BeforeClass(alwaysRun = true)
-    @Parameters("browserName")
-    public void setUpClass(final String browserName) {
-        DriverBase.instantiateDriverObject(browserName);
+    public void setUpClass(final ITestContext context) {
+        DriverBase.instantiateDriverObject(context.getCurrentXmlTest());
         testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
     }
 
