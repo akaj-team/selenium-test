@@ -38,7 +38,6 @@ public class DriverFactory {
             if (!busyAccounts.contains(account.hashCode())) {
                 busyAccounts.add(account.hashCode());
                 accountCanUse = account;
-                System.out.println("Using first login account: " + account.email);
                 break;
             }
         }
@@ -63,9 +62,9 @@ public class DriverFactory {
         }
     }
 
-    private DriverType getDriverType(String browserType) {
+    private DriverType getDriverType(String browserName) {
         DriverType driverType;
-        switch (browserType) {
+        switch (browserName) {
             case Constant.BROWSER_CHROME:
                 driverType = CHROME;
                 break;
