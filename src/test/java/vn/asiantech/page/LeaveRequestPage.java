@@ -14,12 +14,12 @@ import static vn.asiantech.base.DriverBase.getDriver;
  * @author at-anh-quach
  */
 public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
-    private static final int TIME_OUT_IN_SECONDS = 5;
     private static final int ANNUAL_LEAVE = 0;
     private static final int MARRIAGE_LEAVE = 1;
     private static final int OVERTIME_LEAVE = 2;
     private static final int PATERNAL_LEAVE = 3;
     private static final int NONE_PAID = 2;
+
     private static final int POS_AFTERNOON = 1;
     private static final int POS_MORNING = 0;
     private static final int POS_ALL_DAY = 2;
@@ -27,10 +27,10 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     private static final int POS_TIME_TO = 1;
 
 
-    @FindBy(css = ".ui-dropdown-trigger.ui-state-default.ui-corner-right")
+    @FindBy(className = "fa-caret-down")
     private WebElement inputTypeOfLeave;
 
-    @FindBy(css = ".input-daterange.xinput-group")
+    @FindBy(css = ".input-daterange.input-group")
     private WebElement inputDateRange;
 
     @FindBy(xpath = "//table[contains(@class,'ui-datepicker-calendar')]")
@@ -71,7 +71,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final boolean checkTextAnnualLeave(final String annualLeave) {
-        waitForElementDisplay(getDriver(), tableLeaveBalance, TIME_OUT_IN_SECONDS);
+        waitForElement(getDriver(), tableLeaveBalance);
         return findLeaveBalance(ANNUAL_LEAVE).getText().equals(annualLeave);
     }
 
@@ -96,7 +96,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final void clickItemMenuType(final String status) {
-        waitForElementDisplay(getDriver(), menuTypeOfLeave, TIME_OUT_IN_SECONDS);
+        waitForElement(getDriver(), menuTypeOfLeave);
 
         WebElement itemStatus = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(ANNUAL_LEAVE);
         if (status.equals("Marriage Leave")) {
@@ -116,13 +116,10 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
 
     public final void withMessage() {
         String message = "Gui A Tien";
-
-        waitForElementDisplay(getDriver(), inputMessage, TIME_OUT_IN_SECONDS);
+        waitForElement(getDriver(), inputMessage);
 
         getDriver().switchTo().frame(getDriver().findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
-
         getDriver().findElement(By.tagName("body")).sendKeys(message);
-
         getDriver().switchTo().defaultContent();
     }
 
@@ -156,7 +153,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final boolean isDateRequestShow() {
-        waitForElementDisplay(getDriver(), tableDateRequest, TIME_OUT_IN_SECONDS);
+        waitForElement(getDriver(), tableDateRequest);
         return true;
     }
 
@@ -280,7 +277,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     private WebElement findRadioButtonDateRequest(final int col) {
-        waitForElementDisplay(getDriver(), tableDateRequest, TIME_OUT_IN_SECONDS);
+        waitForElement(getDriver(), tableDateRequest);
         WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
 
         List<WebElement> rows = data.findElements(By.tagName("tr"));

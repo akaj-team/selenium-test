@@ -2,10 +2,7 @@ package stepdefs;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
@@ -15,8 +12,6 @@ import vn.asiantech.page.LeaveRequestPage;
  * @author at-anh-quach
  */
 public class LeaveRequestDefinitions extends DriverBase implements En {
-    private static final int TIME_OUT_IN_SECONDS = 10;
-
     private WebDriver driver;
     private LeaveRequestPage leaveRequestPage;
 
@@ -31,10 +26,7 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         And("^Display leave request page$", () -> {
             driver.get(Constant.LEAVE_REQUEST_PAGE_URL);
-            new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-            Assert.assertEquals(Constant.LEAVE_REQUEST_PAGE_URL, driver.getCurrentUrl());
+            waitForPageDisplayed(driver, Constant.LEAVE_REQUEST_PAGE_URL, By.id("page-wrapper"));
         });
 
         And("^Marriage Leave is \"([^\"]*)\"$", (String number) -> Assert.assertTrue(leaveRequestPage.checkTextMarriageLeave(number)));
