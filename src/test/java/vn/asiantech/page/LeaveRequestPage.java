@@ -59,10 +59,6 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     @FindBy(id = "static-dialog-wrapper")
     private WebElement dialog;
 
-    @FindBy(id = "btn-link-to-my-leave")
-    private WebElement btnMyLeave;
-
-
     @Override
 
     public final LeaveRequestPage navigateTo(final WebDriver webDriver) {
