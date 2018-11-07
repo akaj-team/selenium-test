@@ -15,6 +15,9 @@ import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
 import static vn.asiantech.base.DriverType.*;
 
+/**
+ * DriverFactory
+ */
 class DriverFactory {
 
     private final String operatingSystem = System.getProperty("os.name").toUpperCase();
