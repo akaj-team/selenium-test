@@ -9,7 +9,7 @@ Feature: Check Device tracking
     Then Menu device drop down
     When I click on item device tracking
     Then Device tracking page is displayed "/equipments/tracking"
-    And Display title content is "Oct 22 - Oct 28"
+    And Display title content is "Nov 05 - Nov 11"
     And Display list content device
     And Display button next and previous
     And Display checkbox select all not tick
@@ -71,7 +71,7 @@ Feature: Check Device tracking
     When Click button submit
     Then Display dialog confirm Submit
     And Display title dialog confirm submit is "Confirmation"
-    And Display message dialog confirm submit is "Are you sure you want to leave this page?"
+    And Display message dialog confirm submit is "Are you sure to submit trackings?"
     And Display button cancel and button submit
     When Click button close dialog confirm submit
     Then Dismiss dialog confirm submit

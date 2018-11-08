@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
 
-    private static final int TIME_OUT_WAITED_ELEMENT = 5;
     private static final int COLUMNS_HEADER_COUNT = 7;
     private static final String DEVICE_ITEM_BORDER_COLOR = "#676A6C";
     private static final String DEVICE_ITEM_BORDER_COLOR_SELECTED = "#D9EDF7";
@@ -58,7 +57,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     private
     WebElement tvDeviceHeader;
 
-    @FindBy(id = "static-dialog")
+    @FindBy(id = "static-dialog-wrapper")
     private
     WebElement dlgConfirm;
 
@@ -70,15 +69,15 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     private
     WebElement tvMessageDialogConfirm;
 
-    @FindBy(id = "btn-close-dialog-confirm")
+    @FindBy(css = ".btn.btn-sm.btn-default.btn-cancel.ng-star-inserted")
     private
     WebElement btnStayDialogConfim;
 
-    @FindBy(id = "btn-agree-dialog-confirm")
+    @FindBy(css = ".btn.btn-sm.btn-warning.btn-submit.ng-star-inserted")
     private
     WebElement btnLeaveDialogConfirm;
 
-    @FindBy(id = "btn-close-dialog")
+    @FindBy(css = ".fa.fa-fw.fa-close")
     private
     WebElement btnCloseDialogConfirm;
 
@@ -119,7 +118,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     }
 
     public final String getTitleContent(final WebDriver driver) {
-        waitForElement(driver, tvTitleContent, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, tvTitleContent);
         return tvTitleContent.getText();
     }
 
@@ -143,7 +142,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     }
 
     public final Boolean isDisplayContentDevice(final WebDriver driver) {
-        waitForElement(driver, viewDeviceBody, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, viewDeviceBody);
         return viewDeviceBody.isEnabled();
     }
 
@@ -152,32 +151,32 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     }
 
     public final Boolean isButtonThisWeekDisable(final WebDriver driver) {
-        waitForElement(driver, btnThisWeek, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnThisWeek);
         return !btnThisWeek.isEnabled();
     }
 
     public final void clickButtonNext(final WebDriver driver) {
-        waitForElement(driver, btnNext, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnNext);
         btnNext.click();
     }
 
     public final Boolean isButtonThisWeekClickable(final WebDriver driver) {
-        waitForElement(driver, btnThisWeek, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnThisWeek);
         return btnThisWeek.isEnabled() && btnThisWeek.isDisplayed();
     }
 
     public final void clickButtonPrevious(final WebDriver driver) {
-        waitForElement(driver, btnPrevious, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnPrevious);
         btnPrevious.click();
     }
 
     public final Boolean isDefaultCheckboxSelectAll(final WebDriver driver) {
-        waitForElement(driver, cbxSelectAll, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, cbxSelectAll);
         return cbxSelectAll.isSelected();
     }
 
     public final Boolean isDisplayFullDeviceHeader(final WebDriver driver) {
-        waitForElement(driver, tvDeviceHeader, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, tvDeviceHeader);
         if (tvDeviceHeader != null && tvDeviceHeader.isEnabled()) {
             List<WebElement> headerItems = tvDeviceHeader.findElements(By.className("timesheet-cell"));
             for (int i = 1; i < headerItems.size(); i++) {
@@ -190,7 +189,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     }
 
     public final Boolean isDisplayFullDeviceContent(final WebDriver driver) {
-        waitForElement(driver, viewDeviceBody, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, viewDeviceBody);
         if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
             List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
             for (int i = 1; i < bodyItems.size(); i++) {
@@ -204,7 +203,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
 
     public final void moveToItemDevice(final WebDriver driver) {
         Actions action = new Actions(driver);
-        waitForElement(driver, viewDeviceBody, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, viewDeviceBody);
         if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
             List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
             for (int i = 1; i < bodyItems.size(); i++) {
@@ -214,12 +213,12 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     }
 
     public final Boolean isDisplayBorderItemDevice(final WebDriver driver) {
-        waitForElement(driver, viewDeviceBody, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, viewDeviceBody);
         if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
             List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
-                String rgb[] = bodyItems.get(0).getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
-                String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
-                return bodyItems.get(0).getText().equals(DEVICE_ITEM_TITLE) && borderColor.equals(DEVICE_ITEM_BORDER_COLOR);
+            String rgb[] = bodyItems.get(0).getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
+            String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
+            return bodyItems.get(0).getText().equals(DEVICE_ITEM_TITLE) && borderColor.equals(DEVICE_ITEM_BORDER_COLOR);
         }
         return true;
     }
@@ -233,12 +232,12 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     }
 
     public final Boolean isButtonSubmitDisable(final WebDriver driver) {
-        waitForElement(driver, btnSubmit, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnSubmit);
         return !btnSubmit.isEnabled();
     }
 
     public final void clickItemOnListItemDevice(final WebDriver driver) {
-        waitForElement(driver, viewDeviceBody, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, viewDeviceBody);
         if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
             WebElement itemDevice = viewDeviceBody.findElements(By.className("timesheet-cell")).get(1);
             if (itemDevice != null && itemDevice.isEnabled()) {
@@ -248,7 +247,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     }
 
     public final Boolean isDisplayColorDeviceItem(final WebDriver driver) {
-        waitForElement(driver, viewDeviceBody, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, viewDeviceBody);
         if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
             WebElement itemDevice = viewDeviceBody.findElements(By.className("timesheet-cell")).get(1);
             WebElement content = itemDevice.findElement(By.cssSelector(".create-inspection.selected"));
@@ -262,17 +261,17 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     }
 
     public final Boolean isDisplayButtonSubmit(final WebDriver driver) {
-        waitForElement(driver, btnSubmit, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnSubmit);
         return btnSubmit.isDisplayed();
     }
 
     public final void clickCheckboxSelectAll(final WebDriver driver) {
-        waitForElement(driver, cbxSelectAll, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, cbxSelectAll);
         cbxSelectAll.click();
     }
 
     public final Boolean isDisplayAllItemSelected(final WebDriver driver) {
-        waitForElement(driver, viewDeviceBody, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, viewDeviceBody);
         if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
             List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
             for (int i = 1; i < bodyItems.size(); i++) {
@@ -288,7 +287,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     }
 
     private Boolean isDisplayAllItemStateSubmit(final WebDriver driver) {
-        waitForElement(driver, viewDeviceBody, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, viewDeviceBody);
         if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
             List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
             for (int i = 1; i < bodyItems.size(); i++) {
@@ -304,116 +303,116 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     }
 
     public final Boolean isDisplayDialogConfirm(final WebDriver driver) {
-        waitForElement(driver, dlgConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgConfirm);
         return dlgConfirm.isDisplayed();
     }
 
     public final Boolean isDisplayTitleDialogConfirm(final WebDriver driver, final String title) {
-        waitForElement(driver, tvTitleDialogConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, tvTitleDialogConfirm);
         return tvTitleDialogConfirm.getText().equals(title);
     }
 
     public final Boolean isDisplayMessageDialogConfirm(final WebDriver driver, final String message) {
-        waitForElement(driver, tvMessageDialogConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, tvMessageDialogConfirm);
         return tvMessageDialogConfirm.getText().equals(message);
     }
 
     public final Boolean isDisplayButtonDialogControl(final WebDriver driver) {
-        waitForElement(driver, dlgConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgConfirm);
         return btnStayDialogConfim.isDisplayed() && btnCloseDialogConfirm.isDisplayed();
     }
 
     public final void clickButtonCloseDialogConfirm(final WebDriver driver) {
-        waitForElement(driver, btnCloseDialogConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnCloseDialogConfirm);
         btnCloseDialogConfirm.click();
     }
 
     public final Boolean isDismissDialogConfirm(final WebDriver driver) {
-        waitForElement(driver, dlgConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgConfirm);
         return !dlgConfirm.isDisplayed();
     }
 
     public final void clickButtonStayDialogConfirm(final WebDriver driver) {
         clickButtonNext(driver);
-        waitForElement(driver, btnStayDialogConfim, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnStayDialogConfim);
         btnStayDialogConfim.click();
     }
 
     public final Boolean isDismissDialogConfirmSaveState(final WebDriver driver) {
-        waitForElement(driver, dlgConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgConfirm);
         return !dlgConfirm.isDisplayed() && isDisplayColorDeviceItem(driver);
     }
 
     public final void clickButtonLeaveDialogConfirm(final WebDriver driver) {
         clickButtonNext(driver);
-        waitForElement(driver, btnLeaveDialogConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnLeaveDialogConfirm);
         btnLeaveDialogConfirm.click();
     }
 
     public final Boolean isDismissDialogConfirmNotSaveState(final WebDriver driver) {
-        waitForElement(driver, dlgConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgConfirm);
         return !dlgConfirm.isDisplayed() && !isDisplayColorDeviceItem(driver);
     }
 
     public final void clickButtonSubmit(final WebDriver driver) {
-        waitForElement(driver, btnSubmit, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnSubmit);
         btnSubmit.click();
     }
 
     public final Boolean isDisplayDialogConfirmSubmit(final WebDriver driver) {
-        waitForElement(driver, dlgConfirmSubmit, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgConfirmSubmit);
         return dlgConfirmSubmit.isDisplayed();
     }
 
     public final Boolean isDisplayTitleDialogConfirmSubmit(final WebDriver driver, final String title) {
-        waitForElement(driver, dlgConfirmSubmit, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgConfirmSubmit);
         return tvTitleDialogConfirm.getText().equals(title);
     }
 
     public final String getMessageDialogConfirmSubmit(final WebDriver driver) {
-        waitForElement(driver, tvMessageDialogConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, tvMessageDialogConfirm);
         return tvMessageDialogConfirm.getText();
     }
 
     public final Boolean isDisplayButtonDialogSubmitControl(final WebDriver driver) {
-        waitForElement(driver, dlgConfirmSubmit, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgConfirmSubmit);
         return btnCancelDialogConfirm.isDisplayed() && btnSubmitDialogConfirm.isDisplayed();
     }
 
     public final void clickButtonCloseDialogConfirmSubmit(final WebDriver driver) {
-        waitForElement(driver, btnCloseDialogConfirmSubmit, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnCloseDialogConfirmSubmit);
         btnCloseDialogConfirmSubmit.click();
     }
 
     public final Boolean isDismissDialogConfirmSubmit(final WebDriver driver) {
-        waitForElement(driver, dlgConfirmSubmit, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgConfirmSubmit);
         return !dlgConfirmSubmit.isDisplayed();
     }
 
     public final void clickButtonCancelDialogConfirmSubmit(final WebDriver driver) {
         clickButtonSubmit(driver);
-        waitForElement(driver, btnCancelDialogConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnCancelDialogConfirm);
         btnCancelDialogConfirm.click();
     }
 
     public final Boolean isDismissDialogConfirmSubmitSaveState(final WebDriver driver) {
-        waitForElement(driver, dlgConfirmSubmit, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgConfirmSubmit);
         return !dlgConfirmSubmit.isDisplayed() && isDisplayAllItemSelected(driver);
     }
 
     public final void clickButtonSubmitDialogConfirmSubmit(final WebDriver driver) {
         clickButtonSubmit(driver);
-        waitForElement(driver, btnSubmitDialogConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnSubmitDialogConfirm);
         btnSubmitDialogConfirm.click();
     }
 
     public final Boolean isDismissDialogConfirmSubmitChangeStateSubmit(final WebDriver driver) {
-        waitForElement(driver, dlgConfirmSubmit, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgConfirmSubmit);
         return !dlgConfirmSubmit.isDisplayed() && isDisplayAllItemStateSubmit(driver);
     }
 
     public final Boolean isMessageConfirmShowing(final WebDriver driver) {
-        waitForElement(driver, tvMessageConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, tvMessageConfirm);
         return tvMessageConfirm.isDisplayed();
     }
 }
