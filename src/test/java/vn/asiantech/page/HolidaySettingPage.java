@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
 
-    private static final int TIME_OUT_WAITED_ELEMENT = 5;
     private static final int COLUMNS_HEADER_COUNT = 7;
     private static final int MENU_NAVIGATION_ITEM = 7;
     private static final int CONFIRM_DIALOG_BUTTON_CANCEL = 0;
@@ -171,7 +170,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final void clickItemHolidayCalendar(final WebDriver driver) {
-        waitForElement(driver, calendarContent, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, calendarContent);
         List<WebElement> itemCalendars = calendarContent.findElements(By.className("fc-content-skeleton"));
         for (WebElement element : itemCalendars) {
             WebElement body = element.findElement(By.tagName("thead"));
@@ -186,7 +185,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final Boolean displayHolidayDetailDialog(final WebDriver driver) {
-        waitForElement(driver, dlgCalendar, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgCalendar);
         return dlgCalendar.isDisplayed();
     }
 
@@ -222,7 +221,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final String getMessageValidate(final WebDriver driver) {
-        waitForElement(driver, calendarDialogItem, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, calendarDialogItem);
         WebElement titleMessage = calendarDialogItem.findElement(By.className("help-block"));
         return titleMessage.getText();
     }
@@ -239,7 +238,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final Boolean isDisplayCalendarDateTime(final WebDriver driver) {
-        waitForElement(driver, dlgCalendar, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgCalendar);
         List<WebElement> inputDates = dlgCalendar.findElements(By.cssSelector("p-calendar"));
         List<WebElement> elements = inputDates.get(END_DATE_POSITION).findElements(By.tagName("div"));
         return elements.get(FIRST_ITEM_SELECTED).isDisplayed();
@@ -272,7 +271,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final Boolean isButtonSaveEnable(final WebDriver driver) {
-        waitForElement(driver, btnSave, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, btnSave);
         return btnSave.isDisplayed();
     }
 
@@ -291,7 +290,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final Boolean isMessageConfirmShowing(final WebDriver driver) {
-        waitForElement(driver, tvMessageConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, tvMessageConfirm);
         return tvMessageConfirm.isDisplayed();
     }
 
@@ -309,7 +308,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final Boolean isDisplayDialogDeleteConfirm(final WebDriver driver) {
-        waitForElement(driver, dlgDeleteConfirm, TIME_OUT_WAITED_ELEMENT);
+        waitForElement(driver, dlgDeleteConfirm);
         return dlgDeleteConfirm.isDisplayed();
     }
 
@@ -330,7 +329,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
 
     public final Boolean isDismissDialogConfirmDelete(final WebDriver driver) {
         try {
-            waitForElement(driver, dlgDeleteConfirm, TIME_OUT_WAITED_ELEMENT);
+            waitForElement(driver, dlgDeleteConfirm);
             return dlgDeleteConfirm.isDisplayed();
         } catch (TimeoutException e) {
             return false;

@@ -10,7 +10,7 @@ Feature: Check holidays setting
     Then Menu Administration drop down
     When I click on item Holidays Setting
     Then Holiday setting page is displayed "/admin/public-holiday"
-    And Display title content is "October 2018"
+    And Display title content is "November 2018"
     And Display calendar content
     And Display button next and previous
     And Disable button today and can not click
