@@ -9,7 +9,7 @@ Feature: Check TimeSheet
     Then Menu Timesheet drop down
     When I click on item My Timesheet
     Then My Timesheet page is displayed "/timesheet/submission"
-    And Title content is "Oct 29 - Nov 04"
+    And Title content is "Nov 05 - Nov 11"
     And Display full record timesheet
     And Disable button this week and can not click
     And Disable button submit and can not click
