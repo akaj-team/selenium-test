@@ -62,7 +62,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final void clickMenuStatus() {
-        waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
+        waitForElement(getDriver(), inputStatus);
         inputStatus.click();
     }
 
@@ -85,7 +85,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final boolean checkTextStatusMenu(final String status) {
-        waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
+        waitForElement(getDriver(), inputStatus);
         return inputStatus.findElement(By.tagName("label")).getText().equals(status);
     }
 
@@ -122,35 +122,39 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final void clickSYSID() {
-        waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
-        sysid = findDataLeave(POS_SYSID).getText();
         findDataLeave(POS_ICON).click();
     }
 
     public final void clickNameManager() {
-        waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
+        waitForElement(getDriver(), inputStatus);
         findDataLeave(POS_MANAGER).click();
     }
 
     public final void clickIconSearch() {
-        waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
-        sysid = findDataLeave(POS_SYSID).getText();
         findDataLeave(POS_ICON).click();
     }
 
+    public final void setSysid() {
+        waitForElement(getDriver(), inputStatus);
+        sysid = findDataLeave(POS_SYSID).getText();
+    }
+
+    public final String getSysid() {
+        return sysid;
+    }
+
     public final void clickBtnLeaveRequest() {
-        waitForElementDisplay(getDriver(), inputStatus, TIME_OUT_IN_SECONDS);
+        waitForElement(getDriver(), inputStatus);
         btnLeaveRequest.click();
     }
 
     public final void hoverMouseToStatus() {
-        waitForElementDisplay(getDriver(), tableLeave, TIME_OUT_IN_SECONDS);
+        waitForElement(getDriver(), tableLeave);
         Actions builder = new Actions(getDriver());
         builder.moveToElement(findDataLeave(POS_STATUS)).build().perform();
     }
 
     public final boolean checkDisplayTipStatus(final String status) {
-        System.out.println(toolTip.getText());
         return toolTip.isDisplayed() && toolTip.getText().equals(status);
     }
 

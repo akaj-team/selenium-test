@@ -2,10 +2,7 @@ package stepdefs;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
@@ -16,10 +13,7 @@ import vn.asiantech.page.MyLeavePage;
  */
 
 public class MyLeaveDefinitions extends DriverBase implements En {
-    private static final int TIMEOUT_IN_SECONDS = 5;
-
     private WebDriver driver;
-
     private MyLeavePage myLeavePage;
 
     public MyLeaveDefinitions() {
@@ -90,18 +84,21 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         Then("^Tip status display is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkDisplayTipStatus(status)));
 
-        When("^I click an SYSID$", () -> myLeavePage.clickSYSID());
+        When("^I click an SYSID$", () -> {
+            myLeavePage.setSysid();
+            myLeavePage.clickSYSID();
+        });
 
-        Then("^Leave Detail page is displayed$", () -> myLeavePage.displayLeaveDetailPage(getDriver()));
+        Then("^Leave Detail page is displayed$", () -> displayPage("/leave/" + myLeavePage.getSysid()));
 
-        When("^I click on an icon search$", () -> myLeavePage.clickIconSearch());
+        When("^I click on an icon search$", () -> {
+            myLeavePage.setSysid();
+            myLeavePage.clickIconSearch();
+        });
     }
 
     private void displayPage(final String path) {
         driver.get(Constant.PORTAL_URL + path);
-        new WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(
-                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        new WebDriverWait(driver, TIMEOUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-        Assert.assertEquals(Constant.PORTAL_URL + path, driver.getCurrentUrl());
+        waitForPageDisplayed(driver, Constant.PORTAL_URL + path, By.id("page-wrapper"));
     }
 }
