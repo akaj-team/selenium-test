@@ -2,11 +2,8 @@ package stepdefs;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
@@ -31,70 +28,47 @@ public class PositionsDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
 
-        And("^Display \"([^\"]*)\" page$", (String arg0) -> {
-            driver.get("http://portal-stg.asiantech.vn" + arg0);
+        And("^Displayed positions page$", () -> {
+            driver.get(Constant.POSITION_PAGE_URL);
             positionsPage = initPage(getDriver(), PositionsPage.class);
-            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-            Assert.assertEquals("http://portal-stg.asiantech.vn" + arg0, driver.getCurrentUrl());
+            waitForPageDisplayed(driver, Constant.POSITION_PAGE_URL, By.id("page-wrapper"));
         });
 
-        Then("^I see header title \"([^\"]*)\" is display$", (String arg0) -> Assert.assertEquals(positionsPage.getTitle(driver), arg0));
+        Then("^I see header title \"([^\"]*)\" is display$", (String title) -> Assert.assertEquals(positionsPage.getTitle(driver), title));
 
         Then("^I see button new position and career path is display$", () -> {
-            Assert.assertTrue(positionsPage.getBtnCareerPath(driver).isDisplayed());
-            Assert.assertTrue(positionsPage.getBtnCareerPath(driver).isDisplayed());
+            Assert.assertTrue(positionsPage.getButtonCareerPath(driver).isDisplayed());
+            Assert.assertTrue(positionsPage.getButtonCareerPath(driver).isDisplayed());
         });
 
-        When("^I click on new position button$", () -> positionsPage.getBtnNewPosition(driver).click());
+        When("^I click on new position button$", () -> positionsPage.getButtonNewPosition(driver).click());
 
-        Then("^I move to new position page$", () -> {
-            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-submit")));
-            Assert.assertEquals(driver.getCurrentUrl(), "http://portal-stg.asiantech.vn/organisation/positions/new");
-        });
+        Then("^I move to new position page$", () -> waitForPageDisplayed(driver, Constant.POSITION_PAGE_URL + "/new", By.className("btn-submit")));
 
-        When("^I click on career path button$", () -> positionsPage.getBtnCareerPath(driver).click());
+        When("^I click on career path button$", () -> positionsPage.getButtonCareerPath(driver).click());
 
-        Then("^I move to career path page$", () -> {
-            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.className("panel-heading")));
-            Assert.assertEquals(driver.getCurrentUrl(), "http://portal-stg.asiantech.vn/organisation/positions/tree");
-        });
+        Then("^I move to career path page$", () -> waitForPageDisplayed(driver, Constant.POSITION_PAGE_URL + "/tree", By.className("panel-heading")));
 
         When("^I click on a row in table position$", () -> {
-            WebElement webElement = positionsPage.getCellDataTable(driver, 1, 1);
+            WebElement webElement = positionsPage.getCellDataTable(driver, 1);
             if (webElement != null) {
                 webElement.click();
             }
         });
 
-        Then("^I move to position detail page$", () -> {
-            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.className("section-top")));
-            Assert.assertEquals(driver.getCurrentUrl(), positionsPage.getUrlOfCell());
-        });
+        Then("^I move to position detail page$", () -> waitForPageDisplayed(driver, positionsPage.getUrlOfCell(), By.className("section-top")));
 
         When("^I click on update button in a row$", () -> {
-            WebElement webElement = positionsPage.getCellEditInTable(driver, 1, 1);
+            WebElement webElement = positionsPage.getCellEditInTable(driver, 1);
             if (webElement != null) {
                 webElement.click();
             }
         });
 
-        Then("^I move to update position page$", () -> {
-            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-submit")));
-            Assert.assertEquals(driver.getCurrentUrl(), positionsPage.getUpdatePositionUrl());
-        });
+        Then("^I move to update position page$", () -> waitForPageDisplayed(driver, positionsPage.getUpdatePositionUrl(), By.className("btn-submit")));
 
         When("^I click on delete button in a row$", () -> {
-            WebElement webElement = positionsPage.getCellDeleteInTable(driver, 1, 1);
+            WebElement webElement = positionsPage.getCellDeleteInTable(driver, 1);
             if (webElement != null) {
                 webElement.click();
             }
@@ -102,20 +76,29 @@ public class PositionsDefinitions extends DriverBase implements En {
 
         Then("^I see dialog confirm delete position is display$", () -> Assert.assertTrue(positionsPage.isDialogConfirmDeleteDisplay(driver)));
 
-        When("^I write \"([^\"]*)\" and press enter on search field$", (String arg0) -> {
-            positionsPage.searchPosition(driver, arg0);
-            waitVisibilityOfElement(driver, By.cssSelector(".ui-widget-content.ng-star-inserted"));
+        When("^I write \"([^\"]*)\" and press enter on search field$", (String text) -> {
+            positionsPage.searchPosition(driver, text);
+            String redirectUrl = Constant.POSITION_PAGE_URL + ";long_name_cont=" + text;
+            waitForPageRedirected(driver, redirectUrl, By.cssSelector(".ui-datatable-data.ui-widget-content"));
         });
 
-        Then("^The table show positions with long name are contains \"([^\"]*)\" value$", (String arg0) -> {
-            List<String> names = positionsPage.getLongNameDataInTable(driver);
+        Then("^The table show positions with long name are contains \"([^\"]*)\" value$", (String text) -> {
+            waitVisibilityOfElement(driver, By.cssSelector(".ui-widget-content.ng-star-inserted"));
+            waitVisibilityOfElement(driver, By.className("ui-cell-data"));
+            waitVisibilityOfElement(driver, By.className("item-name"));
+            List<String> names = positionsPage.getListLongNameInTable(driver);
             boolean isMatch = true;
             for (String name : names) {
-                if (!Pattern.compile(Pattern.quote(arg0), Pattern.CASE_INSENSITIVE).matcher(name).find()) {
+                if (!Pattern.compile(Pattern.quote(text), Pattern.CASE_INSENSITIVE).matcher(name).find()) {
                     isMatch = false;
                 }
             }
             Assert.assertTrue(isMatch);
+        });
+
+        And("^I should see empty message \"([^\"]*)\"$", (String message) -> {
+            waitVisibilityOfElement(driver, By.className("ui-datatable-emptymessage-row"));
+            Assert.assertEquals(message, positionsPage.showMessageEmptyTeam(driver));
         });
     }
 }

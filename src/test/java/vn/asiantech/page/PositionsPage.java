@@ -6,33 +6,40 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author at-trungnguyen
  */
 public class PositionsPage extends BasePage<PositionsPage> {
 
+    private static final int COLUMN_SHORT_NAME = 0;
+    private static final int COLUMN_LONG_NAME = 1;
+    private static final int COLUMN_ACTION = 3;
+
     @FindBy(tagName = "h2")
     private WebElement title;
-    @FindBy(className = "btn-add")
+    @FindBy(id = "btn-create-position")
     private WebElement btnNewPosition;
-    @FindBy(className = "btn-org")
+    @FindBy(id = "btn-link-to-career-path")
     private WebElement btnCareerPath;
     @FindBy(css = "input[name=search]")
-    private WebElement searchBox;
+    private WebElement inputSearch;
     @FindBy(className = "ui-datatable")
     private WebElement dataTable;
     @FindBy(className = "ui-dialog")
     private WebElement dialogConfirmDelete;
+
     private String positionDetailUrl;
     private String updatePositionUrl;
 
     @Override
     public final PositionsPage navigateTo(final WebDriver webDriver) {
-        webDriver.get("http://portal-stg.asiantech.vn/organisation/positions");
+        webDriver.get(Constant.POSITION_PAGE_URL);
         return this;
     }
 
@@ -45,96 +52,57 @@ public class PositionsPage extends BasePage<PositionsPage> {
         return title.getText();
     }
 
-    public final WebElement getBtnNewPosition(final WebDriver driver) {
+    public final WebElement getButtonNewPosition(final WebDriver driver) {
         waitForElement(driver, btnNewPosition);
         return btnNewPosition;
     }
 
-    public final WebElement getBtnCareerPath(final WebDriver driver) {
+    public final WebElement getButtonCareerPath(final WebDriver driver) {
         waitForElement(driver, btnCareerPath);
         return btnCareerPath;
     }
 
-    public final WebElement getSearchBox(final WebDriver driver) {
-        waitForElement(driver, searchBox);
-        return searchBox;
-    }
-
     public final void searchPosition(final WebDriver driver, final String text) {
-        waitForElement(driver, searchBox);
-        searchBox.sendKeys(text);
-        searchBox.sendKeys(Keys.RETURN);
+        waitForElement(driver, inputSearch);
+        inputSearch.sendKeys(text);
+        inputSearch.sendKeys(Keys.RETURN);
     }
 
-    private WebElement getDataTable(final WebDriver driver) {
-        waitForElement(driver, dataTable);
-        return dataTable;
+    public final WebElement getCellDataTable(final WebDriver driver, final int row) {
+        WebElement item = Objects.requireNonNull(getListCellInRow(driver, row)).get(COLUMN_SHORT_NAME).findElement(By.className("item-name"));
+        positionDetailUrl = item.getAttribute("href");
+        return item;
     }
 
-    public final WebElement getCellDataTable(final WebDriver driver, final int row, final int col) {
-        WebElement element = getDataTable(driver);
-        List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
-        if (rows.size() > row - 1) {
-            List<WebElement> cols = rows.get(row - 1).findElements(By.className("ui-cell-data"));
-            if (cols.size() > col - 1) {
-                WebElement item = cols.get(col - 1).findElement(By.className("item-name"));
-                positionDetailUrl = item.getAttribute("href");
-                return item;
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
+    public final WebElement getCellEditInTable(final WebDriver driver, final int row) {
+        WebElement item = Objects.requireNonNull(getListCellInRow(driver, row)).get(COLUMN_ACTION).findElement(By.className("update"));
+        updatePositionUrl = item.getAttribute("href");
+        return item;
     }
 
-    public final WebElement getCellEditInTable(final WebDriver driver, final int row, final int col) {
-        WebElement element = getDataTable(driver);
-        List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
-        if (rows.size() > row - 1) {
-            List<WebElement> cols = rows.get(row - 1).findElements(By.className("ui-cell-data"));
-            if (cols.size() > col - 1) {
-                WebElement item = cols.get(col + 2).findElement(By.className("update"));
-                updatePositionUrl = item.getAttribute("href");
-                return item;
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
+    public final WebElement getCellDeleteInTable(final WebDriver driver, final int row) {
+        return Objects.requireNonNull(getListCellInRow(driver, row)).get(COLUMN_ACTION).findElement(By.className("delete"));
     }
 
-    public final WebElement getCellDeleteInTable(final WebDriver driver, final int row, final int col) {
-        WebElement element = getDataTable(driver);
-        List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
-        if (rows.size() > row - 1) {
-            List<WebElement> cols = rows.get(row - 1).findElements(By.className("ui-cell-data"));
-            if (cols.size() > col - 1) {
-                return cols.get(col + 2).findElement(By.className("delete"));
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
-    public final List<String> getLongNameDataInTable(final WebDriver driver) {
+    public final List<String> getListLongNameInTable(final WebDriver driver) {
         List<String> longNames = new ArrayList<>();
         WebElement element = getDataTable(driver);
         List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
         for (WebElement row : rows) {
             List<WebElement> cols = row.findElements(By.className("ui-cell-data"));
-            for (WebElement col : cols) {
-                //long name column
-                if (cols.indexOf(col) == 1) {
-                    WebElement item = col.findElement(By.className("item-name"));
+            if (cols.size() > 0) {
+                WebElement item = cols.get(COLUMN_LONG_NAME).findElement(By.className("item-name"));
+                if (isElementPresented(item)) {
                     longNames.add(item.getText());
                 }
             }
         }
         return longNames;
+    }
+
+    public final String showMessageEmptyTeam(final WebDriver driver) {
+        WebElement rowEmpty = getDataTable(driver).findElement(By.className("ui-datatable-scrollable-body")).findElement(By.tagName("tr"));
+        return rowEmpty.findElement(By.tagName("span")).getText();
     }
 
     public final String getUpdatePositionUrl() {
@@ -144,6 +112,20 @@ public class PositionsPage extends BasePage<PositionsPage> {
     public final boolean isDialogConfirmDeleteDisplay(final WebDriver driver) {
         String style = getDialogConfirmDelete(driver).getAttribute("style");
         return style.contains("display: block");
+    }
+
+    private List<WebElement> getListCellInRow(final WebDriver driver, final int row) {
+        WebElement element = getDataTable(driver);
+        List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
+        if (rows.size() > row - 1) {
+            return rows.get(row - 1).findElements(By.className("ui-cell-data"));
+        }
+        return null;
+    }
+
+    private WebElement getDataTable(final WebDriver driver) {
+        waitForElement(driver, dataTable);
+        return dataTable;
     }
 
     private WebElement getDialogConfirmDelete(final WebDriver driver) {

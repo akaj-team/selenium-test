@@ -5,7 +5,7 @@ Feature: See, create, edit, search position
 
   Background: User navigates to leave planner page
     Given I am logged in as a team manager
-    And Display "/organisation/positions" page
+    And Displayed positions page
 
   Scenario:  I see title is display
     Then I see header title "Positions" is display
@@ -33,7 +33,7 @@ Feature: See, create, edit, search position
     When I click on delete button in a row
     Then I see dialog confirm delete position is display
 
-  Scenario Outline: Check search position function
+  Scenario Outline: Check search position function with result is list long Name
     When I write "<text>" and press enter on search field
     Then The table show positions with long name are contains "<text>" value
     Examples:
@@ -41,4 +41,12 @@ Feature: See, create, edit, search position
       | manager |
       | senior  |
       | qc      |
-      | junior  |
+
+  Scenario Outline: Check search position function with result is empty
+    When I write "<text>" and press enter on search field
+    Then I should see empty message "No records found"
+    Examples:
+      | text   |
+      | aaa999 |
+      | bbb888 |
+      | ccc777 |
