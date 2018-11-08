@@ -20,6 +20,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     private static final String DEVICE_ITEM_BORDER_COLOR_SELECTED = "#D9EDF7";
     private static final String DEVICE_ITEM_TITLE = "LTA0010";
     private static final int ITEM_DEVICE_TRACKING_MENU = 8;
+    private static final int MASK = 0xff;
 
     @FindBy(id = "side-menu")
     private
@@ -224,7 +225,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     }
 
     private String getBrowserHexValue(final int number) {
-        StringBuilder builder = new StringBuilder(Integer.toHexString(number & 0xff));
+        StringBuilder builder = new StringBuilder(Integer.toHexString(number & MASK));
         while (builder.length() < 2) {
             builder.append("0");
         }
