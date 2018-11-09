@@ -14,6 +14,8 @@ import vn.asiantech.page.WikiPage;
  */
 
 public class WikiDefinitions extends DriverBase implements En {
+    private static final int NUMBER_HOMEPAGE = 168;
+
     private WebDriver driver;
     private WikiPage wikiPage;
 
@@ -28,25 +30,25 @@ public class WikiDefinitions extends DriverBase implements En {
 
         When("^I click on name author$", () -> wikiPage.clickAuthor());
 
-        Then("^Redirect employee detail page$", () -> displayPage("/organisation/employees/42"));
+        Then("^Redirect employee detail page$", () -> displayPage(Constant.EMPLOYEE_PAGE_URL + "/42"));
 
         When("^I click on child page button$", () -> wikiPage.clickChildPageButton());
 
-        Then("^Redirect new page page$", () -> displayPage("/wiki/168/new"));
+        Then("^Redirect new page page$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE + "/new"));
 
         When("^I click on update button$", () -> wikiPage.clickUpdateButton());
 
-        Then("^Redirect update wiki page$", () -> displayPage("/wiki/168/update"));
+        Then("^Redirect update wiki page$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE + "/update"));
 
         When("^I click on child page title$", () -> wikiPage.clickTitle());
 
-        Then("^Redirect wiki detail page$", () -> displayPage("/wiki/190"));
+        Then("^Redirect wiki detail page$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE));
 
         Then("^Can not click delete button$", () -> Assert.assertFalse(wikiPage.isEnableDeleteButton()));
 
         When("^I click on icon package Wiki$", () -> wikiPage.clickIconPackageWikiHome());
 
-        And("^Wiki page displayed$", () -> displayPage("/wiki/168"));
+        And("^Wiki page displayed$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE));
 
         Then("^Categories disappeared$", () -> Assert.assertTrue(wikiPage.isRemoveCategories()));
 
