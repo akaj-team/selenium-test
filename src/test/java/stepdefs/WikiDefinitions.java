@@ -24,7 +24,7 @@ public class WikiDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
 
-        wikiPage = initPage(getDriver(), WikiPage.class);
+        wikiPage = initPage(driver, WikiPage.class);
 
         When("^I click on name author$", () -> wikiPage.clickAuthor());
 
