@@ -15,7 +15,7 @@ public final class Constant {
     public static final String ACCESS_CONTROL_PAGE_URL = PORTAL_URL + "/admin/acl";
     public static final String NEW_EMPLOYEE_PAGE_URL = PORTAL_URL + "/organisation/employees/new";
     public static final int DEFAULT_TIME_OUT = 10;
-    static final int MAXIMUM_TIME_OUT = 20;
+    public static final int MAXIMUM_TIME_OUT = 20;
 
     private Constant() {
         // No-op
