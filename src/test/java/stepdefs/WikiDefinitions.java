@@ -30,7 +30,7 @@ public class WikiDefinitions extends DriverBase implements En {
 
         When("^I click on name author$", () -> wikiPage.clickAuthor());
 
-        Then("^Redirect employee detail page$", () -> displayPage(Constant.EMPLOYEE_PAGE_URL + "/42"));
+        Then("^Redirect employee detail page$", () -> displayPage("/organisation/employees/42"));
 
         When("^I click on child page button$", () -> wikiPage.clickChildPageButton());
 
