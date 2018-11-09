@@ -1,3 +1,4 @@
+@LeaveRequest
 Feature: Create new my leave
   As an employee of the company
   I want to create new my leave
@@ -87,7 +88,6 @@ Feature: Create new my leave
   Scenario: Check click submit on dialog
     Given Dialog was showed
     When I click submit on dialog
-    Then Redirect to leave detail
 
   Scenario: Check click cancel on dialog
     Given Dialog was showed

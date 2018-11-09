@@ -60,9 +60,9 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         Then("^Menu type of leave drop down$", () -> Assert.assertTrue(leaveRequestPage.isMenuDropDown()));
 
-        Then("^Calendar timeFrom display$", () -> Assert.assertTrue(leaveRequestPage.isCalendarShow("timeFrom")));
+        Then("^Calendar timeFrom display$", () -> Assert.assertTrue(leaveRequestPage.isCalendarShow()));
 
-        Then("^Calendar timeTo display$", () -> Assert.assertTrue(leaveRequestPage.isCalendarShow("timeTo")));
+        Then("^Calendar timeTo display$", () -> Assert.assertTrue(leaveRequestPage.isCalendarShow()));
 
         And("^I choose all day on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseAllDay()));
 
@@ -84,14 +84,12 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         When("^I click submit on dialog$", () -> leaveRequestPage.clickSubmitButtonInDialog());
 
-        Then("^Redirect to leave detail$", () -> leaveRequestPage.redirectLeaveDetail());
-
         When("^I click cancel on dialog$", () -> leaveRequestPage.clickCancelButtonInDialog());
 
         Then("^Dialog disappeared$", () -> Assert.assertTrue(leaveRequestPage.isDialogDisappeared()));
 
-        And("^I choose today in timeForm calendar$", () -> leaveRequestPage.chooseTime("timeFrom"));
+        And("^I choose today in timeForm calendar$", () -> leaveRequestPage.chooseTime());
 
-        And("^I choose today in timeTo calendar$", () -> leaveRequestPage.chooseTime("timeTo"));
+        And("^I choose today in timeTo calendar$", () -> leaveRequestPage.chooseTime());
     }
 }
