@@ -16,13 +16,12 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
     private LeaveRequestPage leaveRequestPage;
 
     public LeaveRequestDefinitions() {
-        leaveRequestPage = initPage(getDriver(), LeaveRequestPage.class);
-
         try {
             driver = getDriver();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        leaveRequestPage = initPage(driver, LeaveRequestPage.class);
 
         And("^Display leave request page$", () -> {
             driver.get(Constant.LEAVE_REQUEST_PAGE_URL);
