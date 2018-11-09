@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.MenuPage;
 
@@ -13,7 +14,6 @@ import vn.asiantech.page.MenuPage;
  */
 public class MenuDefinitions extends DriverBase implements En {
 
-    private static final int TIME_WAIT = 10;
     private MenuPage menuPage;
 
     public MenuDefinitions() {
@@ -23,41 +23,34 @@ public class MenuDefinitions extends DriverBase implements En {
         And("^Account name is \"([^\"]*)\"$", (String accountName) -> Assert.assertTrue(menuPage.checkTextAccountName(accountName)));
         And("^Home item with color text is \"([^\"]*)\"$", (String whiteColor) -> Assert.assertTrue(menuPage.checkColorItemHomeIsWhite(whiteColor)));
 
-
         When("^I hover mouse to account name$", () -> menuPage.hoverMouseToAccountName());
-
 
         Given("^Item Timesheet close$", () -> Assert.assertFalse(menuPage.checkItemTimeSheetClose()));
         When("^I click in Timesheet item$", () -> menuPage.clickItemMenu());
         Then("^Open Child Timesheet item$", () -> Assert.assertTrue(menuPage.checkItemTimeSheetClose()));
 
-
         When("^I click Home item$", () -> menuPage.clickHomeItem());
         Then("^Item home change color to \"([^\"]*)\"$", (String whiteColor) -> Assert.assertTrue(menuPage.checkColorItemHomeIsWhite(whiteColor)));
         And("^Should redirect to home page \"([^\"]*)\"$", (String path) -> {
-            new WebDriverWait(getDriver(), TIME_WAIT).until(
+            new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                     webDriver -> webDriver.findElement(By.className("notification-header")).findElement(By.tagName("h2")).isDisplayed()
             );
             String url = getDriver().getCurrentUrl();
             Assert.assertEquals(path, url.substring(url.length() - path.length()));
         });
 
-
         When("^I click My TimeSheet$", () -> menuPage.clickMyTimeSheet());
         Then("^Item my TimeSheet change color to \"([^\"]*)\"$", (String whiteColor) -> Assert.assertTrue(menuPage.checkMyTimeSheetColor(whiteColor)));
         And("^Should redirect to \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
-
 
         When("^I click TimeSheet Of Other$", () -> menuPage.clickTimeSheetOfOthers());
         Then("^Item TimeSheet Of Other change color to \"([^\"]*)\"$", (String whiteColor) -> Assert.assertTrue(menuPage.checkTimeSheetOfOtherColor(whiteColor)));
         And("^Should redirect to time sheet of other page \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
 
-
         Given("^Item leave close$", () -> Assert.assertFalse(menuPage.checkItemLeaveClose()));
         When("^I click item leave$", () -> menuPage.clickItemLeave());
         Then("^Open child leave item$", () -> Assert.assertTrue(menuPage.checkItemLeaveClose()));
         And("^Item leave change color to \"([^\"]*)\"$", (String color) -> Assert.assertTrue(menuPage.checkColorItemLeaveIsWhite(color)));
-
 
         When("^I click my leave$", () -> menuPage.clickMyLeave());
         Then("^Item my leave change color to \"([^\"]*)\"$", (String color) -> Assert.assertTrue(menuPage.checkColorMyLeave(color)));
@@ -69,11 +62,9 @@ public class MenuDefinitions extends DriverBase implements En {
         When("^I click leave balance$", () -> menuPage.clickLeaveBalance());
         Then("^Should redirect to leave balance page \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
 
-
         Given("^Item organisation close$", () -> Assert.assertFalse(menuPage.checkItemOrganisationClose()));
         When("^I click item organisation$", () -> menuPage.clickItemOrganisation());
         Then("^Open child organisation item$", () -> Assert.assertTrue(menuPage.checkItemOrganisationClose()));
-
 
         When("^I click child item organisation with position \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemOrganisation(position));
         Then("^if count child item is zero should redirect to page \"([^\"]*)\"$", (String path) -> {
@@ -82,11 +73,9 @@ public class MenuDefinitions extends DriverBase implements En {
             }
         });
 
-
         Given("^I click item project management$", () -> menuPage.clickItemProjectManagement());
         When("^I click child item project management with position \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemProjectManagement(position));
         Then("^Should redirect to page \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
-
 
         When("^I click item wiki$", () -> menuPage.clickItemWiki());
         Then("^Should redirect to wiki page \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
@@ -95,11 +84,9 @@ public class MenuDefinitions extends DriverBase implements En {
         Given("^I click item administration$", () -> menuPage.clickItemAdministration());
         When("^I click child item administration with position \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemAdministration(position));
 
-
         Given("^I click item device$", () -> menuPage.clickItemDevice());
         When("^I click child item device with \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemDevice(position));
-
-
+        
         Given("^I click item tools$", () -> menuPage.clickItemTools());
         When("^I click child item tools with \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemTools(position));
 
@@ -108,7 +95,7 @@ public class MenuDefinitions extends DriverBase implements En {
     }
 
     private void redirectPageWhenClickChildItem(final String path) {
-        new WebDriverWait(getDriver(), TIME_WAIT).until(
+        new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete")
         );
         String url = getDriver().getCurrentUrl();
