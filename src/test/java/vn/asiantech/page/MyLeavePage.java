@@ -177,7 +177,6 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         if (status.equals("Rejected")) {
             nameIcon = "icon rejected ng-star-inserted";
         }
-
         return nameIcon;
     }
 }

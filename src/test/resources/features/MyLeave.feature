@@ -1,6 +1,4 @@
-# new feature
-# Tags: optional
-
+@MyLeave
 Feature: Check my leave
   I want to login my account and check my  plan leave
 
