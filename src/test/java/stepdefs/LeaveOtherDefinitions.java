@@ -32,9 +32,10 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
 
+        leaveOtherPage = initPage(webDriver, LeaveOtherPage.class);
+
         And("^Open leave of other page$", () -> {
             webDriver.get(Constant.LEAVE_TRACKING_PAGE_URL);
-            leaveOtherPage = initPage(getDriver(), LeaveOtherPage.class);
             new WebDriverWait(webDriver, TIME_OUT).until(
                     driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"));
             Assert.assertEquals(Constant.LEAVE_TRACKING_PAGE_URL, webDriver.getCurrentUrl());
