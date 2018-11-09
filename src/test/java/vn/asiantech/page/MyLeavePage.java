@@ -1,16 +1,11 @@
 package vn.asiantech.page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import vn.asiantech.base.BasePage;
-import vn.asiantech.base.Constant;
 
 import java.util.List;
 
@@ -21,7 +16,6 @@ import static vn.asiantech.base.DriverBase.getDriver;
  */
 
 public class MyLeavePage extends BasePage<MyLeavePage> {
-    private static final int TIME_OUT_IN_SECONDS = 5;
     private static final int ANNUAL_LEAVE = 0;
     private static final int MARRIAGE_LEAVE = 1;
     private static final int OVERTIME_LEAVE = 2;
@@ -54,7 +48,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     @FindBy(css = ".ui-tooltip-text.ui-shadow.ui-corner-all")
     private WebElement toolTip;
 
-    private String sysid;
+    private String sysId;
 
     @Override
     public final MyLeavePage navigateTo(final WebDriver webDriver) {
@@ -134,13 +128,13 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
         findDataLeave(POS_ICON).click();
     }
 
-    public final void setSysid() {
+    public final void setSysId() {
         waitForElement(getDriver(), inputStatus);
-        sysid = findDataLeave(POS_SYSID).getText();
+        sysId = findDataLeave(POS_SYSID).getText();
     }
 
-    public final String getSysid() {
-        return sysid;
+    public final String getSysId() {
+        return sysId;
     }
 
     public final void clickBtnLeaveRequest() {
@@ -156,14 +150,6 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
 
     public final boolean checkDisplayTipStatus(final String status) {
         return toolTip.isDisplayed() && toolTip.getText().equals(status);
-    }
-
-    public final void displayLeaveDetailPage(final WebDriver driver) {
-        driver.get(Constant.MY_LEAVE_PAGE_URL + sysid);
-        new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(
-                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        new WebDriverWait(driver, TIME_OUT_IN_SECONDS).until(ExpectedConditions.visibilityOfElementLocated(By.id("page-wrapper")));
-        Assert.assertEquals(Constant.MY_LEAVE_PAGE_URL + sysid, driver.getCurrentUrl());
     }
 
     private WebElement findDataLeave(final int col) {

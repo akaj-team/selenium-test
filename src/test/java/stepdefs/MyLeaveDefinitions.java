@@ -23,7 +23,7 @@ public class MyLeaveDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
 
-        myLeavePage = initPage(getDriver(), MyLeavePage.class);
+        myLeavePage = initPage(driver, MyLeavePage.class);
 
         Then("^My Leave page is displayed$", () -> displayPage("/leave/my-leave"));
 
@@ -85,14 +85,14 @@ public class MyLeaveDefinitions extends DriverBase implements En {
         Then("^Tip status display is \"([^\"]*)\"$", (String status) -> Assert.assertTrue(myLeavePage.checkDisplayTipStatus(status)));
 
         When("^I click an SYSID$", () -> {
-            myLeavePage.setSysid();
+            myLeavePage.setSysId();
             myLeavePage.clickSYSID();
         });
 
-        Then("^Leave Detail page is displayed$", () -> displayPage("/leave/" + myLeavePage.getSysid()));
+        Then("^Leave Detail page is displayed$", () -> displayPage("/leave/" + myLeavePage.getSysId()));
 
         When("^I click on an icon search$", () -> {
-            myLeavePage.setSysid();
+            myLeavePage.setSysId();
             myLeavePage.clickIconSearch();
         });
     }
