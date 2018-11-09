@@ -17,7 +17,6 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
     private LeaveOtherPage leaveOtherPage;
     private WebDriver webDriver;
 
-    private static final int TIME_OUT = 30;
     private static final int EMPLOYER_ID_POS = 0;
     private static final int EMPLOYER_NAME_POS = 1;
 
@@ -36,7 +35,12 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
 
         And("^Open leave of other page$", () -> {
             webDriver.get(Constant.LEAVE_TRACKING_PAGE_URL);
+<<<<<<< HEAD
             new WebDriverWait(webDriver, TIME_OUT).until(
+=======
+            leaveOtherPage = initPage(webDriver, LeaveOtherPage.class);
+            new WebDriverWait(webDriver, Constant.MAXIMUM_TIME_OUT).until(
+>>>>>>> 452230894aa892e7510bd158674178574a90794f
                     driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"));
             Assert.assertEquals(Constant.LEAVE_TRACKING_PAGE_URL, webDriver.getCurrentUrl());
         });
@@ -54,7 +58,7 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
         Then("^I choose a start date$", () -> leaveOtherPage.chooseStartDate());
         Then("^I choose a end date$", () -> leaveOtherPage.chooseEndDate());
         When("^end date less than start date$", () -> Assert.assertTrue(leaveOtherPage.compareTwoDate()));
-        Then("^show error message with text is \"([^\"]*)\"$", (String message) -> Assert.assertTrue(leaveOtherPage.checkShowErrorMessage(message, getDriver())));
+        Then("^show error message with text is \"([^\"]*)\"$", (String message) -> Assert.assertTrue(leaveOtherPage.checkShowErrorMessage(message, webDriver)));
 
         Given("^Leave of other have data$", () -> {
             Assert.assertFalse(leaveOtherPage.checkDataEmpty());
@@ -72,14 +76,14 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
 
         When("^Button next_to_end_page is shown$", () -> Assert.assertTrue(leaveOtherPage.checkButtonNextEndPageShown(countItem)));
         And("^I click button next_to_end_page$", () -> leaveOtherPage.clickButtonLast());
-        Then("^Should show end page$", () -> Assert.assertEquals(getDriver().getCurrentUrl(), leaveOtherPage.getPathLastPage(countItem)));
+        Then("^Should show end page$", () -> Assert.assertEquals(webDriver.getCurrentUrl(), leaveOtherPage.getPathLastPage(countItem)));
     }
 
     private void redirectPage(final String path) {
-        new WebDriverWait(getDriver(), TIME_OUT).until(
+        new WebDriverWait(webDriver, Constant.MAXIMUM_TIME_OUT).until(
                 driver -> driver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
         );
-        String url = getDriver().getCurrentUrl();
+        String url = webDriver.getCurrentUrl();
         Assert.assertEquals(path, url.substring(url.length() - path.length()));
     }
 }
