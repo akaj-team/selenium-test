@@ -389,8 +389,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public final Boolean displayDeleteConfirmDialog(final WebDriver driver) {
         waitForElement(driver, dlgConfirmDelete);
-        WebElement btnDelete = dlgConfirmDelete.findElement(By.cssSelector(".btn.btn-default.btn-sm.btn-delete"));
-        return btnDelete.isDisplayed();
+        return dlgConfirmDelete.findElement(By.cssSelector(".btn.btn-default.btn-sm.btn-delete")).isDisplayed();
     }
 
     public final Boolean displayCancelConfirmDialog() {
@@ -519,7 +518,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         }
     }
 
-    public void clickButtonSubmit(final WebDriver driver) {
+    public final void clickButtonSubmit(final WebDriver driver) {
         waitForElement(driver, btnSubmit);
         btnSubmit.click();
     }
