@@ -3,12 +3,10 @@ Feature: Check holidays setting
   I want to login my account and check holidays setting page
 
   Background: User navigation to holidays setting page
-    Given I logged in with a employee account
+    Given I am logged in as a team manager
+    And Display holiday setting page
 
   Scenario: Login successfully with correct account
-    When I click on holidays setting in menu
-    Then Menu Administration drop down
-    When I click on item Holidays Setting
     Then Holiday setting page is displayed "/admin/public-holiday"
     And Display title content is "November 2018"
     And Display calendar content

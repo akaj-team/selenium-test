@@ -140,7 +140,8 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         return btnToday.isEnabled();
     }
 
-    public final void onClickOnButtonPrevious() {
+    public final void onClickOnButtonPrevious(final WebDriver driver) {
+        waitForElement(driver,btnPrevious);
         btnPrevious.click();
     }
 
@@ -295,7 +296,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final void clickItemHoliday() {
-        WebElement itemHoliday = calendarContent.findElement(By.className("fc-event-container"));
+        WebElement itemHoliday = calendarContent.findElement(By.className("fc-content"));
         itemHoliday.click();
     }
 

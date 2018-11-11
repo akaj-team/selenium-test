@@ -2,23 +2,24 @@ package stepdefs;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.HolidaySettingPage;
+import vn.asiantech.page.LeavePlannerPage;
 
-import java.util.List;
+import static vn.asiantech.base.Constant.HOLIDAY_SETTING_URL;
+import static vn.asiantech.base.Constant.HOME_PAGE_URL;
+import static vn.asiantech.base.Constant.LEAVE_PLANNER_PAGE_URL;
 
 /**
  * @author at-phuongdang
  */
 public class HolidaySettingDefinitions extends DriverBase implements En {
 
-    private static final String TIME_SHEET_PAGE_URL = "http://portal-stg.asiantech.vn/admin/public-holiday";
-    private static final int TIME_SECOND = 10;
     private WebDriver driver;
     private WebElement usernameInput;
     private WebElement passwordInput;
@@ -31,26 +32,10 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        holidaySettingPage = initPage(getDriver(), HolidaySettingPage.class);
-        Given("^I logged in with a employee account$", () -> {
-            driver.get("http://portal-stg.asiantech.vn");
-            new WebDriverWait(driver, TIME_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            String url = driver.getCurrentUrl();
-            if (url.endsWith("/auth/login")) {
-                //Not logged in
-                List<WebElement> formInputs = driver.findElements(By.className("form-control"));
-                usernameInput = formInputs.get(0);
-                passwordInput = formInputs.get(1);
-                usernameInput.sendKeys("stg.tri.pham@asiantech.vn");
-                passwordInput.sendKeys("Abc123@@");
-                driver.findElement(By.className("btn-primary")).click();
-                new WebDriverWait(driver, TIME_SECOND).until(
-                        webDriver -> webDriver.findElement(By.className("welcome-message")).isDisplayed());
-                Assert.assertTrue(driver.findElement(By.className("welcome-message")).isDisplayed());
-            } else {
-                Assert.assertTrue(true);
-            }
+        holidaySettingPage = initPage(driver, HolidaySettingPage.class);
+        Given("^Display holiday setting page$", () -> {
+            driver.get(HOLIDAY_SETTING_URL);
+            waitForPageDisplayed(getDriver(), HOLIDAY_SETTING_URL, By.id("page-wrapper"));
         });
 
         When("^I click on holidays setting in menu$", () -> holidaySettingPage.clickItemHolidaySetting());
@@ -61,9 +46,9 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
         And("^Display calendar content$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayCalendarContent().toString()));
         And("^Display button next and previous$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonControl().toString()));
         And("^Disable button today and can not click$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonTodayDisable().toString()));
-        Given("^I open holiday setting page$", () -> getDriver().get(TIME_SHEET_PAGE_URL));
+        Given("^I open holiday setting page$", () -> getDriver().get(Constant.HOLIDAY_SETTING_URL));
         When("^Click button next on header$", () -> holidaySettingPage.onClickOnButtonNext());
-        When("^Click button previous on header$", () -> holidaySettingPage.onClickOnButtonPrevious());
+        When("^Click button previous on header$", () -> holidaySettingPage.onClickOnButtonPrevious(driver));
         Then("^Can click today button on header$", () -> Assert.assertTrue(true, holidaySettingPage.onButtonTodayClickable().toString()));
         Then("^Display full seven columns title header calendar$", () -> Assert.assertTrue(true, holidaySettingPage.displayFullTitleCalendar().toString()));
         And("^Display full item calendar day of month$", () -> Assert.assertTrue(true, holidaySettingPage.displayFullItemCalendar().toString()));
@@ -97,7 +82,7 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
     }
 
     private void redirectPageWhenClickChildItem(final String path) {
-        new WebDriverWait(getDriver(), TIME_SECOND).until(
+        new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                 webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
         );
         String url = getDriver().getCurrentUrl();
