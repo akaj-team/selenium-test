@@ -19,12 +19,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     private static final String DEVICE_ITEM_BORDER_COLOR = "#676A6C";
     private static final String DEVICE_ITEM_BORDER_COLOR_SELECTED = "#D9EDF7";
     private static final String DEVICE_ITEM_TITLE = "LTA0010";
-    private static final int ITEM_DEVICE_TRACKING_MENU = 8;
     private static final int MASK = 0xff;
-
-    @FindBy(id = "side-menu")
-    private
-    WebElement menuNavigationMain;
 
     @FindBy(className = "content")
     private
@@ -107,39 +102,9 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
         return this;
     }
 
-    public final void clickItemDevice() {
-        WebElement itemHolidaySetting = getItemMenuInPosition();
-        itemHolidaySetting.click();
-    }
-
-    public final void clickMenuDeviceTracking() {
-        WebElement itemHolidaySetting = getItemMenuInPosition();
-        WebElement device = itemHolidaySetting.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
-        device.click();
-    }
-
-    public final String getTitleContent(final WebDriver driver) {
+    public final Boolean isDisplayTitleContent(final WebDriver driver) {
         waitForElement(driver, tvTitleContent);
-        return tvTitleContent.getText();
-    }
-
-    public final boolean checkDeviceMenuDropDown() {
-        WebElement itemDevice = getItemMenuInPosition();
-        return itemDevice.findElement(By.tagName("ul")).getRect().height == 0;
-    }
-
-    private WebElement getItemMenuInPosition() {
-        List<WebElement> itemMenus = new ArrayList<>();
-        int countChildItem;
-        List<WebElement> items = menuNavigationMain.findElements(By.tagName("li"));
-        for (int i = 0; i < items.size(); i = i + countChildItem + 1) {
-            countChildItem = 0;
-            itemMenus.add(items.get(i));
-            if (items.get(i).findElements(By.tagName("li")).size() > 0) {
-                countChildItem = items.get(i).findElements(By.tagName("li")).size();
-            }
-        }
-        return itemMenus.get(ITEM_DEVICE_TRACKING_MENU);
+        return tvTitleContent.isDisplayed();
     }
 
     public final Boolean isDisplayContentDevice(final WebDriver driver) {

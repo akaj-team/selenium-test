@@ -2,27 +2,18 @@ package stepdefs;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.DeviceTrackingPage;
-
-import java.util.List;
 
 /**
  * @author at-phuongdang
  */
 public class DeviceTrackingDefinitions extends DriverBase implements En {
-    private static final String TIME_SHEET_PAGE_URL = "http://portal-stg.asiantech.vn/equipments/tracking";
-    private static final int TIME_SECOND = 10;
     private WebDriver driver;
-    private WebElement usernameInput;
-    private WebElement passwordInput;
-
-    private DeviceTrackingPage holidaySettingPage;
 
     public DeviceTrackingDefinitions() {
         try {
@@ -30,40 +21,18 @@ public class DeviceTrackingDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        holidaySettingPage = initPage(getDriver(), DeviceTrackingPage.class);
-        Given("^I logged in with a employee account$", () -> {
-            driver.get("http://portal-stg.asiantech.vn");
-            new WebDriverWait(driver, TIME_SECOND).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-            String url = driver.getCurrentUrl();
-            if (url.endsWith("/auth/login")) {
-                //Not logged in
-                List<WebElement> formInputs = driver.findElements(By.className("form-control"));
-                usernameInput = formInputs.get(0);
-                passwordInput = formInputs.get(1);
-                usernameInput.sendKeys("stg.tri.pham@asiantech.vn");
-                passwordInput.sendKeys("Abc123@@");
-                driver.findElement(By.className("btn-primary")).click();
-                new WebDriverWait(driver, TIME_SECOND).until(
-                        webDriver -> webDriver.findElement(By.className("welcome-message")).isDisplayed());
-                Assert.assertTrue(driver.findElement(By.className("welcome-message")).isDisplayed());
-            } else {
-                Assert.assertTrue(true);
-            }
+        DeviceTrackingPage holidaySettingPage = initPage(driver, DeviceTrackingPage.class);
+        Given("^Display device tracking page$", () -> {
+            driver.get(Constant.DEVICE_TRACKING_URL);
+            waitForPageDisplayed(getDriver(), Constant.DEVICE_TRACKING_URL, By.id("page-wrapper"));
         });
-
-        When("^I click on device in menu$", () -> holidaySettingPage.clickItemDevice());
-        Then("^Menu device drop down$", () -> Assert.assertFalse(holidaySettingPage.checkDeviceMenuDropDown()));
-        When("^I click on item device tracking$", () -> holidaySettingPage.clickMenuDeviceTracking());
         Then("^Device tracking page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
-        And("^Display title content is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, holidaySettingPage.getTitleContent(driver)));
+        And("^Display title content device", () -> Assert.assertTrue(holidaySettingPage.isDisplayTitleContent(driver)));
         And("^Display list content device$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayContentDevice(driver).toString()));
         And("^Display button next and previous$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonControl().toString()));
         And("^Display checkbox select all not tick$", () -> Assert.assertTrue(true, holidaySettingPage.isDefaultCheckboxSelectAll(driver).toString()));
         And("^Disable button this week and can not click$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonThisWeekDisable(driver).toString()));
         When("^Click button next on header$", () -> holidaySettingPage.clickButtonNext(driver));
-        Given("^I open device tracking page$", () -> getDriver().get(TIME_SHEET_PAGE_URL));
         Then("^Can click this week button on header$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonThisWeekClickable(driver).toString()));
         When("^Click button previous on header$", () -> holidaySettingPage.clickButtonPrevious(driver));
         Then("^Display full seven columns title header device$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayFullDeviceHeader(driver).toString()));
@@ -74,7 +43,7 @@ public class DeviceTrackingDefinitions extends DriverBase implements En {
         When("^Click item on list device item$", () -> holidaySettingPage.clickItemOnListItemDevice(driver));
         Then("^Display item device with color selected$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayColorDeviceItem(driver).toString()));
         And("^Display button submit and can clickable$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonSubmit(driver).toString()));
-        When("^Click checkbox select all trackings$", () -> holidaySettingPage.clickCheckboxSelectAll(driver));
+        When("^Click checkbox select all tracking$", () -> holidaySettingPage.clickCheckboxSelectAll(driver));
         Then("^Display all item device with color selected$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayAllItemSelected(driver).toString()));
         Then("^Display dialog confirm$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayDialogConfirm(driver).toString()));
         And("^Display title dialog confirm is \"([^\"]*)\"$", (String title) -> Assert.assertTrue(true, holidaySettingPage.isDisplayTitleDialogConfirm(driver, title).toString()));
@@ -100,9 +69,8 @@ public class DeviceTrackingDefinitions extends DriverBase implements En {
         And("^Display message success$", () -> Assert.assertTrue(true, holidaySettingPage.isMessageConfirmShowing(driver).toString()));
     }
 
-
     private void redirectPageWhenClickChildItem(final String path) {
-        new WebDriverWait(getDriver(), TIME_SECOND).until(
+        new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                 webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed()
         );
         String url = getDriver().getCurrentUrl();
