@@ -15,6 +15,7 @@ public final class Constant {
     public static final String AWARD_CATEGORY_PAGE_URL = PORTAL_URL + "/admin/award-category";
     public static final String ACCESS_CONTROL_PAGE_URL = PORTAL_URL + "/admin/acl";
     public static final String NEW_EMPLOYEE_PAGE_URL = PORTAL_URL + "/organisation/employees/new";
+    public static final String TIME_SHEET_PAGE_URL = PORTAL_URL + "/timesheet/submission";
     public static final int DEFAULT_TIME_OUT = 10;
     static final int MAXIMUM_TIME_OUT = 20;
 

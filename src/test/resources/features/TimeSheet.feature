@@ -2,41 +2,34 @@ Feature: Check TimeSheet
   I want to login my account and check  My TimeSheet page
 
   Background: User navigation to My TimeSheet page
-    Given I logged in with a employee account
+    Given I am logged in as a team manager
+    And Display time sheet page
 
   Scenario: Login successfully with correct account
-    When I click on Timesheet in menu
-    Then Menu Timesheet drop down
-    When I click on item My Timesheet
     Then My Timesheet page is displayed "/timesheet/submission"
-    And Title content is "Nov 05 - Nov 11"
+    And Display title timesheet content
     And Display full record timesheet
     And Disable button this week and can not click
     And Disable button submit and can not click
 
   Scenario: Can click this week button after click back button
-    Given I open my timesheet page
     When Click on back button on timesheet
     Then Can click this week button on timesheet
 
   Scenario: Can click this week button after click next button
-    Given I open my timesheet page
     When Click on next button on timesheet
     Then Can click this week button on timesheet
 
   Scenario: Display button add timesheet after hover avatar
-    Given I open my timesheet page
     When Move to columns timesheet
     Then Display button add new timesheet
 
   Scenario: Display dialog create timesheet after click button add timesheet
-    Given I open my timesheet page
     When Click on button timesheet
     When Click first button add new timesheet
     Then Display dialog timesheet
 
   Scenario: Create and submit timesheet
-    Given I open my timesheet page
     When Click first button add new timesheet
     Then Display dialog timesheet
     And Display title item project is "PROJECT"
@@ -49,7 +42,6 @@ Feature: Check TimeSheet
     And Display button Save is disable
 
   Scenario: Display dialog timesheet and input value search
-    Given I open my timesheet page
     When Click on button timesheet
     When Click first button add new timesheet
     Then Display dialog timesheet
@@ -61,7 +53,6 @@ Feature: Check TimeSheet
     Then Display Search result is "Coding"
 
   Scenario: Create and submit timesheet
-    Given I open my timesheet page
     When Click first button add new timesheet
     Then Display dialog timesheet
     When Select first project on list project
@@ -77,7 +68,6 @@ Feature: Check TimeSheet
     And Display Dialog success is enable and show message
 
   Scenario: Display timeSheet data
-    Given I open my timesheet page
     Then Display full record timesheet
     And Display element timeSheet
     When Move to title columns timesheet
@@ -88,7 +78,6 @@ Feature: Check TimeSheet
     And Display Dialog success is enable and show message
 
   Scenario: Check click delete action control on timeSheet
-    Given I open my timesheet page
     Then Display full record timesheet
     And Display element timeSheet
     When Click on columns timesheet
@@ -107,7 +96,6 @@ Feature: Check TimeSheet
     And Display Dialog success is enable and show message
 
     Scenario: Check click button save and submit for timeSheet
-      Given I open my timesheet page
       When Click on first item add timesheet
       Then Display dialog timesheet
       When I fill information for timeSheet

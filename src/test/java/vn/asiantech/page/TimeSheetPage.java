@@ -5,7 +5,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,12 +17,8 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     private static final int POSITION_FIRST_ITEM = 1;
     private static final int POSITION_CANCEL_CONFIRM = 1;
     private static final int POSITION_DELETE_CONFIRM = 0;
-    private static final int TIME_OUT_WAITED_ELEMENT_DISPLAY = 2000;
+    private static final int TIME_OUT_WAITED_ELEMENT_DISPLAY = 1000;
     private static final int HEIGHT_ITEM_RESIZE = -100;
-
-    @FindBy(id = "side-menu")
-    private
-    WebElement menuNavigationMain;
 
     @FindBy(css = ".directional-toolbox")
     private
@@ -63,7 +58,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     @FindBy(className = "input-time")
     private
-    WebElement edtTime;
+    WebElement inputTime;
 
     @FindBy(css = ".text-muted.ng-star-inserted")
     private
@@ -101,34 +96,18 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     private
     WebElement dlgConfirmDelete;
 
-    @FindBy(id = "btn-resize-task-time")
-    private
-    WebElement btnResizeTask;
-
     @FindBy(className = "box-note")
     private
-    WebElement edtDescription;
+    WebElement inputDescription;
 
     @FindBy(className = "ui-dropdown-filter")
     private
-    WebElement edtInputSearch;
+    WebElement inputSearch;
 
     @Override
     public final TimeSheetPage navigateTo(final WebDriver webDriver) {
         return null;
     }
-
-    public final void clickItemTimeSheet() {
-        WebElement itemTimeSheet = getItemMenuInPosition();
-        itemTimeSheet.click();
-    }
-
-    public final void clickMyTimeSheet() {
-        WebElement itemTimeSheet = getItemMenuInPosition();
-        WebElement timeSheetItem = itemTimeSheet.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
-        timeSheetItem.click();
-    }
-
 
     public final void moveRowTimeSheet(final WebDriver driver) {
         Actions action = new Actions(driver);
@@ -139,8 +118,9 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         }
     }
 
-    public final String getStatusMenu() {
-        return elementToolbox.findElement(By.className("content")).getText();
+    public final Boolean isDisplayTitle(final WebDriver driver) {
+        waitForElement(driver, elementToolbox);
+        return elementToolbox.findElement(By.className("content")).isDisplayed();
     }
 
     public final Boolean isDisplayFullColumns(final WebDriver driver) {
@@ -178,25 +158,6 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     public final void clickNextButtonOnTimeSheet(final WebDriver driver) {
         waitForElement(driver, btnNext);
         btnNext.click();
-    }
-
-    public final boolean checkLeaveMenuDropDown() {
-        WebElement itemLeave = getItemMenuInPosition();
-        return itemLeave.findElement(By.tagName("ul")).getRect().height == 0;
-    }
-
-    private WebElement getItemMenuInPosition() {
-        List<WebElement> itemMenus = new ArrayList<>();
-        int countChildItem;
-        List<WebElement> items = menuNavigationMain.findElements(By.tagName("li"));
-        for (int i = 0; i < items.size(); i = i + countChildItem + 1) {
-            countChildItem = 0;
-            itemMenus.add(items.get(i));
-            if (items.get(i).findElements(By.tagName("li")).size() > 0) {
-                countChildItem = items.get(i).findElements(By.tagName("li")).size();
-            }
-        }
-        return itemMenus.get(2);
     }
 
     public final Boolean getAddTimeSheetsClickable() {
@@ -265,12 +226,12 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public final Boolean isDescriptionShowing(final String title) {
-        WebElement itemTextArea = edtDescription.findElement(By.className("form-control "));
+        WebElement itemTextArea = inputDescription.findElement(By.className("form-control "));
         return itemTextArea.getAttribute("placeholder").equals(title);
     }
 
     public final String getDefaultInputTimeShowing() {
-        return edtTime.getAttribute("value");
+        return inputTime.getAttribute("value");
     }
 
     public final Boolean checkButtonRepeatClickable(final WebDriver driver) {
@@ -406,7 +367,8 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         return btnDelete.isEnabled();
     }
 
-    public final void clickButtonDelete() {
+    public final void clickButtonDelete(final WebDriver driver) {
+        waitForElement(driver, btnDelete);
         btnDelete.click();
     }
 
@@ -438,9 +400,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public final void clickButtonCancelDialogConfirm() {
         WebElement btnCancelConfirm = getElementControlDelete(POSITION_CANCEL_CONFIRM);
-        if (btnCancelConfirm.isDisplayed()) {
-            btnCancelConfirm.click();
-        }
+        btnCancelConfirm.click();
     }
 
     public final Boolean dismissDialogConfirmDelete() {
@@ -451,12 +411,11 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         }
     }
 
-    public final void clickButtonConfirmDelete() {
-        clickButtonDelete();
+    public final void clickButtonConfirmDelete(final WebDriver driver) {
+        clickButtonDelete(driver);
         WebElement btnDeleteConfirm = getElementControlDelete(POSITION_DELETE_CONFIRM);
-        if (btnDeleteConfirm.isDisplayed()) {
-            btnDeleteConfirm.click();
-        }
+        waitForElement(driver, btnDeleteConfirm);
+        btnDeleteConfirm.click();
     }
 
     public final Boolean isItemTimeSheetDelete(final WebDriver driver) {
@@ -471,8 +430,8 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public final void inputSearch(final String content) {
-        edtInputSearch.clear();
-        edtInputSearch.sendKeys(content);
+        inputSearch.clear();
+        inputSearch.sendKeys(content);
     }
 
     public final Boolean displaySearchResult(final WebDriver driver, final String content) {
@@ -493,7 +452,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     public final void scrollChangeItemTimeSheet(final WebDriver driver) {
         scrollToBottomPage(driver);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -562,8 +521,6 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public void clickButtonSubmit(final WebDriver driver) {
         waitForElement(driver, btnSubmit);
-        if (btnSubmit.isDisplayed()) {
-            btnSubmit.click();
-        }
+        btnSubmit.click();
     }
 }
