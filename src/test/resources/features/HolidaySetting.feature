@@ -8,28 +8,24 @@ Feature: Check holidays setting
 
   Scenario: Login successfully with correct account
     Then Holiday setting page is displayed "/admin/public-holiday"
-    And Display title content is "November 2018"
+    And Display title content
     And Display calendar content
     And Display button next and previous
     And Disable button today and can not click
 
   Scenario: Can click today button after click next button
-    Given I open holiday setting page
     When Click button next on header
     Then Can click today button on header
 
   Scenario: Can click today button after click previous button
-    Given I open holiday setting page
     When Click button previous on header
     Then Can click today button on header
 
   Scenario: Display title header calendar and content calendar
-    Given I open holiday setting page
     Then Display full seven columns title header calendar
     And Display full item calendar day of month
 
   Scenario: Display Holiday detail and view show info calendar
-    Given I open holiday setting page
     When Click item calendar holiday
     Then Display holiday detail dialog
     And Display title holiday detail dialog is "Holiday detail"
@@ -39,7 +35,6 @@ Feature: Check holidays setting
     And Disable button save
 
   Scenario: Display Holiday detail and view show info calendar
-    Given I open holiday setting page
     When Click item calendar holiday
     Then Display holiday detail dialog
     When Input Name is empty
@@ -47,7 +42,6 @@ Feature: Check holidays setting
     And Disable button save
 
   Scenario: Display Holiday detail and view show info calendar
-    Given I open holiday setting page
     When Click item calendar holiday
     Then Display holiday detail dialog
     When Input name is "Request tet holiday"
@@ -62,7 +56,6 @@ Feature: Check holidays setting
     Then Message success is showing
 
   Scenario: Delete holiday plain
-    Given I open holiday setting page
     When Click item holiday
     Then Display holiday detail dialog
     And Enable button delete

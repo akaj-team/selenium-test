@@ -4,7 +4,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -14,33 +13,24 @@ import java.util.List;
 public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
 
     private static final int COLUMNS_HEADER_COUNT = 7;
-    private static final int MENU_NAVIGATION_ITEM = 7;
     private static final int CONFIRM_DIALOG_BUTTON_CANCEL = 0;
     private static final int CONFIRM_DIALOG_BUTTON_DELETE = 1;
     private static final int END_DATE_POSITION = 1;
     private static final int FIRST_ITEM_SELECTED = 0;
 
-    @FindBy(id = "side-menu")
-    private
-    WebElement menuNavigationMain;
-
-    @FindBy(css = ".fc-center")
+    @FindBy(className = "fc-center")
     private
     WebElement tvTitleCenter;
 
-    @FindBy(css = ".fc-right")
+    @FindBy(className = "fc-right")
     private
     WebElement btnToday;
 
-    @FindBy(css = ".btn.btn-primary.btn-submit")
-    private
-    WebElement btnSubmit;
-
-    @FindBy(css = ".fc-prev-button.ui-button.ui-state-default.ui-corner-left")
+    @FindBy(className = "fc-prev-button")
     private
     WebElement btnPrevious;
 
-    @FindBy(css = ".fc-next-button.ui-button.ui-state-default.ui-corner-right")
+    @FindBy(className = "fc-next-button")
     private
     WebElement btnNext;
 
@@ -85,39 +75,8 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         return null;
     }
 
-    public final void clickItemHolidaySetting() {
-        WebElement itemHolidaySetting = getItemMenuInPosition();
-        itemHolidaySetting.click();
-    }
-
-    public final void clickMenuHolidaySetting() {
-        WebElement itemHolidaySetting = getItemMenuInPosition();
-        WebElement administration = itemHolidaySetting.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
-        administration.click();
-    }
-
-    public final String checkTitleContent() {
-        WebElement itemTitle = tvTitleCenter.findElement(By.tagName("h2"));
-        return itemTitle.getText();
-    }
-
-    public final boolean checkAdministrationMenuDropDown() {
-        WebElement itemAdministration = getItemMenuInPosition();
-        return itemAdministration.findElement(By.tagName("ul")).getRect().height == 0;
-    }
-
-    private WebElement getItemMenuInPosition() {
-        List<WebElement> itemMenus = new ArrayList<>();
-        int countChildItem;
-        List<WebElement> items = menuNavigationMain.findElements(By.tagName("li"));
-        for (int i = 0; i < items.size(); i = i + countChildItem + 1) {
-            countChildItem = 0;
-            itemMenus.add(items.get(i));
-            if (items.get(i).findElements(By.tagName("li")).size() > 0) {
-                countChildItem = items.get(i).findElements(By.tagName("li")).size();
-            }
-        }
-        return itemMenus.get(MENU_NAVIGATION_ITEM);
+    public final Boolean isDisplayTitleContent() {
+        return tvTitleCenter.findElement(By.tagName("h2")).isDisplayed();
     }
 
     public final Boolean isDisplayCalendarContent() {
@@ -141,11 +100,12 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final void onClickOnButtonPrevious(final WebDriver driver) {
-        waitForElement(driver,btnPrevious);
+        waitForElement(driver, btnPrevious);
         btnPrevious.click();
     }
 
-    public final Boolean displayFullTitleCalendar() {
+    public final Boolean displayFullTitleCalendar(final WebDriver driver) {
+        waitForElement(driver, calendarContent);
         WebElement itemHeader = calendarContent.findElement(By.cssSelector(".fc-row.ui-widget-header"));
         List<WebElement> headers = itemHeader.findElements(By.tagName("th"));
         for (int i = 1; i < headers.size(); i++) {
@@ -227,7 +187,8 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         return titleMessage.getText();
     }
 
-    public final void inputNameValue(final String value) {
+    public final void inputNameValue(final WebDriver driver, final String value) {
+        waitForElement(driver, edtName);
         edtName.clear();
         edtName.sendKeys(value);
     }
@@ -277,10 +238,8 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final void enterFullInfo(final WebDriver driver) {
-        clickItemHolidaySetting();
-        clickMenuHolidaySetting();
         clickItemHolidayCalendar(driver);
-        inputNameValue("Request tet holiday");
+        inputNameValue(driver, "Request tet holiday");
         clickBoxHolidayTimeTo();
         chooseTodayOnDialogCalendar();
         inputValueToDescription();
