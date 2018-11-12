@@ -96,10 +96,10 @@ Feature: Check TimeSheet
     Then Element timeSheet is delete timesheet
     And Display Dialog success is enable and show message timesheet
 
-    Scenario: Check click button save and submit for timeSheet
-      When Click on first item add timesheet
-      Then Display dialog timesheet
-      When I fill information for timeSheet
-      And Click button save on timeSheet dialog
-#      And Click button submit on timeSheet
-#      Then Display Dialog success is enable and show message
+  Scenario: Check click button save and submit for timeSheet
+    When Click on first item add timesheet
+    Then Display dialog timesheet
+    When I fill information for timeSheet
+    And Click button save on timeSheet dialog
+    And Click button submit on timeSheet
+    Then Display Dialog success is enable and show message timesheet
