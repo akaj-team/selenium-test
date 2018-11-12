@@ -30,6 +30,12 @@ public class WikiPage extends BasePage<WikiPage> {
     @FindBy(id = "btn-edit-wiki")
     private WebElement btnEdit;
 
+    private WebDriver driver;
+
+    public WikiPage(final WebDriver driver) {
+        this.driver = driver;
+    }
+
     @Override
     public final WikiPage navigateTo(final WebDriver webDriver) {
         return null;
@@ -40,6 +46,7 @@ public class WikiPage extends BasePage<WikiPage> {
     }
 
     public final void clickChildPageButton() {
+        waitForElement(driver, btnChildPage);
         btnChildPage.click();
     }
 
@@ -48,6 +55,7 @@ public class WikiPage extends BasePage<WikiPage> {
     }
 
     public final boolean isEnableDeleteButton() {
+        waitForElement(driver, btnDelete);
         return btnDelete.isEnabled();
     }
 
