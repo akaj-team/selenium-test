@@ -5,13 +5,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.MyTeamPage;
+import vn.asiantech.page.team.MyTeamPage;
+
+import static vn.asiantech.base.Constant.URL_MYTEAM_PAGE;
 
 /**
  * @author at-huethai
  */
 public class MyTeamDefinitions extends DriverBase implements En {
-    private static final String URL_TEAM_PAGE = "http://portal-stg.asiantech.vn/organisation/teams/";
     private static final int TEAM_CODE = 24;
     private static final int TEAM_MEMBER_COUNT = 39;
     private static final int TIME_SLEEP = 300;
@@ -25,52 +26,52 @@ public class MyTeamDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        myTeamPage = initPage(driver, MyTeamPage.class);
 
         Given("^Display My Team page$", () -> {
-            driver.get(URL_TEAM_PAGE + TEAM_CODE);
-            myTeamPage = initPage(getDriver(), MyTeamPage.class);
-            waitForPageDisplayed(getDriver(), URL_TEAM_PAGE + TEAM_CODE, By.id("page-wrapper"));
+            driver.get(URL_MYTEAM_PAGE + TEAM_CODE);
+            waitForPageDisplayed(getDriver(), URL_MYTEAM_PAGE + TEAM_CODE, By.id("page-wrapper"));
         });
 
-        Then("^The member of Android team is displayed$", () -> Assert.assertEquals(TEAM_MEMBER_COUNT, myTeamPage.checkNumberofTeam(driver)));
+        Then("^The member of Android team is displayed$", () -> Assert.assertEquals(TEAM_MEMBER_COUNT, myTeamPage.checkNumberofTeam()));
 
-        And("^The \"([^\"]*)\" value is \"([^\"]*)\"$", (String key, String value) -> myTeamPage.verifyMyTeamInfo(driver, key, value));
+        And("^The \"([^\"]*)\" value is \"([^\"]*)\"$", (String key, String value) -> myTeamPage.verifyMyTeamInfo(key, value));
 
         When("^I click on 'Update Team' button$", () -> {
-            myTeamPage.clickUpdateTeamBtn(driver);
+            myTeamPage.clickUpdateTeamButton();
             Thread.sleep(TIME_SLEEP);
         });
 
-        Then("^The web page navigates to the \"([^\"]*)\" page$", (String page) -> myTeamPage.redirectPage(driver, page));
+        Then("^The web page navigates to the \"([^\"]*)\" page$", (String page) -> myTeamPage.redirectPage(page));
 
-        When("^I click on 'Teams' button$", () -> myTeamPage.clickTeamsBtn(driver));
+        When("^I click on 'Teams' button$", () -> myTeamPage.clickTeamsBtn());
 
-        When("^I click on New Member button$", () -> myTeamPage.clickAddMemberBtn(driver));
+        When("^I click on New Member button$", () -> myTeamPage.clickAddMemberBtn());
 
         Then("^The Add Member popup is displayed$", () -> Assert.assertTrue(myTeamPage.getAddMemberPopupName()));
 
-        When("^I input \"([^\"]*)\" into search textbox to add member$", (String username) -> myTeamPage.inputUserNametoAdd(driver, username));
+        When("^I input \"([^\"]*)\" into search textbox to add member$", (String username) -> myTeamPage.inputUserNametoAdd(username));
 
-        Then("^I verify that search result list is correct with \"([^\"]*)\"$", (String n) -> Assert.assertTrue(myTeamPage.verifySearchResult(driver, n)));
+        Then("^I verify that search result list is correct with \"([^\"]*)\"$", (String n) -> myTeamPage.verifySearchResult(n));
 
-        When("^I click on Add button$", () -> myTeamPage.clickAddBtn(driver));
+        When("^I click on Add button$", () -> myTeamPage.clickAddButton());
 
-        When("^I click on Close button$", () -> myTeamPage.clickCloseBtn(driver));
+        When("^I click on Close button$", () -> myTeamPage.clickCloseBtn());
 
-        Then("^The Add Member popup is disappeared$", () -> Assert.assertTrue(myTeamPage.verifyAddMemberPopupDisappeared(driver)));
+        Then("^The Add Member popup is disappeared$", () -> Assert.assertTrue(myTeamPage.verifyAddMemberPopupDisappeared()));
 
-        When("^I input \"([^\"]*)\" into search textbox to search member$", (String username) -> myTeamPage.inputUserNametoSearch(driver, username));
+        When("^I input \"([^\"]*)\" into search textbox to search member$", (String username) -> myTeamPage.inputUserNametoSearch(username));
 
-        Then("^I verify that members of team are displayed correctly as \"([^\"]*)\"$", (String record) -> myTeamPage.verifySearchMemberResult(driver, record));
+        Then("^I verify that members of team are displayed correctly as \"([^\"]*)\"$", (String record) -> myTeamPage.verifySearchMemberResult(record));
 
         When("^I input \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$",
-                (String name, String manager, String teamofficer1, String teamofficer2, String logo, String teamfolder, String description) -> myTeamPage.updateTeamInfo(driver, name, manager, teamofficer1, teamofficer2, logo, teamfolder, description));
+                (String name, String manager, String teamofficer1, String teamofficer2, String logo, String teamfolder, String description) -> myTeamPage.updateTeamInfo(name, manager, teamofficer1, teamofficer2, logo, teamfolder, description));
 
-        And("^I click on Submit button$", () -> myTeamPage.clickSubmitBtntoUpload(driver));
+        And("^I click on Submit button$", () -> myTeamPage.clickSubmitBtntoUpload());
 
-        And("^I click on Delete button to delete searched user$", () -> myTeamPage.clickDeleteBtn(driver));
+        And("^I click on Delete button to delete searched user$", () -> myTeamPage.clickDeleteBtn());
 
-        Then("^I verify that deleting user successful$", () -> myTeamPage.verifyDeleteUserSuccessful(driver));
+        Then("^I verify that deleting user successful$", () -> myTeamPage.verifyDeleteUserSuccessful());
     }
 }
 
