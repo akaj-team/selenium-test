@@ -1,3 +1,4 @@
+@TimeSheet
 Feature: Check TimeSheet
   I want to login my account and check  My TimeSheet page
 
@@ -65,40 +66,40 @@ Feature: Check TimeSheet
     And Display button Save is enable
     When Click button Repeat every day
     Then Display button submit is enable
-    And Display Dialog success is enable and show message
+    And Display Dialog success is enable and show message timesheet
 
   Scenario: Display timeSheet data
     Then Display full record timesheet
     And Display element timeSheet
     When Move to title columns timesheet
     Then Display button add new timesheet
-    And Display dialog title project
+    And Display dialog title project timesheet
     When Scroll edit timesheet
     Then Change time sheet info is "6"
-    And Display Dialog success is enable and show message
+    And Display Dialog success is enable and show message timesheet
 
   Scenario: Check click delete action control on timeSheet
     Then Display full record timesheet
     And Display element timeSheet
     When Click on columns timesheet
     Then Display dialog timesheet
-    And Button delete is enable
-    When Click on button delete
-    Then Display dialog confirm delete
-    And Display title is "Confirmation"
-    And Display message is "Are you sure to delete a task?"
-    And Display button confirm delete
-    And Display button confirm cancel
-    When Click button cancel
-    Then Dismiss dialog confirm delete
-    When Click button confirm delete
-    Then Element timeSheet is delete
-    And Display Dialog success is enable and show message
+    And Button delete timesheet is enable
+    When Click on button delete timesheet
+    Then Display dialog confirm delete timesheet
+    And Display title timesheet is "Confirmation"
+    And Display message timesheet is "Are you sure to delete a task?"
+    And Display button confirm delete timesheet
+    And Display button confirm cancel timesheet
+    When Click button cancel timesheet
+    Then Dismiss dialog confirm delete timesheet
+    When Click button confirm delete timesheet
+    Then Element timeSheet is delete timesheet
+    And Display Dialog success is enable and show message timesheet
 
     Scenario: Check click button save and submit for timeSheet
       When Click on first item add timesheet
       Then Display dialog timesheet
       When I fill information for timeSheet
       And Click button save on timeSheet dialog
-      And Click button submit on timeSheet
-      Then Display Dialog success is enable and show message
+#      And Click button submit on timeSheet
+#      Then Display Dialog success is enable and show message
