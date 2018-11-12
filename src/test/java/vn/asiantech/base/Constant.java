@@ -11,14 +11,13 @@ public final class Constant {
     public static final String NEW_TEAM_PAGE_URL = PORTAL_URL + "/organisation/teams/new";
     public static final String EMPLOYEE_PAGE_URL = PORTAL_URL + "/organisation/employees";
     public static final String LEAVE_PLANNER_PAGE_URL = PORTAL_URL + "/leave/planning";
-    public static final String MY_LEAVE_PAGE_URL = PORTAL_URL + "/leave/";
-    public static final String AWARD_CATEGORY_PAGE_URL = PORTAL_URL + "/admin/award-category";
+    public static final String LEAVE_TRACKING_PAGE_URL = PORTAL_URL + "/leave/tracking";
     public static final String ACCESS_CONTROL_PAGE_URL = PORTAL_URL + "/admin/acl";
     public static final String NEW_EMPLOYEE_PAGE_URL = PORTAL_URL + "/organisation/employees/new";
     public static final String TIME_SHEET_PAGE_URL = PORTAL_URL + "/timesheet/submission";
     public static final String HOLIDAY_SETTING_URL = PORTAL_URL + "/admin/public-holiday";
     public static final int DEFAULT_TIME_OUT = 10;
-    static final int MAXIMUM_TIME_OUT = 20;
+    public static final int MAXIMUM_TIME_OUT = 20;
 
     private Constant() {
         // No-op
