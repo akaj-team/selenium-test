@@ -21,80 +21,61 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     private static final int MASK = 0xff;
 
     @FindBy(className = "content")
-    private
-    WebElement tvTitleContent;
+    private WebElement tvTitleContent;
 
     @FindBy(id = "btn-this-week")
-    private
-    WebElement btnThisWeek;
+    private WebElement btnThisWeek;
 
     @FindBy(id = "btn-submit-device-tracking")
-    private
-    WebElement btnSubmit;
+    private WebElement btnSubmit;
 
     @FindBy(id = "btn-prev-week")
-    private
-    WebElement btnPrevious;
+    private WebElement btnPrevious;
 
     @FindBy(id = "btn-next-week")
-    private
-    WebElement btnNext;
+    private WebElement btnNext;
 
     @FindBy(className = "timesheet-body")
-    private
-    WebElement viewDeviceBody;
+    private WebElement viewDeviceBody;
 
     @FindBy(id = "checkbox-select-all")
-    private
-    WebElement cbxSelectAll;
+    private WebElement cbxSelectAll;
 
     @FindBy(className = "timesheet-head")
-    private
-    WebElement tvDeviceHeader;
+    private WebElement tvDeviceHeader;
 
     @FindBy(id = "static-dialog-wrapper")
-    private
-    WebElement dlgConfirm;
+    private WebElement dlgConfirm;
 
     @FindBy(className = "ui-dialog-title")
-    private
-    WebElement tvTitleDialogConfirm;
+    private WebElement tvTitleDialogConfirm;
 
     @FindBy(className = "ui-dialog-content")
-    private
-    WebElement tvMessageDialogConfirm;
+    private WebElement tvMessageDialogConfirm;
 
     @FindBy(css = ".btn.btn-sm.btn-default.btn-cancel.ng-star-inserted")
-    private
-    WebElement btnStayDialogConfim;
+    private WebElement btnStayDialogConfim;
 
     @FindBy(css = ".btn.btn-sm.btn-warning.btn-submit.ng-star-inserted")
-    private
-    WebElement btnLeaveDialogConfirm;
+    private WebElement btnLeaveDialogConfirm;
 
     @FindBy(css = ".fa.fa-fw.fa-close")
-    private
-    WebElement btnCloseDialogConfirm;
+    private WebElement btnCloseDialogConfirm;
 
     @FindBy(tagName = "p-dialog")
-    private
-    WebElement dlgConfirmSubmit;
+    private WebElement dlgConfirmSubmit;
 
     @FindBy(css = ".btn.btn-sm.btn-default.btn-cancel.ng-star-inserted")
-    private
-    WebElement btnCancelDialogConfirm;
+    private WebElement btnCancelDialogConfirm;
 
     @FindBy(css = ".btn.btn-sm.btn-primary.btn-submit.ng-star-inserted")
-    private
-    WebElement btnSubmitDialogConfirm;
+    private WebElement btnSubmitDialogConfirm;
 
     @FindBy(css = ".fa.fa-fw.fa-close")
-    private
-    WebElement btnCloseDialogConfirmSubmit;
+    private WebElement btnCloseDialogConfirmSubmit;
 
     @FindBy(css = ".app-alert.ng-star-inserted")
-    private
-    WebElement tvMessageConfirm;
+    private WebElement tvMessageConfirm;
 
     private WebDriver driver;
 

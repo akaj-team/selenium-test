@@ -26,7 +26,7 @@ Feature: Login AT Portal
     When Should show end day dialog
     Then I choose a end date
     When End date less than start date
-    Then show error message with text is "End date must be on or after start date."
+    Then Show error message with text is "End date must be on or after start date."
 
   Scenario: Test click item on employer id
     Given Leave of other have data

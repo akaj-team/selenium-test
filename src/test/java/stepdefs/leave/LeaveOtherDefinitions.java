@@ -50,7 +50,7 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
         Then("^I choose a start date$", () -> leaveOtherPage.chooseStartDate());
         Then("^I choose a end date$", () -> leaveOtherPage.chooseEndDate());
         When("^End date less than start date$", () -> Assert.assertTrue(leaveOtherPage.compareTwoDate()));
-        Then("^show error message with text is \"([^\"]*)\"$", (String message) -> Assert.assertTrue(leaveOtherPage.checkShowErrorMessage(message)));
+        Then("^Show error message with text is \"([^\"]*)\"$", (String message) -> Assert.assertTrue(leaveOtherPage.checkShowErrorMessage(message)));
 
         Given("^Leave of other have data$", () -> {
             Assert.assertFalse(leaveOtherPage.checkDataEmpty());
