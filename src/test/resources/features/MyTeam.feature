@@ -20,21 +20,17 @@ Feature: Check My Teams information
     When I click on 'Teams' button
     Then The web page navigates to the "/teams" page
 
-  Scenario Outline: Verify Add member function
+  Scenario: Verify Add member function
     When I click on New Member button
     Then The Add Member popup is displayed
-    When I input "<empName>" into search textbox to add member
-    Then I verify that search result list is correct with "<record>"
+    When I input "Hue" into search input to add member
+    Then I verify that search result list is correct with "2"
     When I click on Add button
     And I click on Close button
     Then The Add Member popup is disappeared
 
-    Examples:
-      | empName | record |
-      | Hue     | 2      |
-
   Scenario Outline: Verify Search user function
-    When I input "<empName>" into search textbox to search member
+    When I input "<empName>" into search input to search member
     Then I verify that members of team are displayed correctly as "<record>"
     Examples:
       | empName | record |
@@ -42,7 +38,7 @@ Feature: Check My Teams information
       | tien    | 2      |
 
   Scenario Outline: Verify the Delete user function
-    When I input "<empName>" into search textbox to search member
+    When I input "<empName>" into search input to search member
     And I click on Delete button to delete searched user
     Then I verify that deleting user successful
     Examples:

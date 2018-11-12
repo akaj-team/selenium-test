@@ -50,7 +50,7 @@ public class MyTeamDefinitions extends DriverBase implements En {
 
         Then("^The Add Member popup is displayed$", () -> Assert.assertTrue(myTeamPage.getAddMemberPopupName()));
 
-        When("^I input \"([^\"]*)\" into search textbox to add member$", (String username) -> myTeamPage.inputUserNametoAdd(username));
+        When("^I input \"([^\"]*)\" into search input to add member$", (String username) -> myTeamPage.inputUserNametoAdd(username));
 
         Then("^I verify that search result list is correct with \"([^\"]*)\"$", (String n) -> myTeamPage.verifySearchResult(n));
 
@@ -60,7 +60,7 @@ public class MyTeamDefinitions extends DriverBase implements En {
 
         Then("^The Add Member popup is disappeared$", () -> Assert.assertTrue(myTeamPage.verifyAddMemberPopupDisappeared()));
 
-        When("^I input \"([^\"]*)\" into search textbox to search member$", (String username) -> myTeamPage.inputUserNametoSearch(username));
+        When("^I input \"([^\"]*)\" into search input to search member$", (String username) -> myTeamPage.inputUserNametoSearch(username));
 
         Then("^I verify that members of team are displayed correctly as \"([^\"]*)\"$", (String record) -> myTeamPage.verifySearchMemberResult(record));
 
