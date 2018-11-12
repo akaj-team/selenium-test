@@ -29,9 +29,9 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
     private WebElement mainBody;
     @FindBy(css = ".ui-datatable.ui-widget.ui-datatable-scrollable")
     private WebElement tableData;
-    @FindBy(css = ".ui-widget-content.ui-datatable-emptymessage-row.ng-star-inserted")
+    @FindBy(className = "ui-datatable-emptymessage-row")
     private WebElement trEmptyMessage;
-    @FindBy(css = ".ui-paginator-last.ui-paginator-element.ui-state-default.ui-corner-all")
+    @FindBy(className = "ui-paginator-last")
     private WebElement btnLast;
 
     private static final String FORMAT_SLASH_MARK = "MMM dd, yyyy";
@@ -102,8 +102,8 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
     }
 
     public final boolean compareTwoDate() {
-        Date startDate = convertStringToDate(itemTime.findElements(By.tagName("p-calendar")).get(CALENDAR_START_POS).findElement(By.cssSelector(".ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted")).getAttribute("value"));
-        Date endDate = convertStringToDate(itemTime.findElements(By.tagName("p-calendar")).get(CALENDAR_END_POS).findElement(By.cssSelector(".ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted")).getAttribute("value"));
+        Date startDate = convertStringToDate(itemTime.findElement(By.xpath("//p-calendar[contains(@name,'start')]")).getAttribute("value"));
+        Date endDate = convertStringToDate(itemTime.findElement(By.xpath("//p-calendar[contains(@name,'end')]")).getAttribute("value"));
         return startDate != null && endDate != null && startDate.compareTo(endDate) > 0;
     }
 
