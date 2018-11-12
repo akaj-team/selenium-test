@@ -10,18 +10,18 @@ Feature: Check Device tracking
     Then Device tracking page is displayed "/equipments/tracking"
     And Display title content device
     And Display list content device
-    And Display button next and previous
+    And Display button next and previous device tracking
     And Display checkbox select all not tick
     And Disable button this week and can not click
     And Disable button submit and can not click
 
   Scenario: Can click today button after click next button
-    When Click button next on header
-    Then Can click this week button on header
+    When Click button next on header device tracking
+    Then Can click this week button on header device tracking
 
   Scenario: Can click today button after click previous button
-    When Click button previous on header
-    Then Can click this week button on header
+    When Click button previous on header device tracking
+    Then Can click this week button on header device tracking
 
   Scenario: Display title header device and content device
     Then Display full seven columns title header device
@@ -43,13 +43,13 @@ Feature: Check Device tracking
   Scenario: Display dialog confirm and leave page
     When Click item on list device item
     And Display button submit and can clickable
-    When Click button next on header
-    Then Display dialog confirm
-    And Display title dialog confirm is "Confirmation"
+    When Click button next on header device tracking
+    Then Display dialog confirm device tracking
+    And Display title dialog confirm device tracking is "Confirmation"
     And Display message dialog confirm is "Are you sure you want to leave this page?"
     And Display button stay and button leave
-    When Click button close dialog
-    Then Dismiss dialog confirm
+    When Click button close dialog device tracking
+    Then Dismiss dialog confirm device tracking
     When Click button stay on dialog confirm
     Then Dismiss dialog confirm and keep state selected
     When Click button leave on dialog confirm
@@ -59,15 +59,15 @@ Feature: Check Device tracking
     When Click checkbox select all tracking
     Then Display all item device with color selected
     And Display button submit and can clickable
-    When Click button submit
-    Then Display dialog confirm Submit
+    When Click button submit device tracking
+    Then Display dialog confirm Submit device tracking
     And Display title dialog confirm submit is "Confirmation"
     And Display message dialog confirm submit is "Are you sure to submit trackings?"
-    And Display button cancel and button submit
-    When Click button close dialog confirm submit
-    Then Dismiss dialog confirm submit
-    When Click button cancel on dialog confirm submit
+    And Display button cancel and button submit device tracking
+    When Click button close dialog confirm submit device tracking
+    Then Dismiss dialog confirm submit device tracking
+    When Click button cancel on dialog confirm submit device tracking
     Then Dismiss dialog confirm submit and keep state selected all
-    When Click button submit on dialog confirm submit
-    Then Dismiss dialog confirm and change state to submit
-    And Display message success
+    When Click button submit on dialog confirm submit device tracking
+    Then Dismiss dialog confirm and change state to submit device tracking
+    And Display message success device tracking

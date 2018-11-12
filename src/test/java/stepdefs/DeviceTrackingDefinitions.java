@@ -29,12 +29,12 @@ public class DeviceTrackingDefinitions extends DriverBase implements En {
         Then("^Device tracking page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
         And("^Display title content device", () -> Assert.assertTrue(holidaySettingPage.isDisplayTitleContent(driver)));
         And("^Display list content device$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayContentDevice(driver).toString()));
-        And("^Display button next and previous$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonControl().toString()));
+        And("^Display button next and previous device tracking$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonControl().toString()));
         And("^Display checkbox select all not tick$", () -> Assert.assertTrue(true, holidaySettingPage.isDefaultCheckboxSelectAll(driver).toString()));
         And("^Disable button this week and can not click$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonThisWeekDisable(driver).toString()));
-        When("^Click button next on header$", () -> holidaySettingPage.clickButtonNext(driver));
-        Then("^Can click this week button on header$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonThisWeekClickable(driver).toString()));
-        When("^Click button previous on header$", () -> holidaySettingPage.clickButtonPrevious(driver));
+        When("^Click button next on header device tracking$", () -> holidaySettingPage.clickButtonNext(driver));
+        Then("^Can click this week button on header device tracking$", () -> Assert.assertTrue(true, holidaySettingPage.isButtonThisWeekClickable(driver).toString()));
+        When("^Click button previous on header device tracking$", () -> holidaySettingPage.clickButtonPrevious(driver));
         Then("^Display full seven columns title header device$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayFullDeviceHeader(driver).toString()));
         Then("^Display full seven columns content device$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayFullDeviceContent(driver).toString()));
         When("^move to item device$", () -> holidaySettingPage.moveToItemDevice(driver));
@@ -45,28 +45,28 @@ public class DeviceTrackingDefinitions extends DriverBase implements En {
         And("^Display button submit and can clickable$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonSubmit(driver).toString()));
         When("^Click checkbox select all tracking$", () -> holidaySettingPage.clickCheckboxSelectAll(driver));
         Then("^Display all item device with color selected$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayAllItemSelected(driver).toString()));
-        Then("^Display dialog confirm$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayDialogConfirm(driver).toString()));
-        And("^Display title dialog confirm is \"([^\"]*)\"$", (String title) -> Assert.assertTrue(true, holidaySettingPage.isDisplayTitleDialogConfirm(driver, title).toString()));
+        Then("^Display dialog confirm device tracking$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayDialogConfirm(driver).toString()));
+        And("^Display title dialog confirm device tracking is \"([^\"]*)\"$", (String title) -> Assert.assertTrue(true, holidaySettingPage.isDisplayTitleDialogConfirm(driver, title).toString()));
         And("^Display message dialog confirm is \"([^\"]*)\"$", (String message) -> Assert.assertTrue(true, holidaySettingPage.isDisplayMessageDialogConfirm(driver, message).toString()));
         And("^Display button stay and button leave$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonDialogControl(driver).toString()));
-        When("^Click button close dialog$", () -> holidaySettingPage.clickButtonCloseDialogConfirm(driver));
-        Then("^Dismiss dialog confirm$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirm(driver).toString()));
+        When("^Click button close dialog device tracking$", () -> holidaySettingPage.clickButtonCloseDialogConfirm(driver));
+        Then("^Dismiss dialog confirm device tracking$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirm(driver).toString()));
         When("^Click button stay on dialog confirm$", () -> holidaySettingPage.clickButtonStayDialogConfirm(driver));
         Then("^Dismiss dialog confirm and keep state selected$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmSaveState(driver).toString()));
         When("^Click button leave on dialog confirm$", () -> holidaySettingPage.clickButtonLeaveDialogConfirm(driver));
         Then("^Dismiss dialog confirm and clear state selected$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmNotSaveState(driver).toString()));
-        When("^Click button submit$", () -> holidaySettingPage.clickButtonSubmit(driver));
-        Then("^Display dialog confirm Submit$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayDialogConfirmSubmit(driver).toString()));
+        When("^Click button submit device tracking$", () -> holidaySettingPage.clickButtonSubmit(driver));
+        Then("^Display dialog confirm Submit device tracking$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayDialogConfirmSubmit(driver).toString()));
         And("^Display title dialog confirm submit is \"([^\"]*)\"$", (String title) -> Assert.assertTrue(true, holidaySettingPage.isDisplayTitleDialogConfirmSubmit(driver, title).toString()));
         And("^Display message dialog confirm submit is \"([^\"]*)\"$", (String message) -> Assert.assertEquals(message, holidaySettingPage.getMessageDialogConfirmSubmit(driver)));
-        And("^Display button cancel and button submit$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonDialogSubmitControl(driver).toString()));
-        When("^Click button close dialog confirm submit$", () -> holidaySettingPage.clickButtonCloseDialogConfirmSubmit(driver));
-        Then("^Dismiss dialog confirm submit$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmSubmit(driver).toString()));
-        When("^Click button cancel on dialog confirm submit$", () -> holidaySettingPage.clickButtonCancelDialogConfirmSubmit(driver));
+        And("^Display button cancel and button submit device tracking$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayButtonDialogSubmitControl(driver).toString()));
+        When("^Click button close dialog confirm submit device tracking$", () -> holidaySettingPage.clickButtonCloseDialogConfirmSubmit(driver));
+        Then("^Dismiss dialog confirm submit device tracking$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmSubmit(driver).toString()));
+        When("^Click button cancel on dialog confirm submit device tracking$", () -> holidaySettingPage.clickButtonCancelDialogConfirmSubmit(driver));
         Then("^Dismiss dialog confirm submit and keep state selected all$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmSubmitSaveState(driver).toString()));
-        When("^Click button submit on dialog confirm submit$", () -> holidaySettingPage.clickButtonSubmitDialogConfirmSubmit(driver));
-        Then("^Dismiss dialog confirm and change state to submit$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmSubmitChangeStateSubmit(driver).toString()));
-        And("^Display message success$", () -> Assert.assertTrue(true, holidaySettingPage.isMessageConfirmShowing(driver).toString()));
+        When("^Click button submit on dialog confirm submit device tracking$", () -> holidaySettingPage.clickButtonSubmitDialogConfirmSubmit(driver));
+        Then("^Dismiss dialog confirm and change state to submit device tracking$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmSubmitChangeStateSubmit(driver).toString()));
+        And("^Display message success device tracking$", () -> Assert.assertTrue(true, holidaySettingPage.isMessageConfirmShowing(driver).toString()));
     }
 
     private void redirectPageWhenClickChildItem(final String path) {
