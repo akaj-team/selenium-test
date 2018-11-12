@@ -17,7 +17,7 @@ import static vn.asiantech.base.Constant.TEAM_PAGE_URL;
 public class TeamsPage extends BasePage<TeamsPage> {
     private static final int COLUMN_NAME = 0;
     private static final int COLUMN_MANAGER = 1;
-    private static final int COLUMN_ACTION = 3;
+    private static final int COLUMN_ACTION = 4;
 
     @FindBy(id = "team-filter-wrapper")
     private WebElement sectionToolBox;

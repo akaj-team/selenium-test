@@ -86,7 +86,7 @@ public class MenuDefinitions extends DriverBase implements En {
 
         Given("^I click item device$", () -> menuPage.clickItemDevice());
         When("^I click child item device with \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemDevice(position));
-        
+
         Given("^I click item tools$", () -> menuPage.clickItemTools());
         When("^I click child item tools with \"([^\"]*)\"$", (String position) -> menuPage.clickChildItemTools(position));
 
@@ -96,9 +96,8 @@ public class MenuDefinitions extends DriverBase implements En {
 
     private void redirectPageWhenClickChildItem(final String path) {
         new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
-                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete")
-        );
+                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
         String url = getDriver().getCurrentUrl();
-        Assert.assertEquals(path, url.substring(url.length() - path.length()));
+        Assert.assertEquals(Constant.PORTAL_URL + path, url);
     }
 }
