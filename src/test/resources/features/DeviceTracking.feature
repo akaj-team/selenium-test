@@ -1,3 +1,4 @@
+@DeviceTracking
 Feature: Check Device tracking
   I want to login my account and check device tracking page
 
