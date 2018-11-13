@@ -50,8 +50,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     public final boolean isTeamListEmpty() {
         waitForElement(driver, tbBody.findElement(By.tagName("tr")));
-        List<WebElement> rows = tbBody.findElements(By.tagName("tr"));
-        return rows.get(0).getAttribute("class").contains("ui-datatable-emptymessage-row");
+        return tbBody.findElement(By.tagName("tr")).getAttribute("class").contains("ui-datatable-emptymessage-row");
     }
 
     public final String showMessageEmptyTeam() {
