@@ -30,7 +30,7 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
 
         Given("^Display holiday setting page$", () -> {
             driver.get(HOLIDAY_SETTING_URL);
-            waitForPageDisplayed(getDriver(), HOLIDAY_SETTING_URL, By.id("page-wrapper"));
+            waitForPageDisplayed(getDriver(), HOLIDAY_SETTING_URL, By.cssSelector(".ibox-content.main-content"));
         });
 
         Then("^Holiday setting page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);

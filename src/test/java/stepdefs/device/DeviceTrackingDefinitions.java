@@ -26,7 +26,7 @@ public class DeviceTrackingDefinitions extends DriverBase implements En {
 
         Given("^Display device tracking page$", () -> {
             driver.get(Constant.DEVICE_TRACKING_URL);
-            waitForPageDisplayed(getDriver(), Constant.DEVICE_TRACKING_URL, By.id("page-wrapper"));
+            waitForPageDisplayed(getDriver(), Constant.DEVICE_TRACKING_URL, By.cssSelector(".ibox-content.main-content"));
         });
 
         Then("^Device tracking page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
@@ -51,7 +51,7 @@ public class DeviceTrackingDefinitions extends DriverBase implements En {
 
         Then("^Display full seven columns content device$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayFullDeviceContent().toString()));
 
-        When("^move to item device$", holidaySettingPage::moveToItemDevice);
+        When("^Move to item device$", holidaySettingPage::moveToItemDevice);
 
         Then("^Display title and border item device$", () -> Assert.assertTrue(true, holidaySettingPage.isDisplayBorderItemDevice().toString()));
 

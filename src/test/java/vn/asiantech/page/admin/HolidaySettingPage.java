@@ -85,6 +85,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final void onClickOnButtonNext() {
+        waitForElement(driver, btnNext);
         btnNext.click();
     }
 
@@ -218,7 +219,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
 
     public final void enterFullInfo() {
         clickItemHolidayCalendar();
-        inputNameValue("Request tet holiday");
+        inputNameValue("Request date " + Math.random());
         clickBoxHolidayTimeTo();
         chooseTodayOnDialogCalendar();
         inputValueToDescription();
@@ -234,8 +235,19 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final void clickItemHoliday() {
-        WebElement itemHoliday = calendarContent.findElement(By.className("fc-content"));
-        itemHoliday.click();
+        waitForElement(driver, calendarContent);
+        List<WebElement> itemHolidays = calendarContent.findElements(By.className("fc-content-skeleton"));
+        outerLoop:
+        for (WebElement itemHoliday : itemHolidays) {
+            List<WebElement> days = itemHoliday.findElement(By.tagName("tbody")).findElements(By.tagName("td"));
+            for (WebElement day : days) {
+                waitForElement(driver, day);
+                if (day.getAttribute("class").equals("fc-event-container")) {
+                    day.findElement(By.tagName("a")).click();
+                    break outerLoop;
+                }
+            }
+        }
     }
 
     public final Boolean isEnableButtonDelete() {

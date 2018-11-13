@@ -109,7 +109,11 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
 
     public final void clickButtonNext() {
         waitForElement(driver, btnNext);
-        btnNext.click();
+        if (!btnNext.isEnabled()) {
+            btnNext.click();
+        } else {
+            btnPrevious.click();
+        }
     }
 
     public final Boolean isButtonThisWeekClickable() {
@@ -183,9 +187,16 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     public final void clickItemOnListItemDevice() {
         waitForElement(driver, viewDeviceBody);
         if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
-            WebElement itemDevice = viewDeviceBody.findElements(By.className("timesheet-cell")).get(1);
-            if (itemDevice != null && itemDevice.isEnabled()) {
-                itemDevice.click();
+            List<WebElement> itemDevices = viewDeviceBody.findElements(By.xpath("//div[contains(@class,'create-inspection')][not(contains(@class,'actived'))][not(contains(@class,'submitted'))]"));
+            if (itemDevices.size() == 0) {
+                if (btnNext.isEnabled()) {
+                    btnNext.click();
+                } else {
+                    btnPrevious.click();
+                }
+                clickItemOnListItemDevice();
+            } else {
+                itemDevices.get(0).click();
             }
         }
     }
@@ -193,12 +204,14 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     public final Boolean isDisplayColorDeviceItem() {
         waitForElement(driver, viewDeviceBody);
         if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
-            WebElement itemDevice = viewDeviceBody.findElements(By.className("timesheet-cell")).get(1);
-            WebElement content = itemDevice.findElement(By.cssSelector(".create-inspection.selected"));
-            if (content != null && content.isEnabled()) {
-                String rgb[] = content.getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
-                String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
-                return borderColor.equals(DEVICE_ITEM_BORDER_COLOR_SELECTED);
+            List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
+            for (int i = 1; i < bodyItems.size(); i++) {
+                List<WebElement> contents = bodyItems.get(i).findElements(By.cssSelector(".create-inspection.selected"));
+                if (contents.size() != 0) {
+                    String rgb[] = contents.get(0).getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
+                    String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
+                    return borderColor.equals(DEVICE_ITEM_BORDER_COLOR_SELECTED);
+                }
             }
         }
         return false;
@@ -211,7 +224,16 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
 
     public final void clickCheckboxSelectAll() {
         waitForElement(driver, cbxSelectAll);
-        cbxSelectAll.click();
+        if (cbxSelectAll.isEnabled()) {
+            cbxSelectAll.click();
+        } else {
+            if (btnNext.isEnabled()) {
+                btnNext.click();
+            } else {
+                btnPrevious.click();
+            }
+            clickCheckboxSelectAll();
+        }
     }
 
     public final Boolean isDisplayAllItemSelected() {
@@ -219,11 +241,13 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
         if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
             List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
             for (int i = 1; i < bodyItems.size(); i++) {
-                WebElement content = bodyItems.get(i).findElement(By.cssSelector(".create-inspection.selected"));
-                String rgb[] = content.getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
-                String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
-                if (i == COLUMNS_HEADER_COUNT && borderColor.equals(DEVICE_ITEM_BORDER_COLOR_SELECTED)) {
-                    return true;
+                List<WebElement> contents = bodyItems.get(i).findElements(By.cssSelector(".create-inspection.selected"));
+                if (contents.size() != 0) {
+                    String rgb[] = contents.get(0).getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
+                    String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
+                    if (i == COLUMNS_HEADER_COUNT && borderColor.equals(DEVICE_ITEM_BORDER_COLOR_SELECTED)) {
+                        return true;
+                    }
                 }
             }
         }
