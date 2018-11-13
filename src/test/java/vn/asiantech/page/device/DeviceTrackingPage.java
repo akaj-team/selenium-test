@@ -172,7 +172,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
         waitForElement(driver, viewDeviceBody);
         if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
             List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
-            String rgb[] = bodyItems.get(0).getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
+            String[] rgb = bodyItems.get(0).getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
             String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
             return bodyItems.get(0).getText().equals(DEVICE_ITEM_TITLE) && borderColor.equals(DEVICE_ITEM_BORDER_COLOR);
         }
@@ -208,7 +208,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
             for (int i = 1; i < bodyItems.size(); i++) {
                 List<WebElement> contents = bodyItems.get(i).findElements(By.cssSelector(".create-inspection.selected"));
                 if (contents.size() != 0) {
-                    String rgb[] = contents.get(0).getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
+                    String[] rgb = contents.get(0).getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
                     String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
                     return borderColor.equals(DEVICE_ITEM_BORDER_COLOR_SELECTED);
                 }
@@ -243,7 +243,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
             for (int i = 1; i < bodyItems.size(); i++) {
                 List<WebElement> contents = bodyItems.get(i).findElements(By.cssSelector(".create-inspection.selected"));
                 if (contents.size() != 0) {
-                    String rgb[] = contents.get(0).getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
+                    String[] rgb = contents.get(0).getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
                     String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
                     if (i == COLUMNS_HEADER_COUNT && borderColor.equals(DEVICE_ITEM_BORDER_COLOR_SELECTED)) {
                         return true;
@@ -382,7 +382,7 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
             List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
             for (int i = 1; i < bodyItems.size(); i++) {
                 WebElement content = bodyItems.get(i).findElement(By.cssSelector(".create-inspection.selected"));
-                String rgb[] = content.getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
+                String[] rgb = content.getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
                 String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
                 if (i == COLUMNS_HEADER_COUNT && borderColor.equals(DEVICE_ITEM_BORDER_COLOR)) {
                     return true;
