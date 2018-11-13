@@ -19,63 +19,56 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     private static final int FIRST_ITEM_SELECTED = 0;
 
     @FindBy(className = "fc-center")
-    private
-    WebElement tvTitleCenter;
+    private WebElement tvTitleCenter;
 
     @FindBy(className = "fc-right")
-    private
-    WebElement btnToday;
+    private WebElement btnToday;
 
     @FindBy(className = "fc-prev-button")
-    private
-    WebElement btnPrevious;
+    private WebElement btnPrevious;
 
     @FindBy(className = "fc-next-button")
-    private
-    WebElement btnNext;
+    private WebElement btnNext;
 
     @FindBy(css = ".ibox-content.main-content")
-    private
-    WebElement calendarContent;
+    private WebElement calendarContent;
 
     @FindBy(id = "holiday-setting-dialog-wrapper")
-    private
-    WebElement dlgCalendar;
+    private WebElement dlgCalendar;
 
     @FindBy(className = "holiday-dialog")
-    private
-    WebElement calendarDialogItem;
+    private WebElement calendarDialogItem;
 
     @FindBy(id = "btn-submit-holiday")
-    private
-    WebElement btnSave;
+    private WebElement btnSave;
 
     @FindBy(className = "form-control")
-    private
-    WebElement edtName;
+    private WebElement edtName;
 
     @FindBy(className = "ui-inputtext")
-    private
-    WebElement edtDescription;
+    private WebElement edtDescription;
 
     @FindBy(css = ".app-alert.ng-star-inserted")
-    private
-    WebElement tvMessageConfirm;
+    private WebElement tvMessageConfirm;
 
     @FindBy(id = "btn-delete-holiday")
-    private
-    WebElement btnDelete;
+    private WebElement btnDelete;
 
     @FindBy(id = "confirm-delete-panel-wrapper")
-    private
-    WebElement dlgDeleteConfirm;
+    private WebElement dlgDeleteConfirm;
+
+    private WebDriver driver;
+
+    public HolidaySettingPage(final WebDriver driver) {
+        this.driver = driver;
+    }
 
     @Override
     public final HolidaySettingPage navigateTo(final WebDriver webDriver) {
         return null;
     }
 
-    public final Boolean isDisplayTitleContent() {
+    public final boolean isDisplayTitleContent() {
         return tvTitleCenter.findElement(By.tagName("h2")).isDisplayed();
     }
 
@@ -92,6 +85,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final void onClickOnButtonNext() {
+        waitForElement(driver, btnNext);
         btnNext.click();
     }
 
@@ -99,12 +93,12 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         return btnToday.isEnabled();
     }
 
-    public final void onClickOnButtonPrevious(final WebDriver driver) {
+    public final void onClickOnButtonPrevious() {
         waitForElement(driver, btnPrevious);
         btnPrevious.click();
     }
 
-    public final Boolean displayFullTitleCalendar(final WebDriver driver) {
+    public final Boolean displayFullTitleCalendar() {
         waitForElement(driver, calendarContent);
         WebElement itemHeader = calendarContent.findElement(By.cssSelector(".fc-row.ui-widget-header"));
         List<WebElement> headers = itemHeader.findElements(By.tagName("th"));
@@ -130,7 +124,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         return false;
     }
 
-    public final void clickItemHolidayCalendar(final WebDriver driver) {
+    public final void clickItemHolidayCalendar() {
         waitForElement(driver, calendarContent);
         List<WebElement> itemCalendars = calendarContent.findElements(By.className("fc-content-skeleton"));
         for (WebElement element : itemCalendars) {
@@ -145,7 +139,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         }
     }
 
-    public final Boolean displayHolidayDetailDialog(final WebDriver driver) {
+    public final Boolean displayHolidayDetailDialog() {
         waitForElement(driver, dlgCalendar);
         return dlgCalendar.isDisplayed();
     }
@@ -181,13 +175,13 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         edtName.sendKeys(Keys.BACK_SPACE);
     }
 
-    public final String getMessageValidate(final WebDriver driver) {
+    public final String getMessageValidate() {
         waitForElement(driver, calendarDialogItem);
         WebElement titleMessage = calendarDialogItem.findElement(By.className("help-block"));
         return titleMessage.getText();
     }
 
-    public final void inputNameValue(final WebDriver driver, final String value) {
+    public final void inputNameValue(final String value) {
         waitForElement(driver, edtName);
         edtName.clear();
         edtName.sendKeys(value);
@@ -199,7 +193,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         boxTimeTo.click();
     }
 
-    public final Boolean isDisplayCalendarDateTime(final WebDriver driver) {
+    public final Boolean isDisplayCalendarDateTime() {
         waitForElement(driver, dlgCalendar);
         List<WebElement> inputDates = dlgCalendar.findElements(By.cssSelector("p-calendar"));
         List<WebElement> elements = inputDates.get(END_DATE_POSITION).findElements(By.tagName("div"));
@@ -223,23 +217,9 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         }
     }
 
-    private String getCurrentDay() {
-        Calendar calendar = Calendar.getInstance();
-        return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-    }
-
-    private void inputValueToDescription() {
-        edtDescription.sendKeys("Description for holiday");
-    }
-
-    public final Boolean isButtonSaveEnable(final WebDriver driver) {
-        waitForElement(driver, btnSave);
-        return btnSave.isDisplayed();
-    }
-
-    public final void enterFullInfo(final WebDriver driver) {
-        clickItemHolidayCalendar(driver);
-        inputNameValue(driver, "Request tet holiday");
+    public final void enterFullInfo() {
+        clickItemHolidayCalendar();
+        inputNameValue("Request date " + Math.random());
         clickBoxHolidayTimeTo();
         chooseTodayOnDialogCalendar();
         inputValueToDescription();
@@ -249,14 +229,25 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         btnSave.click();
     }
 
-    public final Boolean isMessageConfirmShowing(final WebDriver driver) {
+    public final Boolean isMessageConfirmShowing() {
         waitForElement(driver, tvMessageConfirm);
         return tvMessageConfirm.isDisplayed();
     }
 
     public final void clickItemHoliday() {
-        WebElement itemHoliday = calendarContent.findElement(By.className("fc-content"));
-        itemHoliday.click();
+        waitForElement(driver, calendarContent);
+        List<WebElement> itemHolidays = calendarContent.findElements(By.className("fc-content-skeleton"));
+        outerLoop:
+        for (WebElement itemHoliday : itemHolidays) {
+            List<WebElement> days = itemHoliday.findElement(By.tagName("tbody")).findElements(By.tagName("td"));
+            for (WebElement day : days) {
+                waitForElement(driver, day);
+                if (day.getAttribute("class").equals("fc-event-container")) {
+                    day.findElement(By.tagName("a")).click();
+                    break outerLoop;
+                }
+            }
+        }
     }
 
     public final Boolean isEnableButtonDelete() {
@@ -267,7 +258,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         btnDelete.click();
     }
 
-    public final Boolean isDisplayDialogDeleteConfirm(final WebDriver driver) {
+    public final Boolean isDisplayDialogDeleteConfirm() {
         waitForElement(driver, dlgDeleteConfirm);
         return dlgDeleteConfirm.isDisplayed();
     }
@@ -287,7 +278,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         return contentDialog.getText();
     }
 
-    public final Boolean isDismissDialogConfirmDelete(final WebDriver driver) {
+    public final Boolean isDismissDialogConfirmDelete() {
         try {
             waitForElement(driver, dlgDeleteConfirm);
             return dlgDeleteConfirm.isDisplayed();
@@ -309,5 +300,19 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         } catch (NoSuchElementException e) {
             return true;
         }
+    }
+
+    private String getCurrentDay() {
+        Calendar calendar = Calendar.getInstance();
+        return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private void inputValueToDescription() {
+        edtDescription.sendKeys("Description for holiday");
+    }
+
+    public final Boolean isButtonSaveEnable() {
+        waitForElement(driver, btnSave);
+        return btnSave.isDisplayed();
     }
 }

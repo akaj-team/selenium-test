@@ -17,6 +17,22 @@ import java.util.Locale;
  */
 public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
 
+    private static final String FORMAT_SLASH_MARK = "MMM dd, yyyy";
+    private static final int TIME_SLEEP = 300; // millisecond
+    private static final int TIME_SLEEP_CLICK = 1000; // millisecond
+
+    private static final int LINE_OF_CALENDAR_POS = 3;
+    private static final int CALENDAR_START_ITEM_CLICK_POS = 5;
+    private static final int CALENDAR_END_ITEM_CLICK_POS = 3;
+
+    private static final int FIRST_ITEM_POS = 0;
+    private static final int EMPLOYER_ID_POS = 0;
+    private static final int EMPLOYER_NAME_POS = 1;
+    private static final int ICON_SEARCH_POS = 8;
+
+    private static final int MAX_ITEM_ON_A_PAGE = 50;
+    private static final int MAX_PAGE_COUNT_ON_BOTTOM = 5;
+
     @FindBy(css = ".ibox-content.main-content")
     private WebElement iboxContent;
     @FindBy(className = "dropdown-sm")
@@ -34,30 +50,21 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
     @FindBy(className = "ui-paginator-last")
     private WebElement btnLast;
 
-    private static final String FORMAT_SLASH_MARK = "MMM dd, yyyy";
-    private static final int TIME_SLEEP = 300; // millisecond
-    private static final int TIME_SLEEP_CLICK = 1000; // millisecond
+    private WebElement startTimeElement;
+    private WebElement endTimeElement;
+    private WebDriver driver;
 
-    private static final int CALENDAR_START_POS = 0;
-    private static final int CALENDAR_END_POS = 1;
-    private static final int LINE_OF_CALENDAR_POS = 3;
-    private static final int CALENDAR_START_ITEM_CLICK_POS = 5;
-    private static final int CALENDAR_END_ITEM_CLICK_POS = 3;
-
-    private static final int FIRST_ITEM_POS = 0;
-    private static final int EMPLOYER_ID_POS = 0;
-    private static final int EMPLOYER_NAME_POS = 1;
-    private static final int ICON_SEARCH_POS = 8;
-
-    private static final int MAX_ITEM_ON_A_PAGE = 50;
-    private static final int MAX_PAGE_COUNT_ON_BOTTOM = 5;
+    public LeaveOtherPage(final WebDriver driver) {
+        this.driver = driver;
+    }
 
     @Override
     public final LeaveOtherPage navigateTo(final WebDriver webDriver) {
         return this;
     }
 
-    public final void waitForLoadData(final WebDriver driver) {
+
+    public final void waitForLoadData() {
         waitForElement(driver, iboxContent);
     }
 
@@ -78,36 +85,38 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
     }
 
     public final void clickItemStartDate() {
-        itemTime.findElements(By.tagName("p-calendar")).get(CALENDAR_START_POS).click();
+        startTimeElement = itemTime.findElement(By.xpath("//p-calendar[contains(@name,'start')]"));
+        startTimeElement.click();
     }
 
     public final void clickItemEndDate() {
-        itemTime.findElements(By.tagName("p-calendar")).get(CALENDAR_END_POS).click();
+        endTimeElement = itemTime.findElement(By.xpath("//p-calendar[contains(@name,'end')]"));
+        endTimeElement.click();
     }
 
     public final boolean checkShowStartDateDialog() {
-        return itemTime.findElements(By.tagName("p-calendar")).get(CALENDAR_START_POS).findElement(By.cssSelector(".ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-overlayState")).isDisplayed();
+        return startTimeElement.findElement(By.cssSelector(".ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-overlayState")).isDisplayed();
     }
 
     public final boolean checkShowEndDateDialog() {
-        return itemTime.findElements(By.tagName("p-calendar")).get(CALENDAR_END_POS).findElement(By.cssSelector(".ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-overlayState")).isDisplayed();
+        return endTimeElement.findElement(By.cssSelector(".ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-overlayState")).isDisplayed();
     }
 
     public final void chooseStartDate() {
-        itemTime.findElements(By.tagName("p-calendar")).get(CALENDAR_START_POS).findElement(By.cssSelector(".ui-datepicker-calendar.ng-star-inserted")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).get(LINE_OF_CALENDAR_POS).findElements(By.tagName("td")).get(CALENDAR_START_ITEM_CLICK_POS).click();
+        startTimeElement.findElement(By.cssSelector(".ui-datepicker-calendar.ng-star-inserted")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).get(LINE_OF_CALENDAR_POS).findElements(By.tagName("td")).get(CALENDAR_START_ITEM_CLICK_POS).click();
     }
 
     public final void chooseEndDate() {
-        itemTime.findElements(By.tagName("p-calendar")).get(CALENDAR_END_POS).findElement(By.cssSelector(".ui-datepicker-calendar.ng-star-inserted")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).get(LINE_OF_CALENDAR_POS).findElements(By.tagName("td")).get(CALENDAR_END_ITEM_CLICK_POS).click();
+        endTimeElement.findElement(By.cssSelector(".ui-datepicker-calendar.ng-star-inserted")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).get(LINE_OF_CALENDAR_POS).findElements(By.tagName("td")).get(CALENDAR_END_ITEM_CLICK_POS).click();
     }
 
     public final boolean compareTwoDate() {
-        Date startDate = convertStringToDate(itemTime.findElement(By.xpath("//p-calendar[contains(@name,'start')]")).getAttribute("value"));
-        Date endDate = convertStringToDate(itemTime.findElement(By.xpath("//p-calendar[contains(@name,'end')]")).getAttribute("value"));
+        Date startDate = convertStringToDate(startTimeElement.findElement(By.cssSelector(".ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted")).getAttribute("value"));
+        Date endDate = convertStringToDate(endTimeElement.findElement(By.cssSelector(".ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted")).getAttribute("value"));
         return startDate != null && endDate != null && startDate.compareTo(endDate) > 0;
     }
 
-    public final boolean checkShowErrorMessage(final String message, final WebDriver driver) {
+    public final boolean checkShowErrorMessage(final String message) {
         WebElement errorMessage = mainBody.findElement(By.tagName("app-error")).findElement(By.cssSelector(".app-alert.ng-star-inserted"));
         waitForElement(driver, errorMessage);
         return errorMessage.getText().trim().contains(message);
@@ -156,7 +165,7 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
         }
     }
 
-    public final int countDataItem(final WebDriver driver) {
+    public final int countDataItem() {
         String lineCountPage = driver.findElement(By.cssSelector(".show-entry.ng-star-inserted")).getText();
         String countPage = lineCountPage.substring(lineCountPage.indexOf("of") + 2, lineCountPage.indexOf("entries"));
         return Integer.valueOf(countPage.trim());

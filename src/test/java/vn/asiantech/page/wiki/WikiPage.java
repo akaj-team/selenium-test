@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 /**
  * @author at-anh.quach
@@ -30,29 +32,39 @@ public class WikiPage extends BasePage<WikiPage> {
     @FindBy(id = "btn-edit-wiki")
     private WebElement btnEdit;
 
+    private WebDriver driver;
+
+    public WikiPage(final WebDriver driver) {
+        this.driver = driver;
+    }
+
     @Override
     public final WikiPage navigateTo(final WebDriver webDriver) {
         return null;
     }
 
     public final void clickAuthor() {
+        waitForElement(driver, txtAuthor);
         txtAuthor.click();
     }
 
     public final void clickChildPageButton() {
+        waitForElement(driver, btnChildPage);
         btnChildPage.click();
     }
 
     public final void clickUpdateButton() {
+        waitForElement(driver, btnEdit);
         btnEdit.click();
     }
 
     public final boolean isEnableDeleteButton() {
+        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(it -> isElementPresented(btnDelete) && !btnDelete.isEnabled());
         return btnDelete.isEnabled();
     }
 
     public final void clickTitle() {
-        treeContainer.findElements(By.tagName("li")).get(POS_TITLE).click();
+        treeContainer.findElement(By.tagName("div")).findElements(By.tagName("li")).get(POS_TITLE).click();
     }
 
     public final void clickIconPackageWikiHome() {
@@ -61,7 +73,7 @@ public class WikiPage extends BasePage<WikiPage> {
 
     public final boolean isRemoveCategories() {
         try {
-            treeContainer.isDisplayed();
+            treeContainer.findElement(By.tagName("div")).isDisplayed();
             return true;
         } catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
@@ -87,10 +99,12 @@ public class WikiPage extends BasePage<WikiPage> {
     }
 
     private WebElement getIconPackage(final int pos) {
-        return treeContainer.findElements(By.xpath("//span[contains(@class,'ui-tree-toggler')]")).get(pos);
+        waitForElement(driver, treeContainer.findElement(By.tagName("div")));
+        return treeContainer.findElement(By.tagName("div")).findElements(By.xpath("//span[contains(@class,'ui-tree-toggler')]")).get(pos);
     }
 
     private WebElement getTitleCategory() {
-        return treeContainer.findElements(By.cssSelector(".ui-treenode.ng-star-inserted")).get(POS_ICON_PACKAGE);
+        waitForElement(driver, treeContainer.findElement(By.tagName("div")));
+        return treeContainer.findElement(By.tagName("div")).findElements(By.cssSelector(".ui-treenode.ng-star-inserted")).get(POS_ICON_PACKAGE);
     }
 }

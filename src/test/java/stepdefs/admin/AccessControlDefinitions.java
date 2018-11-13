@@ -46,13 +46,9 @@ public class AccessControlDefinitions extends DriverBase implements En {
             waitVisibilityOfElement(driver, By.className("ui-buttonset-4"));
             Assert.assertTrue(accessControlPage.isColorOtherTabCorrect(position, defaultColor));
         });
-        And("^Button Submit is enable$", () -> {
+        And("^Button Submit of access control is enable$", () -> {
             waitVisibilityOfElement(driver, By.id("btn-submit-permission"));
-            Assert.assertTrue(accessControlPage.isEnableBtnSubmit());
-        });
-        And("^Button Submit is unable$", () -> {
-            waitVisibilityOfElement(driver, By.id("btn-submit-permission"));
-            Assert.assertFalse(accessControlPage.isEnableBtnSubmit());
+            Assert.assertTrue(accessControlPage.isButtonSubmitAbleClick());
         });
 
         // I click on tab Item, check view is displayed in this tab
@@ -66,7 +62,7 @@ public class AccessControlDefinitions extends DriverBase implements En {
             waitVisibilityOfElement(driver, By.id("permission-list-wrapper"));
             Assert.assertTrue(accessControlPage.isBodyTableShown());
         });
-        And("^Button Submit is \"([^\"]*)\"$", (String isEnable) -> Assert.assertEquals(accessControlPage.isEnableBtnSubmit(), Boolean.parseBoolean(isEnable)));
+        And("^Button Submit is \"([^\"]*)\"$", (String isEnable) -> Assert.assertEquals(accessControlPage.isButtonSubmitEnable(), Boolean.parseBoolean(isEnable)));
 
         // Open dropdown Role and click on any Role
         When("^I open dropDown Role$", () -> {

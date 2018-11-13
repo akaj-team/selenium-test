@@ -1,6 +1,7 @@
 package stepdefs.notice;
 
 import cucumber.api.java8.En;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -41,7 +42,7 @@ public class NotificationElementDefinitions extends DriverBase implements En {
 
         Then("^Navigate to correct detail page", () -> {
             waitAjaxLoadSuccess();
-            Assert.assertEquals(getDriver().getCurrentUrl(), notificationMenuElement.getDestinationPath());
+            waitForPageDisplayed(getDriver(), notificationMenuElement.getDestinationPath(), By.id("page-wrapper"));
         });
 
         When("^I click on reload text$", () -> notificationMenuElement.reload());
