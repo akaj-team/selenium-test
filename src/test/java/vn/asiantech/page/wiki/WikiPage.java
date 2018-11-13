@@ -59,8 +59,7 @@ public class WikiPage extends BasePage<WikiPage> {
     }
 
     public final boolean isEnableDeleteButton() {
-        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
-                driver -> isElementPresented(btnDelete) && !btnDelete.isEnabled());
+        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(it -> isElementPresented(btnDelete) && !btnDelete.isEnabled());
         return btnDelete.isEnabled();
     }
 

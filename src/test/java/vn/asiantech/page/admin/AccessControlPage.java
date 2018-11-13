@@ -57,8 +57,7 @@ public class AccessControlPage extends BasePage<AccessControlPage> {
     }
 
     public final boolean isButtonSubmitAbleClick() {
-        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
-                driver -> isElementPresented(btnSubmit) && btnSubmit.isEnabled());
+        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(it -> isElementPresented(btnSubmit) && btnSubmit.isEnabled());
         return btnSubmit.isEnabled();
     }
 
