@@ -48,7 +48,7 @@ public class AccessControlDefinitions extends DriverBase implements En {
         });
         And("^Button Submit of access control is enable$", () -> {
             waitVisibilityOfElement(driver, By.id("btn-submit-permission"));
-            Assert.assertTrue(accessControlPage.isButtonSubmitEnable());
+            Assert.assertTrue(accessControlPage.isButtonSubmitAbleClick());
         });
 
         // I click on tab Item, check view is displayed in this tab
@@ -62,7 +62,7 @@ public class AccessControlDefinitions extends DriverBase implements En {
             waitVisibilityOfElement(driver, By.id("permission-list-wrapper"));
             Assert.assertTrue(accessControlPage.isBodyTableShown());
         });
-        And("^Button Submit is \"([^\"]*)\"$", (String isEnable) -> Assert.assertEquals(accessControlPage.isButtonSubmitClickable(), Boolean.parseBoolean(isEnable)));
+        And("^Button Submit is \"([^\"]*)\"$", (String isEnable) -> Assert.assertEquals(accessControlPage.isButtonSubmitEnable(), Boolean.parseBoolean(isEnable)));
 
         // Open dropdown Role and click on any Role
         When("^I open dropDown Role$", () -> {

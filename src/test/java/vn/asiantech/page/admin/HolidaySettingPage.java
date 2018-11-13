@@ -216,20 +216,6 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         }
     }
 
-    private String getCurrentDay() {
-        Calendar calendar = Calendar.getInstance();
-        return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
-    }
-
-    private void inputValueToDescription() {
-        edtDescription.sendKeys("Description for holiday");
-    }
-
-    public final Boolean isButtonSaveEnable() {
-        waitForElement(driver, btnSave);
-        return btnSave.isDisplayed();
-    }
-
     public final void enterFullInfo() {
         clickItemHolidayCalendar();
         inputNameValue("Request tet holiday");
@@ -302,5 +288,19 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         } catch (NoSuchElementException e) {
             return true;
         }
+    }
+
+    private String getCurrentDay() {
+        Calendar calendar = Calendar.getInstance();
+        return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private void inputValueToDescription() {
+        edtDescription.sendKeys("Description for holiday");
+    }
+
+    public final Boolean isButtonSaveEnable() {
+        waitForElement(driver, btnSave);
+        return btnSave.isDisplayed();
     }
 }

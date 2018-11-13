@@ -25,7 +25,9 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         holidaySettingPage = initPage(driver, HolidaySettingPage.class);
+
         Given("^Display holiday setting page$", () -> {
             driver.get(HOLIDAY_SETTING_URL);
             waitForPageDisplayed(getDriver(), HOLIDAY_SETTING_URL, By.id("page-wrapper"));

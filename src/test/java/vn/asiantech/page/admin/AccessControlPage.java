@@ -56,13 +56,13 @@ public class AccessControlPage extends BasePage<AccessControlPage> {
         return getActualColor(getItemInToolBox(position)).equals(activeColor);
     }
 
-    public final boolean isButtonSubmitEnable() {
+    public final boolean isButtonSubmitAbleClick() {
         new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
                 driver -> isElementPresented(btnSubmit) && btnSubmit.isEnabled());
         return btnSubmit.isEnabled();
     }
 
-    public final boolean isButtonSubmitClickable() {
+    public final boolean isButtonSubmitEnable() {
         return btnSubmit.isEnabled();
     }
 

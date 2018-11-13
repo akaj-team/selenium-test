@@ -175,14 +175,6 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
         return true;
     }
 
-    private String getBrowserHexValue(final int number) {
-        StringBuilder builder = new StringBuilder(Integer.toHexString(number & MASK));
-        while (builder.length() < 2) {
-            builder.append("0");
-        }
-        return builder.toString().toUpperCase();
-    }
-
     public final Boolean isButtonSubmitDisable() {
         waitForElement(driver, btnSubmit);
         return !btnSubmit.isEnabled();
@@ -231,22 +223,6 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
                 String rgb[] = content.getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
                 String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
                 if (i == COLUMNS_HEADER_COUNT && borderColor.equals(DEVICE_ITEM_BORDER_COLOR_SELECTED)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private Boolean isDisplayAllItemStateSubmit() {
-        waitForElement(driver, viewDeviceBody);
-        if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
-            List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
-            for (int i = 1; i < bodyItems.size(); i++) {
-                WebElement content = bodyItems.get(i).findElement(By.cssSelector(".create-inspection.selected"));
-                String rgb[] = content.getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
-                String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
-                if (i == COLUMNS_HEADER_COUNT && borderColor.equals(DEVICE_ITEM_BORDER_COLOR)) {
                     return true;
                 }
             }
@@ -366,5 +342,29 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     public final Boolean isMessageConfirmShowing() {
         waitForElement(driver, tvMessageConfirm);
         return tvMessageConfirm.isDisplayed();
+    }
+
+    private String getBrowserHexValue(final int number) {
+        StringBuilder builder = new StringBuilder(Integer.toHexString(number & MASK));
+        while (builder.length() < 2) {
+            builder.append("0");
+        }
+        return builder.toString().toUpperCase();
+    }
+
+    private Boolean isDisplayAllItemStateSubmit() {
+        waitForElement(driver, viewDeviceBody);
+        if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
+            List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
+            for (int i = 1; i < bodyItems.size(); i++) {
+                WebElement content = bodyItems.get(i).findElement(By.cssSelector(".create-inspection.selected"));
+                String rgb[] = content.getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
+                String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
+                if (i == COLUMNS_HEADER_COUNT && borderColor.equals(DEVICE_ITEM_BORDER_COLOR)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
