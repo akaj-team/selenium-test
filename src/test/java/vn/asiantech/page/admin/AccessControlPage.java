@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
 import vn.asiantech.base.Constant;
 
@@ -33,6 +34,12 @@ public class AccessControlPage extends BasePage<AccessControlPage> {
     private By dropDown = By.className("dropdown-md");
     private WebElement itemSpinner;
 
+    private WebDriver driver;
+
+    public AccessControlPage(final WebDriver driver) {
+        this.driver = driver;
+    }
+
     @Override
     public final AccessControlPage navigateTo(final WebDriver webDriver) {
         webDriver.get(Constant.ACCESS_CONTROL_PAGE_URL);
@@ -49,7 +56,13 @@ public class AccessControlPage extends BasePage<AccessControlPage> {
         return getActualColor(getItemInToolBox(position)).equals(activeColor);
     }
 
-    public final boolean isEnableBtnSubmit() {
+    public final boolean isButtonSubmitEnable() {
+        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
+                driver -> isElementPresented(btnSubmit) && btnSubmit.isEnabled());
+        return btnSubmit.isEnabled();
+    }
+
+    public final boolean isButtonSubmitClickable() {
         return btnSubmit.isEnabled();
     }
 

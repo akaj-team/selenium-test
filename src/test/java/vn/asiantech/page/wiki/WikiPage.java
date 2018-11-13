@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 /**
  * @author at-anh.quach
@@ -57,7 +59,8 @@ public class WikiPage extends BasePage<WikiPage> {
     }
 
     public final boolean isEnableDeleteButton() {
-        waitForElementEnabled(driver, btnDelete);
+        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
+                driver -> isElementPresented(btnDelete) && !btnDelete.isEnabled());
         return btnDelete.isEnabled();
     }
 

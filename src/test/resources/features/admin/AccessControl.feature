@@ -41,7 +41,7 @@ Feature: I login in AT Portal
     And I click on any role
     When I open DropDown Team
     And I click on any team
-    Then Button Submit is enable
+    Then Button Submit of access control is enable
     When I click on Button Submit
     Then I should see the alert message
 
@@ -51,7 +51,7 @@ Feature: I login in AT Portal
     And I click on any role
     When I open DropDown Group
     And I click on any group
-    Then Button Submit is enable
+    Then Button Submit of access control is enable
     When I click on Button Submit
     Then I should see the alert message
 
@@ -59,6 +59,6 @@ Feature: I login in AT Portal
     Given I click on access control tab item "3"
     When I open dropDown Role
     And I click on any role
-    Then Button Submit is enable
+    Then Button Submit of access control is enable
     When I click on Button Submit
     Then I should see the alert message

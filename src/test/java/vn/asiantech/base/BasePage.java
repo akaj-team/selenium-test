@@ -25,11 +25,6 @@ public abstract class BasePage<T> {
                 driver -> isElementPresented(element));
     }
 
-    protected void waitForElementEnabled(WebDriver webDriver, WebElement element) {
-        new WebDriverWait(webDriver, Constant.DEFAULT_TIME_OUT).until(
-                driver -> isElementPresented(element) && !element.isEnabled());
-    }
-
     protected final void waitForElementDisplay(final WebDriver webDriver, final WebElement element, final int timeOutInSecond) {
         new WebDriverWait(webDriver, timeOutInSecond).until(
                 driver -> element.isDisplayed());
