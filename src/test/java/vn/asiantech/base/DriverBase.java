@@ -78,22 +78,22 @@ public class DriverBase {
         new WebDriverWait(driver, DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 
-    private static void initElements(WebDriver driver, Object page) {
+    private static void initElements(final WebDriver driver, final Object page) {
         initElements(new DefaultElementLocatorFactory(driver), page);
     }
 
-    private static void initElements(ElementLocatorFactory factory, Object page) {
+    private static void initElements(final ElementLocatorFactory factory, final Object page) {
         initElements(new DefaultFieldDecorator(factory), page);
     }
 
-    private static void initElements(FieldDecorator decorator, Object page) {
+    private static void initElements(final FieldDecorator decorator, final Object page) {
         for (Class proxyIn = page.getClass(); proxyIn != Object.class; proxyIn = proxyIn.getSuperclass()) {
             proxyFields(decorator, page, proxyIn);
         }
 
     }
 
-    private static void proxyFields(FieldDecorator decorator, Object page, Class<?> proxyIn) {
+    private static void proxyFields(final FieldDecorator decorator, final Object page, final Class<?> proxyIn) {
         Field[] fields = proxyIn.getDeclaredFields();
         for (Field field : fields) {
             Object value = decorator.decorate(page.getClass().getClassLoader(), field);

@@ -13,7 +13,7 @@ class PageFactory<T> {
     private WebDriver driver;
     private static Map<String, Object> pages = new HashMap<>();
 
-    PageFactory(WebDriver driver, Class<T> clazz) {
+    PageFactory(final WebDriver driver, final Class<T> clazz) {
         this.clazz = clazz;
         this.driver = driver;
     }
