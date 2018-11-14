@@ -96,6 +96,10 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     private
     WebElement tvMessageConfirm;
 
+    public DeviceTrackingPage(final WebDriver driver) {
+        super(driver);
+    }
+
     @Override
     public DeviceTrackingPage navigateTo(final WebDriver webDriver) {
         return this;

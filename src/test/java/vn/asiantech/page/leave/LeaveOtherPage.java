@@ -52,6 +52,10 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
     private static final int MAX_ITEM_ON_A_PAGE = 50;
     private static final int MAX_PAGE_COUNT_ON_BOTTOM = 5;
 
+    public LeaveOtherPage(final WebDriver driver) {
+        super(driver);
+    }
+
     @Override
     public final LeaveOtherPage navigateTo(final WebDriver webDriver) {
         return this;

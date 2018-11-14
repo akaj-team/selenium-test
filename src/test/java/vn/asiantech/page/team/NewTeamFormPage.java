@@ -22,6 +22,10 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
 
     private WebElement itemManager;
 
+    public NewTeamFormPage(final WebDriver driver) {
+        super(driver);
+    }
+
     @Override
     public final NewTeamFormPage navigateTo(final WebDriver webDriver) {
         return null;

@@ -33,6 +33,10 @@ public class AccessControlPage extends BasePage<AccessControlPage> {
     private By dropDown = By.className("dropdown-md");
     private WebElement itemSpinner;
 
+    public AccessControlPage(final WebDriver driver) {
+        super(driver);
+    }
+
     @Override
     public final AccessControlPage navigateTo(final WebDriver webDriver) {
         webDriver.get(Constant.ACCESS_CONTROL_PAGE_URL);

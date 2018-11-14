@@ -70,6 +70,10 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     private
     WebElement dlgDeleteConfirm;
 
+    public HolidaySettingPage(final WebDriver driver) {
+        super(driver);
+    }
+
     @Override
     public final HolidaySettingPage navigateTo(final WebDriver webDriver) {
         return null;

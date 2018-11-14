@@ -30,6 +30,10 @@ public class WikiPage extends BasePage<WikiPage> {
     @FindBy(id = "btn-edit-wiki")
     private WebElement btnEdit;
 
+    public WikiPage(final WebDriver driver) {
+        super(driver);
+    }
+
     @Override
     public final WikiPage navigateTo(final WebDriver webDriver) {
         return null;

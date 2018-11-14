@@ -50,6 +50,10 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
 
     private String sysId;
 
+    public MyLeavePage(final WebDriver driver) {
+        super(driver);
+    }
+
     @Override
     public final MyLeavePage navigateTo(final WebDriver webDriver) {
         return this;

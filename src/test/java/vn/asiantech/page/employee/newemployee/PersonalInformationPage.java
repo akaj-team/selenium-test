@@ -54,6 +54,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     private WebDriver driver;
 
     public PersonalInformationPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

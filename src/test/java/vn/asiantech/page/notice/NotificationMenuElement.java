@@ -36,6 +36,7 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
     private WebDriver driver;
 
     public NotificationMenuElement(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

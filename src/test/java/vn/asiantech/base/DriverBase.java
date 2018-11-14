@@ -79,11 +79,11 @@ public class DriverBase {
     }
 
     private static void initElements(WebDriver driver, Object page) {
-        initElements((new DefaultElementLocatorFactory(driver)), page);
+        initElements(new DefaultElementLocatorFactory(driver), page);
     }
 
     private static void initElements(ElementLocatorFactory factory, Object page) {
-        initElements((new DefaultFieldDecorator(factory)), page);
+        initElements(new DefaultFieldDecorator(factory), page);
     }
 
     private static void initElements(FieldDecorator decorator, Object page) {
@@ -106,6 +106,5 @@ public class DriverBase {
                 }
             }
         }
-
     }
 }
