@@ -85,7 +85,6 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
 
     private String textAddUser = "";
     private String textSearch = "";
-    private String emptyMsg = "No records found";
     private static final int ID_DELETE_COLUMN = 6;
 
     private WebDriver driver;
@@ -100,23 +99,22 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         return this;
     }
 
-    public final int checkNumberofTeam() {
+    public final int checkNumberOfTeam() {
         waitForElement(driver, lstMember);
-        List<WebElement> tr = lstMember.findElements(By.tagName("tr"));
-        return tr.size();
+        return lstMember.findElements(By.tagName("tr")).size();
     }
 
     public final void verifyMyTeamInfo(final String key, final String value) {
-        WebElement dt = driver.findElement(By.xpath("//dt[contains(text(), '" + key + "')]"));
-        WebElement dd = dt.findElement(By.xpath("following-sibling::dd"));
-        WebElement span = dd.findElement(By.tagName("span"));
-        String text = span.getText();
+        WebElement infoTitle = driver.findElement(By.xpath("//dt[contains(text(), '" + key + "')]"));
+        WebElement infoContent = infoTitle.findElement(By.xpath("following-sibling::dd"));
+        WebElement content1 = infoContent.findElement(By.tagName("span"));
+        String text = content1.getText();
 
         if (!text.equals("")) {
             Assert.assertEquals(text, value);
         } else {
-            WebElement a = dd.findElement(By.tagName("a"));
-            Assert.assertEquals(a.getText(), value);
+            WebElement content2 = infoContent.findElement(By.tagName("a"));
+            Assert.assertEquals(content2.getText(), value);
         }
     }
 
@@ -178,8 +176,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     public final void clickAddButton() {
         waitForElement(driver, listSearchResult);
         List<WebElement> list = listSearchResult.findElement(By.className("ui-listbox-list")).findElements(By.tagName("li"));
-        for (WebElement i : list
-        ) {
+        for (WebElement i : list) {
             WebElement userName = i.findElement(By.cssSelector(".ui-helper-clearfix.dropdown-item.ng-star-inserted"))
                     .findElement(By.cssSelector("div[class=\"info-grouping name-item\"]"))
                     .findElement(By.cssSelector("span[class=\"m-l-xl info-grouping-text\"]"))
@@ -208,7 +205,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         return true;
     }
 
-    public final void inputUserNametoSearch(final String username) {
+    public final void inputUserNameToSearch(final String username) {
         waitForElement(driver, txtSearchMember);
         txtSearchMember.clear();
         txtSearchMember.sendKeys(username);
@@ -234,7 +231,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
                 WebElement msg = i.findElements(By.tagName("td")).get(0)
                         .findElement(By.tagName("span"));
                 waitForElement(driver, msg);
-                Assert.assertEquals(msg.getText(), emptyMsg);
+                Assert.assertEquals(msg.getText(), "No records found");
                 break;
             }
         }
@@ -267,7 +264,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
                 .findElements(By.tagName("li"));
         listOfficer1.get(0).click();
 
-        //add the seoond Team Officer and then detele
+        //add the second Team Officer and then detele
         btnAddTeamOfficer.click();
         waitForElement(driver, ddlTeamOfficer2);
         ddlTeamOfficer2.click();
@@ -284,7 +281,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         WebElement logoFile = btnChangeLogo.findElement(By.cssSelector("input[type=\"file\"]"));
         logoFile.sendKeys(logo);
 
-        //update Teamfolder
+        //update TeamFolder
         waitForElement(driver, txtTeamFolder);
         txtTeamFolder.clear();
         txtTeamFolder.sendKeys(teamFolder);
@@ -311,8 +308,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     public final void clickDeleteBtn() {
         waitForElement(driver, lstMember);
         List<WebElement> tr = lstMember.findElements(By.tagName("tr"));
-        for (WebElement i : tr
-        ) {
+        for (WebElement i : tr) {
             WebElement btnDelete = i.findElements(By.tagName("td")).get(ID_DELETE_COLUMN)
                     .findElement(By.cssSelector("span[class=\"ui-cell-data ng-star-inserted\"]"))
                     .findElement(By.tagName("button"));
@@ -328,7 +324,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
 
     public final void verifyDeleteUserSuccessful() {
         driver.navigate().refresh();
-        inputUserNametoSearch(textSearch);
+        inputUserNameToSearch(textSearch);
         Assert.assertTrue(verifySearchMemberResult("0"));
     }
 }

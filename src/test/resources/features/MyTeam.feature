@@ -48,9 +48,9 @@ Feature: Check My Teams information
   Scenario Outline: Verify the Update Team info function
     When I click on 'Update Team' button
     Then The web page navigates to the "/update" page
-    When I input "<name>" "<manager>" "<teamofficer1>" "<teamofficer2>" "<logo>" "<teamfolder>" "<description>"
+    When I input "<name>" "<manager>" "<teamOfficer1>" "<teamOfficer2>" "<logo>" "<teamFolder>" "<description>"
     And I click on Submit button
     Examples:
-      | name    | manager       | teamofficer1 | teamofficer2 | logo                                   | teamfolder                                  | description       |
+      | name    | manager       | teamOfficer1 | teamOfficer2 | logo                                   | teamFolder                                  | description       |
       | Android | Tien Hoang N. | Hieu Tran T. | Huy Nguyen   | /Users/huethai/Pictures/teamavatar.jpg | http://portal-stg.asiantech.vn/organisation | There is My Team! |
 

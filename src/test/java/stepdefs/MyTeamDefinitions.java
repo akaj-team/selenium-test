@@ -33,7 +33,7 @@ public class MyTeamDefinitions extends DriverBase implements En {
             waitForPageDisplayed(getDriver(), URL_MYTEAM_PAGE + TEAM_CODE, By.id("page-wrapper"));
         });
 
-        Then("^The member of Android team is displayed$", () -> Assert.assertEquals(TEAM_MEMBER_COUNT, myTeamPage.checkNumberofTeam()));
+        Then("^The member of Android team is displayed$", () -> Assert.assertEquals(TEAM_MEMBER_COUNT, myTeamPage.checkNumberOfTeam()));
 
         And("^The \"([^\"]*)\" value is \"([^\"]*)\"$", (String key, String value) -> myTeamPage.verifyMyTeamInfo(key, value));
 
@@ -60,12 +60,12 @@ public class MyTeamDefinitions extends DriverBase implements En {
 
         Then("^The Add Member popup is disappeared$", () -> Assert.assertTrue(myTeamPage.verifyAddMemberPopupDisappeared()));
 
-        When("^I input \"([^\"]*)\" into search input to search member$", (String username) -> myTeamPage.inputUserNametoSearch(username));
+        When("^I input \"([^\"]*)\" into search input to search member$", (String username) -> myTeamPage.inputUserNameToSearch(username));
 
         Then("^I verify that members of team are displayed correctly as \"([^\"]*)\"$", (String record) -> myTeamPage.verifySearchMemberResult(record));
 
         When("^I input \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$",
-                (String name, String manager, String teamofficer1, String teamofficer2, String logo, String teamfolder, String description) -> myTeamPage.updateTeamInfo(name, manager, teamofficer1, teamofficer2, logo, teamfolder, description));
+                (String name, String manager, String teamOfficer1, String teamOfficer2, String logo, String teamFolder, String description) -> myTeamPage.updateTeamInfo(name, manager, teamOfficer1, teamOfficer2, logo, teamFolder , description));
 
         And("^I click on Submit button$", () -> myTeamPage.clickSubmitBtntoUpload());
 
