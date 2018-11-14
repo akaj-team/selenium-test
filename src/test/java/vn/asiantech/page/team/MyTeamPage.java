@@ -217,8 +217,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         int k = 0;
         waitForElement(driver, lstMember);
         List<WebElement> tr = lstMember.findElements(By.tagName("tr"));
-        for (WebElement i : tr
-        ) {
+        for (WebElement i : tr) {
             if (!n.equals("0")) {
                 WebElement userName = i.findElements(By.tagName("td")).get(0)
                         .findElement(By.cssSelector("span[class=\"info-grouping-text truncate\"]"))
