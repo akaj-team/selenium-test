@@ -80,11 +80,8 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     private WebDriver driver;
 
     public DeviceTrackingPage(final WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public DeviceTrackingPage(final WebDriver driver) {
         super(driver);
+        this.driver = driver;
     }
 
     @Override
