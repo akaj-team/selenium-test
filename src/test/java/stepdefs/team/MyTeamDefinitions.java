@@ -1,4 +1,4 @@
-package stepdefs;
+package stepdefs.team;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
@@ -44,19 +44,19 @@ public class MyTeamDefinitions extends DriverBase implements En {
 
         Then("^The web page navigates to the \"([^\"]*)\" page$", (String page) -> myTeamPage.redirectPage(page));
 
-        When("^I click on 'Teams' button$", () -> myTeamPage.clickTeamsBtn());
+        When("^I click on 'Teams' button$", () -> myTeamPage.clickTeamsButton());
 
         When("^I click on New Member button$", () -> myTeamPage.clickAddMemberBtn());
 
         Then("^The Add Member popup is displayed$", () -> Assert.assertTrue(myTeamPage.getAddMemberPopupName()));
 
-        When("^I input \"([^\"]*)\" into search input to add member$", (String username) -> myTeamPage.inputUserNametoAdd(username));
+        When("^I input \"([^\"]*)\" into search input to add member$", (String username) -> myTeamPage.inputUserNameToAdd(username));
 
         Then("^I verify that search result list is correct with \"([^\"]*)\"$", (String n) -> myTeamPage.verifySearchResult(n));
 
         When("^I click on Add button$", () -> myTeamPage.clickAddButton());
 
-        When("^I click on Close button$", () -> myTeamPage.clickCloseBtn());
+        When("^I click on Close button$", () -> myTeamPage.clickCloseButton());
 
         Then("^The Add Member popup is disappeared$", () -> Assert.assertTrue(myTeamPage.verifyAddMemberPopupDisappeared()));
 
@@ -67,9 +67,9 @@ public class MyTeamDefinitions extends DriverBase implements En {
         When("^I input \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$",
                 (String name, String manager, String teamOfficer1, String teamOfficer2, String logo, String teamFolder, String description) -> myTeamPage.updateTeamInfo(name, manager, teamOfficer1, teamOfficer2, logo, teamFolder, description));
 
-        And("^I click on Submit button$", () -> myTeamPage.clickSubmitBtntoUpload());
+        And("^I click on Submit button$", () -> myTeamPage.clickSubmitButtomToUpload());
 
-        And("^I click on Delete button to delete searched user$", () -> myTeamPage.clickDeleteBtn());
+        And("^I click on Delete button to delete searched user$", () -> myTeamPage.clickDeleteButton());
 
         Then("^I verify that deleting user successful$", () -> myTeamPage.verifyDeleteUserSuccessful());
     }

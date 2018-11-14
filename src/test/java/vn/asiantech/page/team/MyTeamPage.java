@@ -36,7 +36,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     private WebElement txtSearchMember;
 
     @FindBy(css = ".ui-inputtext.ui-widget.ui-state-default")
-    private WebElement txtSearchtoAdd;
+    private WebElement txtSearchToAdd;
 
     @FindBy(className = "ui-listbox-list-wrapper")
     private WebElement listSearchResult;
@@ -51,10 +51,10 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     private WebElement ddlManager;
 
     @FindBy(css = ".ui-dropdown-filter.ui-inputtext")
-    private List<WebElement> txtSearchtoUpload;
+    private List<WebElement> txtSearchToUpload;
 
     @FindBy(className = "ui-dropdown-items-wrapper")
-    private List<WebElement> lstUsertoUpdate;
+    private List<WebElement> lstUserToUpdate;
 
     @FindBy(css = ".ng-tns-c2-4.ui-dropdown.ui-widget")
     private WebElement ddlTeamOfficer1;
@@ -78,7 +78,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     private WebElement txtDescription;
 
     @FindBy(id = "btn-submit-team")
-    private WebElement btnSubmittoUpdateTeam;
+    private WebElement btnSubmitToUpdateTeam;
 
     @FindBy(id = "static-dialog-wrapper")
     private WebElement dlgDeleteMember;
@@ -130,7 +130,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         Assert.assertEquals(url.substring(url.length() - path.length()), path);
     }
 
-    public final void clickTeamsBtn() {
+    public final void clickTeamsButton() {
         waitForElement(driver, btnTeams);
         btnTeams.click();
     }
@@ -149,9 +149,9 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         }
     }
 
-    public final void inputUserNametoAdd(final String username) {
-        waitForElement(driver, txtSearchtoAdd);
-        txtSearchtoAdd.sendKeys(username);
+    public final void inputUserNameToAdd(final String username) {
+        waitForElement(driver, txtSearchToAdd);
+        txtSearchToAdd.sendKeys(username);
         textAddUser = username;
     }
 
@@ -193,7 +193,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         }
     }
 
-    public final void clickCloseBtn() {
+    public final void clickCloseButton() {
         waitForElement(driver, btnClose);
         btnClose.click();
     }
@@ -247,19 +247,19 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
 
         //update Manager
         ddlManager.click();
-        waitForElement(driver, txtSearchtoUpload.get(0));
-        txtSearchtoUpload.get(0).sendKeys(manager);
-        List<WebElement> listManager = lstUsertoUpdate.get(0).findElement(By.cssSelector(".ui-helper-reset.ng-tns-c2-3.ng-star-inserted"))
+        waitForElement(driver, txtSearchToUpload.get(0));
+        txtSearchToUpload.get(0).sendKeys(manager);
+        List<WebElement> listManager = lstUserToUpdate.get(0).findElement(By.cssSelector(".ui-helper-reset.ng-tns-c2-3.ng-star-inserted"))
                 .findElements(By.tagName("li"));
         listManager.get(0).click();
 
         //update Team Officer
         waitForElement(driver, ddlTeamOfficer1);
         ddlTeamOfficer1.click();
-        waitForElement(driver, txtSearchtoUpload.get(1));
-        txtSearchtoUpload.get(1).sendKeys(teamOfficer1);
-        waitForElement(driver, lstUsertoUpdate.get(1));
-        List<WebElement> listOfficer1 = lstUsertoUpdate.get(1).findElement(By.cssSelector(".ui-helper-reset.ng-tns-c2-4.ng-star-inserted"))
+        waitForElement(driver, txtSearchToUpload.get(1));
+        txtSearchToUpload.get(1).sendKeys(teamOfficer1);
+        waitForElement(driver, lstUserToUpdate.get(1));
+        List<WebElement> listOfficer1 = lstUserToUpdate.get(1).findElement(By.cssSelector(".ui-helper-reset.ng-tns-c2-4.ng-star-inserted"))
                 .findElements(By.tagName("li"));
         listOfficer1.get(0).click();
 
@@ -267,10 +267,10 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         btnAddTeamOfficer.click();
         waitForElement(driver, ddlTeamOfficer2);
         ddlTeamOfficer2.click();
-        waitForElement(driver, txtSearchtoUpload.get(2));
-        txtSearchtoUpload.get(2).sendKeys(teamOfficer2);
-        waitForElement(driver, lstUsertoUpdate.get(2));
-        List<WebElement> listOfficer2 = lstUsertoUpdate.get(2).findElement(By.cssSelector(".ui-helper-reset.ng-tns-c2-5.ng-star-inserted"))
+        waitForElement(driver, txtSearchToUpload.get(2));
+        txtSearchToUpload.get(2).sendKeys(teamOfficer2);
+        waitForElement(driver, lstUserToUpdate.get(2));
+        List<WebElement> listOfficer2 = lstUserToUpdate.get(2).findElement(By.cssSelector(".ui-helper-reset.ng-tns-c2-5.ng-star-inserted"))
                 .findElements(By.tagName("li"));
         listOfficer2.get(0).click();
         btnDeleteTeamOfficer.get(1).click();
@@ -299,12 +299,12 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         driver.switchTo().defaultContent();
     }
 
-    public final void clickSubmitBtntoUpload() {
-        waitForElement(driver, btnSubmittoUpdateTeam);
-        btnSubmittoUpdateTeam.click();
+    public final void clickSubmitButtomToUpload() {
+        waitForElement(driver, btnSubmitToUpdateTeam);
+        btnSubmitToUpdateTeam.click();
     }
 
-    public final void clickDeleteBtn() {
+    public final void clickDeleteButton() {
         waitForElement(driver, lstMember);
         List<WebElement> tr = lstMember.findElements(By.tagName("tr"));
         for (WebElement i : tr) {
