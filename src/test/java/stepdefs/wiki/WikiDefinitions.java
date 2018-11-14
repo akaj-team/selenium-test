@@ -30,25 +30,25 @@ public class WikiDefinitions extends DriverBase implements En {
 
         When("^I click on name author$", () -> wikiPage.clickAuthor());
 
-        Then("^Redirect employee detail page$", () -> displayPage("/organisation/employees/42"));
+        Then("^Redirect employee detail page$", () -> displayPage("/organisation/employees/42", By.className("page-detail")));
 
         When("^I click on child page button$", () -> wikiPage.clickChildPageButton());
 
-        Then("^Redirect new page page$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE + "/new"));
+        Then("^Redirect new page page$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE + "/new", By.id("wiki-form-wrapper")));
 
         When("^I click on update button$", () -> wikiPage.clickUpdateButton());
 
-        Then("^Redirect update wiki page$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE + "/update"));
+        Then("^Redirect update wiki page$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE + "/update", By.id("wiki-form-wrapper")));
 
         When("^I click on child page title$", () -> wikiPage.clickTitle());
 
-        Then("^Redirect wiki detail page$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE));
+        Then("^Redirect wiki detail page$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE, By.cssSelector(".wrapper.wrapper-content.wiki")));
 
         Then("^Can not click delete button$", () -> Assert.assertFalse(wikiPage.isEnableDeleteButton()));
 
         When("^I click on icon package Wiki$", () -> wikiPage.clickIconPackageWikiHome());
 
-        And("^Wiki page displayed$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE));
+        And("^Wiki page displayed$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE, By.cssSelector(".wrapper.wrapper-content.wiki")));
 
         Then("^Categories disappeared$", () -> Assert.assertTrue(wikiPage.isRemoveCategories()));
 
@@ -61,8 +61,8 @@ public class WikiDefinitions extends DriverBase implements En {
         Then("^Categories inside show$", () -> Assert.assertTrue(wikiPage.isHideCategoryInside()));
     }
 
-    private void displayPage(final String path) {
+    private void displayPage(final String path, final By container) {
         driver.get(Constant.PORTAL_URL + path);
-        waitForPageDisplayed(driver, Constant.PORTAL_URL + path, By.id("page-wrapper"));
+        waitForPageDisplayed(driver, Constant.PORTAL_URL + path, container);
     }
 }

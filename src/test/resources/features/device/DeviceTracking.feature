@@ -28,11 +28,11 @@ Feature: Check Device tracking
     And Display full seven columns content device
 
   Scenario: Display title header device and content device
-    When move to item device
+    When Move to item device
     Then Display title and border item device
 
   Scenario: Display title header device and content device
-    When move to item device
+    When Move to item device
     Then Display title and border item device
 
   Scenario: Display button Submit when click item device

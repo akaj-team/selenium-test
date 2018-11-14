@@ -54,7 +54,7 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
         seeAllButton.click();
     }
 
-    public final Boolean notificationElementIsDisplay() {
+    public final boolean notificationElementIsDisplay() {
         return notificationMenu.isDisplayed();
     }
 

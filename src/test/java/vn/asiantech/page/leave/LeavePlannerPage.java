@@ -55,7 +55,7 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
         return this;
     }
 
-    public final Boolean getClickable() {
+    public final boolean getClickable() {
         waitForElement(driver, btnThisWeek);
         return btnThisWeek.isEnabled();
     }
