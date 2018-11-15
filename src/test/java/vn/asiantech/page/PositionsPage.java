@@ -37,9 +37,10 @@ public class PositionsPage extends BasePage<PositionsPage> {
 
     private String positionDetailUrl;
     private String updatePositionUrl;
+    private WebDriver driver;
 
-    public final WebElement getTitle() {
-        return title;
+    public PositionsPage(WebDriver driver) {
+        this.driver = driver;
     }
 
     @Override
@@ -48,44 +49,48 @@ public class PositionsPage extends BasePage<PositionsPage> {
         return this;
     }
 
+    public final WebElement getTitle() {
+        return title;
+    }
+
     public final String getUrlOfCell() {
         return positionDetailUrl;
     }
 
-    public final WebElement getButtonNewPosition(final WebDriver driver) {
+    public final WebElement getButtonNewPosition() {
         waitForElement(driver, btnNewPosition);
         return btnNewPosition;
     }
 
-    public final WebElement getButtonCareerPath(final WebDriver driver) {
+    public final WebElement getButtonCareerPath() {
         waitForElement(driver, btnCareerPath);
         return btnCareerPath;
     }
 
-    public final void searchPosition(final WebDriver driver, final String text) {
+    public final void searchPosition(final String text) {
         waitForElement(driver, inputSearch);
         inputSearch.sendKeys(text);
         inputSearch.sendKeys(Keys.RETURN);
     }
 
-    public final WebElement getCellDataTable(final WebDriver driver, final int row) {
-        WebElement item = Objects.requireNonNull(getListCellInRow(driver, row)).get(COLUMN_SHORT_NAME).findElement(By.className("item-name"));
+    public final WebElement getCellDataTable(final int row) {
+        WebElement item = Objects.requireNonNull(getListCellInRow(row)).get(COLUMN_SHORT_NAME).findElement(By.className("item-name"));
         positionDetailUrl = item.getAttribute("href");
         return item;
     }
 
-    public final void onClickCellEditInTable(final WebDriver driver, final int row) {
-        WebElement item = Objects.requireNonNull(getListCellInRow(driver, row)).get(COLUMN_ACTION).findElement(By.className("update"));
+    public final void onClickCellEditInTable(final int row) {
+        WebElement item = Objects.requireNonNull(getListCellInRow(row)).get(COLUMN_ACTION).findElement(By.className("update"));
         updatePositionUrl = item.getAttribute("href");
         item.click();
     }
 
-    public final void onCLickCellDeleteInTable(final WebDriver driver, final int row) {
-        Objects.requireNonNull(getListCellInRow(driver, row)).get(COLUMN_ACTION).findElement(By.className("delete")).click();
+    public final void onCLickCellDeleteInTable(final int row) {
+        Objects.requireNonNull(getListCellInRow(row)).get(COLUMN_ACTION).findElement(By.className("delete")).click();
     }
 
-    public final boolean isMatcherFindName(final WebDriver driver, final String text) {
-        List<String> names = getListLongNameInTable(driver);
+    public final boolean isMatcherFindName(final String text) {
+        List<String> names = getListLongNameInTable();
         boolean isMatch = true;
         for (String name : names) {
             if (!Pattern.compile(Pattern.quote(text), Pattern.CASE_INSENSITIVE).matcher(name).find()) {
@@ -95,8 +100,8 @@ public class PositionsPage extends BasePage<PositionsPage> {
         return isMatch;
     }
 
-    public final String showMessageEmptyTeam(final WebDriver driver) {
-        WebElement rowEmpty = getDataTable(driver).findElement(By.className("ui-datatable-scrollable-body")).findElement(By.tagName("tr"));
+    public final String showMessageEmptyTeam() {
+        WebElement rowEmpty = getDataTable().findElement(By.className("ui-datatable-scrollable-body")).findElement(By.tagName("tr"));
         return rowEmpty.findElement(By.tagName("span")).getText();
     }
 
@@ -104,14 +109,14 @@ public class PositionsPage extends BasePage<PositionsPage> {
         return updatePositionUrl;
     }
 
-    public final boolean isDialogConfirmDeleteDisplay(final WebDriver driver) {
-        String style = getDialogConfirmDelete(driver).getAttribute("style");
+    public final boolean isDialogConfirmDeleteDisplay() {
+        String style = getDialogConfirmDelete().getAttribute("style");
         return style.contains("display: block");
     }
 
-    private List<String> getListLongNameInTable(final WebDriver driver) {
+    private List<String> getListLongNameInTable() {
         List<String> longNames = new ArrayList<>();
-        WebElement element = getDataTable(driver);
+        WebElement element = getDataTable();
         List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
         for (WebElement row : rows) {
             List<WebElement> cols = row.findElements(By.className("ui-cell-data"));
@@ -125,8 +130,8 @@ public class PositionsPage extends BasePage<PositionsPage> {
         return longNames;
     }
 
-    private List<WebElement> getListCellInRow(final WebDriver driver, final int row) {
-        WebElement element = getDataTable(driver);
+    private List<WebElement> getListCellInRow(final int row) {
+        WebElement element = getDataTable();
         List<WebElement> rows = element.findElements(By.cssSelector(".ui-widget-content.ng-star-inserted"));
         if (rows.size() > row - 1) {
             return rows.get(row - 1).findElements(By.className("ui-cell-data"));
@@ -134,12 +139,12 @@ public class PositionsPage extends BasePage<PositionsPage> {
         return null;
     }
 
-    private WebElement getDataTable(final WebDriver driver) {
+    private WebElement getDataTable() {
         waitForElement(driver, dataTable);
         return dataTable;
     }
 
-    private WebElement getDialogConfirmDelete(final WebDriver driver) {
+    private WebElement getDialogConfirmDelete() {
         waitForElement(driver, dialogConfirmDelete);
         return dialogConfirmDelete;
     }

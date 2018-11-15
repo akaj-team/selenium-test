@@ -37,18 +37,18 @@ public class PositionsDefinitions extends DriverBase implements En {
             Assert.assertEquals(positionsPage.getTitle().getText(), title);
         });
 
-        Then("^I see button new position and career path is display$", () -> Assert.assertTrue(positionsPage.getButtonCareerPath(driver).isDisplayed()));
+        Then("^I see button new position and career path is display$", () -> Assert.assertTrue(positionsPage.getButtonCareerPath().isDisplayed()));
 
-        When("^I click on new position button$", () -> positionsPage.getButtonNewPosition(driver).click());
+        When("^I click on new position button$", () -> positionsPage.getButtonNewPosition().click());
 
         Then("^I move to new position page$", () -> waitForPageDisplayed(driver, Constant.POSITION_PAGE_URL + "/new", By.className("btn-submit")));
 
-        When("^I click on career path button$", () -> positionsPage.getButtonCareerPath(driver).click());
+        When("^I click on career path button$", () -> positionsPage.getButtonCareerPath().click());
 
         Then("^I move to career path page$", () -> waitForPageDisplayed(driver, Constant.POSITION_PAGE_URL + "/tree", By.className("panel-heading")));
 
         When("^I click on a row in table position$", () -> {
-            WebElement webElement = positionsPage.getCellDataTable(driver, 1);
+            WebElement webElement = positionsPage.getCellDataTable(1);
             if (webElement != null) {
                 webElement.click();
             }
@@ -56,16 +56,16 @@ public class PositionsDefinitions extends DriverBase implements En {
 
         Then("^I move to position detail page$", () -> waitForPageDisplayed(driver, positionsPage.getUrlOfCell(), By.className("section-top")));
 
-        When("^I click on update button in a row$", () -> positionsPage.onClickCellEditInTable(driver, 1));
+        When("^I click on update button in a row$", () -> positionsPage.onClickCellEditInTable(1));
 
         Then("^I move to update position page$", () -> waitForPageDisplayed(driver, positionsPage.getUpdatePositionUrl(), By.className("btn-submit")));
 
-        When("^I click on delete button in a row$", () -> positionsPage.onCLickCellDeleteInTable(driver, 1));
+        When("^I click on delete button in a row$", () -> positionsPage.onCLickCellDeleteInTable(1));
 
-        Then("^I see dialog confirm delete position is display$", () -> Assert.assertTrue(positionsPage.isDialogConfirmDeleteDisplay(driver)));
+        Then("^I see dialog confirm delete position is display$", () -> Assert.assertTrue(positionsPage.isDialogConfirmDeleteDisplay()));
 
         When("^I write \"([^\"]*)\" and press enter on search field$", (String text) -> {
-            positionsPage.searchPosition(driver, text);
+            positionsPage.searchPosition(text);
             String redirectUrl = Constant.POSITION_PAGE_URL + ";long_name_cont=" + text;
             waitForPageRedirected(driver, redirectUrl, By.cssSelector(".ui-datatable-data.ui-widget-content"));
         });
@@ -74,12 +74,12 @@ public class PositionsDefinitions extends DriverBase implements En {
             waitVisibilityOfElement(driver, By.cssSelector(".ui-widget-content.ng-star-inserted"));
             waitVisibilityOfElement(driver, By.className("ui-cell-data"));
             waitVisibilityOfElement(driver, By.className("item-name"));
-            Assert.assertTrue(positionsPage.isMatcherFindName(driver, text));
+            Assert.assertTrue(positionsPage.isMatcherFindName(text));
         });
 
         And("^I should see empty message \"([^\"]*)\"$", (String message) -> {
             waitVisibilityOfElement(driver, By.className("ui-datatable-emptymessage-row"));
-            Assert.assertEquals(message, positionsPage.showMessageEmptyTeam(driver));
+            Assert.assertEquals(message, positionsPage.showMessageEmptyTeam());
         });
     }
 }
