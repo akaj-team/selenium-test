@@ -1,4 +1,4 @@
-package vn.asiantech.page;
+package vn.asiantech.page.notice;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -53,7 +53,7 @@ public class NotificationMenuElement extends BasePage<NotificationMenuElement> {
         seeAllButton.click();
     }
 
-    public final Boolean notificationElementIsDisplay() {
+    public final boolean notificationElementIsDisplay() {
         return notificationMenu.isDisplayed();
     }
 

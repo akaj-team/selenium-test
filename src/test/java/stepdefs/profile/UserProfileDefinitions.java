@@ -1,4 +1,4 @@
-package stepdefs;
+package stepdefs.profile;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;

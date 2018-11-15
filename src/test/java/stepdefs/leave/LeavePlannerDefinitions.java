@@ -1,11 +1,11 @@
-package stepdefs;
+package stepdefs.leave;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.LeavePlannerPage;
+import vn.asiantech.page.leave.LeavePlannerPage;
 
 import static vn.asiantech.base.Constant.LEAVE_PLANNER_PAGE_URL;
 
@@ -32,11 +32,11 @@ public class LeavePlannerDefinitions extends DriverBase implements En {
             waitForPageDisplayed(getDriver(), LEAVE_PLANNER_PAGE_URL, By.id("page-wrapper"));
         });
 
-        Then("^Can not click this week button$", () -> Assert.assertFalse(false, leavePlanerPage.getClickable().toString()));
+        Then("^Can not click this week button$", () -> Assert.assertFalse(leavePlanerPage.getClickable()));
 
         When("^Click on back button$", () -> leavePlanerPage.clickBackButton());
 
-        Then("^Can click this week button$", () -> Assert.assertTrue(true, leavePlanerPage.getClickable().toString()));
+        Then("^Can click this week button$", () -> Assert.assertTrue(leavePlanerPage.getClickable()));
 
         When("^Click on next button$", () -> leavePlanerPage.clickNextButton());
 

@@ -85,7 +85,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private int clickType;
     private WebDriver driver;
 
-    public EmployeesPage(WebDriver driver) {
+    public EmployeesPage(final WebDriver driver) {
         this.driver = driver;
     }
 
