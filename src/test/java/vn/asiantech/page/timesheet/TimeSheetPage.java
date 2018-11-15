@@ -477,4 +477,29 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         List<WebElement> itemsControl = dlgConfirmDelete.findElements(By.tagName("button"));
         return itemsControl.get(position);
     }
+
+    public void clearTimeSheetItem() {
+        waitForElement(driver, elementTimeSheetBody);
+        List<WebElement> elements = elementTimeSheetBody.findElements(By.cssSelector(".task-record.saved.ng-star-inserted"));
+        if (elements.size() == 0) {
+            return;
+        }
+        for (int i = 0; i < elements.size() - 2; i++) {
+            WebElement content = elements.get(i).findElement(By.className("info-content"));
+            content.click();
+            clickButtonDelete();
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            WebElement btnDeleteConfirm = getElementControlDelete(POSITION_DELETE_CONFIRM);
+            btnDeleteConfirm.click();
+        }
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

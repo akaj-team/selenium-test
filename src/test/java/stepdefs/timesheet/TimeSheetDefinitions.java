@@ -26,6 +26,7 @@ public class TimeSheetDefinitions extends DriverBase implements En {
             driver.get(Constant.TIME_SHEET_PAGE_URL);
             waitForPageDisplayed(getDriver(), Constant.TIME_SHEET_PAGE_URL, By.id("page-wrapper"));
         });
+        Given("^Check item add timesheet exist$", myTimeSheet::clearTimeSheetItem);
         Then("^My Timesheet page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
         And("^Display title timesheet content$", () -> Assert.assertTrue(myTimeSheet.isDisplayTitle()));
         And("^Display full record timesheet", () -> Assert.assertTrue(true, myTimeSheet.isDisplayFullColumns().toString()));

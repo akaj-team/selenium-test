@@ -7,6 +7,7 @@ Feature: Check TimeSheet
     And Display time sheet page
 
   Scenario: Login successfully with correct account
+    Given Check item add timesheet exist
     Then My Timesheet page is displayed "/timesheet/submission"
     And Display title timesheet content
     And Display full record timesheet
@@ -101,5 +102,5 @@ Feature: Check TimeSheet
     Then Display dialog timesheet
     When I fill information for timeSheet
     And Click button save on timeSheet dialog
-    And Click button submit on timeSheet
-    Then Display Dialog success is enable and show message timesheet
+#    And Click button submit on timeSheet
+#    Then Display Dialog success is enable and show message timesheet
