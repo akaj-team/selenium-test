@@ -34,7 +34,7 @@ public class PositionsDefinitions extends DriverBase implements En {
 
         Then("^I see header title \"([^\"]*)\" is display$", (String title) -> {
             waitVisibilityOfElement(driver, By.tagName("h2"));
-            Assert.assertEquals(positionsPage.title.getText(), title);
+            Assert.assertEquals(positionsPage.getTitle().getText(), title);
         });
 
         Then("^I see button new position and career path is display$", () -> Assert.assertTrue(positionsPage.getButtonCareerPath(driver).isDisplayed()));

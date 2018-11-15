@@ -23,7 +23,7 @@ public class PositionsPage extends BasePage<PositionsPage> {
     private static final int COLUMN_ACTION = 3;
 
     @FindBy(tagName = "h2")
-    public WebElement title;
+    private WebElement title;
     @FindBy(id = "btn-create-position")
     private WebElement btnNewPosition;
     @FindBy(id = "btn-link-to-career-path")
@@ -37,6 +37,10 @@ public class PositionsPage extends BasePage<PositionsPage> {
 
     private String positionDetailUrl;
     private String updatePositionUrl;
+
+    public WebElement getTitle() {
+        return title;
+    }
 
     @Override
     public final PositionsPage navigateTo(final WebDriver webDriver) {
@@ -80,7 +84,7 @@ public class PositionsPage extends BasePage<PositionsPage> {
         Objects.requireNonNull(getListCellInRow(driver, row)).get(COLUMN_ACTION).findElement(By.className("delete")).click();
     }
 
-    public final boolean isMatcherFindName(final WebDriver driver, final String text){
+    public final boolean isMatcherFindName(final WebDriver driver, final String text) {
         List<String> names = getListLongNameInTable(driver);
         boolean isMatch = true;
         for (String name : names) {
