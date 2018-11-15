@@ -17,7 +17,7 @@ import static vn.asiantech.base.Constant.TEAM_PAGE_URL;
 public class TeamsPage extends BasePage<TeamsPage> {
     private static final int COLUMN_NAME = 0;
     private static final int COLUMN_MANAGER = 1;
-    private static final int COLUMN_ACTION = 3;
+    private static final int COLUMN_ACTION = 4;
 
     @FindBy(id = "team-filter-wrapper")
     private WebElement sectionToolBox;
@@ -50,8 +50,7 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     public final boolean isTeamListEmpty() {
         waitForElement(driver, tbBody.findElement(By.tagName("tr")));
-        List<WebElement> rows = tbBody.findElements(By.tagName("tr"));
-        return rows.get(0).getAttribute("class").contains("ui-datatable-emptymessage-row");
+        return tbBody.findElement(By.tagName("tr")).getAttribute("class").contains("ui-datatable-emptymessage-row");
     }
 
     public final String showMessageEmptyTeam() {
