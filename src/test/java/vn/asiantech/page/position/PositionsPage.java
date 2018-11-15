@@ -1,4 +1,4 @@
-package vn.asiantech.page;
+package vn.asiantech.page.position;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;

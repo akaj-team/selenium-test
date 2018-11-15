@@ -1,4 +1,4 @@
-package stepdefs;
+package stepdefs.position;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.PositionsPage;
+import vn.asiantech.page.position.PositionsPage;
 
 /**
  * @author at-trungnguyen
