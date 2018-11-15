@@ -39,7 +39,7 @@ public class PositionsPage extends BasePage<PositionsPage> {
     private String updatePositionUrl;
     private WebDriver driver;
 
-    public PositionsPage(WebDriver driver) {
+    public PositionsPage(final WebDriver driver) {
         this.driver = driver;
     }
 
