@@ -38,7 +38,7 @@ public class PositionsPage extends BasePage<PositionsPage> {
     private String positionDetailUrl;
     private String updatePositionUrl;
 
-    public WebElement getTitle() {
+    public final WebElement getTitle() {
         return title;
     }
 
