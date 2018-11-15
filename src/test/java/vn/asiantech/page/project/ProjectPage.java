@@ -1,4 +1,4 @@
-package vn.asiantech.page;
+package vn.asiantech.page.project;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -39,7 +39,7 @@ public class ProjectPage extends BasePage<ProjectPage> {
 
     private WebDriver driver;
 
-    public ProjectPage(WebDriver driver) {
+    public ProjectPage(final WebDriver driver) {
         this.driver = driver;
     }
 

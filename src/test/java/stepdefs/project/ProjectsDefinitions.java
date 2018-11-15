@@ -1,4 +1,4 @@
-package stepdefs;
+package stepdefs.project;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.WebDriver;
@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.ProjectPage;
+import vn.asiantech.page.project.ProjectPage;
 
 /**
  * @author at-vinhhuynh
