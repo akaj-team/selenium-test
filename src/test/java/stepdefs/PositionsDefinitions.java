@@ -9,9 +9,6 @@ import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.PositionsPage;
 
-import java.util.List;
-import java.util.regex.Pattern;
-
 /**
  * @author at-trungnguyen
  */
@@ -28,18 +25,19 @@ public class PositionsDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
 
+        positionsPage = initPage(driver, PositionsPage.class);
+
         And("^Displayed positions page$", () -> {
             driver.get(Constant.POSITION_PAGE_URL);
-            positionsPage = initPage(getDriver(), PositionsPage.class);
             waitForPageDisplayed(driver, Constant.POSITION_PAGE_URL, By.id("page-wrapper"));
         });
 
-        Then("^I see header title \"([^\"]*)\" is display$", (String title) -> Assert.assertEquals(positionsPage.getTitle(driver), title));
-
-        Then("^I see button new position and career path is display$", () -> {
-            Assert.assertTrue(positionsPage.getButtonCareerPath(driver).isDisplayed());
-            Assert.assertTrue(positionsPage.getButtonCareerPath(driver).isDisplayed());
+        Then("^I see header title \"([^\"]*)\" is display$", (String title) -> {
+            waitVisibilityOfElement(driver, By.tagName("h2"));
+            Assert.assertEquals(positionsPage.title.getText(), title);
         });
+
+        Then("^I see button new position and career path is display$", () -> Assert.assertTrue(positionsPage.getButtonCareerPath(driver).isDisplayed()));
 
         When("^I click on new position button$", () -> positionsPage.getButtonNewPosition(driver).click());
 
@@ -58,21 +56,11 @@ public class PositionsDefinitions extends DriverBase implements En {
 
         Then("^I move to position detail page$", () -> waitForPageDisplayed(driver, positionsPage.getUrlOfCell(), By.className("section-top")));
 
-        When("^I click on update button in a row$", () -> {
-            WebElement webElement = positionsPage.getCellEditInTable(driver, 1);
-            if (webElement != null) {
-                webElement.click();
-            }
-        });
+        When("^I click on update button in a row$", () -> positionsPage.onClickCellEditInTable(driver, 1));
 
         Then("^I move to update position page$", () -> waitForPageDisplayed(driver, positionsPage.getUpdatePositionUrl(), By.className("btn-submit")));
 
-        When("^I click on delete button in a row$", () -> {
-            WebElement webElement = positionsPage.getCellDeleteInTable(driver, 1);
-            if (webElement != null) {
-                webElement.click();
-            }
-        });
+        When("^I click on delete button in a row$", () -> positionsPage.onCLickCellDeleteInTable(driver, 1));
 
         Then("^I see dialog confirm delete position is display$", () -> Assert.assertTrue(positionsPage.isDialogConfirmDeleteDisplay(driver)));
 
@@ -86,14 +74,7 @@ public class PositionsDefinitions extends DriverBase implements En {
             waitVisibilityOfElement(driver, By.cssSelector(".ui-widget-content.ng-star-inserted"));
             waitVisibilityOfElement(driver, By.className("ui-cell-data"));
             waitVisibilityOfElement(driver, By.className("item-name"));
-            List<String> names = positionsPage.getListLongNameInTable(driver);
-            boolean isMatch = true;
-            for (String name : names) {
-                if (!Pattern.compile(Pattern.quote(text), Pattern.CASE_INSENSITIVE).matcher(name).find()) {
-                    isMatch = false;
-                }
-            }
-            Assert.assertTrue(isMatch);
+            Assert.assertTrue(positionsPage.isMatcherFindName(driver, text));
         });
 
         And("^I should see empty message \"([^\"]*)\"$", (String message) -> {
