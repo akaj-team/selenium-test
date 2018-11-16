@@ -11,8 +11,8 @@ Feature: Check TimeSheet
     Then My Timesheet page is displayed "/timesheet/submission"
     And Display title timesheet content
     And Display full record timesheet
-    And Disable button this week and can not click
-    And Disable button submit and can not click
+    And Disable button this week and can not click on timesheet
+    And Disable button submit and can not click on timesheet
 
   Scenario: Can click this week button after click back button
     When Click on back button on timesheet

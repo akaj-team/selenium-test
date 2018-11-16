@@ -31,8 +31,8 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         Then("^My Timesheet page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
         And("^Display title timesheet content$", () -> Assert.assertTrue(myTimeSheet.isDisplayTitle()));
         And("^Display full record timesheet", () -> Assert.assertTrue(true, myTimeSheet.isDisplayFullColumns().toString()));
-        And("^Disable button this week and can not click", () -> Assert.assertTrue(true, myTimeSheet.getClickableTimeSheet("btnThisWeek").toString()));
-        And("^Disable button submit and can not click", () -> Assert.assertTrue(true, myTimeSheet.getClickableTimeSheet("btnSubmit").toString()));
+        And("^Disable button this week and can not click on timesheet$", () -> Assert.assertTrue(true, myTimeSheet.getClickableTimeSheet("btnThisWeek").toString()));
+        And("^Disable button submit and can not click on timesheet$", () -> Assert.assertTrue(true, myTimeSheet.getClickableTimeSheet("btnSubmit").toString()));
         When("^Click on back button on timesheet$", myTimeSheet::clickBackButtonOnTimeSheet);
         When("^Click on next button on timesheet$", myTimeSheet::clickNextButtonOnTimeSheet);
         Then("^Can click this week button on timesheet$", () -> Assert.assertTrue(true, myTimeSheet.getClickableTimeSheet("btnThisWeek").toString()));

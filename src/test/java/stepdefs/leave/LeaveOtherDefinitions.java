@@ -2,7 +2,6 @@ package stepdefs.leave;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -35,11 +34,9 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
 
         And("^Open leave of other page$", () -> {
             webDriver.get(Constant.LEAVE_TRACKING_PAGE_URL);
-            new WebDriverWait(webDriver, Constant.MAXIMUM_TIME_OUT).until(
-                    driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"));
-            Assert.assertEquals(Constant.LEAVE_TRACKING_PAGE_URL, webDriver.getCurrentUrl());
+            waitForPageDisplayed(webDriver, Constant.LEAVE_TRACKING_PAGE_URL, By.id("page-wrapper"));
         });
-        And("^Wait for load data$", () -> leaveOtherPage.waitForLoadData(webDriver));
+        And("^Wait for load data$", () -> leaveOtherPage.waitForLoadData());
 
         When("^I click status item$", () -> leaveOtherPage.clickStatusItem());
         Then("^Should show status dropdown$", () -> Assert.assertTrue(leaveOtherPage.checkShowStatusDropdown()));
@@ -52,14 +49,14 @@ public class LeaveOtherDefinitions extends DriverBase implements En {
 
         Then("^I choose a start date$", () -> leaveOtherPage.chooseStartDate());
         Then("^I choose a end date$", () -> leaveOtherPage.chooseEndDate());
-        When("^end date less than start date$", () -> Assert.assertTrue(leaveOtherPage.compareTwoDate()));
-        Then("^show error message with text is \"([^\"]*)\"$", (String message) -> Assert.assertTrue(leaveOtherPage.checkShowErrorMessage(message, webDriver)));
+        When("^End date less than start date$", () -> Assert.assertTrue(leaveOtherPage.compareTwoDate()));
+        Then("^Show error message with text is \"([^\"]*)\"$", (String message) -> Assert.assertTrue(leaveOtherPage.checkShowErrorMessage(message)));
 
         Given("^Leave of other have data$", () -> {
             Assert.assertFalse(leaveOtherPage.checkDataEmpty());
             pathOrganisationEmployer = leaveOtherPage.getPathPageRedirect(EMPLOYER_ID_POS);
             pathEmployerName = leaveOtherPage.getPathPageRedirect(EMPLOYER_NAME_POS);
-            countItem = leaveOtherPage.countDataItem(webDriver);
+            countItem = leaveOtherPage.countDataItem();
         });
         When("^I click in employer id$", () -> leaveOtherPage.clickEmployerId());
         Then("^Should redirect to organisation employees$", () -> redirectPage(pathOrganisationEmployer));

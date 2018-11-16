@@ -32,11 +32,11 @@ public class LeavePlannerDefinitions extends DriverBase implements En {
             waitForPageDisplayed(getDriver(), LEAVE_PLANNER_PAGE_URL, By.id("page-wrapper"));
         });
 
-        Then("^Can not click this week button$", () -> Assert.assertFalse(false, leavePlanerPage.getClickable().toString()));
+        Then("^Can not click this week button$", () -> Assert.assertFalse(leavePlanerPage.getClickable()));
 
         When("^Click on back button$", () -> leavePlanerPage.clickBackButton());
 
-        Then("^Can click this week button$", () -> Assert.assertTrue(true, leavePlanerPage.getClickable().toString()));
+        Then("^Can click this week button$", () -> Assert.assertTrue(leavePlanerPage.getClickable()));
 
         When("^Click on next button$", () -> leavePlanerPage.clickNextButton());
 
