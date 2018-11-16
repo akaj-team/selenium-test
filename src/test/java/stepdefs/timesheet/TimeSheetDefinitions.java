@@ -1,5 +1,6 @@
 package stepdefs.timesheet;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -26,7 +27,7 @@ public class TimeSheetDefinitions extends DriverBase implements En {
             driver.get(Constant.TIME_SHEET_PAGE_URL);
             waitForPageDisplayed(getDriver(), Constant.TIME_SHEET_PAGE_URL, By.id("page-wrapper"));
         });
-        Given("^Check item add timesheet exist$", myTimeSheet::clearTimeSheetItem);
+        And("^Check item add timesheet exist$", myTimeSheet::clearTimeSheetItem);
         Then("^My Timesheet page is displayed \"([^\"]*)\"$", this::redirectPageWhenClickChildItem);
         And("^Display title timesheet content$", () -> Assert.assertTrue(myTimeSheet.isDisplayTitle()));
         And("^Display full record timesheet", () -> Assert.assertTrue(true, myTimeSheet.isDisplayFullColumns().toString()));
@@ -83,6 +84,7 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         When("^I fill information for timeSheet$", myTimeSheet::fillInformationForTimeSheet);
         When("^Click button save on timeSheet dialog$", myTimeSheet::clickButtonSave);
         And("^Click button submit on timeSheet$", myTimeSheet::clickButtonSubmit);
+        When("^Add timesheet record full$", myTimeSheet::addTimeSheetFullRecord);
     }
 
     private void redirectPageWhenClickChildItem(final String path) {

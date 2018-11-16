@@ -5,9 +5,9 @@ Feature: Check TimeSheet
   Background: User navigation to My TimeSheet page
     Given I am logged in as a team manager
     And Display time sheet page
+    And Check item add timesheet exist
 
   Scenario: Login successfully with correct account
-    Given Check item add timesheet exist
     Then My Timesheet page is displayed "/timesheet/submission"
     And Display title timesheet content
     And Display full record timesheet
@@ -70,18 +70,15 @@ Feature: Check TimeSheet
     And Display Dialog success is enable and show message timesheet
 
   Scenario: Display timeSheet data
+    When Add timesheet record full
     Then Display full record timesheet
-    And Display element timeSheet
-    When Move to title columns timesheet
-    Then Display button add new timesheet
-    And Display dialog title project timesheet
     When Scroll edit timesheet
     Then Change time sheet info is "6"
     And Display Dialog success is enable and show message timesheet
 
   Scenario: Check click delete action control on timeSheet
+    When Add timesheet record full
     Then Display full record timesheet
-    And Display element timeSheet
     When Click on columns timesheet
     Then Display dialog timesheet
     And Button delete timesheet is enable
@@ -102,5 +99,9 @@ Feature: Check TimeSheet
     Then Display dialog timesheet
     When I fill information for timeSheet
     And Click button save on timeSheet dialog
-#    And Click button submit on timeSheet
-#    Then Display Dialog success is enable and show message timesheet
+    When Click on columns timesheet
+    Then Display dialog timesheet
+    When Click button Repeat every day
+    Then Display full record timesheet
+    And Click button submit on timeSheet
+    Then Display Dialog success is enable and show message timesheet

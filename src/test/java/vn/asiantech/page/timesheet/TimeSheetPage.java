@@ -85,6 +85,11 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public final Boolean isDisplayFullColumns() {
+        try {
+            Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         boolean isFull = true;
         waitForElement(driver, elementCalendar);
         List<WebElement> divs = elementCalendar.findElements(By.tagName("div"));
@@ -271,11 +276,17 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public final void clickRepeatEveryDay() {
+        try {
+            Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         waitForElement(driver, btnRespeatEnable);
         btnRespeatEnable.click();
     }
 
     public final Boolean isExistsElementTimeSheet() {
+        waitForElement(driver, elementTimeSheetBody);
         List<WebElement> items = elementTimeSheetBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         for (int i = 0; i < items.size() - 2; i++) {
             WebElement element = items.get(i).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
@@ -327,6 +338,11 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public final void clickButtonDelete() {
+        try {
+            Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         waitForElement(driver, btnDelete);
         btnDelete.click();
     }
@@ -467,6 +483,33 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         btnSubmit.click();
     }
 
+    public final void clearTimeSheetItem() {
+        while (true) {
+            try {
+                WebElement elements = elementTimeSheetBody.findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
+                elements.click();
+                Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
+                btnDelete.click();
+                Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
+                dlgConfirmDelete.findElement(By.cssSelector(".btn.btn-default.btn-sm.btn-delete")).click();
+                Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
+            } catch (Exception e) {
+                return;
+            }
+        }
+    }
+
+    public void addTimeSheetFullRecord() {
+        clickFirstItemTimeSheet();
+        fillInformationForTimeSheet();
+        clickRepeatEveryDay();
+        try {
+            Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void scrollToBottomPage() {
         Actions actions = new Actions(driver);
         actions.keyDown(Keys.CONTROL).sendKeys(Keys.END).perform();
@@ -476,30 +519,5 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     private WebElement getElementControlDelete(final int position) {
         List<WebElement> itemsControl = dlgConfirmDelete.findElements(By.tagName("button"));
         return itemsControl.get(position);
-    }
-
-    public void clearTimeSheetItem() {
-        waitForElement(driver, elementTimeSheetBody);
-        List<WebElement> elements = elementTimeSheetBody.findElements(By.cssSelector(".task-record.saved.ng-star-inserted"));
-        if (elements.size() == 0) {
-            return;
-        }
-        for (int i = 0; i < elements.size() - 2; i++) {
-            WebElement content = elements.get(i).findElement(By.className("info-content"));
-            content.click();
-            clickButtonDelete();
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            WebElement btnDeleteConfirm = getElementControlDelete(POSITION_DELETE_CONFIRM);
-            btnDeleteConfirm.click();
-        }
-        try {
-            Thread.sleep(20000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }
