@@ -26,12 +26,15 @@ public class NewPositionPage extends BasePage<NewPositionPage> {
     private WebElement btnSubmit;
     @FindBy(css = ".app-alert.ng-star-inserted")
     private WebElement alertError;
+    @FindBy(className = "ui-dialog")
+    private WebElement alertConfirmation;
 
     private WebDriver driver;
     private static final int POS_LIST_POSITION = 2;
     private static final int POS_FIRST_POSITION_IN_LIST = 0;
     private static final int POS_NAME_POSITION = 0;
     private static final int POS_FIRST_CHAR_IN_STRING = 0;
+    private static final int TIME_SLEEP = 300;
 
     public NewPositionPage(final WebDriver driver) {
         this.driver = driver;
@@ -95,6 +98,23 @@ public class NewPositionPage extends BasePage<NewPositionPage> {
 
     public final boolean showMessageErrorWhenSubmit() {
         return alertError.isDisplayed();
+    }
+
+    public final boolean showAlertConfirmation() {
+        try {
+            Thread.sleep(TIME_SLEEP);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return alertConfirmation.isDisplayed();
+    }
+
+    public final void clickButtonStay() {
+        alertConfirmation.findElement(By.className("btn-cancel")).click();
+    }
+
+    public final void clickButtonLeave() {
+        alertConfirmation.findElement(By.className("btn-submit")).click();
     }
 
     public final boolean checkPositionIsExits() {

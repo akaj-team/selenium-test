@@ -1,5 +1,6 @@
 package stepdefs.position;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -49,5 +50,17 @@ public class NewPositionDefinitions extends DriverBase implements En {
                 Assert.assertTrue(getDriver().findElement(By.className("page-detail")).isDisplayed());
             }
         });
+
+        Then("^Should show dialog exits confirmation$", () -> Assert.assertTrue(newPositionPage.showAlertConfirmation()));
+        When("^I click button stay$", () -> newPositionPage.clickButtonStay());
+        Then("^Hide confirmation dialog$", () -> Assert.assertFalse(newPositionPage.showAlertConfirmation()));
+
+        When("^I click button leave$", () -> newPositionPage.clickButtonLeave());
+        Then("^Should redirect to position page$", () -> {
+            waitRedirectToPage(Constant.POSITION_PAGE_URL);
+            Assert.assertTrue(getDriver().findElement(By.id("page-wrapper")).isDisplayed());
+        });
+
+        When("^I click back system$", () -> getDriver().navigate().forward());
     }
 }

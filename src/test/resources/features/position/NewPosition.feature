@@ -47,4 +47,19 @@ Feature:  Login my account to portal and open positions page
     When I click button save position
     Then Redirect to position detail or show error massage
 
+  Scenario: Test dialog confirmation when click stay
+    Given I enter correct long name with text is "HHHHHHHH"
+    And I click first position on list position
+    When I click on button position
+    Then Should show dialog exits confirmation
+    When I click button stay
+    Then Hide confirmation dialog
+
+  Scenario: Test dialog confirmation when click leave
+    Given I enter correct long name with text is "HHHHHHHH"
+    And I click first position on list position
+    When I click on button position
+    Then Should show dialog exits confirmation
+    When I click button leave
+    Then Should redirect to position page
 
