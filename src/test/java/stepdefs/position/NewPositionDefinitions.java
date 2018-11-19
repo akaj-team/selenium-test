@@ -1,6 +1,5 @@
 package stepdefs.position;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.testng.Assert;
