@@ -59,7 +59,5 @@ public class NewPositionDefinitions extends DriverBase implements En {
             waitRedirectToPage(Constant.POSITION_PAGE_URL);
             Assert.assertTrue(getDriver().findElement(By.id("page-wrapper")).isDisplayed());
         });
-
-        When("^I click back system$", () -> getDriver().navigate().forward());
     }
 }
