@@ -21,7 +21,7 @@ public class NewPositionPage extends BasePage<NewPositionPage> {
     @FindBy(xpath = "//input[contains(@formcontrolname,'short_name')]")
     private WebElement edtShortName;
     @FindBy(id = "position-form-wrapper")
-    private WebElement form;
+    private WebElement formMainPositionPage;
     @FindBy(id = "btn-submit-position")
     private WebElement btnSubmit;
     @FindBy(css = ".app-alert.ng-star-inserted")
@@ -79,12 +79,12 @@ public class NewPositionPage extends BasePage<NewPositionPage> {
     }
 
     public final boolean checkMessageErrorHide(final int pos) {
-        WebElement errorMessageElement = form.findElement(By.className("col-md-12")).findElements(By.className("form-group")).get(pos).findElement(By.className("help-block"));
+        WebElement errorMessageElement = formMainPositionPage.findElement(By.className("col-md-12")).findElements(By.className("form-group")).get(pos).findElement(By.className("help-block"));
         return errorMessageElement.isDisplayed();
     }
 
     public final void clickFirstItemPosition() {
-        WebElement firstListPosition = form.findElement(By.className("col-md-12")).findElements(By.className("form-group")).get(POS_LIST_POSITION).findElement(By.className("ui-listbox-list")).findElements(By.tagName("li")).get(POS_FIRST_POSITION_IN_LIST);
+        WebElement firstListPosition = formMainPositionPage.findElement(By.className("col-md-12")).findElements(By.className("form-group")).get(POS_LIST_POSITION).findElement(By.className("ui-listbox-list")).findElements(By.tagName("li")).get(POS_FIRST_POSITION_IN_LIST);
         firstListPosition.click();
     }
 
@@ -118,7 +118,7 @@ public class NewPositionPage extends BasePage<NewPositionPage> {
     }
 
     public final boolean checkPositionIsExits() {
-        List<WebElement> listPositions = form.findElement(By.className("col-md-12")).findElements(By.className("form-group")).get(POS_LIST_POSITION).findElement(By.className("ui-listbox-list")).findElements(By.tagName("li"));
+        List<WebElement> listPositions = formMainPositionPage.findElement(By.className("col-md-12")).findElements(By.className("form-group")).get(POS_LIST_POSITION).findElement(By.className("ui-listbox-list")).findElements(By.tagName("li"));
         for (WebElement listPosition : listPositions) {
             String namePosition = listPosition.findElements(By.tagName("span")).get(POS_NAME_POSITION).getText();
             String shortNamePosition = "";
@@ -150,7 +150,7 @@ public class NewPositionPage extends BasePage<NewPositionPage> {
     }
 
     private String getMessageError(final int pos) {
-        WebElement errorMessageElement = form.findElement(By.className("col-md-12")).findElements(By.className("form-group")).get(pos).findElement(By.className("help-block"));
+        WebElement errorMessageElement = formMainPositionPage.findElement(By.className("col-md-12")).findElements(By.className("form-group")).get(pos).findElement(By.className("help-block"));
         waitForElement(driver, errorMessageElement);
         return errorMessageElement.getText();
     }

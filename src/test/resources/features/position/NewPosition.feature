@@ -62,4 +62,3 @@ Feature:  Login my account to portal and open positions page
     Then Should show dialog exits confirmation
     When I click button leave
     Then Should redirect to position page
-
