@@ -27,6 +27,13 @@ public abstract class BasePage<T> {
                 driver -> isElementPresented(element));
     }
 
+    protected final void waitUntilCountDifference(final WebDriver webDriver, final WebElement element, final By by, final int count) {
+        new WebDriverWait(webDriver, Constant.DEFAULT_TIME_OUT).until((ExpectedCondition<Boolean>) driver -> {
+            int elementCount = element.findElements(by).size();
+            return elementCount != count;
+        });
+    }
+
     protected final void waitForListElement(WebDriver webDriver, List<WebElement> elements) {
         new WebDriverWait(webDriver, Constant.DEFAULT_TIME_OUT).until(
                 driver -> elements.size() != 0);
