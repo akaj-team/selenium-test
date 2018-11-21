@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.object.Employee;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private static final int LAST_INDICATOR_CLICK = 3;
     private static final int EMPLOYEE_NAME_COLUMN_INDEX = 0;
     private static final int EMPLOYEE_CODE_COLUMN_INDEX = 1;
+    private static final int EMPLOYEE_EMAIL_COLUMN_INDEX = 2;
     private static final int EMPLOYEE_MANAGER_COLUMN_INDEX = 3;
     private static final int EMPLOYEE_TEAM_COLUMN_INDEX = 4;
     private static final int EMPLOYEE_GROUP_COLUMN_INDEX = 5;
@@ -151,6 +153,43 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         String updateEmployeeUrl = editEmployee.getAttribute("href");
         editEmployee.click();
         return updateEmployeeUrl;
+    }
+
+    public final Employee getEditEmployee() {
+        WebElement nameColumn = getEmployeeInformation(EMPLOYEE_NAME_COLUMN_INDEX);
+        assert nameColumn != null;
+        String employeeName = nameColumn.findElement(By.tagName("strong")).getText();
+
+        WebElement codeColumn = getEmployeeInformation(EMPLOYEE_CODE_COLUMN_INDEX);
+        assert codeColumn != null;
+        String employeeCode = codeColumn.getText();
+
+        WebElement emailColumn = getEmployeeInformation(EMPLOYEE_EMAIL_COLUMN_INDEX);
+        assert emailColumn != null;
+        String employeeEmail = emailColumn.getText();
+
+        List<WebElement> cells = tblBody.findElements(By.tagName("tr"));
+        String employeeManager = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_MANAGER_COLUMN_INDEX).findElement(By.tagName("a")).getText();
+
+        String employeeTeam;
+        WebElement teamColumn = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_TEAM_COLUMN_INDEX);
+        try {
+            assert teamColumn != null;
+            employeeTeam = teamColumn.findElement(By.tagName("a")).getText();
+        } catch (NoSuchElementException exeption) {
+            employeeTeam = teamColumn.findElement(By.cssSelector(".text-na")).getText();
+        }
+
+        String employeeGroup;
+        WebElement groupColumn = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_GROUP_COLUMN_INDEX);
+        try {
+            assert groupColumn != null;
+            employeeGroup = groupColumn.findElement(By.tagName("a")).getText();
+        } catch (NoSuchElementException exeption) {
+            employeeGroup = groupColumn.findElement(By.cssSelector(".text-na")).getText();
+        }
+
+        return new Employee(employeeName, employeeCode, employeeEmail, employeeManager, employeeTeam, employeeGroup);
     }
 
     public final void clickPromotionButton() {
@@ -389,6 +428,14 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
             return true;
         } catch (NoSuchElementException exception) {
             return false;
+        }
+    }
+
+    private String getPropertyEmployee(WebElement property) {
+        try {
+            return property.getText();
+        } catch (NoSuchElementException exeption) {
+            return property.findElement(By.cssSelector("span[name=text-na]")).getText();
         }
     }
 }

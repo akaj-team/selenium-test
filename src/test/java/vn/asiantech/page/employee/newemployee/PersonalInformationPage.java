@@ -100,6 +100,11 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
         } else {
             inputFirstName.sendKeys(firstName);
         }
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public final void fillMiddleName(final String middleName) {
