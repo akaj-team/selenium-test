@@ -20,6 +20,7 @@ public final class Constant {
 
     public static final String HOLIDAY_SETTING_URL = PORTAL_URL + "/admin/public-holiday";
     public static final String DEVICE_TRACKING_URL = PORTAL_URL + "/equipments/tracking";
+    public static final String AWARD_CATEGORY_PAGE_URL = PORTAL_URL + "/admin/award-category";
     public static final String WIKI_URL = PORTAL_URL + "/wiki/";
 
     public static final int DEFAULT_TIME_OUT = 10;
