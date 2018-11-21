@@ -32,14 +32,14 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     @FindBy(name = "name")
     private WebElement inputName;
 
-    @FindBy(className = "ng-valid")
+    @FindBy(xpath = "//textarea[contains(@name, 'description') and contains(@formcontrolname, 'description')]")
     private WebElement txaDescription;
 
     @FindBy(className = "help-block")
     private WebElement txtNameError;
 
     @FindBy(id = "award-dialog-wrapper")
-    private WebElement dialog;
+    private WebElement dialogAward;
 
     @FindBy(tagName = "app-error")
     private WebElement appError;
@@ -76,11 +76,11 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
 
     public final void enterDescription() {
         txaDescription.click();
-        txaDescription.sendKeys("Fast etailing");
+        txaDescription.sendKeys("Fast Retailing");
     }
 
     public final void clickCloseDialog() {
-        dialog.findElement(By.cssSelector(".fa.fa-fw.fa-close")).click();
+        dialogAward.findElement(By.cssSelector(".fa.fa-fw.fa-close")).click();
     }
 
     public final boolean isEnableSubmitButton() {
@@ -114,7 +114,7 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     }
 
     public final boolean isDisplayAlertDeleteSuccess() {
-        return appError.findElement(By.cssSelector(".app-alert.ng-star-inserted")).isDisplayed();
+        return appError.findElement(By.className("app-alert")).isDisplayed();
     }
 
     public final void clickDeleteConfirm() {

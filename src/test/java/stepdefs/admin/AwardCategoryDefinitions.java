@@ -48,7 +48,10 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
         When("^I click submit button$", () -> awardCategoryPage.clickSubmit());
 
-        When("^I enter description$", () -> awardCategoryPage.enterDescription());
+        When("^I enter description$", () -> {
+//            waitVisibilityOfElement(driver, By.name("description"));
+            awardCategoryPage.enterDescription();
+        });
 
         Given("^Dialog edit is showed$", () -> Assert.assertTrue(awardCategoryPage.isDisplayDialog()));
 
@@ -72,7 +75,10 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
         When("^I click Delete button$", () -> awardCategoryPage.clickDeleteButton());
 
-        Then("^I click delete confirm button$", () -> awardCategoryPage.clickDeleteConfirm());
+        Then("^I click delete confirm button$", () -> {
+            awardCategoryPage.clickDeleteConfirm();
+            waitVisibilityOfElement(driver, By.className("app-alert"));
+        });
 
         Then("^Alert delete success is showed$", () -> Assert.assertTrue(awardCategoryPage.isDisplayAlertDeleteSuccess()));
     }
