@@ -8,7 +8,7 @@ Feature: I want to see timeSheet of others members
     And I move to timeSheet of others page
 
   Scenario: Check views are display when start page
-    Then I see label "Timesheet of Others" is show
+    Given I see label "Timesheet of Others" is show
     And I see button this week is disable
     And I see button pre and next is enable
     And I see tab "Line Manager" is selected
@@ -19,12 +19,12 @@ Feature: I want to see timeSheet of others members
   Scenario: Check status dropdown
     When I click on dropdown status
     And I choose option "Pending" in Status
-    And I see dropdown status change to "Pending"
+    Then I see dropdown status change to "Pending"
 
   Scenario: Check Subordinator dropdown
     When I click on dropdown Subordinator
     And I choose option "Member(s) of Android Team" in Subordinator
-    And I see dropdown Subordinator change to "Android"
+    Then I see dropdown Subordinator change to "Android"
 
   Scenario: Check status button this week
     When I click on pre button

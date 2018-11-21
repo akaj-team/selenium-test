@@ -31,10 +31,7 @@ public class TimeSheetOthersDefinitions extends DriverBase implements En {
             waitForPageDisplayed(driver, Constant.TIME_SHEET_OTHER_URL, By.id("page-wrapper"));
         });
 
-        Then("^I see label \"([^\"]*)\" is show$", (String text) -> {
-            waitVisibilityOfElement(driver, By.tagName("h2"));
-            Assert.assertEquals(timeSheetOthers.getTitle().getText(), text);
-        });
+        Then("^I see label \"([^\"]*)\" is show$", (String text) -> Assert.assertEquals(timeSheetOthers.getTitle().getText(), text));
         And("^I see button this week is disable$", () -> Assert.assertFalse(timeSheetOthers.isEnableButtonThisWeek()));
         And("^I see button pre and next is enable$", () -> {
             Assert.assertTrue(timeSheetOthers.isEnableButtonPrevWeek());
@@ -43,7 +40,7 @@ public class TimeSheetOthersDefinitions extends DriverBase implements En {
         And("^I see tab \"([^\"]*)\" is selected$", (String tabName) -> Assert.assertEquals(timeSheetOthers.getNameSelectedTab(), tabName));
         And("^I see dropdown Subordinator with \"([^\"]*)\" is default value$", (String defaultValue) -> Assert.assertEquals(timeSheetOthers.getValueDropDownSubordinator(), defaultValue));
         And("^I see dropdown status with \"([^\"]*)\" is default value$", (String text) -> Assert.assertEquals(timeSheetOthers.getValueDropDownStatus(), text));
-        And("^I see list label status on bottom is show$", () -> Assert.assertTrue(timeSheetOthers.isDisplayedLabbelBottom()));
+        And("^I see list label status on bottom is show$", () -> Assert.assertTrue(timeSheetOthers.isDisplayedLabelBottom()));
 
         When("^I click on dropdown status$", () -> {
             timeSheetOthers.onClickDropDownStatus();
@@ -62,13 +59,7 @@ public class TimeSheetOthersDefinitions extends DriverBase implements En {
         When("^I click on pre button$", () -> timeSheetOthers.onClickButtonPrevWeek());
         Then("^I see button this week is enable$", () -> Assert.assertTrue(timeSheetOthers.isEnableButtonThisWeek()));
 
-        When("^I click button next (\\d+) times$", (Integer times) -> {
-            int i = 0;
-            while (i < 2) {
-                timeSheetOthers.onClickButtonNextWeek();
-                i++;
-            }
-        });
+        When("^I click button next (\\d+) times$", (Integer times) -> timeSheetOthers.onClickButtonNextWeek(times));
         Then("^I see button next is disable$", () -> Assert.assertFalse(timeSheetOthers.isEnableButtonNextWeek()));
 
         When("^I click on tab \"([^\"]*)\"$", (String tabName) -> {

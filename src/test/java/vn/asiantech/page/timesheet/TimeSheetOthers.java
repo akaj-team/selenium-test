@@ -38,7 +38,6 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
     private WebElement labelRejected;
     @FindBy(css = ".table.table-vm")
     private WebElement table;
-
     private WebDriver driver;
 
     public TimeSheetOthers(final WebDriver driver) {
@@ -52,6 +51,7 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
     }
 
     public final WebElement getTitle() {
+        waitForElement(driver, title);
         return title;
     }
 
@@ -60,7 +60,7 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
         return selectedTab.getText();
     }
 
-    public final boolean isDisplayedLabbelBottom() {
+    public final boolean isDisplayedLabelBottom() {
         waitForElement(driver, labelSubmitted);
         waitForElement(driver, labelApproved);
         waitForElement(driver, labelRejected);
@@ -73,9 +73,13 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
         btnPrevWeek.click();
     }
 
-    public final void onClickButtonNextWeek() {
+    public final void onClickButtonNextWeek(final int times) {
         waitForElement(driver, btnNextWeek);
-        btnNextWeek.click();
+        int i = 0;
+        while (i < times) {
+            btnNextWeek.click();
+            i++;
+        }
     }
 
     public final boolean isEnableButtonNextWeek() {
