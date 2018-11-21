@@ -8,14 +8,13 @@ import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
 /**
- * @author at-anh.quach
- * AwardCategoryPage
+ * Copyright © 2018 Asian Tech Co., Ltd.
+ * Created by at-vietphan on 11/21/18.
  */
 public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
 
-    private static final int POS_EDIT = 2;
-    private static final int POS_DELETE = 2;
-    private static final int POS_CATEGORY = 1;
+    private static final int POS_ROW = 1;
+    private static final int POS_ACTION = 2;
 
     @FindBy(id = "award-list-wrapper")
     private WebElement tbCategory;
@@ -61,17 +60,21 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     }
 
     public final void clickEditButton() {
-        tbCategory.findElements(By.tagName("tr")).get(POS_CATEGORY).findElements(By.tagName("td")).get(POS_EDIT).
+        tbCategory.findElements(By.tagName("tr")).get(POS_ROW).findElements(By.tagName("td")).get(POS_ACTION).
                 findElement(By.cssSelector(".update.ng-star-inserted")).click();
     }
 
     public final void clickDeleteButton() {
-        tbCategory.findElements(By.tagName("tr")).get(POS_CATEGORY).findElements(By.tagName("td")).get(POS_DELETE).
+        tbCategory.findElements(By.tagName("tr")).get(POS_ROW).findElements(By.tagName("td")).get(POS_ACTION).
                 findElement(By.cssSelector(".delete.ng-star-inserted")).click();
     }
 
     public final void enterName(final String name) {
         inputName.sendKeys(name);
+    }
+
+    public final void enterNameWithWhileSpace(final String name, final int whileSpaceBeginning, final int whileSpaceEnd) {
+        inputName.sendKeys(setNumberWhileSpace(whileSpaceBeginning) + name + setNumberWhileSpace(whileSpaceEnd));
     }
 
     public final void enterDescription() {
@@ -119,5 +122,13 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
 
     public final void clickDeleteConfirm() {
         btnDeleteConfirm.click();
+    }
+
+    private String setNumberWhileSpace(final int number) {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < number; i++) {
+            str.append(" ");
+        }
+        return str.toString();
     }
 }

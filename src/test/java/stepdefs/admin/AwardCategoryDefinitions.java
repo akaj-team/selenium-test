@@ -9,8 +9,8 @@ import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.admin.AwardCategoryPage;
 
 /**
- * @author at-anh.quach
- * AwardCategoryPage
+ * Copyright © 2018 Asian Tech Co., Ltd.
+ * Created by at-vietphan on 11/21/18.
  */
 public class AwardCategoryDefinitions extends DriverBase implements En {
     private AwardCategoryPage awardCategoryPage;
@@ -48,10 +48,7 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
         When("^I click submit button$", () -> awardCategoryPage.clickSubmit());
 
-        When("^I enter description$", () -> {
-//            waitVisibilityOfElement(driver, By.name("description"));
-            awardCategoryPage.enterDescription();
-        });
+        When("^I enter description$", () -> awardCategoryPage.enterDescription());
 
         Given("^Dialog edit is showed$", () -> Assert.assertTrue(awardCategoryPage.isDisplayDialog()));
 
@@ -81,6 +78,15 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
         });
 
         Then("^Alert delete success is showed$", () -> Assert.assertTrue(awardCategoryPage.isDisplayAlertDeleteSuccess()));
+
+        When("^I input name have while space in \"([^\"]*)\" or \"([^\"]*)\" of name$", (String whileSpaceBeginning, String whileSpaceEnd) -> {
+            awardCategoryPage.enterNameWithWhileSpace("Best project", Integer.parseInt(whileSpaceBeginning), Integer.parseInt(whileSpaceEnd));
+        });
+
+        Then("^Alert message is displayed$", () -> {
+            waitVisibilityOfElement(driver, By.className("app-alert"));
+            Assert.assertTrue(driver.findElement(By.className("app-alert")).isDisplayed());
+        });
     }
 
     private void displayPage() {
