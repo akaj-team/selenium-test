@@ -34,7 +34,7 @@ public abstract class BasePage<T> {
         });
     }
 
-    protected final void waitForListElement(WebDriver webDriver, List<WebElement> elements) {
+    protected final void waitForListElement(final WebDriver webDriver, final List<WebElement> elements) {
         new WebDriverWait(webDriver, Constant.DEFAULT_TIME_OUT).until(
                 driver -> elements.size() != 0);
     }

@@ -9,6 +9,9 @@ import vn.asiantech.base.Constant;
 
 import java.util.List;
 
+/**
+ * @author at-trungnguyen
+ */
 public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
 
     @FindBy(className = "toolbox-content")
@@ -38,7 +41,7 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
 
     private WebDriver driver;
 
-    public TimeSheetOthers(WebDriver driver) {
+    public TimeSheetOthers(final WebDriver driver) {
         this.driver = driver;
     }
 
@@ -48,7 +51,7 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
         return this;
     }
 
-    final public WebElement getTitle() {
+    public final WebElement getTitle() {
         return title;
     }
 
@@ -150,7 +153,7 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
         return listBtn;
     }
 
-    private List<WebElement> getListOptionOnDropdown(WebElement element) {
+    private List<WebElement> getListOptionOnDropdown(final WebElement element) {
         List<WebElement> listCheckbox = element.findElement(By.tagName("ul")).findElements(By.tagName("li"));
         waitForListElement(driver, listCheckbox);
         return listCheckbox;

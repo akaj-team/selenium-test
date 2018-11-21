@@ -8,6 +8,9 @@ import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.timesheet.TimeSheetOthers;
 
+/**
+ * @author at-trungnguyen
+ */
 public class TimeSheetOthersDefinitions extends DriverBase implements En {
     private TimeSheetOthers timeSheetOthers;
     private WebDriver driver;
