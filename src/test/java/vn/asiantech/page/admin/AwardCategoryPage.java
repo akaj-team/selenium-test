@@ -46,12 +46,22 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     @FindBy(className = "btn-warning")
     private WebElement btnDeleteConfirm;
 
+    @FindBy(className = "app-alert")
+    private WebElement alertApp;
+
+    private WebDriver driver;
+
+    public AwardCategoryPage(final WebDriver driver) {
+        this.driver = driver;
+    }
+
     @Override
     public final AwardCategoryPage navigateTo(final WebDriver webDriver) {
         return null;
     }
 
     public final void clickNewAward() {
+        waitForElement(driver, btnNewAward);
         btnNewAward.click();
     }
 
@@ -60,11 +70,13 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     }
 
     public final void clickEditButton() {
+        waitForElement(driver, tbCategory);
         tbCategory.findElements(By.tagName("tr")).get(POS_ROW).findElements(By.tagName("td")).get(POS_ACTION).
                 findElement(By.cssSelector(".update.ng-star-inserted")).click();
     }
 
     public final void clickDeleteButton() {
+        waitForElement(driver, tbCategory);
         tbCategory.findElements(By.tagName("tr")).get(POS_ROW).findElements(By.tagName("td")).get(POS_ACTION).
                 findElement(By.cssSelector(".delete.ng-star-inserted")).click();
     }
@@ -74,15 +86,18 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     }
 
     public final void enterNameWithWhileSpace(final String name, final int whileSpaceBeginning, final int whileSpaceEnd) {
+        waitForElement(driver, inputName);
         inputName.sendKeys(setNumberWhileSpace(whileSpaceBeginning) + name + setNumberWhileSpace(whileSpaceEnd));
     }
 
     public final void enterDescription() {
+        waitForElement(driver, txaDescription);
         txaDescription.click();
         txaDescription.sendKeys("Fast Retailing");
     }
 
     public final void clickCloseDialog() {
+        waitForElement(driver, dialogAward);
         dialogAward.findElement(By.cssSelector(".fa.fa-fw.fa-close")).click();
     }
 
@@ -91,36 +106,44 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     }
 
     public final void clickSubmit() {
+        waitForElement(driver, btnSubmit);
         btnSubmit.click();
     }
 
     public final void clearText() {
+        waitForElement(driver, inputName);
         inputName.clear();
         inputName.sendKeys("h");
         inputName.sendKeys(Keys.BACK_SPACE);
     }
 
     public final boolean isShowError() {
+        waitForElement(driver, txtNameError);
         return txtNameError.isDisplayed();
     }
 
     public final void clickCancelButton() {
+        waitForElement(driver, btnCancel);
         btnCancel.click();
     }
 
     public final boolean isDisplayAlertSuccess() {
+        waitForElement(driver, appError);
         return appError.findElement(By.xpath("//div[contains(@class,'alert-success')]")).isDisplayed();
     }
 
     public final boolean isDisplayAlertDanger() {
+        waitForElement(driver, appError);
         return appError.findElement(By.cssSelector(".alert.alert-danger.alert-dismissible")).isDisplayed();
     }
 
     public final boolean isDisplayAlertDeleteSuccess() {
-        return appError.findElement(By.className("app-alert")).isDisplayed();
+        waitForElement(driver, alertApp);
+        return alertApp.isDisplayed();
     }
 
     public final void clickDeleteConfirm() {
+        waitForElement(driver, btnDeleteConfirm);
         btnDeleteConfirm.click();
     }
 

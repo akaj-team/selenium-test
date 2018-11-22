@@ -72,16 +72,12 @@ public class AwardCategoryDefinitions extends DriverBase implements En {
 
         When("^I click Delete button$", () -> awardCategoryPage.clickDeleteButton());
 
-        Then("^I click delete confirm button$", () -> {
-            awardCategoryPage.clickDeleteConfirm();
-            waitVisibilityOfElement(driver, By.className("app-alert"));
-        });
+        Then("^I click delete confirm button$", () -> awardCategoryPage.clickDeleteConfirm());
 
         Then("^Alert delete success is showed$", () -> Assert.assertTrue(awardCategoryPage.isDisplayAlertDeleteSuccess()));
 
-        When("^I input name have while space in \"([^\"]*)\" or \"([^\"]*)\" of name$", (String whileSpaceBeginning, String whileSpaceEnd) -> {
-            awardCategoryPage.enterNameWithWhileSpace("Best project", Integer.parseInt(whileSpaceBeginning), Integer.parseInt(whileSpaceEnd));
-        });
+        When("^I input name have while space in \"([^\"]*)\" or \"([^\"]*)\" of name$", (String whileSpaceBeginning, String whileSpaceEnd) ->
+                awardCategoryPage.enterNameWithWhileSpace("Best project", Integer.parseInt(whileSpaceBeginning), Integer.parseInt(whileSpaceEnd)));
 
         Then("^Alert message is displayed$", () -> {
             waitVisibilityOfElement(driver, By.className("app-alert"));
