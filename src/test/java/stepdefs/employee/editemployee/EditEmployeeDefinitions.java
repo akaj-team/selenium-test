@@ -47,19 +47,76 @@ public class EditEmployeeDefinitions extends DriverBase implements En {
         Given("^Deactive button at edit employee page is clickable$", () -> Assert.assertTrue(editEmployeesPage.isDeactiveButtonClickable()));
 
         Given("^Information of that employee displays correctly$", () -> {
-            Assert.assertEquals(employee.name, editEmployeesPage.getEmployeeName());
+            Assert.assertEquals(employee.getName(), editEmployeesPage.getEmployeeName());
             editEmployeesPage.clickNextButton();
             Assert.assertTrue(editEmployeesPage.isCompanyInfoTabActive());
-            Assert.assertEquals(employee.code, editEmployeesPage.getEmployeeCode());
-            Assert.assertEquals(employee.email, editEmployeesPage.getEmployeeEmail());
-            Assert.assertEquals(employee.group, editEmployeesPage.getEmployeeGroup());
-            Assert.assertEquals(employee.team, editEmployeesPage.getEmployeeTeam());
+            Assert.assertEquals(employee.getCode(), editEmployeesPage.getEmployeeCode());
+            Assert.assertEquals(employee.getEmail(), editEmployeesPage.getEmployeeEmail());
+            Assert.assertEquals(employee.getGroup(), editEmployeesPage.getEmployeeGroup());
+            Assert.assertEquals(employee.getTeam(), editEmployeesPage.getEmployeeTeam());
         });
 
-        And("^Submit button at edit employee page is not clickable$", () -> Assert.assertFalse(editEmployeesPage.isDeactiveButtonClickable()));
+        And("^Submit button at edit employee page is not clickable$", () -> Assert.assertFalse(editEmployeesPage.isSubmitButtonClickable()));
 
         And("^Next button at edit employee page is not clickable$", () -> Assert.assertFalse(editEmployeesPage.isNextButtonClickable()));
 
         And("^Back button at edit employee page is not clickable$", () -> Assert.assertFalse(editEmployeesPage.isBackButtonClickable()));
+
+        When("^Click deactive button$", () -> editEmployeesPage.clickDeactiveButton());
+
+        Then("^A notification dialog is display$", () -> Assert.assertTrue(editEmployeesPage.isDialogDisplayed()));
+
+        When("^Click close button$", () -> {
+            if (editEmployeesPage.getDeactiveDialogTitle().equals("Notification")) {
+                editEmployeesPage.clickCloseButtonOfDeactiveDialog();
+            }
+        });
+
+        Then("^This deactive dialog dismissed$", () -> Assert.assertTrue(editEmployeesPage.isDeactiveDialogDismissed()));
+
+
+        When("^Choose day to deactivate this employee$", () -> {
+            if (editEmployeesPage.getDeactiveDialogTitle().contains(employee.getName())) {
+                editEmployeesPage.chooseDateToDeactivate();
+            }
+        });
+
+        Then("^Click deactive button of dialog button$", () -> editEmployeesPage.clickDeactiveButtonOfDialog());
+
+        Then("^Deactivate successfully this employee$", () -> Assert.assertTrue(editEmployeesPage.isDeactiveDialogDismissed()));
+
+        Then("^Click cancel button of dialog button$", () -> editEmployeesPage.clickCancelButtonOfDialog());
+
+        When("^Click next button two times$", () -> {
+            editEmployeesPage.clickNextButton();
+            editEmployeesPage.clickNextButton();
+        });
+
+        Then("^Timeline tab is active$", () -> Assert.assertTrue(editEmployeesPage.isTimelineTabActive()));
+
+        And("^Submit button is not displayed$", () -> Assert.assertFalse(editEmployeesPage.isSubmitButtonDisplayed()));
+
+        And("^Deactive button is not displayed$", () -> Assert.assertFalse(editEmployeesPage.isDeactiveButtonDisplayed()));
+
+        Then("^Click new event button$", () -> editEmployeesPage.clickNewEventButton());
+
+        And("^A new event dialog displayed$", () -> Assert.assertTrue(editEmployeesPage.isDialogDisplayed()));
+
+        And("^Select type of event \"([^\"]*)\"$", (String event) -> editEmployeesPage.chooseTypeOfEvent(event));
+
+        When("^Select position of promotion$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            throw new PendingException();
+        });
+
+        When("^Select date of promotion$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            throw new PendingException();
+        });
+
+        When("^Click submit button of new event dialog$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            throw new PendingException();
+        });
     }
 }

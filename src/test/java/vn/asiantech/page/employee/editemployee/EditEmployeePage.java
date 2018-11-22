@@ -1,13 +1,10 @@
 package vn.asiantech.page.employee.editemployee;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
-import vn.asiantech.base.Constant;
 
 /**
  * @author at-hangtran
@@ -53,6 +50,18 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
     @FindBy(css = "ul[role=tablist]")
     private WebElement companyInfoTab;
 
+    @FindBy(css = "div[role=dialog]")
+    private WebElement dialog;
+
+    @FindBy(css = "p-calendar[name=deactivate_date]")
+    private WebElement dateTime;
+
+    @FindBy(className = "ui-tabview-nav")
+    private WebElement listTabContainer;
+
+    @FindBy(css = ".btn.btn-default.btn-add.btn-block.ng-star-inserted")
+    private WebElement btnNewEvent;
+
     private WebDriver driver;
 
     public EditEmployeePage(WebDriver driver) {
@@ -68,9 +77,31 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
         return btnDeactive.isEnabled();
     }
 
+    public void clickDeactiveButton() {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", btnDeactive);
+        btnDeactive.click();
+    }
 
     public boolean isSubmitButtonClickable() {
         return btnSubmit.isEnabled();
+    }
+
+    public boolean isDeactiveButtonDisplayed() {
+        try {
+            btnDeactive.isDisplayed();
+            return true;
+        } catch (NoSuchElementException exception) {
+            return false;
+        }
+    }
+
+    public boolean isSubmitButtonDisplayed() {
+        try {
+            btnSubmit.isDisplayed();
+            return true;
+        } catch (NoSuchElementException exception) {
+            return false;
+        }
     }
 
     public boolean isNextButtonClickable() {
@@ -86,15 +117,17 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
     }
 
     public String getEmployeeName() {
-        StringBuilder middleName = new StringBuilder(inputMiddleName.getAttribute("value"));
+        StringBuilder middleName = new StringBuilder(StringUtils.stripAccents(inputMiddleName.getAttribute("value")));
         StringBuilder middleNameWithSpace = new StringBuilder(" ");
         if (!middleName.toString().equals("")) {
-            String[] subStrings = middleName.toString().split(" ");
+            String[] subStrings = middleName.toString().split(" ", 10);
             for (String subString : subStrings) {
                 middleNameWithSpace.append(subString).append(".");
             }
+            return StringUtils.stripAccents(inputFirstName.getAttribute("value")) + " " + StringUtils.stripAccents(inputLastName.getAttribute("value")) + middleNameWithSpace;
+        } else {
+            return StringUtils.stripAccents(inputFirstName.getAttribute("value")) + " " + StringUtils.stripAccents(inputLastName.getAttribute("value"));
         }
-        return inputFirstName.getAttribute("value") + " " + inputLastName.getAttribute("value") + middleNameWithSpace;
     }
 
     public boolean isCompanyInfoTabActive() {
@@ -119,11 +152,76 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
     }
 
     public String getEmployeeTeam() {
-        String team = teamContainer.findElement(By.xpath("//div[contains(@class,'ui-multiselect-label-container')]")).getAttribute("title");
+        String team = teamContainer.findElements(By.xpath("//div[contains(@class,'ui-multiselect-label-container')]")).get(1).getAttribute("title");
         if (team.equals("Choose")) {
             return "Empty";
         } else {
             return team;
         }
+    }
+
+    public boolean isDialogDisplayed() {
+        waitForElement(driver, dialog);
+        return dialog.isDisplayed();
+    }
+
+    public String getDeactiveDialogTitle() {
+        return dialog.findElement(By.tagName("p-header")).getText().trim();
+    }
+
+    public void clickCloseButtonOfDeactiveDialog() {
+        WebElement btnClose = dialog.findElement(By.cssSelector(".btn-default"));
+        waitForElement(driver, btnClose);
+        btnClose.click();
+    }
+
+    public boolean isDeactiveDialogDismissed() {
+        return !driver.findElement(By.tagName("body")).getAttribute("class").contains("ui-overflow-hidden");
+    }
+
+    public void chooseDateToDeactivate() {
+        dateTime.click();
+        dateTime.findElement(By.xpath("//td[not(contains(@class,'ui-datepicker-other-month'))]")).click();
+    }
+
+    public void clickDeactiveButtonOfDialog() {
+        WebElement btnDeactive = dialog.findElement(By.cssSelector(".btn-submit"));
+        waitForElement(driver, btnDeactive);
+        btnDeactive.click();
+    }
+
+    public void clickCancelButtonOfDialog() {
+        WebElement btnCancel = dialog.findElement(By.cssSelector(".btn-cancel"));
+        waitForElement(driver, btnCancel);
+        btnCancel.click();
+    }
+
+    public boolean isTimelineTabActive() {
+        WebElement tabPersonalInfo = listTabContainer.findElement(By.xpath("//li[contains(@class,'ui-state-active')]"));
+        return tabPersonalInfo.findElement(By.tagName("span")).getText().equals("Timeline");
+    }
+
+    public void clickNewEventButton() {
+        waitForElement(driver, btnNewEvent);
+        btnNewEvent.click();
+    }
+
+    public void chooseTypeOfEvent(String event) {
+        dialog.findElement(By.cssSelector("input[role=listbox]")).click();
+        int position = 0;
+        switch (event) {
+            case "Promotion - Position":
+                position = 1;
+                break;
+            case "Promotion - Employee Type":
+                position = 2;
+                break;
+            case "Achievement - Award":
+                position = 3;
+        }
+        WebElement typeListContainer = dialog.findElement(By.cssSelector(".ui-dropdown-items-wrapper"));
+        waitForElement(driver, typeListContainer);
+        waitUntilCountDifference(driver, typeListContainer, By.tagName("li"), 4);
+        typeListContainer.findElements(By.tagName("li")).get(position).click();
     }
 }

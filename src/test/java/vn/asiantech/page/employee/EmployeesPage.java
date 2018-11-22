@@ -171,25 +171,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         List<WebElement> cells = tblBody.findElements(By.tagName("tr"));
         String employeeManager = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_MANAGER_COLUMN_INDEX).findElement(By.tagName("a")).getText();
 
-        String employeeTeam;
-        WebElement teamColumn = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_TEAM_COLUMN_INDEX);
-        try {
-            assert teamColumn != null;
-            employeeTeam = teamColumn.findElement(By.tagName("a")).getText();
-        } catch (NoSuchElementException exeption) {
-            employeeTeam = teamColumn.findElement(By.cssSelector(".text-na")).getText();
-        }
-
-        String employeeGroup;
-        WebElement groupColumn = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_GROUP_COLUMN_INDEX);
-        try {
-            assert groupColumn != null;
-            employeeGroup = groupColumn.findElement(By.tagName("a")).getText();
-        } catch (NoSuchElementException exeption) {
-            employeeGroup = groupColumn.findElement(By.cssSelector(".text-na")).getText();
-        }
-
-        return new Employee(employeeName, employeeCode, employeeEmail, employeeManager, employeeTeam, employeeGroup);
+        return new Employee(employeeName, employeeCode, employeeEmail, employeeManager, getMoreTeamOrGroup(true), getMoreTeamOrGroup(false));
     }
 
     public final void clickPromotionButton() {
@@ -431,11 +413,41 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         }
     }
 
-    private String getPropertyEmployee(WebElement property) {
-        try {
-            return property.getText();
-        } catch (NoSuchElementException exeption) {
-            return property.findElement(By.cssSelector("span[name=text-na]")).getText();
+    private String getMoreTeamOrGroup(boolean isTeam) {
+        List<WebElement> cells = tblBody.findElements(By.tagName("tr"));
+        WebElement column;
+        if (isTeam) {
+            column = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_TEAM_COLUMN_INDEX);
+        } else {
+            column = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_GROUP_COLUMN_INDEX);
         }
+        StringBuilder employeeTeamOrGroup;
+        try {
+            employeeTeamOrGroup = new StringBuilder(column.findElement(By.tagName("a")).getText());
+            try {
+                column.findElement(By.tagName("i")).click();
+                WebElement teamContainer = driver.findElement(By.id("org-panel-wrapper"));
+                waitForElement(driver, teamContainer);
+                int teamCount = teamContainer.findElements(By.cssSelector("span[class='ng-star-inserted']")).size();
+                if (teamCount < 6) {
+                    employeeTeamOrGroup = new StringBuilder();
+                    for (int i = 0; i < teamCount; i = i + 2) {
+                        if (i != teamCount - 1) {
+                            employeeTeamOrGroup.append(teamContainer.findElements(By.tagName("span")).get(i).findElement(By.tagName("span")).getText()).append(", ");
+                        } else {
+                            employeeTeamOrGroup.append(teamContainer.findElements(By.tagName("span")).get(i).findElement(By.tagName("span")).getText());
+                        }
+                    }
+                } else {
+                    employeeTeamOrGroup = new StringBuilder(teamCount / 2 + 1 + " items selected");
+                }
+            } catch (NoSuchElementException exception) {
+                // no-opp
+            }
+
+        } catch (NoSuchElementException exception) {
+            employeeTeamOrGroup = new StringBuilder(column.findElement(By.cssSelector(".text-na")).getText());
+        }
+        return employeeTeamOrGroup.toString();
     }
 }
