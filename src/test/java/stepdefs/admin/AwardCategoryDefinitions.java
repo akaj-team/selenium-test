@@ -9,8 +9,8 @@ import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.admin.AwardCategoryPage;
 
 /**
- * Copyright © 2018 Asian Tech Co., Ltd.
- * Created by at-vietphan on 11/21/18.
+ * @author at-anh.quach
+ * AwardCategoryPage
  */
 public class AwardCategoryDefinitions extends DriverBase implements En {
     private AwardCategoryPage awardCategoryPage;

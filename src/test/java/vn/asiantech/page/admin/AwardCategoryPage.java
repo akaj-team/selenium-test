@@ -8,8 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
 /**
- * Copyright © 2018 Asian Tech Co., Ltd.
- * Created by at-vietphan on 11/21/18.
+ * @author at-anh.quach
+ * AwardCategoryPage
  */
 public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
 
@@ -72,13 +72,13 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     public final void clickEditButton() {
         waitForElement(driver, tbCategory);
         tbCategory.findElements(By.tagName("tr")).get(POS_ROW).findElements(By.tagName("td")).get(POS_ACTION).
-                findElement(By.cssSelector(".update.ng-star-inserted")).click();
+                findElement(By.className("update")).click();
     }
 
     public final void clickDeleteButton() {
         waitForElement(driver, tbCategory);
         tbCategory.findElements(By.tagName("tr")).get(POS_ROW).findElements(By.tagName("td")).get(POS_ACTION).
-                findElement(By.cssSelector(".delete.ng-star-inserted")).click();
+                findElement(By.className("delete")).click();
     }
 
     public final void enterName(final String name) {
