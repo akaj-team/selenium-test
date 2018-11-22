@@ -40,28 +40,12 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
             waitForPageRedirected(driver, updateTeamUrl, By.className("ibox-content"));
         });
 
-        // Validate Form
-        Then("^Button submit is unable$", () -> Assert.assertFalse(newTeamFormPage.isButtonSubmitEnable()));
-        When("^I fill in inputName with \"([^\"]*)\" with while space at beginning and end are (.*), (.*)$", (String name, String whileSpaceBegging, String whileSpaceEnd) -> {
-            waitVisibilityOfElement(driver, By.name("name"));
-            newTeamFormPage.sendKeyInputName(name, Integer.parseInt(whileSpaceBegging), Integer.parseInt(whileSpaceEnd));
-        });
-        When("^I fill in inputName with new name$", () -> {
-            waitVisibilityOfElement(driver, By.name("name"));
-            newTeamFormPage.sendKeyInputName(newTeamFormPage.generateNameTeam(), 0, 0);
-        });
-        Then("^Button submit is enable$", () -> Assert.assertTrue((newTeamFormPage.isButtonSubmitEnable())));
-        And("^Message error is displayed$", () -> {
-            waitVisibilityOfElement(driver, By.className("help-block"));
-            Assert.assertTrue(newTeamFormPage.isMessageErrorShown());
-        });
-        And("^Message error is hidden$", () -> Assert.assertFalse(newTeamFormPage.isMessageErrorShown()));
-
-        // Click button Submit, redirect to Team Detail page
-        When("^I click on button Submit$", () -> {
-            waitVisibilityOfElement(driver, By.id("btn-submit-team"));
-            newTeamFormPage.onClickButtonSubmit();
-        });
+        // Validate input name
+        When("^I fill in inputName with \"([^\"]*)\" with while space at beginning and end are (.*), (.*)$", (String name, String whileSpaceBegging, String whileSpaceEnd) ->
+                newTeamFormPage.sendKeyInputName(name, Integer.parseInt(whileSpaceBegging), Integer.parseInt(whileSpaceEnd)));
+        When("^I fill in inputName with new name$", () -> newTeamFormPage.sendKeyInputName(newTeamFormPage.generateNameTeam(), 0, 0));
+        And("^Message error validate name is displayed$", () -> Assert.assertTrue(newTeamFormPage.isMessageErrorValidateNameShown()));
+        And("^Message error validate name is hidden$", () -> Assert.assertFalse(newTeamFormPage.isMessageErrorValidateNameShown()));
 
         // Dropdown Manager
         When("^I open dropdown Manager$", () -> {
@@ -69,6 +53,18 @@ public class NewTeamFormDefinitions extends DriverBase implements En {
             waitVisibilityOfElement(driver, By.className("ui-dropdown-open"));
         });
         And("^I select a item in manager list$", () -> newTeamFormPage.selectManager());
+
+        // Validate input email
+        When("^I fill in inputEmail with \"([^\"]*)\" with while space at beginning and end are \"([^\"]*)\", \"([^\"]*)\"$", (String email, String whileSpaceBegging, String whileSpaceEnd) ->
+                newTeamFormPage.sendKeyInputEmail(email, Integer.parseInt(whileSpaceBegging), Integer.parseInt(whileSpaceEnd)));
+        And("^I fill in inputEmail with new email$", () -> newTeamFormPage.sendKeyInputEmail(newTeamFormPage.generateEmail(), 0, 0));
+        And("^Message error validate email is displayed$", () -> Assert.assertTrue(newTeamFormPage.isMessageErrorValidateEmailShown()));
+        And("^Message error validate email is hidden$", () -> Assert.assertFalse(newTeamFormPage.isMessageErrorValidateEmailShown()));
+
+        // Click and status enable of button Submit
+        When("^I click on button Submit$", () -> newTeamFormPage.onClickButtonSubmit());
+        Then("^Button submit is enable$", () -> Assert.assertTrue((newTeamFormPage.isButtonSubmitEnable())));
+        Then("^Button submit is unable$", () -> Assert.assertFalse(newTeamFormPage.isButtonSubmitEnable()));
 
         Then("^I should see fail or success message$", () -> {
             waitVisibilityOfElement(driver, By.className("app-alert"));
