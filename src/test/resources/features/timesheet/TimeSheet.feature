@@ -8,8 +8,8 @@ Feature: Check TimeSheet
     And Check item add timesheet exist
 
   Scenario: Login successfully with correct account
-    Then My Timesheet page is displayed "/timesheet/submission"
-    And Display title timesheet content
+    Given My Timesheet page is displayed "/timesheet/submission"
+    Then Display title timesheet content
     And Display full record timesheet
     And Disable button this week and can not click on timesheet
     And Disable button submit and can not click on timesheet
@@ -28,7 +28,7 @@ Feature: Check TimeSheet
 
   Scenario: Display dialog create timesheet after click button add timesheet
     When Click on button timesheet
-    When Click first button add new timesheet
+    And Click first button add new timesheet
     Then Display dialog timesheet
 
   Scenario: Create and submit timesheet
@@ -45,7 +45,7 @@ Feature: Check TimeSheet
 
   Scenario: Display dialog timesheet and input value search
     When Click on button timesheet
-    When Click first button add new timesheet
+    And Click first button add new timesheet
     Then Display dialog timesheet
     When Select first task on list task
     Then Display dialog task
@@ -99,7 +99,7 @@ Feature: Check TimeSheet
     Then Display dialog timesheet
     When I fill information for timeSheet
     And Click button save on timeSheet dialog
-    When Click on columns timesheet
+    And Click on columns timesheet
     Then Display dialog timesheet
     When Click button Repeat every day
     Then Display full record timesheet
