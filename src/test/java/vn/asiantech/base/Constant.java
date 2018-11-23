@@ -21,7 +21,10 @@ public final class Constant {
     public static final String TIME_SHEET_PAGE_URL = PORTAL_URL + "/timesheet/submission";
     public static final String HOLIDAY_SETTING_URL = PORTAL_URL + "/admin/public-holiday";
     public static final String DEVICE_TRACKING_URL = PORTAL_URL + "/equipments/tracking";
+    public static final String AWARD_CATEGORY_PAGE_URL = PORTAL_URL + "/admin/award-category";
     public static final String WIKI_URL = PORTAL_URL + "/wiki/";
+    public static final String NEW_POSITION_URL = PORTAL_URL + "/organisation/positions/new";
+    public static final String TIME_SHEET_OTHER_URL = PORTAL_URL + "/timesheet/approval";
 
     public static final int DEFAULT_TIME_OUT = 10;
     public static final int MAXIMUM_TIME_OUT = 20;
