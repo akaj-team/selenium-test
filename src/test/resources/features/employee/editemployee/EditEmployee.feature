@@ -12,7 +12,7 @@ Feature: Check display views and handle events with editing employee
     Given Click "Personal infomation" tab and this tab is active
     And Next button at edit employee page is clickable
     And Submit button at edit employee page is clickable
-    And Deactive button at edit employee page is clickable
+    And Deactivate button at edit employee page is clickable
     And Information of that employee displays correctly
 
   Scenario Outline: Check invalid data with first name input and submit button, next button, back button are not clickable
@@ -37,20 +37,20 @@ Feature: Check display views and handle events with editing employee
 
      # Deactivate an employee
   Scenario: Deactivate unsuccessfully an employee with management roles
-    When Click deactive button
+    When Click deactivate button
     Then A notification dialog is display
     When Click close button
-    Then This deactive dialog dismissed
+    Then This deactivate dialog dismissed
 
   Scenario: Deactivate an employee without management roles
-    When Click deactive button
+    When Click deactivate button
     Then A notification dialog is display
     When Choose day to deactivate this employee
-    And Click deactive button of dialog button
+    And Click deactivate button of dialog button
     Then Deactivate this employee
 
   Scenario: Deactivate unsuccessfully an employee without management roles
-    When Click deactive button
+    When Click deactivate button
     Then A notification dialog is display
     When Click cancel button of dialog button
     Then Deactivate this employee
@@ -59,7 +59,7 @@ Feature: Check display views and handle events with editing employee
   Scenario: Check display when at timeline tab
     When Click "Timeline" tab and this tab is active
     And Submit button is not displayed
-    And Deactive button is not displayed
+    And Deactivate button is not displayed
 
   Scenario: Handle create new event with "Promotion - Position"
     Given Click "Timeline" tab and this tab is active

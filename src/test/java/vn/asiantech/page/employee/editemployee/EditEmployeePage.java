@@ -29,7 +29,7 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
     private WebElement btnNext;
 
     @FindBy(id = "btn-deactivated-employee")
-    private WebElement btnDeactive;
+    private WebElement btnDeactivate;
 
     @FindBy(id = "btn-submit-employee")
     private WebElement btnSubmit;
@@ -56,21 +56,21 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
         return null;
     }
 
-    public final boolean isDeactiveButtonClickable() {
-        return btnDeactive.isEnabled();
+    public final boolean isDeactivateButtonClickable() {
+        return btnDeactivate.isEnabled();
     }
 
-    public final void clickDeactiveButton() {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", btnDeactive);
-        btnDeactive.click();
+    public final void clickDeactivateButton() {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", btnDeactivate);
+        btnDeactivate.click();
     }
 
     public final boolean isSubmitButtonClickable() {
         return btnSubmit.isEnabled();
     }
 
-    public final boolean isDeactiveButtonDisplayed() {
-        return isElementPresented(btnDeactive);
+    public final boolean isDeactivateButtonDisplayed() {
+        return isElementPresented(btnDeactivate);
     }
 
     public final boolean isSubmitButtonDisplayed() {
@@ -138,17 +138,17 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
         return dialog.isDisplayed();
     }
 
-    public final String getDeactiveDialogTitle() {
+    public final String getDeactivateDialogTitle() {
         return dialog.findElement(By.tagName("p-header")).getText().trim();
     }
 
-    public final void clickCloseButtonOfDeactiveDialog() {
+    public final void clickCloseButtonOfDeactivateDialog() {
         WebElement btnClose = dialog.findElement(By.cssSelector(".btn-default"));
         waitForElement(driver, btnClose);
         btnClose.click();
     }
 
-    public final boolean isDeactiveDialogDismissed() {
+    public final boolean isDeactivateDialogDismissed() {
         return !driver.findElement(By.tagName("body")).getAttribute("class").contains("ui-overflow-hidden");
     }
 
@@ -158,10 +158,10 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
         dateTime.findElement(By.xpath("//td[not(contains(@class,'ui-datepicker-other-month'))]")).click();
     }
 
-    public final void clickDeactiveButtonOfDialog() {
-        WebElement btnDialogDeactive = dialog.findElement(By.cssSelector(".btn-submit"));
-        waitForElement(driver, btnDialogDeactive);
-        btnDialogDeactive.click();
+    public final void clickDeactivateButtonOfDialog() {
+        WebElement btnDialogDeactivate = dialog.findElement(By.cssSelector(".btn-submit"));
+        waitForElement(driver, btnDialogDeactivate);
+        btnDialogDeactivate.click();
     }
 
     public final void clickCancelButtonOfDialog() {

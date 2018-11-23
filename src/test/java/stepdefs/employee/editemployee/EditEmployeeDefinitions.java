@@ -42,7 +42,7 @@ public class EditEmployeeDefinitions extends DriverBase implements En {
 
         And("^Submit button at edit employee page is clickable$", () -> Assert.assertTrue(editEmployeesPage.isSubmitButtonClickable()));
 
-        And("^Deactive button at edit employee page is clickable$", () -> Assert.assertTrue(editEmployeesPage.isDeactiveButtonClickable()));
+        And("^Deactivate button at edit employee page is clickable$", () -> Assert.assertTrue(editEmployeesPage.isDeactivateButtonClickable()));
 
         And("^Information of that employee displays correctly$", () -> {
             Assert.assertEquals(employee.getName(), editEmployeesPage.getEmployeeName());
@@ -61,34 +61,34 @@ public class EditEmployeeDefinitions extends DriverBase implements En {
 
         And("^Back button at edit employee page is not clickable$", () -> Assert.assertFalse(editEmployeesPage.isBackButtonClickable()));
 
-        When("^Click deactive button$", editEmployeesPage::clickDeactiveButton);
+        When("^Click deactivate button$", editEmployeesPage::clickDeactivateButton);
 
         Then("^A notification dialog is display$", () -> Assert.assertTrue(editEmployeesPage.isDialogDisplayed()));
 
-        When("^Click close button$", editEmployeesPage::clickCloseButtonOfDeactiveDialog);
+        When("^Click close button$", editEmployeesPage::clickCloseButtonOfDeactivateDialog);
 
-        Then("^This deactive dialog dismissed$", () -> Assert.assertTrue(editEmployeesPage.isDeactiveDialogDismissed()));
+        Then("^This deactivate dialog dismissed$", () -> Assert.assertTrue(editEmployeesPage.isDeactivateDialogDismissed()));
 
         When("^Choose day to deactivate this employee$", () -> {
-            if (editEmployeesPage.getDeactiveDialogTitle().contains(employee.getName())) {
+            if (editEmployeesPage.getDeactivateDialogTitle().contains(employee.getName())) {
                 editEmployeesPage.chooseDateToDeactivate();
             }
         });
 
-        And("^Click deactive button of dialog button$", () -> {
-            if (editEmployeesPage.getDeactiveDialogTitle().contains(employee.getName())) {
-                editEmployeesPage.clickDeactiveButtonOfDialog();
+        And("^Click deactivate button of dialog button$", () -> {
+            if (editEmployeesPage.getDeactivateDialogTitle().contains(employee.getName())) {
+                editEmployeesPage.clickDeactivateButtonOfDialog();
             }
         });
 
         Then("^Deactivate this employee$", () -> {
-            if (editEmployeesPage.getDeactiveDialogTitle().contains(employee.getName())) {
-                Assert.assertTrue(editEmployeesPage.isDeactiveDialogDismissed());
+            if (editEmployeesPage.getDeactivateDialogTitle().contains(employee.getName())) {
+                Assert.assertTrue(editEmployeesPage.isDeactivateDialogDismissed());
             }
         });
 
         Then("^Click cancel button of dialog button$", () -> {
-            if (editEmployeesPage.getDeactiveDialogTitle().contains(employee.getName())) {
+            if (editEmployeesPage.getDeactivateDialogTitle().contains(employee.getName())) {
                 editEmployeesPage.clickCancelButtonOfDialog();
             }
         });
@@ -97,7 +97,7 @@ public class EditEmployeeDefinitions extends DriverBase implements En {
 
         And("^Submit button is not displayed$", () -> Assert.assertFalse(editEmployeesPage.isSubmitButtonDisplayed()));
 
-        And("^Deactive button is not displayed$", () -> Assert.assertFalse(editEmployeesPage.isDeactiveButtonDisplayed()));
+        And("^Deactivate button is not displayed$", () -> Assert.assertFalse(editEmployeesPage.isDeactivateButtonDisplayed()));
 
         When("^Click new event button$", editEmployeesPage::clickNewEventButton);
 
