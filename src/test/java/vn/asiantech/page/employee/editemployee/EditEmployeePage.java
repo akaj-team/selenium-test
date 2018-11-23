@@ -70,11 +70,11 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
     }
 
     public final boolean isDeactiveButtonDisplayed() {
-        return isButtonDisplayed(btnDeactive);
+        return isElementPresented(btnDeactive);
     }
 
     public final boolean isSubmitButtonDisplayed() {
-        return isButtonDisplayed(btnSubmit);
+        return isElementPresented(btnSubmit);
     }
 
     public final boolean isNextButtonClickable() {
@@ -310,15 +310,6 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
             return relatives.get(relatives.size() - 1).findElement(By.cssSelector("input[formcontrolname=phone]")).getAttribute("class").contains("ng-invalid");
         }
         return false;
-    }
-
-    private boolean isButtonDisplayed(final WebElement button) {
-        try {
-            button.isDisplayed();
-            return true;
-        } catch (NoSuchElementException exception) {
-            return false;
-        }
     }
 
     private String getDisplayGroupOrTeamName(final By elementBy) {

@@ -27,8 +27,8 @@ public class EditEmployeeDefinitions extends DriverBase implements En {
             e.printStackTrace();
         }
 
-        EmployeesPage employeesPage = initPage(getDriver(), EmployeesPage.class);
-        EditEmployeePage editEmployeesPage = initPage(getDriver(), EditEmployeePage.class);
+        EmployeesPage employeesPage = initPage(driver, EmployeesPage.class);
+        EditEmployeePage editEmployeesPage = initPage(driver, EditEmployeePage.class);
 
         When("^Click on edit action of an employee", () -> {
             employee = employeesPage.getEditEmployee();
@@ -154,6 +154,6 @@ public class EditEmployeeDefinitions extends DriverBase implements En {
 
         When("^Click submit button in this dialog$", editEmployeesPage::clickSubmitButton);
 
-        Then("^Open successfully profile of this employee$", () -> waitForPageDisplayed(getDriver(), employeeProfileUrl, By.className("section-top")));
+        Then("^Open successfully profile of this employee$", () -> waitForPageDisplayed(driver, employeeProfileUrl, By.className("section-top")));
     }
 }
