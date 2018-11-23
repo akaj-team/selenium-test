@@ -1,6 +1,5 @@
 package stepdefs.employee;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

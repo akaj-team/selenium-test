@@ -52,7 +52,7 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
     }
 
     @Override
-    public EditEmployeePage navigateTo(WebDriver webDriver) {
+    public final EditEmployeePage navigateTo(final WebDriver webDriver) {
         return null;
     }
 
@@ -159,9 +159,9 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
     }
 
     public final void clickDeactiveButtonOfDialog() {
-        WebElement btnDeactive = dialog.findElement(By.cssSelector(".btn-submit"));
-        waitForElement(driver, btnDeactive);
-        btnDeactive.click();
+        WebElement btnDialogDeactive = dialog.findElement(By.cssSelector(".btn-submit"));
+        waitForElement(driver, btnDialogDeactive);
+        btnDialogDeactive.click();
     }
 
     public final void clickCancelButtonOfDialog() {
@@ -201,6 +201,8 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
                 break;
             case PROMOTION_AWARD:
                 position = PROMOTION_AWARD_NEW;
+            default:
+                break;
         }
         WebElement typeListContainer = dialog.findElement(By.cssSelector(".ui-dropdown-items-wrapper"));
         waitUntilCountDifference(driver, typeListContainer, By.tagName("li"), 0);
@@ -259,14 +261,14 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
     }
 
     public final boolean isConfirmDialogDisplayed() {
-        WebElement dialog = driver.findElement(By.id("static-dialog-wrapper"));
-        waitForElement(driver, dialog);
-        return dialog.isDisplayed();
+        WebElement confirmDialog = driver.findElement(By.id("static-dialog-wrapper"));
+        waitForElement(driver, confirmDialog);
+        return confirmDialog.isDisplayed();
     }
 
     public final void clickSubmitButton() {
-        WebElement dialog = driver.findElement(By.id("static-dialog-wrapper"));
-        dialog.findElement(By.className("btn-submit")).click();
+        WebElement submitDialog = driver.findElement(By.id("static-dialog-wrapper"));
+        submitDialog.findElement(By.className("btn-submit")).click();
     }
 
     public final void clickRelativeButton() {
@@ -282,7 +284,7 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
         fillDataRelative(By.cssSelector("input[formcontrolname=name]"), name);
     }
 
-    public final void fillPhone(String phone) {
+    public final void fillPhone(final String phone) {
         fillDataRelative(By.cssSelector("input[formcontrolname=phone]"), phone);
     }
 
@@ -340,7 +342,7 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
         WebElement dayTimeContainer = dialog.findElement(By.cssSelector(".ui-calendar"));
         dayTimeContainer.click();
         new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
-                driver -> dayTimeContainer.findElement(By.xpath("..")).getAttribute("class").contains("ui-inputwrapper-focus"));
+                it -> dayTimeContainer.findElement(By.xpath("..")).getAttribute("class").contains("ui-inputwrapper-focus"));
         dayTimeContainer.findElement(By.tagName("table")).findElement(By.xpath("//td[not(contains(@class,'ui-datepicker-other-month'))]")).click();
     }
 

@@ -11,7 +11,7 @@ public class Employee {
     private String team;
     private String group;
 
-    public Employee(String name, String code, String email, String manager, String team, String group) {
+    public Employee(final String name, final String code, final String email, final String manager, final String team, final String group) {
         this.name = name;
         this.code = code;
         this.email = email;
@@ -20,27 +20,27 @@ public class Employee {
         this.group = group;
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
-    public String getCode() {
+    public final String getCode() {
         return code;
     }
 
-    public String getEmail() {
+    public final String getEmail() {
         return email;
     }
 
-    public String getManager() {
+    public final String getManager() {
         return manager;
     }
 
-    public String getTeam() {
+    public final String getTeam() {
         return team;
     }
 
-    public String getGroup() {
+    public final String getGroup() {
         return group;
     }
 }

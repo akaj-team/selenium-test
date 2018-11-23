@@ -422,7 +422,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         }
     }
 
-    private String getMoreTeamOrGroup(boolean isTeam) {
+    private String getMoreTeamOrGroup(final boolean isTeam) {
         List<WebElement> cells = tblBody.findElements(By.tagName("tr"));
         WebElement column;
         if (isTeam) {
