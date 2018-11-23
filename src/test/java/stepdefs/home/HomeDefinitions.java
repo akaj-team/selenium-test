@@ -1,13 +1,12 @@
-package stepdefs;
+package stepdefs.home;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.HomePage;
+import vn.asiantech.page.home.HomePage;
 
 import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 import static vn.asiantech.base.Constant.HOME_PAGE_URL;
@@ -32,8 +31,6 @@ public class HomeDefinitions extends DriverBase implements En {
         // Check Home page is started
         Given("^I am stayed in home page$", () -> {
             getDriver().get(HOME_PAGE_URL);
-            new WebDriverWait(getDriver(), DEFAULT_TIME_OUT).until(
-                    webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             waitForPageDisplayed(driver, HOME_PAGE_URL, By.cssSelector(".is-top.is-home"));
         });
 

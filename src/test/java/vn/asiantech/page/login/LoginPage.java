@@ -1,4 +1,4 @@
-package vn.asiantech.page;
+package vn.asiantech.page.login;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

@@ -1,4 +1,4 @@
-package stepdefs;
+package stepdefs.login;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
@@ -7,8 +7,8 @@ import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.object.Account;
-import vn.asiantech.page.HomePage;
-import vn.asiantech.page.LoginPage;
+import vn.asiantech.page.home.HomePage;
+import vn.asiantech.page.login.LoginPage;
 
 public class AuthenticateDefinitions extends DriverBase implements En {
 
@@ -19,7 +19,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
 
         Given("^I am logged in as a team manager$", () -> {
             if (!isButtonLogoutDisplayed()) {
-                Account account = new Account("stg.tien.hoang@asiantech.vn", "Abc123@@");
+                Account account = new Account("stg.hue.thai@asiantech.vn", "Abc123@@");
                 getDriver().get(Constant.LOGIN_PAGE_URL);
                 loginPage.waitForLoginButton();
                 loginPage.withUsername(account.email).withPassword(account.password).login();

@@ -79,7 +79,6 @@
     <!-- </module> -->
 
     <module name="TreeWalker">
-
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         <!--<module name="JavadocMethod">-->
@@ -89,7 +88,9 @@
         <!--Disable check java doc for variable -->
         <!--<module name="JavadocVariable"/>-->
 
-        <module name="JavadocStyle"/>
+        <module name="JavadocStyle">
+            <property name="checkFirstSentence" value="false"/>
+        </module>
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->

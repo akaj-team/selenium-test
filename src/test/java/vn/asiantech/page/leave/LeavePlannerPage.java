@@ -1,4 +1,4 @@
-package vn.asiantech.page;
+package vn.asiantech.page.leave;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -54,7 +54,7 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
         return this;
     }
 
-    public final Boolean getClickable() {
+    public final boolean getClickable() {
         waitForElement(driver, btnThisWeek);
         return btnThisWeek.isEnabled();
     }

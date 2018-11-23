@@ -1,4 +1,4 @@
-package stepdefs;
+package stepdefs.login;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
@@ -7,8 +7,8 @@ import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.HomePage;
-import vn.asiantech.page.LoginPage;
+import vn.asiantech.page.home.HomePage;
+import vn.asiantech.page.login.LoginPage;
 
 import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 import static vn.asiantech.base.Constant.LOGIN_PAGE_URL;
