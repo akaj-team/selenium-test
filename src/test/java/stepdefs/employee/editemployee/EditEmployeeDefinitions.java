@@ -69,7 +69,6 @@ public class EditEmployeeDefinitions extends DriverBase implements En {
 
         Then("^This deactive dialog dismissed$", () -> Assert.assertTrue(editEmployeesPage.isDeactiveDialogDismissed()));
 
-
         When("^Choose day to deactivate this employee$", () -> {
             if (editEmployeesPage.getDeactiveDialogTitle().contains(employee.getName())) {
                 editEmployeesPage.chooseDateToDeactivate();

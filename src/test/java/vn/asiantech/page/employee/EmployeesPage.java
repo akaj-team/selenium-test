@@ -34,6 +34,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private static final int EMPLOYEE_ACTION_COLUMN_INDEX = 6;
     private static final int EMPLOYEE_TYPE_INDEX = 5;
     private static final int EMPLOYEE_STATUS_INDEX = 7;
+    private static final int MINIMUM_EMPLOYEE_TEAM_DISPLAY = 6;
+    private static final int EMPLOYEE_TEAM_JUMP = 2;
+    private static final int EMPLOYEE_TEAM_MOD = 2;
 
     @FindBy(className = "ui-datatable-data")
     @CacheLookup
@@ -106,7 +109,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return employeeUrlProfile;
     }
 
-    public final String getEmployeeProfileLink(){
+    public final String getEmployeeProfileLink() {
         WebElement employee = getEmployeeInformation(EMPLOYEE_NAME_COLUMN_INDEX);
         assert employee != null;
         return employee.getAttribute("href");
@@ -435,9 +438,9 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
                 WebElement teamContainer = driver.findElement(By.id("org-panel-wrapper"));
                 waitForElement(driver, teamContainer);
                 int teamCount = teamContainer.findElements(By.cssSelector("span[class='ng-star-inserted']")).size();
-                if (teamCount < 6) {
+                if (teamCount < MINIMUM_EMPLOYEE_TEAM_DISPLAY) {
                     employeeTeamOrGroup = new StringBuilder();
-                    for (int i = 0; i < teamCount; i = i + 2) {
+                    for (int i = 0; i < teamCount; i = i + EMPLOYEE_TEAM_JUMP) {
                         if (i != teamCount - 1) {
                             employeeTeamOrGroup.append(teamContainer.findElements(By.tagName("span")).get(i).findElement(By.tagName("span")).getText()).append(", ");
                         } else {
@@ -445,7 +448,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
                         }
                     }
                 } else {
-                    employeeTeamOrGroup = new StringBuilder(teamCount / 2 + 1 + " items selected");
+                    employeeTeamOrGroup = new StringBuilder(teamCount / EMPLOYEE_TEAM_MOD + 1 + " items selected");
                 }
             } catch (NoSuchElementException exception) {
                 // no-opp
