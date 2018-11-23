@@ -121,9 +121,10 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         btnUpdateTeam.click();
     }
 
-    public final void redirectPage(final String path) {
+    public final void redirectPage(final String path) throws InterruptedException {
         new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
                 webDriver -> webDriver.findElement(By.className("col-sm-8")).findElement(By.tagName("h2")).isDisplayed());
+        Thread.sleep(DEFAULT_TIME_SLEEP);
         String url = driver.getCurrentUrl();
         Assert.assertEquals(url.substring(url.length() - path.length()), path);
     }
