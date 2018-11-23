@@ -44,9 +44,12 @@ public class MyTeamDefinitions extends DriverBase implements En {
 
         Then("^The web page navigates to the \"([^\"]*)\" page$", (String page) -> myTeamPage.redirectPage(page));
 
-        When("^I click on 'Teams' button$", () -> myTeamPage.clickTeamsButton());
+        When("^I click on 'Teams' button$", () -> {
+            myTeamPage.clickTeamsButton();
+            Thread.sleep(TIME_SLEEP);
+        });
 
-        When("^I click on New Member button$", () -> myTeamPage.clickAddMemberBtn());
+        When("^I click on New Member button$", () -> myTeamPage.clickAddMemberButton());
 
         Then("^The Add Member popup is displayed$", () -> Assert.assertTrue(myTeamPage.getAddMemberPopupName()));
 
@@ -64,8 +67,8 @@ public class MyTeamDefinitions extends DriverBase implements En {
 
         Then("^I verify that members of team are displayed correctly as \"([^\"]*)\"$", (String record) -> myTeamPage.verifySearchMemberResult(record));
 
-        When("^I input \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$",
-                (String name, String manager, String teamOfficer1, String teamOfficer2, String logo, String teamFolder, String description) -> myTeamPage.updateTeamInfo(name, manager, teamOfficer1, teamOfficer2, logo, teamFolder, description));
+        When("^I input \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$",
+                (String name, String manager, String teamOfficer1, String teamOfficer2, String email, String logo, String teamFolder, String description) -> myTeamPage.updateTeamInfo(name, manager, teamOfficer1, teamOfficer2, email, logo, teamFolder, description));
 
         And("^I click on Submit button$", () -> myTeamPage.clickSubmitButtomToUpload());
 

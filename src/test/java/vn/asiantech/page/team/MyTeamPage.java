@@ -47,20 +47,14 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     @FindBy(name = "name")
     private WebElement txtName;
 
-    @FindBy(css = ".ng-tns-c2-3.ui-dropdown.ui-widget")
-    private WebElement ddlManager;
+    @FindBy(css = ".ui-dropdown.ui-widget")
+    private List<WebElement> ddlUser;
 
     @FindBy(css = ".ui-dropdown-filter.ui-inputtext")
     private List<WebElement> txtSearchToUpload;
 
     @FindBy(className = "ui-dropdown-items-wrapper")
     private List<WebElement> lstUserToUpdate;
-
-    @FindBy(css = ".ng-tns-c2-4.ui-dropdown.ui-widget")
-    private WebElement ddlTeamOfficer1;
-
-    @FindBy(css = ".ng-tns-c2-5.ui-dropdown.ui-widget")
-    private WebElement ddlTeamOfficer2;
 
     @FindBy(css = ".btn.btn-white.m-n")
     private List<WebElement> btnDeleteTeamOfficer;
@@ -70,6 +64,9 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
 
     @FindBy(css = ".ui-fileupload-choose")
     private WebElement btnChangeLogo;
+
+    @FindBy(name = "email")
+    private WebElement txtEmail;
 
     @FindBy(name = "url")
     private WebElement txtTeamFolder;
@@ -86,6 +83,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     private String textAddUser = "";
     private String textSearch = "";
     private static final int ID_DELETE_COLUMN = 6;
+    private static final int DEFAULT_TIME_SLEEP = 5000;
 
     private WebDriver driver;
 
@@ -135,7 +133,12 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         btnTeams.click();
     }
 
-    public final void clickAddMemberBtn() {
+    public final void clickAddMemberButton() throws InterruptedException {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        driver.getCurrentUrl();
+        driver.manage().window().maximize();
+        Thread.sleep(DEFAULT_TIME_SLEEP);
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
         waitForElement(driver, btnAddMember);
         btnAddMember.click();
     }
@@ -177,30 +180,33 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         waitForElement(driver, listSearchResult);
         List<WebElement> list = listSearchResult.findElement(By.className("ui-listbox-list")).findElements(By.tagName("li"));
         for (WebElement i : list) {
-            WebElement userName = i.findElement(By.cssSelector(".ui-helper-clearfix.dropdown-item.ng-star-inserted"))
-                    .findElement(By.cssSelector("div[class=\"info-grouping name-item\"]"))
-                    .findElement(By.cssSelector("span[class=\"m-l-xl info-grouping-text\"]"))
-                    .findElement(By.tagName("strong"));
-            waitForElement(driver, userName);
-            if (userName.getText().contains(textAddUser)) {
-                WebElement btnAdd = i.findElement(By.cssSelector(".ui-helper-clearfix.dropdown-item.ng-star-inserted"))
+            if (i.getAttribute("style").equals("display: block;")) {
+                WebElement userName = i.findElement(By.cssSelector(".ui-helper-clearfix.dropdown-item.ng-star-inserted"))
                         .findElement(By.cssSelector("div[class=\"info-grouping name-item\"]"))
-                        .findElement(By.cssSelector("button[class=\"btn btn-sm btn-default m-t-xs\"]"));
-                waitForElement(driver, btnAdd);
-                btnAdd.click();
-                break;
+                        .findElement(By.cssSelector("span[class=\"m-l-xl info-grouping-text\"]"))
+                        .findElement(By.tagName("strong"));
+                waitForElement(driver, userName);
+                if (userName.getText().contains(textAddUser)) {
+                    WebElement btnAdd = i.findElement(By.cssSelector(".ui-helper-clearfix.dropdown-item.ng-star-inserted"))
+                            .findElement(By.cssSelector("div[class=\"info-grouping name-item\"]"))
+                            .findElement(By.cssSelector("button[class=\"btn btn-sm btn-default m-t-xs\"]"));
+                    waitForElement(driver, btnAdd);
+                    btnAdd.click();
+                    break;
+                }
             }
         }
     }
 
-    public final void clickCloseButton() {
+    public final void clickCloseButton() throws InterruptedException {
+        Thread.sleep(DEFAULT_TIME_SLEEP);
         waitForElement(driver, btnClose);
         btnClose.click();
     }
 
     public final boolean verifyAddMemberPopupDisappeared() {
         waitForElement(driver, dlgAddMember);
-        WebElement status = dlgAddMember.findElement(By.cssSelector(".ng-tns-c0-1.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ng-trigger.ng-trigger-dialogState"));
+        WebElement status = dlgAddMember.findElement(By.cssSelector(".ng-tns-c0-1.ui-dialog.ui-widget"));
         Assert.assertTrue(status.getAttribute("style").contains("display: none"));
         return true;
     }
@@ -239,41 +245,45 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     }
 
     public final void updateTeamInfo(final String name, final String manager, final String teamOfficer1,
-                                     final String teamOfficer2, final String logo, final String teamFolder, final String description) {
+                                     final String teamOfficer2, final String email, final String logo, final String teamFolder, final String description) {
         //update Name of team
         waitForElement(driver, txtName);
         txtName.clear();
         txtName.sendKeys(name);
 
         //update Manager
-        ddlManager.click();
+        ddlUser.get(0).click();
         waitForElement(driver, txtSearchToUpload.get(0));
         txtSearchToUpload.get(0).sendKeys(manager);
-        List<WebElement> listManager = lstUserToUpdate.get(0).findElement(By.cssSelector(".ui-helper-reset.ng-tns-c2-3.ng-star-inserted"))
+        List<WebElement> listManager = lstUserToUpdate.get(0).findElement(By.cssSelector(".ui-dropdown-items.ui-dropdown-list"))
                 .findElements(By.tagName("li"));
         listManager.get(0).click();
 
         //update Team Officer
-        waitForElement(driver, ddlTeamOfficer1);
-        ddlTeamOfficer1.click();
+        waitForElement(driver, ddlUser.get(1));
+        ddlUser.get(1).click();
         waitForElement(driver, txtSearchToUpload.get(1));
         txtSearchToUpload.get(1).sendKeys(teamOfficer1);
         waitForElement(driver, lstUserToUpdate.get(1));
-        List<WebElement> listOfficer1 = lstUserToUpdate.get(1).findElement(By.cssSelector(".ui-helper-reset.ng-tns-c2-4.ng-star-inserted"))
+        List<WebElement> listOfficer1 = lstUserToUpdate.get(1).findElement(By.cssSelector(".ui-dropdown-items.ui-dropdown-list"))
                 .findElements(By.tagName("li"));
         listOfficer1.get(0).click();
 
         //add the second Team Officer and then detele
         btnAddTeamOfficer.click();
-        waitForElement(driver, ddlTeamOfficer2);
-        ddlTeamOfficer2.click();
+        waitForElement(driver, ddlUser.get(2));
+        ddlUser.get(2).click();
         waitForElement(driver, txtSearchToUpload.get(2));
         txtSearchToUpload.get(2).sendKeys(teamOfficer2);
         waitForElement(driver, lstUserToUpdate.get(2));
-        List<WebElement> listOfficer2 = lstUserToUpdate.get(2).findElement(By.cssSelector(".ui-helper-reset.ng-tns-c2-5.ng-star-inserted"))
+        List<WebElement> listOfficer2 = lstUserToUpdate.get(2).findElement(By.cssSelector(".ui-dropdown-items.ui-dropdown-list"))
                 .findElements(By.tagName("li"));
         listOfficer2.get(0).click();
         btnDeleteTeamOfficer.get(1).click();
+
+        //update Email team
+        waitForElement(driver, txtEmail);
+        txtEmail.sendKeys(email);
 
         //update Logo team
         waitForElement(driver, btnChangeLogo);
@@ -299,7 +309,8 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         driver.switchTo().defaultContent();
     }
 
-    public final void clickSubmitButtomToUpload() {
+    public final void clickSubmitButtomToUpload() throws InterruptedException {
+        Thread.sleep(DEFAULT_TIME_SLEEP);
         waitForElement(driver, btnSubmitToUpdateTeam);
         btnSubmitToUpdateTeam.click();
     }
@@ -317,7 +328,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
         }
         WebElement btnDeleteConfirm = dlgDeleteMember.findElement(By.cssSelector(".ng-tns-c0-2.ui-dialog.ui-widget"))
                 .findElement(By.cssSelector(".ui-dialog-footer.ui-widget-content.ng-tns-c0-2"))
-                .findElement(By.cssSelector(".btn.btn-sm.btn-warning.btn-submit"));
+                .findElement(By.cssSelector(".btn-submit"));
         btnDeleteConfirm.click();
     }
 

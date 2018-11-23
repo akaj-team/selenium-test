@@ -23,8 +23,8 @@ Feature: Check My Teams information
   Scenario: Verify Add member function
     When I click on New Member button
     Then The Add Member popup is displayed
-    When I input "Hue" into search input to add member
-    Then I verify that search result list is correct with "2"
+    When I input "Hue Thai T." into search input to add member
+    Then I verify that search result list is correct with "1"
     When I click on Add button
     And I click on Close button
     Then The Add Member popup is disappeared
@@ -33,9 +33,9 @@ Feature: Check My Teams information
     When I input "<empName>" into search input to search member
     Then I verify that members of team are displayed correctly as "<record>"
     Examples:
-      | empName | record |
-      | hue     | 1      |
-      | tien    | 2      |
+      | empName     | record |
+      | Hue Thai T. | 1      |
+      | tien        | 2      |
 
   Scenario Outline: Verify the Delete user function
     When I input "<empName>" into search input to search member
@@ -48,9 +48,9 @@ Feature: Check My Teams information
   Scenario Outline: Verify the Update Team info function
     When I click on 'Update Team' button
     Then The web page navigates to the "/update" page
-    When I input "<name>" "<manager>" "<teamOfficer1>" "<teamOfficer2>" "<logo>" "<teamFolder>" "<description>"
+    When I input "<name>" "<manager>" "<teamOfficer1>" "<teamOfficer2>" "<email>" "<logo>" "<teamFolder>" "<description>"
     And I click on Submit button
     Examples:
-      | name    | manager       | teamOfficer1 | teamOfficer2 | logo                                   | teamFolder                                  | description       |
-      | Android | Tien Hoang N. | Hieu Tran T. | Huy Nguyen   | /Users/huethai/Pictures/teamavatar.jpg | http://portal-stg.asiantech.vn/organisation | There is My Team! |
+      | name    | manager       | teamOfficer1 | teamOfficer2 | email                 | logo                                                                              | teamFolder                                  | description       |
+      | Android | Tien Hoang N. | Hieu Tran T. | Huy Nguyen   | androidteam@gmail.com | /Users/huethai/Documents/selenium_test_portal/src/test/data test/AndroiAvatar.jpg | http://portal-stg.asiantech.vn/organisation | There is My Team! |
 
