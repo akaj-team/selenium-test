@@ -103,5 +103,4 @@ Feature: Check TimeSheet
     Then Display dialog timesheet
     When Click button Repeat every day
     Then Display full record timesheet
-    And Click button submit on timeSheet
-    Then Display Dialog success is enable and show message timesheet
+    And Display button submit is enable
