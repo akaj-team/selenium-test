@@ -1,6 +1,5 @@
 package stepdefs.wiki;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +15,7 @@ import vn.asiantech.page.wiki.WikiPage;
 
 public class WikiDefinitions extends DriverBase implements En {
     private static final int NUMBER_HOMEPAGE = 168;
+    private static final int NUMBER_AT_LIBRARY = 190;
 
     private WebDriver driver;
     private WikiPage wikiPage;
@@ -43,7 +43,7 @@ public class WikiDefinitions extends DriverBase implements En {
 
         When("^I click on child page title$", () -> wikiPage.clickTitle());
 
-        Then("^Redirect wiki detail page$", () -> displayPage("/wiki/" + NUMBER_HOMEPAGE, By.cssSelector(".wrapper.wrapper-content.wiki")));
+        Then("^Redirect wiki detail page$", () -> displayPage("/wiki/" + NUMBER_AT_LIBRARY, By.cssSelector(".wrapper.wrapper-content.wiki")));
 
         Then("^Can not click delete button$", () -> Assert.assertFalse(wikiPage.isEnableDeleteButton()));
 

@@ -1,5 +1,5 @@
 @NewPage
-Feature: Check wiki page
+Feature: Check new page
 
   Background: User navigates to profile page
     Given I am logged in as a team manager
