@@ -106,6 +106,12 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return employeeUrlProfile;
     }
 
+    public final String getEmployeeProfileLink(){
+        WebElement employee = getEmployeeInformation(EMPLOYEE_NAME_COLUMN_INDEX);
+        assert employee != null;
+        return employee.getAttribute("href");
+    }
+
     public final String clickAndGetEmployeeCode() {
         WebElement employee = getEmployeeInformation(EMPLOYEE_CODE_COLUMN_INDEX);
         assert employee != null;
