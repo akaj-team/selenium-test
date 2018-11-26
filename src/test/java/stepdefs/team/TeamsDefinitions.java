@@ -49,7 +49,10 @@ public class TeamsDefinitions extends DriverBase implements En {
             waitForPageRedirected(driver, redirectUrl, By.cssSelector(".ui-datatable-data.ui-widget-content"));
         });
         Then("^I should see list team$", () -> Assert.assertFalse(teamsPage.isTeamListEmpty()));
-        Then("^I should see list team is empty$", () -> Assert.assertTrue(teamsPage.isTeamListEmpty()));
+        Then("^I should see list team is empty$", () -> {
+            waitVisibilityOfElement(driver, By.className("ui-datatable-emptymessage-row"));
+            Assert.assertTrue(teamsPage.isTeamListEmpty());
+        });
         And("^I should see alert message \"([^\"]*)\"$", (String message) -> Assert.assertEquals(message, teamsPage.showMessageEmptyTeam()));
 
         // Open successfully profile when click on avatar or name team

@@ -1,8 +1,6 @@
 package vn.asiantech.page.team;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
@@ -49,11 +47,15 @@ public class TeamsPage extends BasePage<TeamsPage> {
     public final void searchNameTeam(final String name) {
         waitForElement(driver, inputSearch);
         inputSearch.sendKeys(name);
+        inputSearch.sendKeys(Keys.ENTER);
     }
 
     public final boolean isTeamListEmpty() {
-        waitForElement(driver, tbBody.findElement(By.tagName("tr")));
-        return tbBody.findElement(By.tagName("tr")).getAttribute("class").contains("ui-datatable-emptymessage-row");
+        try {
+            return tbBody.findElement(By.tagName("tr")).getAttribute("class").contains("ui-datatable-emptymessage-row");
+        } catch (StaleElementReferenceException e) {
+            return tbBody.findElement(By.tagName("tr")).getAttribute("class").contains("ui-datatable-emptymessage-row");
+        }
     }
 
     public final String showMessageEmptyTeam() {
