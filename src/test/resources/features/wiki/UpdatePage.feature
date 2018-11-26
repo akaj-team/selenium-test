@@ -23,3 +23,4 @@ Feature: Check update page
       When I click on menu parent
       Then Menu is drop down
       When I click on item parent
+      Then Change parent
