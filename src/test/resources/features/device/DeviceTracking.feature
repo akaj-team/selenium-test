@@ -68,6 +68,3 @@ Feature: Check Device tracking
     Then Dismiss dialog confirm submit device tracking
     When Click button cancel on dialog confirm submit device tracking
     Then Dismiss dialog confirm submit and keep state selected all
-    When Click button submit on dialog confirm submit device tracking
-    Then Dismiss dialog confirm and change state to submit device tracking
-    And Display message success device tracking
