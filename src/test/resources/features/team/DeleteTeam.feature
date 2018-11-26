@@ -4,7 +4,7 @@ Feature: Check function delete team in teams page
 
   Background: User navigates to Company teams page
     Given I am logged in as a team manager
-    And I am stayed in dialog confirm delete team at position is 1
+    And I am stayed in dialog confirm delete team at position is 0
 
   Scenario: Check name team correct with team is deleted
     Then Name team is correct with team is chose
