@@ -28,12 +28,6 @@ public class NewPagePage extends BasePage<NewPagePage> {
     @FindBy(css = ".cke_inner.cke_reset")
     WebElement inputContent;
 
-    @FindBy(css = ".btn.btn-sm.btn-default.btn-cancel.ng-star-inserted")
-    private WebElement btnStayDialogConfirm;
-
-    @FindBy(css = ".btn.btn-sm.btn-warning.btn-submit.ng-star-inserted")
-    private WebElement btnLeaveDialogConfirm;
-
     @Override
     public NewPagePage navigateTo(WebDriver webDriver) {
         return this;
@@ -51,17 +45,6 @@ public class NewPagePage extends BasePage<NewPagePage> {
         getDriver().switchTo().frame(getDriver().findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
         getDriver().findElement(By.tagName("body")).sendKeys(message);
         getDriver().switchTo().defaultContent();
-    }
-
-    public void clearContent() {
-        String message = "";
-
-        waitForElement(getDriver(), inputContent);
-        getDriver().switchTo().frame(getDriver().findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
-        getDriver().findElement(By.tagName("body")).sendKeys(message);
-        getDriver().switchTo().defaultContent();
-
-        System.out.println(isShowMessageError("Please enter value"));
     }
 
     public boolean isSubmitEnable() {

@@ -1,7 +1,7 @@
 @NewPage
 Feature: Check new page
 
-  Background: User navigates to profile page
+  Background: User navigates to new page
     Given I am logged in as a team manager
     And Child Page page displayed
 

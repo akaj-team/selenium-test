@@ -51,7 +51,5 @@ public class NewPageDefinition extends DriverBase implements En {
         Then("^Show message \"([^\"]*)\"$", (String text) -> Assert.assertTrue(newPagePage.isShowMessageError(text)));
 
         And("^I clear title$", () -> newPagePage.clearTitle());
-
-        When("^I clear content$", () -> newPagePage.clearContent());
     }
 }

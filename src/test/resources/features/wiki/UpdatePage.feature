@@ -1,7 +1,7 @@
 @UpdatePage
 Feature: Check update page
 
-  Background: User navigates to profile page
+  Background: User navigates to update page
     Given I am logged in as a team manager
     And Update Page page displayed
 
@@ -19,8 +19,8 @@ Feature: Check update page
     Then Show message "Please enter value"
     And Submit button is disabled
 
-    Scenario: Check select parent
-      When I click on menu parent
-      Then Menu is drop down
-      When I click on item parent
-      Then Change parent
+  Scenario: Check select parent
+    When I click on menu parent
+    Then Menu is drop down
+    When I click on item parent
+    Then Change parent
