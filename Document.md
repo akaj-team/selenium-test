@@ -31,160 +31,180 @@ Locating elements in Selenium WebDriver is performed with the help of **findElem
 * **findElements()** returns a list of WebElements matching the search criteria. If no elements are found, it returns an empty list.
 
 |Priority|Method               |Syntax                                                                                           |Description                                 |
-|--------|---------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------|
-|   1    |By id                |```driver.findElement(By.id("id"))```                                                            |Locates an element using the id attribute   |
-|   2    |By name              |```driver.findElement(By.name("name"))```                                                        |Locates an element using the name attribute |
-|   3    |By class name        |```driver.findElement(By.className("class"))```                                                  |Locates an element using the class attribute|
-|   4    |By tag name          |```driver.findElement(By.tagName("tagname"))```                                                  |Locates an element using the html tag       |
-|   5    |By link text         |```driver.findElement(By.linkText("linktext"))```                                                |Locates a link using link text              |
-|   6    |By partial link text |```driver.findElement(By.partialLinkText ("linktext"))```                                        |Locates a link using the link's partial text|
-|   7    |By css               |```Locates an element using the css selector```                                                  |                                            |
-|        |Id                   |```driver.findElement(By.cssSelector("<HTMLtag>[id=<id>]"))``` or ```driver.findElement(By.cssSelector("<HTML tag>#<id>"))```  |              |
-|        |Class                |```driver.findElement(By.cssSelector("<HTMLtag>.<Value of Class attribute>"))```                 |                                            |
-|        |Attribute            |```driver.findElement(By.cssSelector("<HTMLtag>[<attribute>=<value of attribute>]"))```          |                                            |
-|        |Sub-string           |```driver.findElement(By.cssSelector("<HTMLtag>[<attribute>^=<prefix of the string>]"))``` or ```driver.findElement(By.cssSelector ("<HTML tag>[<attribute>$=<suffix of the string>]"))``` or ```driver.findElement(By.cssSelector("<HTML tag>[<attribute>*=<sub string>]"))```| |
-|   8    |By xpath             |```driver.findElement(By.xpath("xpath"))```                                                      |Locates an element using xpath query        |
+|:------:|---------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------|
+|   1    |By id                |`driver.findElement(By.id("id"))`                                                                |Locates an element using the id attribute   |
+|   2    |By name              |`driver.findElement(By.name("name"))`                                                            |Locates an element using the name attribute |
+|   3    |By class name        |`driver.findElement(By.className("class"))`                                                      |Locates an element using the class attribute|
+|   4    |By tag name          |`driver.findElement(By.tagName("tagname"))`                                                      |Locates an element using the html tag       |
+|   5    |By link text         |`driver.findElement(By.linkText("linktext"))`                                                    |Locates a link using link text              |
+|   6    |By partial link text |`driver.findElement(By.partialLinkText ("linktext"))`                                            |Locates a link using the link's partial text|
+|   7    |By css               |`Locates an element using the css selector`                                                      |                                            |
+|        |Id                   |`driver.findElement(By.cssSelector("<HTML tag>[id=<id>]"))` <br/><br/> or <br/><br/> `driver.findElement(By.cssSelector("<HTML tag>#<id>"))`  |              |
+|        |Class                |`driver.findElement(By.cssSelector("<HTML tag>.<Value of Class attribute>"))`                    |                                            |
+|        |Attribute            |`driver.findElement(By.cssSelector("<HTML tag>[<attribute>=<value of attribute>]"))`             |                                            |
+|        |Sub-string           |`driver.findElement(By.cssSelector("<HTML tag>[<attribute>^=<prefix of the string>]"))` <br/><br/> or <br/><br/> `driver.findElement(By.cssSelector ("<HTML tag>[<attribute>$=<suffix of the string>]"))` <br/><br/> or <br/><br/> `driver.findElement(By.cssSelector("<HTML tag>[<attribute>*=<sub string>]"))`| |
+|   8    |By xpath             |`driver.findElement(By.xpath("xpath"))`                                                          |Locates an element using xpath query        |
 
 ***Example:***
 
-* **By id:**
+>* **By id:**
+<br/>
+```
+<div class="gray-bg full-screen" id="wrapper">
 
-```<div class="gray-bg full-screen" id="wrapper">```
-  
-   **```driver.findElement(By.id("page-wrapper"));```**
+driver.findElement(By.id("page-wrapper"));
+```
 
-* **By name:**
+>* **By name:**
+```
+<meta name="description" content="AT-Portal version 1.4.0-beta released on Fri, 09 Nov 2018 02:24:15 GMT">
 
-```<meta name="description" content="AT-Portal version 1.4.0-beta released on Fri, 09 Nov 2018 02:24:15 GMT">```
+driver.findElement(By.name("description"));
+```
 
-**```driver.findElement(By.name("description"));```**
+>* **By class name:**
+```
+<div class="alert alert-danger alert-dismissible" role="alert">
 
-* **By class name:**
+driver.findElement(By.className("alert alert-danger alert-dismissible"));
+```
 
-```<div class="alert alert-danger alert-dismissible" role="alert">```
+>* **By tag name:**
+```
+<form class="m-t ng-dirty ng-touched ng-valid" novalidate>
 
-**```driver.findElement(By.className("alert alert-danger alert-dismissible"));```**
+driver.findElement(By.tagName("form"));
+```
 
-* **By tag name:**
+>* **By link text:**
+```
+<a id="link-to-timesheet-submission" href="/timesheet/submission">My Timesheet</a>
 
-```<form class="m-t ng-dirty ng-touched ng-valid" novalidate>```
+driver.findElement(By.linkText("My Timesheet"));
+```
 
-**```driver.findElement(By.tagName("form"));```**
+>* **By partial link text:**
+```
+<a id="link-to-timesheet-submission" href="/timesheet/submission">My Timesheet</a>
 
-* **By link text:**
+driver.findElement(By.partialLinkText("Timesheet"));
+```
 
-```<a id="link-to-timesheet-submission" href="/timesheet/submission">My Timesheet</a>```
+>* **By css:**
+```
+<input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
+```
+ - **With id:**
+ ```
+   driver.findElement(By.cssSelector("input[id=gender-male]"));
+   
+   or
+   
+   driver.findElement(By.cssSelector("input#gender-male"));
+   ```
 
-**```driver.findElement(By.linkText("My Timesheet"));```**
-
-* **By partial link text:**
-
-```<a id="link-to-timesheet-submission" href="/timesheet/submission">My Timesheet</a>```
-
-**```driver.findElement(By.partialLinkText("Timesheet"));```**
-
-* **By css:**
-
-```<input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">```
-
-  - **With id:**
-  
-  **```driver.findElement(By.cssSelector("input[id=gender-male]"));```**
-  
-  or
-  
-  **```driver.findElement(By.cssSelector("input#gender-male"));```**
-  
-  - **With css selector:**
-  
-  **```driver.findElement(By.cssSelector("input.ng-untouched.ng-prinstine.ng-invalid"));```**
-  
-  or
-  
-  **```driver.findElement(By.cssSelector(".ng-untouched.ng-prinstine.ng-invalid"));```**
-  
-  or
-  
-  **```driver.findElement(By.cssSelector(".ng-untouched.ng-prinstine"));```**
-  
-  - **With attribute:**
-  
-  **```driver.findElement(By.cssSelector("input[type=radio]"));```**
-  
-  or
-  
-  **```driver.findElement(By.cssSelector("*[type=radio]"));```**
-  
-  or
-  
-  **```driver.findElement(By.cssSelector("input[formcontrolname=gender]"));```**
-  
-  - **With sub-string:**
-  
-  **```driver.findElement(By.cssSelector("input[type^=ra]"));```**
-  
-  or
-  
-  **```driver.findElement(By.cssSelector("input[type$=dio]"));```**
-  
-  or 
-  
-  **```driver.findElement(By.cssSelector("input[type*=ad]"));```**
-  
-* **By xpath:**
+- **With css selector:**
 
 ```
-   <div class="form-group">
-   <label class="col-md-4 control-label required">"First name"</label>
-   <input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
-   <span class="help-block">Please enter value</span>
-   </div>
+driver.findElement(By.cssSelector("input.ng-untouched.ng-prinstine.ng-invalid"));
+
+or 
+
+driver.findElement(By.cssSelector(".ng-untouched.ng-prinstine"));
+
+or
 ```
-        
-  **```driver.findElement(By.xpath("//div/input"));```**
+
+- **With attribute:**
+
+```
+driver.findElement(By.cssSelector("input[type=radio]"));
+
+or 
+
+driver.findElement(By.cssSelector("*[type=radio]"));
+
+or
+
+driver.findElement(By.cssSelector("input[formcontrolname=gender]"));
+```
+
+- **With sub-string:**
+
+```$xslt
+driver.findElement(By.cssSelector("input[type^=ra]"));
+
+or
+
+driver.findElement(By.cssSelector("input[type$=dio]"));
+
+or 
+
+driver.findElement(By.cssSelector("input[type*=ad]"));
+```
   
-  or
-  
-   **```driver.findElement(By.xpath("//label[contains(text(),'First name')]/../input""));```**
+>* **By xpath:**
+
+```
+            <div class="form-group">
+            <label class="col-md-4 control-label required">"First name"</label>
+            <input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
+            <span class="help-block">Please enter value</span>
+            </div>
+            
+    driver.findElement(By.xpath("//div/input"));
+    
+    or
+    
+    driver.findElement(By.xpath("//label[contains(text(),'First name')]/../input""));        
+```
 
 ### III. User interactions
 
 #### 1. Text box
 
-```<input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">```
+```
+<input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
+```
 
-- We can put values into a text box using the **sendkeys()** method.
+- We can put values into a text box using the **sendeys()** method.
 
-```driver.findElement(By.name("first_name")).sendKeys("abc");```
+```
+driver.findElement(By.name("first_name")).sendKeys("abc");
+```
 
 - We can also retrieve text from a text box using the **getAttribute("value")** command.
 
-```driver.findElement(By.name("first_name")).getAttribute("value);```
+```
+driver.findElement(By.name("first_name")).getAttribute("value);
+```
 
 #### 2. Radio button
 
 We can select a radio button option using the **click()** method and unselect using the same **click()** method.
 
-```<input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">```
+```K
+<input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
 
-**```driver.findElement(By.name("gender-male")).click();```**
+driver.findElement(By.name("gender-male")).click();
+```
 
 #### 3. Check box
 
-```<input class="form-control" name="check_all" type="checkbox">```
-
 ```
-  driver.findElement(By.name("check_all")).click();
+<input class="form-control" name="check_all" type="checkbox">
+
+ driver.findElement(By.name("check_all")).click();
   driver.findElement(By.name("check_all")).isSelected());
 ```
 
 #### 4. Drop down
-```<select class="nationlity" aria-hidden="true" tabindex="-1" aria-label=" ">```
-
 ```
-   dropdown.selectByVisibleText("Viet Nam");
-   dropdown.selectByIndex(1)
-   dropdown.selectByValue("Asian")
+<select class="nationlity" aria-hidden="true" tabindex="-1" aria-label=" ">
+
+ dropdown.selectByVisibleText("Viet Nam");
+ dropdown.selectByIndex(1)
+ dropdown.selectByValue("Asian")
 ```
 
 ### III. Synchronization
@@ -195,7 +215,9 @@ To synchronize between script execution and application, we need to wait after p
 
 **Thread.Sleep** is a static wait and it is not a good way to use in scripts as it is sleep without condition.
 
-```Thread.Sleep(1000); //Will wait for 1 second.```
+```
+Thread.Sleep(1000); //Will wait for 1 second.
+```
 
 #### 2. Implicit waits
 
@@ -203,7 +225,9 @@ The implicit wait will tell to the web driver to wait for certain amount of time
 The default setting is 0. Once we set the time, web driver will wait for that time before throwing an exception.
 Implicit wait will accept 2 parameters, the first parameter will accept the time as an integer value and the second parameter will accept the time measurement in terms of SECONDS, MINUTES, MILISECOND, MICROSECONDS, NANOSECONDS, DAYS, HOURS, etc.
 
-```driver.manage().timeouts().implicitlyWait(TimeOut, TimeUnit.SECONDS);```
+```
+driver.manage().timeouts().implicitlyWait(TimeOut, TimeUnit.SECONDS);
+```
 
 #### 3. Explicit waits
 
@@ -215,6 +239,7 @@ Implicit wait will accept 2 parameters, the first parameter will accept the time
       wait.until(<Condition>);
    ```
 **The expected conditions that can be used in Explicit Wait:**
+
 ```
 - alertIsPresent()
 - elementSelectionStateToBe()
@@ -265,33 +290,39 @@ Implicit wait will accept 2 parameters, the first parameter will accept the time
 
 Performs a modifier key press. Does not release the modifier key - subsequent interactions may assume it's kept pressed.
 
-Parameters:
+**Parameters:**
 
-modifier_key - any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
+**modifier_key** - any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
 
-```new Actions(driver).keyDown(<Key>).build().perform();```
+```
+new Actions(driver).keyDown(<Key>).build().perform();
+```
 
 **2. keyUp(modifier _key)**
 
 Performs a key release.
 
-Parameters:
+**Parameters:**
 
-modifier_key - any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
+**modifier_key** - any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
 
-```new Actions(driver).keyUp(<Key>).build().perform();```
+```
+new Actions(driver).keyUp(<Key>).build().perform();
+```
 
 **3. sendKeys(onElement, charSequence)**
 
 Sends a series of keystrokes onto the element. 
 
-Parameters:
+**Parameters:**
 
-onElement - element that will receive the keystrokes, usually a text field
+**onElement** - element that will receive the keystrokes, usually a text field
 
 charSequence - any string value representing the sequence of keystrokes to be sent
 
-```new Actions(driver).sendKeys(element, charSequence).build().perform();```
+```
+new Actions(driver).sendKeys(element, charSequence).build().perform();
+```
 
 ### V. Mouse events
 
@@ -299,25 +330,33 @@ charSequence - any string value representing the sequence of keystrokes to be se
 
 Perform a click based on coordinates.
 
-```element.click();```
+```
+element.click();
+```
 
 **1. clickAndHold**
 
 Clicks (without releasing) at the current mouse location.
 
-```new Actions(driver).clickAndHold().build().perform();```
+```
+new Actions(driver).clickAndHold().build().perform();
+```
 
 **2. contextClick**
 
 Performs a context-click at the current mouse location.
 
-```new Actions(driver).contextClick().build().perform();```
+```
+new Actions(driver).contextClick().build().perform();
+```
 
 **3. doubleClick**
 
 Performs a double-click at the current mouse location.
 
-```new Actions(driver).doubleClick().build().perform();```
+```
+new Actions(driver).doubleClick().build().perform();
+```
 
 **4. dragAndDrop(source, target)**
 
@@ -329,7 +368,9 @@ Performs click-and-hold at the location of the source element, moves to the loca
 
 **target**- element to move to and release the mouse at.
 
-```new Actions(driver).dragAndDrop(elementSource, elementTarget).build().perform();```
+```
+new Actions(driver).dragAndDrop(elementSource, elementTarget).build().perform();
+```
 
 **5. dragAndDropBy(source, x-offset, y-offset)**
 
@@ -343,7 +384,9 @@ Performs click-and-hold at the location of the source element, moves by a given 
 
 **yOffset**- vertical move offset.
 
-```new Actions(driver).dragAndDrop(element, x-offset, y-offset).build().perform();```
+```
+new Actions(driver).dragAndDrop(element, x-offset, y-offset).build().perform();
+```
 
 **6. moveByOffset(x-offset, y-offset)**
 
@@ -355,7 +398,9 @@ Moves the mouse from its current position (or 0,0) by the given offset.
 
 **y-offset** - vertical offset. A negative value means moving the mouse down.
 
-```new Actions(driver).moveByOffset(x-offset, y-offset).build().perform();```
+```
+new Actions(driver).moveByOffset(x-offset, y-offset).build().perform();
+```
 
 **7. moveToElement(toElement)**
 
@@ -365,13 +410,17 @@ Moves the mouse to the middle of the element.
 
 **toElement** - element to move to.
 
-```new Actions(driver).moveToElement(element).build().perform();```
+```
+new Actions(driver).moveToElement(element).build().perform();
+```
 
 **8.release()**
 
 Releases the depressed left mouse button at the current mouse location
 
-```new Actions(driver).release().build().perform();```
+```
+new Actions(driver).release().build().perform();
+```
 
 ### VI. Exception handling
 
@@ -583,7 +632,7 @@ Given I am on AT-Portal  login page
 ## VIII. Implement steps
 
  | Expression reference | Description                                   |
- |----------------------|-----------------------------------------------|
+ |:--------------------:|-----------------------------------------------|
  |[abc]                 |A single character of: a, b, or c              |
  |[^abc]                |Any single character except: a, b, or c        |
  |[a-z]                 |Any single character in the range a-z          |
@@ -611,7 +660,9 @@ Given I am on AT-Portal  login page
  
  - Expression:
  
- ```[a-zA-Z0-9]{1,}[.][a-zA-Z0-9]{1,}@asiantech.vn```
+ ```
+ [a-zA-Z0-9]{1,}[.][a-zA-Z0-9]{1,}@asiantech.vn
+ ```
  
  - Capture:
  ```
