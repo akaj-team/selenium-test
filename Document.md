@@ -47,7 +47,7 @@ Locating elements in Selenium WebDriver is performed with the help of **findElem
 
 ***Example:***
 
->* **By id:**
+* **By id:**
 <br/>
 ```
 <div class="gray-bg full-screen" id="wrapper">
@@ -55,42 +55,42 @@ Locating elements in Selenium WebDriver is performed with the help of **findElem
 driver.findElement(By.id("page-wrapper"));
 ```
 
->* **By name:**
+* **By name:**
 ```
 <meta name="description" content="AT-Portal version 1.4.0-beta released on Fri, 09 Nov 2018 02:24:15 GMT">
 
 driver.findElement(By.name("description"));
 ```
 
->* **By class name:**
+* **By class name:**
 ```
 <div class="alert alert-danger alert-dismissible" role="alert">
 
 driver.findElement(By.className("alert alert-danger alert-dismissible"));
 ```
 
->* **By tag name:**
+* **By tag name:**
 ```
 <form class="m-t ng-dirty ng-touched ng-valid" novalidate>
 
 driver.findElement(By.tagName("form"));
 ```
 
->* **By link text:**
+* **By link text:**
 ```
 <a id="link-to-timesheet-submission" href="/timesheet/submission">My Timesheet</a>
 
 driver.findElement(By.linkText("My Timesheet"));
 ```
 
->* **By partial link text:**
+* **By partial link text:**
 ```
 <a id="link-to-timesheet-submission" href="/timesheet/submission">My Timesheet</a>
 
 driver.findElement(By.partialLinkText("Timesheet"));
 ```
 
->* **By css:**
+* **By css:**
 ```
 <input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
 ```
@@ -106,51 +106,49 @@ driver.findElement(By.partialLinkText("Timesheet"));
 - **With css selector:**
 
 ```
-driver.findElement(By.cssSelector("input.ng-untouched.ng-prinstine.ng-invalid"));
+   driver.findElement(By.cssSelector("input.ng-untouched.ng-prinstine.ng-invalid"));
 
-or 
+   or 
 
-driver.findElement(By.cssSelector(".ng-untouched.ng-prinstine"));
-
-or
+   driver.findElement(By.cssSelector(".ng-untouched.ng-prinstine"));
 ```
 
 - **With attribute:**
 
 ```
-driver.findElement(By.cssSelector("input[type=radio]"));
+   driver.findElement(By.cssSelector("input[type=radio]"));
 
-or 
+   or 
 
-driver.findElement(By.cssSelector("*[type=radio]"));
+   driver.findElement(By.cssSelector("*[type=radio]"));
 
-or
+   or
 
-driver.findElement(By.cssSelector("input[formcontrolname=gender]"));
+   driver.findElement(By.cssSelector("input[formcontrolname=gender]"));
 ```
 
 - **With sub-string:**
 
-```$xslt
-driver.findElement(By.cssSelector("input[type^=ra]"));
+```
+   driver.findElement(By.cssSelector("input[type^=ra]"));
 
-or
+   or
 
-driver.findElement(By.cssSelector("input[type$=dio]"));
+   driver.findElement(By.cssSelector("input[type$=dio]"));
 
-or 
+   or 
 
-driver.findElement(By.cssSelector("input[type*=ad]"));
+   driver.findElement(By.cssSelector("input[type*=ad]"));
 ```
   
->* **By xpath:**
+* **By xpath:**
 
 ```
-            <div class="form-group">
-            <label class="col-md-4 control-label required">"First name"</label>
-            <input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
-            <span class="help-block">Please enter value</span>
-            </div>
+    <div class="form-group">
+    <label class="col-md-4 control-label required">"First name"</label>
+    <input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
+    <span class="help-block">Please enter value</span>
+    </div>
             
     driver.findElement(By.xpath("//div/input"));
     
@@ -167,7 +165,7 @@ driver.findElement(By.cssSelector("input[type*=ad]"));
 <input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
 ```
 
-- We can put values into a text box using the **sendeys()** method.
+- We can put values into a text box using the **sendKeys()** method.
 
 ```
 driver.findElement(By.name("first_name")).sendKeys("abc");
@@ -183,10 +181,10 @@ driver.findElement(By.name("first_name")).getAttribute("value);
 
 We can select a radio button option using the **click()** method and unselect using the same **click()** method.
 
-```K
+```
 <input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
 
-driver.findElement(By.name("gender-male")).click();
+   driver.findElement(By.name("gender-male")).click();
 ```
 
 #### 3. Check box
@@ -195,7 +193,7 @@ driver.findElement(By.name("gender-male")).click();
 <input class="form-control" name="check_all" type="checkbox">
 
  driver.findElement(By.name("check_all")).click();
-  driver.findElement(By.name("check_all")).isSelected());
+ driver.findElement(By.name("check_all")).isSelected());
 ```
 
 #### 4. Drop down
@@ -234,10 +232,10 @@ driver.manage().timeouts().implicitlyWait(TimeOut, TimeUnit.SECONDS);
    The explicit wait is used to tell the Web Driver to wait for certain conditions (Expected Conditions) or the maximum time exceeded before throwing an "ElementNotVisibleException" exception.
    It will wait for dynamically loaded **Ajax elements**.
    
-   ```
-      WebDriverWait wait = new WebDriverWait(WebDriverRefrence,TimeOut);
-      wait.until(<Condition>);
-   ```
+```
+   WebDriverWait wait = new WebDriverWait(WebDriverRefrence,TimeOut);
+   wait.until(<Condition>);
+```
 **The expected conditions that can be used in Explicit Wait:**
 
 ```
@@ -276,7 +274,7 @@ driver.manage().timeouts().implicitlyWait(TimeOut, TimeUnit.SECONDS);
   ```    
  In the above example, we are declaring a fluent wait with the "timeout" seconds and the frequency is set to "frequentTimeout" seconds by ignoring "Exception"
    
-  **Difference between Implicit Wait Vs Explicit Wait**
+  **Difference between Implicit Wait and Explicit Wait**
   
   | Implicit Wait                                                                                       | Explicit Wait                                                      |                                                       
   |-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------| 
