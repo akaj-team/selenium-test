@@ -50,114 +50,116 @@ Test cases are written such that, web elements on web pages are identified and t
 * **By id:**
 
  ```
-<div class="gray-bg full-screen" id="wrapper">
+Element: <div class="gray-bg full-screen" id="wrapper">
 
-driver.findElement(By.id("page-wrapper"));
- ```
+Find: driver.findElement(By.id("page-wrapper"));
+```
 
 * **By name:**
 
  ```
-<meta name="description" content="AT-Portal version 1.4.0-beta released on Fri, 09 Nov 2018 02:24:15 GMT">
+Element: <meta name="description" content="AT-Portal version 1.4.0-beta released on Fri, 09 Nov 2018 02:24:15 GMT">
 
-driver.findElement(By.name("description"));
+Find: driver.findElement(By.name("description"));
 ```
 
 * **By class name:**
 
 ```
-<div class="alert alert-danger alert-dismissible" role="alert">
+Element: <div class="alert alert-danger alert-dismissible" role="alert">
 
-driver.findElement(By.className("alert alert-danger alert-dismissible"));
+Find: driver.findElement(By.className("alert alert-danger alert-dismissible"));
 ```
 
 * **By tag name:**
 
 ```
-<form class="m-t ng-dirty ng-touched ng-valid" novalidate>
+Element: <form class="m-t ng-dirty ng-touched ng-valid" novalidate>
 
-driver.findElement(By.tagName("form"));
+Find: driver.findElement(By.tagName("form"));
 ```
 
 * **By link text:**
 
 ```
-<a id="link-to-timesheet-submission" href="/timesheet/submission">My Timesheet</a>
+Element: <a id="link-to-timesheet-submission" href="/timesheet/submission">My Timesheet</a>
 
-driver.findElement(By.linkText("My Timesheet"));
+Find: driver.findElement(By.linkText("My Timesheet"));
 ```
 
 * **By partial link text:**
 
 ```
-<a id="link-to-timesheet-submission" href="/timesheet/submission">My Timesheet</a>
+Element: <a id="link-to-timesheet-submission" href="/timesheet/submission">My Timesheet</a>
 
-driver.findElement(By.partialLinkText("Timesheet"));
+Find: driver.findElement(By.partialLinkText("Timesheet"));
 ```
 
 * **By css:**
 
 ```
-<input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
+Element: <input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
 ```
 
 - **With id:**
 
  ```
-   driver.findElement(By.cssSelector("input[id=gender-male]"));
+  Find: driver.findElement(By.cssSelector("input[id=gender-male]"));
    
-   or
+        or
    
-   driver.findElement(By.cssSelector("input#gender-male"));
+        driver.findElement(By.cssSelector("input#gender-male"));
   ```
 
  - **With css selector:**
 
 ```
-   driver.findElement(By.cssSelector("input.ng-untouched.ng-prinstine.ng-invalid"));
+   Find: driver.findElement(By.cssSelector("input.ng-untouched.ng-prinstine.ng-invalid"));
 
-   or 
+         or 
 
-   driver.findElement(By.cssSelector(".ng-untouched.ng-prinstine"));
+         driver.findElement(By.cssSelector(".ng-untouched.ng-prinstine"));
 ```
 
 - **With attribute:**
 
 ```
-   driver.findElement(By.cssSelector("input[type=radio]"));
+  Find: driver.findElement(By.cssSelector("input[type=radio]"));
 
-   or 
+        or 
 
-   driver.findElement(By.cssSelector("*[type=radio]"));
+        driver.findElement(By.cssSelector("*[type=radio]"));
 
-   or
+        or
 
-   driver.findElement(By.cssSelector("input[formcontrolname=gender]"));
+        driver.findElement(By.cssSelector("input[formcontrolname=gender]"));
 ```
 
 - **With sub-string:**
 
 ```
-   driver.findElement(By.cssSelector("input[type^=ra]"));
+   Find: driver.findElement(By.cssSelector("input[type^=ra]"));
 
-   or
+         or
 
-   driver.findElement(By.cssSelector("input[type$=dio]"));
+          driver.findElement(By.cssSelector("input[type$=dio]"));
 
-   or 
+         or 
 
-   driver.findElement(By.cssSelector("input[type*=ad]"));
+         driver.findElement(By.cssSelector("input[type*=ad]"));
 ```
   
 * **By xpath:**
 
 ```
+  Element:
     <div class="form-group">
-    <label class="col-md-4 control-label required">"First name"</label>
-    <input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
-    <span class="help-block">Please enter value</span>
+      <label class="col-md-4 control-label required">"First name"</label>
+      <input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
+      <span class="help-block">Please enter value</span>
     </div>
-            
+       
+  Find:     
     driver.findElement(By.xpath("//div/input"));
     
     or
@@ -170,19 +172,19 @@ driver.findElement(By.partialLinkText("Timesheet"));
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. Text box
 
 ```
-<input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
+ Element: <input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
 ```
 
 - We can put values into a text box using the **sendKeys()** method.
 
 ```
-driver.findElement(By.name("first_name")).sendKeys("abc");
+ Find: driver.findElement(By.name("first_name")).sendKeys("abc");
 ```
 
 - We can also retrieve text from a text box using the **getAttribute("value")** command.
 
 ```
-driver.findElement(By.name("first_name")).getAttribute("value);
+ Find:  driver.findElement(By.name("first_name")).getAttribute("value);
 ```
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. Radio button
@@ -190,27 +192,34 @@ driver.findElement(By.name("first_name")).getAttribute("value);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We can select a radio button option using the **click()** method and unselect using the same **click()** method.
 
 ```
-<input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
+Element: <input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
 
-driver.findElement(By.name("gender-male")).click();
+Find: driver.findElement(By.name("gender-male")).click();
 ```
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Check box
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Similar use **Radio button**
 
 ```
-<input class="form-control" name="check_all" type="checkbox">
+Element: <input class="form-control" name="check_all" type="checkbox">
 
- driver.findElement(By.name("check_all")).click();
- driver.findElement(By.name("check_all")).isSelected());
+Find:
+ driver.findElement(By.name("check_all")).click(); // click
+ driver.findElement(By.name("check_all")).isSelected()); // get select status
 ```
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. Drop down
 ```
-<select class="nationlity" aria-hidden="true" tabindex="-1" aria-label=" ">
+Element:
+ <select class="nationlity" multiple="">
+    <option value="vi">Viet Nam</option>        
+    <option value="en">English</option>  
+ </select>         
 
+Find:
  dropdown.selectByVisibleText("Viet Nam");
- dropdown.selectByIndex(1)
- dropdown.selectByValue("Asian")
+ dropdown.selectByIndex(0)
+ dropdown.selectByValue("vi")
 ```
 
 ### III. Synchronization
@@ -219,7 +228,7 @@ driver.findElement(By.name("gender-male")).click();
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Thread.Sleep
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Thread.Sleep** is a static wait and it is not a good way to use in scripts as it is sleep without condition.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Thread.Sleep** is a static wait and it is not a good way to use in scripts as it is sleep without condition.
 
 ```
 Thread.Sleep(1000); //Will wait for 1 second.
@@ -227,9 +236,11 @@ Thread.Sleep(1000); //Will wait for 1 second.
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. Implicit waits
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The implicit wait will tell to the web driver to wait for certain amount of time before it throws a "No Such Element Exception".
-The default setting is 0. Once we set the time, web driver will wait for that time before throwing an exception.
-Implicit wait will accept 2 parameters, the first parameter will accept the time as an integer value and the second parameter will accept the time measurement in terms of SECONDS, MINUTES, MILISECOND, MICROSECONDS, NANOSECONDS, DAYS, HOURS, etc.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The implicit wait will tell to the web driver to wait for certain amount of time before it throws a **"No Such Element Exception"**.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The default setting is 0. Once we set the time, web driver will wait for that time before throwing an exception.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Implicit wait will accept 2 parameters, the first parameter will accept the time as an integer value and the second parameter will accept the time measurement in terms of SECONDS, MINUTES, MILISECOND, MICROSECONDS, NANOSECONDS, DAYS, HOURS, etc.
 
 ```
 driver.manage().timeouts().implicitlyWait(TimeOut, TimeUnit.SECONDS);
@@ -237,7 +248,7 @@ driver.manage().timeouts().implicitlyWait(TimeOut, TimeUnit.SECONDS);
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Explicit waits
 
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The explicit wait is used to tell the Web Driver to wait for certain conditions (Expected Conditions) or the maximum time exceeded before throwing an "ElementNotVisibleException" exception.
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The explicit wait is used to tell the Web Driver to wait for certain conditions (Expected Conditions) or the maximum time exceeded before throwing an **"ElementNotVisibleException"** exception.
    It will wait for dynamically loaded **Ajax elements**.
    
 ```
@@ -269,36 +280,35 @@ driver.manage().timeouts().implicitlyWait(TimeOut, TimeUnit.SECONDS);
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Fluent waits
 
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The fluent wait is used to tell the web driver to wait for a condition, as well as the frequency with which we want to check the condition before throwing an "ElementNotVisibleException" exception.
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The fluent wait is used to tell the web driver to wait for a condition, as well as the frequency with which we want to check the condition before throwing an **"ElementNotVisibleException"** exception.
  
  ```
-    Wait wait = new FluentWait(WebDriver reference)
-    .withTimeout(timeout, SECONDS)
-    .pollingEvery(frequentTimeout, SECONDS)
-    .ignoring(Exception.class);
+    Wait wait = new FluentWait(WebDriver reference).withTimeout(timeout, SECONDS)
+                                                   .pollingEvery(frequentTimeout, SECONDS)
+                                                   .ignoring(Exception.class);
     wait.until((Function<WebDriver, WebElement>) driver -> { 
        // TODO
     });
   ```    
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the above example, we are declaring a fluent wait with the "timeout" seconds and the frequency is set to "frequentTimeout" seconds by ignoring "Exception"
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the above example, we are declaring a fluent wait with the **timeout** seconds and the frequency is set to **frequentTimeout** seconds by ignoring **Exception**
    
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Difference between Implicit Wait and Explicit Wait**
   
-  | Implicit Wait                                                                                       | Explicit Wait                                                      |                                                       
-  |-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------| 
-  |Time is applied to all the elements in the script                                                    |Time is applied only to those elements which are intended by us     |
-  |we need not specify "ExpectedConditions" on the element to be located                                |we need to specify "ExpectedConditions" on the element to be located|
-  |It is recommended to use when the elements are located with the time frame specified in implicit wait|It is recommended to use when the elements are taking long time to load and also for verifying the property of the element like(visibilityOfElementLocated, elementToBeClickable,elementToBeSelected)|
+   Implicit Wait                                                                                       | Explicit Wait                                                                                                            
+  -----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------- 
+  Time is applied to all the elements in the script                                                    |Time is applied only to those elements which are intended by us     
+  We need not specify "ExpectedConditions" on the element to be located                                |we need to specify "ExpectedConditions" on the element to be located
+  It is recommended to use when the elements are located with the time frame specified in implicit wait|It is recommended to use when the elements are taking long time to load and also for verifying the property of the element like(visibilityOfElementLocated, elementToBeClickable,elementToBeSelected)
 
 ### IV. Keyboard action
 
 **&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. keyDown(modifier_key)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a modifier key press. Does not release the modifier key - subsequent interactions may assume it's kept pressed.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a modifier key press. Does not release the modifier key - subsequent interactions may assume it's kept pressed.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**modifier_key** - any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**modifier_key** - any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
 
 ```
 new Actions(driver).keyDown(<Key>).build().perform();
@@ -306,11 +316,11 @@ new Actions(driver).keyDown(<Key>).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2. keyUp(modifier _key)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a key release.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a key release.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**modifier_key** - any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**modifier_key** - any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
 
 ```
 new Actions(driver).keyUp(<Key>).build().perform();
@@ -320,11 +330,11 @@ new Actions(driver).keyUp(<Key>).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sends a series of keystrokes onto the element. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**onElement** - element that will receive the keystrokes, usually a text field
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**onElement** - element that will receive the keystrokes, usually a text field
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;charSequence - any string value representing the sequence of keystrokes to be sent
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;charSequence - any string value representing the sequence of keystrokes to be sent
 
 ```
 new Actions(driver).sendKeys(element, charSequence).build().perform();
@@ -334,7 +344,7 @@ new Actions(driver).sendKeys(element, charSequence).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1. click**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perform a click based on coordinates.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perform a click based on coordinates.
 
 ```
 element.click();
@@ -342,7 +352,7 @@ element.click();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1. clickAndHold**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Clicks (without releasing) at the current mouse location.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Clicks (without releasing) at the current mouse location.
 
 ```
 new Actions(driver).clickAndHold().build().perform();
@@ -350,7 +360,7 @@ new Actions(driver).clickAndHold().build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2. contextClick**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a context-click at the current mouse location.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a context-click at the current mouse location.
 
 ```
 new Actions(driver).contextClick().build().perform();
@@ -358,7 +368,7 @@ new Actions(driver).contextClick().build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**3. doubleClick**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a double-click at the current mouse location.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a double-click at the current mouse location.
 
 ```
 new Actions(driver).doubleClick().build().perform();
@@ -366,13 +376,13 @@ new Actions(driver).doubleClick().build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**4. dragAndDrop(source, target)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs click-and-hold at the location of the source element, moves to the location of the target element, then releases the mouse.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs click-and-hold at the location of the source element, moves to the location of the target element, then releases the mouse.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**source**- element to emulate button down at.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**source**- element to emulate button down at.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**target**- element to move to and release the mouse at.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**target**- element to move to and release the mouse at.
 
 ```
 new Actions(driver).dragAndDrop(elementSource, elementTarget).build().perform();
@@ -380,15 +390,15 @@ new Actions(driver).dragAndDrop(elementSource, elementTarget).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**5. dragAndDropBy(source, x-offset, y-offset)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs click-and-hold at the location of the source element, moves by a given offset, then releases the mouse.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs click-and-hold at the location of the source element, moves by a given offset, then releases the mouse.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**source**- element to emulate button down at.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**source**- element to emulate button down at.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**xOffset**- horizontal move offset.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**xOffset**- horizontal move offset.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**yOffset**- vertical move offset.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**yOffset**- vertical move offset.
 
 ```
 new Actions(driver).dragAndDrop(element, x-offset, y-offset).build().perform();
@@ -396,13 +406,13 @@ new Actions(driver).dragAndDrop(element, x-offset, y-offset).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**6. moveByOffset(x-offset, y-offset)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moves the mouse from its current position (or 0,0) by the given offset.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moves the mouse from its current position by the given offset.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**x-offset** - horizontal offset. A negative value means moving the mouse left.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**x-offset** - horizontal offset. A negative value means moving the mouse left.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**y-offset** - vertical offset. A negative value means moving the mouse down.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**y-offset** - vertical offset. A negative value means moving the mouse down.
 
 ```
 new Actions(driver).moveByOffset(x-offset, y-offset).build().perform();
@@ -410,11 +420,11 @@ new Actions(driver).moveByOffset(x-offset, y-offset).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**7. moveToElement(toElement)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moves the mouse to the middle of the element. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moves the mouse to the middle of the element. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**toElement** - element to move to.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**toElement** - element to move to.
 
 ```
 new Actions(driver).moveToElement(element).build().perform();
@@ -422,7 +432,7 @@ new Actions(driver).moveToElement(element).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**8.release()**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Releases the depressed left mouse button at the current mouse location
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Releases the depressed left mouse button at the current mouse location
 
 ```
 new Actions(driver).release().build().perform();
@@ -432,19 +442,19 @@ new Actions(driver).release().build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1. Most common Exceptions:**
 
-- **NoSuchElementException:** FindBy method can’t find the element.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- **NoSuchElementException:** FindBy method can’t find the element.
 
-- **StaleElementReferenceException:** This tells that element is no longer appearing on the DOM page.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- **StaleElementReferenceException:** This tells that element is no longer appearing on the DOM page.
 
-- **TimeoutException:** This tells that the execution is failed because the command did not complete in enough time.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- **TimeoutException:** This tells that the execution is failed because the command did not complete in enough time.
 
-- **ElementNotVisibleException:** Thrown to indicate that although an element is present on the DOM, it is not visible, and so is not able to be interacted with
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- **ElementNotVisibleException:** Thrown to indicate that although an element is present on the DOM, it is not visible, and so is not able to be interacted with
 
-- **ElementNotSelectableException:** Thrown to indicate that may be the element is disabled, and so is not able to select.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- **ElementNotSelectableException:** Thrown to indicate that may be the element is disabled, and so is not able to select.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2. Try/ catch**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Try/Catch:** A method catches an exception using a combination of the try and catch keywords.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Try/Catch:** A method catches an exception using a combination of the try and catch keywords.
 
 ```
 try {
@@ -471,53 +481,58 @@ try {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**When**: It defines the trigger point for any test scenario execution.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Then**: Then holds the expected result for the test to be executed.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Then**: **Then** holds the expected result for the test to be executed.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**And**: It provides the logical And condition between any two statements. And can be used in conjunction with Given, When and Then statement.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**And**: It provides the logical **And** condition between any two statements. And can be used in conjunction with **Given**, **When** and **Then** statement.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**But**: It signifies logical Or condition between any two statements. Or can be used in conjunction with Given, When and Then statement.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**But**: It signifies logical **Or** condition between any two statements. Or can be used in conjunction with **Given**, **When** and **Then** statement.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Background**: Background generally has the instruction on what to setup before each scenario runs. So this is ideal to be used for code when we want to set up the web-browser or we want to establish the database connectivity.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Example:**
 
 ```
-Scenario: Given user can not navigate to AT-Portal.
 Background: Go to Portal login page
+
+Scenario: Given user can not navigate to AT-Portal.
 Given I am a AT employee
 But My account is blocked
-When I enter my “<username>”
-And I enter my “<password>”
+When I enter my "<username>"
+And I enter my "<password>"
 Then Login should be unsuccessful
 ```
 
 ## III. Scenario
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every scenario starts with the keyword “Scenario:” and and is followed by an optional scenario title which describe a behaviour.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every scenario starts with the keyword **Scenario:** and is followed by an optional scenario title which describe a behaviour.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Scenario Outline**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scenario outline is similar to scenario structure. The only difference is the provision of multiple inputs. At the bottom we have provided multiple input values. While running the actual test, Cucumber will replace the variable with input values provided and it will execute the test. Once pass-1 has been executed, the test will rerun for second iteration with another input value.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scenario outline is similar to scenario structure. The only difference is the provision of multiple inputs. At the bottom we have provided multiple input values. While running the actual test, Cucumber will replace the variable with input values provided and it will execute the test.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Example:**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Example:**
 
 ```
-Scenario Outline: Given user can not navigate to AT-Portal.
 Background: Go to AT-Portal login page
+
+Scenario Outline: Given user can not navigate to AT-Portal.
 Given I am a AT employee
 But My account is blocked
-When I enter my “<username>”
-And I enter my “<password>”
+When I enter my "<username>"
+And I enter my "<password>"
 Then Login should be unsuccessful
-| username | password  | 
-| user1       | password1 | 
-| user2       | password2 |
-| user3       | password3 |
+Examples:
+ | username | password  |
+ | user1    | password1 |
+ | user2    | password2 |
+ | user3    | password3 |
 ```
 
 ## IV. Feature
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The keyword to represent a feature under test in Gherkins is “Feature:”. A Feature can be defined as a standalone unit or functionality of a project. Each independent functionality of the product under test can be termed as a feature when we talk about Cucumber. A feature usually contains a list of scenarios to be tested for that feature. The suggested best practice is, to write a small description of the feature beneath the feature title in the feature file. This will fulfill the need of a good documentation as well.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The keyword to represent a feature under test in Gherkins is **Feature:**. A feature can be defined as a standalone unit or functionality of a project.
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A feature usually contains a list of scenarios to be tested for that feature.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Example:**
 
@@ -535,7 +550,7 @@ Feature: Login functionality for a AT-Portal site.
 
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The file, in which Cucumber tests are written, is known as feature files. It is advisable that there should be a separate feature file, for each feature under test. 
       
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The extension of the feature file needs to be “.feature”. One can create as many feature files as needed. To have an organized structure, each feature should have one feature file.
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The extension of the feature file needs to be **".feature"**. One can create as many feature files as needed. To have an organized structure, each feature should have one feature file.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Example:**
 
@@ -555,7 +570,7 @@ Feature: Login functionality for a AT-Portal site.
 ## V.Tag
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cucumber has already provided a way to organize your scenario execution by using tags in feature file. We can define each scenario with a useful tag. Tag starts with **@**. After **@** you can have any relevant text to define your tag.
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then to target these tagged scenarios just specify the tags names in the CucumberOptions as **tags = {"@SmokeTests"}**.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Example:**
 
 ```
@@ -565,8 +580,8 @@ Feature: Login functionality for a AT-Portal site.
    Scenario: Given user navigates to AT-Portal.
    Background: Go to Portal login page
    Given I am a AT employee
-   When I enter my “<username>”
-   And I enter my “<password>”
+   When I enter my "<username>"
+   And I enter my "<password>"
    Then Login should be successful
    
    @Ignore
@@ -574,9 +589,8 @@ Feature: Login functionality for a AT-Portal site.
    Background: Go to AT-Portal login page
    Given I am a AT employee
    But My account is blocked
-   When I enter my “<username>”
-   
-   And I enter my “<password>”
+   When I enter my "<username>"
+   And I enter my "<password>"
    Then Login should be unsuccessful
    | username | password  | 
    | user1    | password1 | 
@@ -596,7 +610,6 @@ Feature: Login functionality for a AT-Portal site.
    Scenario:
    Given I am on the new user registration page
    When I enter invalid data on the page
-   | Fields                 | Values                 |
    | First Name             | Hang                   |
    | Last Name              | Tran                   |
    | Email Address          | hang.tran@asiantech.vn |
@@ -609,7 +622,8 @@ Feature: Login functionality for a AT-Portal site.
 
 ``` 
 When("^I enter invalid data on the page$", (DataTable dataTable) -> {
-         // TODO
+          dataTable.get(<row>).get(<column>)
+          // TODO
        });
 ```
 
@@ -646,7 +660,7 @@ Given I am on AT-Portal  login page
  |\W                    |Any non-word character                         |
  |\b                    |Any word boundary                              |
  |(...)                 |Capture any three characters                   |
- |(a|b)                 |a or b                                         |
+ |(a&#124;b)            |a or b                                         |
  |a?                    |Zero or one of a                               |
  |a*                    |Zero or more of a                              |
  |a+                    |One or more of a                               |
@@ -663,6 +677,7 @@ Given I am on AT-Portal  login page
  ```
  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Capture:
+
  ```
  hang.tran@asiantech.vn
  tien.hoang@asiantech.vn
