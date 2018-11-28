@@ -38,7 +38,7 @@ Test cases are written such that, web elements on web pages are identified and t
 |   4    |By tag name          |`driver.findElement(By.tagName("tagname"))`                                                      |Locates an element using the html tag       |
 |   5    |By link text         |`driver.findElement(By.linkText("linktext"))`                                                    |Locates a link using link text              |
 |   6    |By partial link text |`driver.findElement(By.partialLinkText ("linktext"))`                                            |Locates a link using the link's partial text|
-|   7    |By css               |`Locates an element using the css selector`                                                      |                                            |
+|   7    |By css               |`Locates an element using the css selector`                                                      |Locates an element using the css attribute  |
 |        |Id                   |`driver.findElement(By.cssSelector("<HTML tag>[id=<id>]"))` <br/><br/> or <br/><br/> `driver.findElement(By.cssSelector("<HTML tag>#<id>"))`  |              |
 |        |Class                |`driver.findElement(By.cssSelector("<HTML tag>.<Value of Class attribute>"))`                    |                                            |
 |        |Attribute            |`driver.findElement(By.cssSelector("<HTML tag>[<attribute>=<value of attribute>]"))`             |                                            |
@@ -48,21 +48,23 @@ Test cases are written such that, web elements on web pages are identified and t
 ***Example:***
 
 * **By id:**
-<br/>
-```
+
+ ```
 <div class="gray-bg full-screen" id="wrapper">
 
 driver.findElement(By.id("page-wrapper"));
-```
+ ```
 
 * **By name:**
-```
+
+ ```
 <meta name="description" content="AT-Portal version 1.4.0-beta released on Fri, 09 Nov 2018 02:24:15 GMT">
 
 driver.findElement(By.name("description"));
 ```
 
 * **By class name:**
+
 ```
 <div class="alert alert-danger alert-dismissible" role="alert">
 
@@ -70,6 +72,7 @@ driver.findElement(By.className("alert alert-danger alert-dismissible"));
 ```
 
 * **By tag name:**
+
 ```
 <form class="m-t ng-dirty ng-touched ng-valid" novalidate>
 
@@ -77,6 +80,7 @@ driver.findElement(By.tagName("form"));
 ```
 
 * **By link text:**
+
 ```
 <a id="link-to-timesheet-submission" href="/timesheet/submission">My Timesheet</a>
 
@@ -84,6 +88,7 @@ driver.findElement(By.linkText("My Timesheet"));
 ```
 
 * **By partial link text:**
+
 ```
 <a id="link-to-timesheet-submission" href="/timesheet/submission">My Timesheet</a>
 
@@ -91,19 +96,22 @@ driver.findElement(By.partialLinkText("Timesheet"));
 ```
 
 * **By css:**
+
 ```
 <input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - **With id:**
+
+- **With id:**
+
  ```
    driver.findElement(By.cssSelector("input[id=gender-male]"));
    
    or
    
    driver.findElement(By.cssSelector("input#gender-male"));
-   ```
+  ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- **With css selector:**
+ - **With css selector:**
 
 ```
    driver.findElement(By.cssSelector("input.ng-untouched.ng-prinstine.ng-invalid"));
@@ -113,7 +121,7 @@ driver.findElement(By.partialLinkText("Timesheet"));
    driver.findElement(By.cssSelector(".ng-untouched.ng-prinstine"));
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- **With attribute:**
+- **With attribute:**
 
 ```
    driver.findElement(By.cssSelector("input[type=radio]"));
@@ -127,7 +135,7 @@ driver.findElement(By.partialLinkText("Timesheet"));
    driver.findElement(By.cssSelector("input[formcontrolname=gender]"));
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- **With sub-string:**
+- **With sub-string:**
 
 ```
    driver.findElement(By.cssSelector("input[type^=ra]"));
@@ -184,7 +192,7 @@ driver.findElement(By.name("first_name")).getAttribute("value);
 ```
 <input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
 
-   driver.findElement(By.name("gender-male")).click();
+driver.findElement(By.name("gender-male")).click();
 ```
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Check box
