@@ -24,12 +24,11 @@ Feature: I login in AT Portal
     And BodyTable is displayed
     And Button Submit is "<enable>"
     Examples:
-      | position | sum       | enable |
-      | 0        | 0         | true   |
-      | 1        | 2         | false  |
-      | 2        | 2         | false  |
-      | 3        | 1         | false  |
-
+      | position | sum | enable |
+      | 0        | 0   | true   |
+      | 1        | 2   | false  |
+      | 2        | 2   | false  |
+      | 3        | 1   | false  |
 
   Scenario: I click on tab Normal User, show alert message then clicked on button submit
     Given I click on access control tab item "0"
