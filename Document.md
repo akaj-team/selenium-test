@@ -160,7 +160,7 @@ Element:
   Element:
     <div class="form-group">
       <label class="col-md-4 control-label required">"First name"</label>
-      <input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
+      <input class="form-control" formcontrolname="first_name" name="first_name" type="text">
       <span class="help-block">Please enter value</span>
     </div>
        
@@ -178,7 +178,7 @@ Element:
 
 ```
  Element: 
- <input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
+ <input class="form-control" formcontrolname="first_name" name="first_name">
 ```
 
 - We can put values into a text box using the **sendKeys()** method.
