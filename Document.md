@@ -37,12 +37,12 @@ Test cases are written such that, web elements on web pages are identified and t
 |   3    |By class name        |`driver.findElement(By.className("class"))`                                                      |Locates an element using the class attribute|
 |   4    |By tag name          |`driver.findElement(By.tagName("tagname"))`                                                      |Locates an element using the html tag       |
 |   5    |By link text         |`driver.findElement(By.linkText("linktext"))`                                                    |Locates a link using link text              |
-|   6    |By partial link text |`driver.findElement(By.partialLinkText ("linktext"))`                                            |Locates a link using the link's partial text|
+|   6    |By partial link text |`driver.findElement(By.partialLinkText("partialLinkText"))`                                            |Locates a link using the link's partial text|
 |   7    |By css               |`Locates an element using the css selector`                                                      |Locates an element using the css attribute  |
-|        |Id                   |`driver.findElement(By.cssSelector("<HTML tag>[id=<id>]"))` <br/><br/> or <br/><br/> `driver.findElement(By.cssSelector("<HTML tag>#<id>"))`  |              |
-|        |Class                |`driver.findElement(By.cssSelector("<HTML tag>.<Value of Class attribute>"))`                    |                                            |
-|        |Attribute            |`driver.findElement(By.cssSelector("<HTML tag>[<attribute>=<value of attribute>]"))`             |                                            |
-|        |Sub-string           |`driver.findElement(By.cssSelector("<HTML tag>[<attribute>^=<prefix of the string>]"))` <br/><br/> or <br/><br/> `driver.findElement(By.cssSelector ("<HTML tag>[<attribute>$=<suffix of the string>]"))` <br/><br/> or <br/><br/> `driver.findElement(By.cssSelector("<HTML tag>[<attribute>*=<sub string>]"))`| |
+|        |Id                   |`driver.findElement(By.cssSelector("<tagName>[id=<id>]"))`<br/><br/> or <br/><br/>`driver.findElement(By.cssSelector("<tagName>#<id>"))`    |              |
+|        |Class                |`driver.findElement(By.cssSelector("<tagName>.<value of class attribute>"))`                    |                                            |
+|        |Attribute            |`driver.findElement(By.cssSelector("<tagName>[<attribute>=<value of attribute>]"))`             |                                            |
+|        |Sub-string           |`driver.findElement(By.cssSelector("<tagName>[<attribute>^=<prefix of the string>]"))`<br/><br/> or <br/><br/>`driver.findElement(By.cssSelector("<tagName>[<attribute>$=<suffix of the string>]"))`<br/><br/> or <br/><br/>`driver.findElement(By.cssSelector("<tagName>[<attribute>*=<sub string>]"))`| |
 |   8    |By xpath             |`driver.findElement(By.xpath("xpath"))`                                                          |Locates an element using xpath query        |
 
 ***Example:***
@@ -58,7 +58,7 @@ Find: driver.findElement(By.id("page-wrapper"));
 * **By name:**
 
  ```
-Element: <meta name="description" content="AT-Portal version 1.4.0-beta released on Fri, 09 Nov 2018 02:24:15 GMT">
+Element: <meta name="description" content="AT-Portal version 1.4.0-beta">
 
 Find: driver.findElement(By.name("description"));
 ```
@@ -98,13 +98,15 @@ Find: driver.findElement(By.partialLinkText("Timesheet"));
 * **By css:**
 
 ```
-Element: <input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
+Element: 
+<input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
 ```
 
 - **With id:**
 
  ```
-  Find: driver.findElement(By.cssSelector("input[id=gender-male]"));
+  Find: 
+        driver.findElement(By.cssSelector("input[id=gender-male]"));
    
         or
    
@@ -114,17 +116,19 @@ Element: <input formcontrolname="gender" type="radio" id="gender-male" class="ng
  - **With css selector:**
 
 ```
-   Find: driver.findElement(By.cssSelector("input.ng-untouched.ng-prinstine.ng-invalid"));
+  Find: 
+        driver.findElement(By.cssSelector("input.ng-untouched.ng-prinstine.ng-invalid"));
 
-         or 
+        or 
 
-         driver.findElement(By.cssSelector(".ng-untouched.ng-prinstine"));
+        driver.findElement(By.cssSelector(".ng-untouched.ng-prinstine"));
 ```
 
 - **With attribute:**
 
 ```
-  Find: driver.findElement(By.cssSelector("input[type=radio]"));
+  Find: 
+        driver.findElement(By.cssSelector("input[type=radio]"));
 
         or 
 
@@ -138,7 +142,8 @@ Element: <input formcontrolname="gender" type="radio" id="gender-male" class="ng
 - **With sub-string:**
 
 ```
-   Find: driver.findElement(By.cssSelector("input[type^=ra]"));
+  Find: 
+         driver.findElement(By.cssSelector("input[type^=ra]"));
 
          or
 
@@ -172,7 +177,8 @@ Element: <input formcontrolname="gender" type="radio" id="gender-male" class="ng
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. Text box
 
 ```
- Element: <input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
+ Element: 
+ <input class="form-control" formcontrolname="first_name" name="first_name" required type="text" placeholder="First Name">
 ```
 
 - We can put values into a text box using the **sendKeys()** method.
@@ -192,7 +198,8 @@ Element: <input formcontrolname="gender" type="radio" id="gender-male" class="ng
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We can select a radio button option using the **click()** method and unselect using the same **click()** method.
 
 ```
-Element: <input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
+Element: 
+<input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
 
 Find: driver.findElement(By.name("gender-male")).click();
 ```
@@ -224,7 +231,7 @@ Find:
 
 ### III. Synchronization
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To synchronize between script execution and application, we need to wait after performing appropriate actions. Let us look at the ways to achieve the same.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To synchronize between script execution and application, we need to wait after performing appropriate actions.
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Thread.Sleep
 
@@ -297,18 +304,18 @@ driver.manage().timeouts().implicitlyWait(TimeOut, TimeUnit.SECONDS);
    Implicit Wait                                                                                       | Explicit Wait                                                                                                            
   -----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------- 
   Time is applied to all the elements in the script                                                    |Time is applied only to those elements which are intended by us     
-  We need not specify "ExpectedConditions" on the element to be located                                |we need to specify "ExpectedConditions" on the element to be located
+  We need not specify "ExpectedConditions" on the element to be located                                |We need to specify "ExpectedConditions" on the element to be located
   It is recommended to use when the elements are located with the time frame specified in implicit wait|It is recommended to use when the elements are taking long time to load and also for verifying the property of the element like(visibilityOfElementLocated, elementToBeClickable,elementToBeSelected)
 
 ### IV. Keyboard action
 
 **&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. keyDown(modifier_key)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a modifier key press. Does not release the modifier key - subsequent interactions may assume it's kept pressed.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a modifier key press. Does not release the modifier key - subsequent interactions may assume it's kept pressed.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**modifier_key** - any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**modifier_key** - Any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
 
 ```
 new Actions(driver).keyDown(<Key>).build().perform();
@@ -316,11 +323,11 @@ new Actions(driver).keyDown(<Key>).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2. keyUp(modifier _key)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a key release.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a key release.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**modifier_key** - any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**modifier_key** - Any of the modifier keys (Keys.ALT, Keys.SHIFT, or Keys.CONTROL)
 
 ```
 new Actions(driver).keyUp(<Key>).build().perform();
@@ -328,13 +335,13 @@ new Actions(driver).keyUp(<Key>).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**3. sendKeys(onElement, charSequence)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sends a series of keystrokes onto the element. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sends a series of keystrokes onto the element. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**onElement** - element that will receive the keystrokes, usually a text field
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**onElement** - Element that will receive the keystrokes, usually a text field
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;charSequence - any string value representing the sequence of keystrokes to be sent
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**charSequence** - Any string value representing the sequence of keystrokes to be sent
 
 ```
 new Actions(driver).sendKeys(element, charSequence).build().perform();
@@ -344,7 +351,7 @@ new Actions(driver).sendKeys(element, charSequence).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1. click**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perform a click based on coordinates.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perform a click based on coordinates.
 
 ```
 element.click();
@@ -352,7 +359,7 @@ element.click();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1. clickAndHold**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Clicks (without releasing) at the current mouse location.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Clicks (without releasing) at the current mouse location.
 
 ```
 new Actions(driver).clickAndHold().build().perform();
@@ -360,7 +367,7 @@ new Actions(driver).clickAndHold().build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2. contextClick**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a context-click at the current mouse location.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a context-click at the current mouse location.
 
 ```
 new Actions(driver).contextClick().build().perform();
@@ -368,7 +375,7 @@ new Actions(driver).contextClick().build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**3. doubleClick**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a double-click at the current mouse location.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs a double-click at the current mouse location.
 
 ```
 new Actions(driver).doubleClick().build().perform();
@@ -376,13 +383,13 @@ new Actions(driver).doubleClick().build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**4. dragAndDrop(source, target)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs click-and-hold at the location of the source element, moves to the location of the target element, then releases the mouse.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs click-and-hold at the location of the source element, moves to the location of the target element, then releases the mouse.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**source**- element to emulate button down at.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**source**- Element to emulate button down at.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**target**- element to move to and release the mouse at.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**target**- Element to move to and release the mouse at.
 
 ```
 new Actions(driver).dragAndDrop(elementSource, elementTarget).build().perform();
@@ -390,15 +397,15 @@ new Actions(driver).dragAndDrop(elementSource, elementTarget).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**5. dragAndDropBy(source, x-offset, y-offset)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs click-and-hold at the location of the source element, moves by a given offset, then releases the mouse.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performs click-and-hold at the location of the source element, moves by a given offset, then releases the mouse.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**source**- element to emulate button down at.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**source**- Element to emulate button down at.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**xOffset**- horizontal move offset.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**xOffset**- Horizontal move offset.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**yOffset**- vertical move offset.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**yOffset**- Vertical move offset.
 
 ```
 new Actions(driver).dragAndDrop(element, x-offset, y-offset).build().perform();
@@ -406,13 +413,13 @@ new Actions(driver).dragAndDrop(element, x-offset, y-offset).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**6. moveByOffset(x-offset, y-offset)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moves the mouse from its current position by the given offset.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moves the mouse from its current position by the given offset.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**x-offset** - horizontal offset. A negative value means moving the mouse left.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**x-offset** - Horizontal offset. A negative value means moving the mouse left.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**y-offset** - vertical offset. A negative value means moving the mouse down.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**y-offset** - Vertical offset. A negative value means moving the mouse down.
 
 ```
 new Actions(driver).moveByOffset(x-offset, y-offset).build().perform();
@@ -420,11 +427,11 @@ new Actions(driver).moveByOffset(x-offset, y-offset).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**7. moveToElement(toElement)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moves the mouse to the middle of the element. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moves the mouse to the middle of the element. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Parameters:**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**toElement** - element to move to.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**toElement** - Element to move to.
 
 ```
 new Actions(driver).moveToElement(element).build().perform();
@@ -432,7 +439,7 @@ new Actions(driver).moveToElement(element).build().perform();
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**8.release()**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Releases the depressed left mouse button at the current mouse location
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Releases the depressed left mouse button at the current mouse location
 
 ```
 new Actions(driver).release().build().perform();
@@ -481,13 +488,13 @@ try {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**When**: It defines the trigger point for any test scenario execution.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Then**: **Then** holds the expected result for the test to be executed.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Then**: It holds the expected result for the test to be executed.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**And**: It provides the logical **And** condition between any two statements. And can be used in conjunction with **Given**, **When** and **Then** statement.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**But**: It signifies logical **Or** condition between any two statements. Or can be used in conjunction with **Given**, **When** and **Then** statement.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Background**: Background generally has the instruction on what to setup before each scenario runs. So this is ideal to be used for code when we want to set up the web-browser or we want to establish the database connectivity.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Background**: It generally has the instruction on what to setup before each scenario runs. So this is ideal to be used for code when we want to set up the web-browser or we want to establish the database connectivity.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Example:**
 
@@ -505,6 +512,17 @@ Then Login should be unsuccessful
 ## III. Scenario
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every scenario starts with the keyword **Scenario:** and is followed by an optional scenario title which describe a behaviour.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Example**
+
+```
+Scenario: Given user can navigate to AT-Portal.
+Given I am a AT employee
+But My account is blocked
+When I enter my "hangtran"
+And I enter my "abc123"
+Then Login should be successful
+```
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Scenario Outline**
 
@@ -570,7 +588,9 @@ Feature: Login functionality for a AT-Portal site.
 ## V.Tag
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cucumber has already provided a way to organize your scenario execution by using tags in feature file. We can define each scenario with a useful tag. Tag starts with **@**. After **@** you can have any relevant text to define your tag.
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then to target these tagged scenarios just specify the tags names in the CucumberOptions as **tags = {"@SmokeTests"}**.
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Example:**
 
 ```
