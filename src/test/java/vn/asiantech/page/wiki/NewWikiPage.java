@@ -17,30 +17,30 @@ import static vn.asiantech.base.DriverBase.getDriver;
 public class NewWikiPage extends BasePage<NewWikiPage> {
 
     @FindBy(name = "title")
-    WebElement inputTitle;
+    private WebElement inputTitle;
 
     @FindBy(id = "btn-submit-wiki")
-    WebElement btnSubmit;
+    private WebElement btnSubmit;
 
     @FindBy(className = "help-block")
-    WebElement txtMessageError;
+    private WebElement txtMessageError;
 
     @FindBy(css = ".cke_inner.cke_reset")
-    WebElement inputContent;
+    private WebElement inputContent;
 
     @Override
-    public NewWikiPage navigateTo(WebDriver webDriver) {
+    final public NewWikiPage navigateTo(final WebDriver webDriver) {
         return this;
     }
 
-    public NewWikiPage enterTitle() {
+    final public NewWikiPage enterTitle() {
         inputTitle.sendKeys("Pikalong");
         return this;
     }
 
-    public void enterContent() {
-        String message = "Is a great team Is a great team Is a great team Is a great team Is a great team Is a great " +
-                "team Is a great team Is a great team team Is a great team Is a great team";
+    final public void enterContent() {
+        String message = "Is a great team Is a great team Is a great team Is a great team Is a great team Is a great "
+                + "team Is a great team Is a great team team Is a great team Is a great team";
 
         waitForElement(getDriver(), inputContent);
         getDriver().switchTo().frame(getDriver().findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
@@ -48,21 +48,21 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
         getDriver().switchTo().defaultContent();
     }
 
-    public boolean isSubmitEnable() {
+    final public boolean isSubmitEnable() {
         return btnSubmit.isEnabled();
     }
 
-    public void clickSubmit() {
+    final public void clickSubmit() {
         btnSubmit.click();
     }
 
-    public void clearTitle() {
+    final public void clearTitle() {
         inputTitle.clear();
         inputTitle.sendKeys("h");
         inputTitle.sendKeys(Keys.BACK_SPACE);
     }
 
-    public boolean isShowMessageError(String text) {
+    final public boolean isShowMessageError(final String text) {
         return txtMessageError.getText().equals(text);
     }
 }

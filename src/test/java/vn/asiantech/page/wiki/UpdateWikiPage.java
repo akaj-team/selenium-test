@@ -8,27 +8,32 @@ import vn.asiantech.base.BasePage;
 
 import java.util.List;
 
+/**
+ * @author at-anh.quach
+ * UpdatePage page
+ */
+
 public class UpdateWikiPage extends BasePage<UpdateWikiPage> {
 
     @FindBy(xpath = "//p-dropdown[contains(@formcontrolname,'parent_id')]")
-    WebElement inputParent;
+    private WebElement inputParent;
 
     private String itemParentFirst;
 
     @Override
-    public UpdateWikiPage navigateTo(WebDriver webDriver) {
+    final public UpdateWikiPage navigateTo(final WebDriver webDriver) {
         return this;
     }
 
-    public void clickInputParent() {
+    final public void clickInputParent() {
         inputParent.click();
     }
 
-    public boolean isDropDownMenu() {
+    final public boolean isDropDownMenu() {
         return inputParent.findElement(By.tagName("ul")).isDisplayed();
     }
 
-    public void clickItemParent() {
+    final public void clickItemParent() {
         List<WebElement> items = inputParent.findElement(By.tagName("ul")).findElements(By.tagName("li"));
         if (items.size() > 0) {
             itemParentFirst = items.get(0).getText();
@@ -36,7 +41,7 @@ public class UpdateWikiPage extends BasePage<UpdateWikiPage> {
         }
     }
 
-    public boolean isChangeParent() {
+    final public boolean isChangeParent() {
         return inputParent.getText().equals(itemParentFirst);
     }
 }
