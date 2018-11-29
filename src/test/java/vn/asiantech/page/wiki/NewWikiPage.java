@@ -33,8 +33,9 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
         return this;
     }
 
-    public void enterTitle() {
+    public NewWikiPage enterTitle() {
         inputTitle.sendKeys("Pikalong");
+        return this;
     }
 
     public void enterContent() {

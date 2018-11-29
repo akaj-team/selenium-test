@@ -38,12 +38,9 @@ public class NewPageDefinition extends DriverBase implements En {
 
         Then("^Submit button is enabled$", () -> Assert.assertTrue(newWikiPage.isSubmitEnable()));
 
-        Given("^Enter title and content$", () -> {
-            newWikiPage.enterTitle();
-            newWikiPage.enterContent();
-        });
+        Given("^Enter title and content$", () -> newWikiPage.enterTitle().enterContent());
 
-        When("^Click submit child page button$", () -> newWikiPage.clickSubmit());
+        When("^Click submit child page or update page button$", () -> newWikiPage.clickSubmit());
 
         Then("^Submit button is disabled$", () -> Assert.assertFalse(newWikiPage.isSubmitEnable()));
 

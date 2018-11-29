@@ -12,7 +12,7 @@ Feature: Check new page
 
   Scenario: Check create a child page
     Given Enter title and content
-    When Click submit child page button
+    When Click submit child page or update page button
     Then Redirect wiki detail page
 
   Scenario: Check submit is disable when only enter title

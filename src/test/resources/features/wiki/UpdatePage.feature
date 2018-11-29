@@ -11,7 +11,7 @@ Feature: Check update page
   Scenario: Check update a child page
     When I clear title
     Then I enter title
-    When Click submit child page button
+    When Click submit child page or update page button
     Then Redirect wiki detail page
 
   Scenario: Check show message "Please enter value"
