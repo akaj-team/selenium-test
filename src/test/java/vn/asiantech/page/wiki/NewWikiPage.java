@@ -48,7 +48,7 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
         getDriver().switchTo().defaultContent();
     }
 
-    final public boolean isSubmitEnable() {
+    public final boolean isSubmitEnable() {
         return btnSubmit.isEnabled();
     }
 
