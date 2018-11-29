@@ -1,4 +1,4 @@
-@UpdatePage
+@UpdateWikiPage
 Feature: Check update page
 
   Background: User navigates to update page

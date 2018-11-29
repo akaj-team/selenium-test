@@ -6,7 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
-public class UpdatePagePage extends BasePage<UpdatePagePage> {
+import java.util.List;
+
+public class UpdateWikiPage extends BasePage<UpdateWikiPage> {
 
     @FindBy(xpath = "//p-dropdown[contains(@formcontrolname,'parent_id')]")
     WebElement inputParent;
@@ -14,7 +16,7 @@ public class UpdatePagePage extends BasePage<UpdatePagePage> {
     private String itemParentFirst;
 
     @Override
-    public UpdatePagePage navigateTo(WebDriver webDriver) {
+    public UpdateWikiPage navigateTo(WebDriver webDriver) {
         return this;
     }
 
@@ -27,9 +29,11 @@ public class UpdatePagePage extends BasePage<UpdatePagePage> {
     }
 
     public void clickItemParent() {
-        WebElement item = inputParent.findElement(By.tagName("ul")).findElements(By.tagName("li")).get(0);
-        itemParentFirst = item.getText();
-        item.click();
+        List<WebElement> items = inputParent.findElement(By.tagName("ul")).findElements(By.tagName("li"));
+        if (items.size() > 0) {
+            itemParentFirst = items.get(0).getText();
+            items.get(0).click();
+        }
     }
 
     public boolean isChangeParent() {

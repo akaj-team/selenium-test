@@ -6,11 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.wiki.UpdatePagePage;
+import vn.asiantech.page.wiki.UpdateWikiPage;
 
 public class UpdatePageDefinition extends DriverBase implements En {
     private WebDriver driver;
-    private UpdatePagePage updatePagePage;
+    private UpdateWikiPage updateWikiPage;
 
     public UpdatePageDefinition() {
 
@@ -20,19 +20,19 @@ public class UpdatePageDefinition extends DriverBase implements En {
             e.printStackTrace();
         }
 
-        updatePagePage = initPage(driver, UpdatePagePage.class);
+        updateWikiPage = initPage(driver, UpdateWikiPage.class);
 
         And("^Update Page page displayed$", () -> {
             driver.get(Constant.UPDATE_PAGE_URL);
             waitForPageDisplayed(driver, Constant.UPDATE_PAGE_URL, By.id("wiki-form-wrapper"));
         });
 
-        When("^I click on menu parent$", () -> updatePagePage.clickInputParent());
+        When("^I click on menu parent$", () -> updateWikiPage.clickInputParent());
 
-        Then("^Menu is drop down$", () -> Assert.assertTrue(updatePagePage.isDropDownMenu()));
+        Then("^Menu is drop down$", () -> Assert.assertTrue(updateWikiPage.isDropDownMenu()));
 
-        When("^I click on item parent$", () -> updatePagePage.clickItemParent());
+        When("^I click on item parent$", () -> updateWikiPage.clickItemParent());
 
-        Then("^Change parent$", () -> Assert.assertTrue(updatePagePage.isChangeParent()));
+        Then("^Change parent$", () -> Assert.assertTrue(updateWikiPage.isChangeParent()));
     }
 }

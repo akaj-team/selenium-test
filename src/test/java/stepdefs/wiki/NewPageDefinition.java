@@ -1,13 +1,12 @@
 package stepdefs.wiki;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.wiki.NewPagePage;
+import vn.asiantech.page.wiki.NewWikiPage;
 
 /**
  * @author at-anh.quach
@@ -16,7 +15,7 @@ import vn.asiantech.page.wiki.NewPagePage;
 
 public class NewPageDefinition extends DriverBase implements En {
     private WebDriver driver;
-    private NewPagePage newPagePage;
+    private NewWikiPage newWikiPage;
 
     public NewPageDefinition() {
 
@@ -26,30 +25,30 @@ public class NewPageDefinition extends DriverBase implements En {
             e.printStackTrace();
         }
 
-        newPagePage = initPage(driver, NewPagePage.class);
+        newWikiPage = initPage(driver, NewWikiPage.class);
 
         And("^Child Page page displayed$", () -> {
             driver.get(Constant.CHILD_PAGE_URL);
             waitForPageDisplayed(driver, Constant.CHILD_PAGE_URL, By.id("wiki-form-wrapper"));
         });
 
-        When("^I enter title$", () -> newPagePage.enterTitle());
+        When("^I enter title$", () -> newWikiPage.enterTitle());
 
-        And("^I enter content$", () -> newPagePage.enterContent());
+        And("^I enter content$", () -> newWikiPage.enterContent());
 
-        Then("^Submit button is enabled$", () -> Assert.assertTrue(newPagePage.isSubmitEnable()));
+        Then("^Submit button is enabled$", () -> Assert.assertTrue(newWikiPage.isSubmitEnable()));
 
         Given("^Enter title and content$", () -> {
-            newPagePage.enterTitle();
-            newPagePage.enterContent();
+            newWikiPage.enterTitle();
+            newWikiPage.enterContent();
         });
 
-        When("^Click submit child page button$", () -> newPagePage.clickSubmit());
+        When("^Click submit child page button$", () -> newWikiPage.clickSubmit());
 
-        Then("^Submit button is disabled$", () -> Assert.assertFalse(newPagePage.isSubmitEnable()));
+        Then("^Submit button is disabled$", () -> Assert.assertFalse(newWikiPage.isSubmitEnable()));
 
-        Then("^Show message \"([^\"]*)\"$", (String text) -> Assert.assertTrue(newPagePage.isShowMessageError(text)));
+        Then("^Show message \"([^\"]*)\"$", (String text) -> Assert.assertTrue(newWikiPage.isShowMessageError(text)));
 
-        And("^I clear title$", () -> newPagePage.clearTitle());
+        And("^I clear title$", () -> newWikiPage.clearTitle());
     }
 }

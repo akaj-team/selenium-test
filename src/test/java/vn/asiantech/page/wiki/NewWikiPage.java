@@ -14,7 +14,7 @@ import static vn.asiantech.base.DriverBase.getDriver;
  * NewPage page
  */
 
-public class NewPagePage extends BasePage<NewPagePage> {
+public class NewWikiPage extends BasePage<NewWikiPage> {
 
     @FindBy(name = "title")
     WebElement inputTitle;
@@ -29,7 +29,7 @@ public class NewPagePage extends BasePage<NewPagePage> {
     WebElement inputContent;
 
     @Override
-    public NewPagePage navigateTo(WebDriver webDriver) {
+    public NewWikiPage navigateTo(WebDriver webDriver) {
         return this;
     }
 
@@ -39,7 +39,7 @@ public class NewPagePage extends BasePage<NewPagePage> {
 
     public void enterContent() {
         String message = "Is a great team Is a great team Is a great team Is a great team Is a great team Is a great " +
-                "team Is a great team Is a great team";
+                "team Is a great team Is a great team team Is a great team Is a great team";
 
         waitForElement(getDriver(), inputContent);
         getDriver().switchTo().frame(getDriver().findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
@@ -62,7 +62,6 @@ public class NewPagePage extends BasePage<NewPagePage> {
     }
 
     public boolean isShowMessageError(String text) {
-        System.out.println("hh:"+txtMessageError.getText());
         return txtMessageError.getText().equals(text);
     }
 }

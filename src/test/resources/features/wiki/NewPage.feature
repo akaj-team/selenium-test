@@ -1,4 +1,4 @@
-@NewPage
+@NewWikiPage
 Feature: Check new page
 
   Background: User navigates to new page
