@@ -152,16 +152,22 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     public final void clickFirstItemAddTimeSheet() {
         Actions action = new Actions(driver);
         waitForElement(driver, elementCalendarBody);
-        List<WebElement> elementCalendar = elementCalendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
+        List<WebElement> elementCalendar = elementCalendarBody.findElements(By.className("cell-content"));
+        System.out.println("xxxx = "+elementCalendar.size());
         for (WebElement anAvatar : elementCalendar) {
             action.moveToElement(anAvatar).build().perform();
         }
         List<WebElement> listItems = elementCalendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
-        listItems.get(0).click();
+        listItems.get(1).click();
+//        for (int i = 0; i < elementCalendar.size(); i++) {
+//            if (!elementCalendar.get(i).findElement(By.cssSelector(".task-record.leave-item.full.ng-star-inserted")).isEnabled()) {
+//                listItems.get(i).click();
+//            }
+//        }
     }
 
     public final Boolean isTimeSheetShowing() {
-        waitForElement(driver, dlgTimeSheet);
+        waitForElementDisplay(driver, dlgTimeSheet, 10);
         return dlgTimeSheet.isDisplayed();
     }
 
@@ -320,16 +326,11 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public final void clickColumnsTimeSheet() {
-        waitForElement(driver, elementTimeSheetBody);
+        waitForElementDisplay(driver, elementTimeSheetBody, 20);
         List<WebElement> items = elementTimeSheetBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
-        for (int i = 0; i < items.size() - 2; i++) {
-            WebElement element = items.get(i).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
-            WebElement content = element.findElement(By.className("info-content"));
-            if (content != null && content.isDisplayed()) {
-                content.click();
-                return;
-            }
-        }
+        WebElement element = items.get(1).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
+        WebElement content = element.findElement(By.className("info-content"));
+        content.click();
     }
 
     public final Boolean isButtonDeleteShowing() {
@@ -396,7 +397,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         waitForElement(driver, elementCalendarBody);
         List<WebElement> items = elementCalendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
         try {
-            WebElement element = items.get(0).findElement(By.className("cell-content"));
+            WebElement element = items.get(1).findElement(By.className("cell-content"));
             return !element.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
@@ -430,9 +431,9 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         waitForElement(driver, elementCalendarBody);
         Actions actionResize = new Actions(driver);
         List<WebElement> items = elementCalendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
-        WebElement content = items.get(0).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
+        WebElement content = items.get(1).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
         WebElement resize = content.findElement(By.className("resize-handle-icon"));
-        actionResize.moveToElement(resize).clickAndHold().moveByOffset(0, HEIGHT_ITEM_RESIZE).release().perform();
+        actionResize.moveToElement(resize).clickAndHold().moveByOffset(1, HEIGHT_ITEM_RESIZE).release().perform();
         try {
             Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
         } catch (InterruptedException e) {
@@ -442,8 +443,8 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public final Boolean isTimeSheetChange(final String content) {
         waitForElement(driver, elementCalendarBody);
-        List<WebElement> items = elementCalendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
-        WebElement item = items.get(0).findElement(By.className("task-record"));
+        List<WebElement> items = elementCalendarBody.findElements(By.className(".timesheet-cell.ng-star-inserted"));
+        WebElement item = items.get(1).findElement(By.className("task-record"));
         WebElement timeInfo = item.findElement(By.className("item-date"));
         return timeInfo.getText().equals(content);
     }
@@ -469,8 +470,14 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public final void clickFirstItemTimeSheet() {
         waitForElement(driver, elementCalendarBody);
+        List<WebElement> elementCalendar = elementCalendarBody.findElements(By.className("cell-content"));
         List<WebElement> listItems = elementCalendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
-        listItems.get(0).click();
+        listItems.get(1).click();
+//        for (int i = 0; i < elementCalendar.size(); i++) {
+//            if (!elementCalendar.get(i).findElement(By.cssSelector(".task-record.leave-item.full.ng-star-inserted")).isEnabled()) {
+//                listItems.get(i).click();
+//            }
+//        }
         try {
             Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
         } catch (InterruptedException e) {
@@ -500,10 +507,11 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public void addTimeSheetFullRecord() {
-        clickFirstItemTimeSheet();
-        fillInformationForTimeSheet();
-        clickRepeatEveryDay();
         try {
+            Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
+            clickFirstItemTimeSheet();
+            fillInformationForTimeSheet();
+            clickRepeatEveryDay();
             Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
         } catch (InterruptedException e) {
             e.printStackTrace();

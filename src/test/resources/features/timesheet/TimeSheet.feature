@@ -27,8 +27,7 @@ Feature: Check TimeSheet
     Then Display button add new timesheet
 
   Scenario: Display dialog create timesheet after click button add timesheet
-    When Click on button timesheet
-    And Click first button add new timesheet
+    When Click first button add new timesheet
     Then Display dialog timesheet
 
   Scenario: Create and submit timesheet

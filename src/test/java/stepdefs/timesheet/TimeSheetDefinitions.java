@@ -24,7 +24,7 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         TimeSheetPage myTimeSheet = initPage(getDriver(), TimeSheetPage.class);
         Given("^Display time sheet page$", () -> {
             driver.get(Constant.TIME_SHEET_PAGE_URL);
-            waitForPageDisplayed(getDriver(), Constant.TIME_SHEET_PAGE_URL, By.id("page-wrapper"));
+            waitForPageDisplayed(driver, Constant.TIME_SHEET_PAGE_URL, By.id("page-wrapper"));
         });
 
         And("^Check item add timesheet exist$", myTimeSheet::clearTimeSheetItem);
@@ -39,7 +39,6 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         When("^Move to columns timesheet$", myTimeSheet::moveRowTimeSheet);
         Then("^Display button add new timesheet$", () -> Assert.assertTrue(myTimeSheet.getAddTimeSheetClickable()));
         When("^Display dialog create timesheet after click button add timesheet$", myTimeSheet::getAddTimeSheetsClickable);
-        When("^Click on button timesheet$", myTimeSheet::clickAddTimeSheets);
         And("^Click first button add new timesheet$", myTimeSheet::clickFirstItemAddTimeSheet);
         Then("^Display dialog timesheet$", () -> Assert.assertTrue(myTimeSheet.isTimeSheetShowing()));
         And("^Display title item project is \"([^\"]*)\"$", (String content) -> Assert.assertEquals(content, myTimeSheet.getTitleItemProjectShowing()));
