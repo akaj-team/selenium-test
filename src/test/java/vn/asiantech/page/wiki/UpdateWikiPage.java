@@ -12,7 +12,6 @@ import java.util.List;
  * @author at-anh.quach
  * UpdatePage page
  */
-
 public class UpdateWikiPage extends BasePage<UpdateWikiPage> {
 
     @FindBy(xpath = "//p-dropdown[contains(@formcontrolname,'parent_id')]")

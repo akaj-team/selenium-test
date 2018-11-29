@@ -12,7 +12,6 @@ import vn.asiantech.page.wiki.UpdateWikiPage;
  * @author at-anh.quach
  * UpdateWikiDefinition
  */
-
 public class UpdateWikiDefinition extends DriverBase implements En {
     private WebDriver driver;
     private UpdateWikiPage updateWikiPage;

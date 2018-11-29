@@ -12,7 +12,6 @@ import vn.asiantech.page.wiki.NewWikiPage;
  * @author at-anh.quach
  * NewWikiDefinition
  */
-
 public class NewWikiDefinition extends DriverBase implements En {
     private WebDriver driver;
     private NewWikiPage newWikiPage;

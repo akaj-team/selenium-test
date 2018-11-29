@@ -5,7 +5,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 import static vn.asiantech.base.DriverBase.getDriver;
 
@@ -13,7 +15,6 @@ import static vn.asiantech.base.DriverBase.getDriver;
  * @author at-anh.quach
  * NewPage page
  */
-
 public class NewWikiPage extends BasePage<NewWikiPage> {
 
     @FindBy(name = "title")
@@ -49,6 +50,8 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
     }
 
     public final boolean isSubmitEnable() {
+        new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
+                driver -> btnSubmit.isEnabled());
         return btnSubmit.isEnabled();
     }
 
