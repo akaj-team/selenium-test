@@ -29,16 +29,16 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
     private WebElement inputContent;
 
     @Override
-    final public NewWikiPage navigateTo(final WebDriver webDriver) {
+    public final NewWikiPage navigateTo(final WebDriver webDriver) {
         return this;
     }
 
-    final public NewWikiPage enterTitle() {
+    public final NewWikiPage enterTitle() {
         inputTitle.sendKeys("Pikalong");
         return this;
     }
 
-    final public void enterContent() {
+    public final void enterContent() {
         String message = "Is a great team Is a great team Is a great team Is a great team Is a great team Is a great "
                 + "team Is a great team Is a great team team Is a great team Is a great team";
 
@@ -52,17 +52,17 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
         return btnSubmit.isEnabled();
     }
 
-    final public void clickSubmit() {
+    public final void clickSubmit() {
         btnSubmit.click();
     }
 
-    final public void clearTitle() {
+    public final void clearTitle() {
         inputTitle.clear();
         inputTitle.sendKeys("h");
         inputTitle.sendKeys(Keys.BACK_SPACE);
     }
 
-    final public boolean isShowMessageError(final String text) {
+    public final boolean isShowMessageError(final String text) {
         return txtMessageError.getText().equals(text);
     }
 }

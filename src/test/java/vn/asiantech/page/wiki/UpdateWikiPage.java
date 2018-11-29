@@ -21,19 +21,19 @@ public class UpdateWikiPage extends BasePage<UpdateWikiPage> {
     private String itemParentFirst;
 
     @Override
-    final public UpdateWikiPage navigateTo(final WebDriver webDriver) {
+    public final UpdateWikiPage navigateTo(final WebDriver webDriver) {
         return this;
     }
 
-    final public void clickInputParent() {
+    public final void clickInputParent() {
         inputParent.click();
     }
 
-    final public boolean isDropDownMenu() {
+    public final boolean isDropDownMenu() {
         return inputParent.findElement(By.tagName("ul")).isDisplayed();
     }
 
-    final public void clickItemParent() {
+    public final void clickItemParent() {
         List<WebElement> items = inputParent.findElement(By.tagName("ul")).findElements(By.tagName("li"));
         if (items.size() > 0) {
             itemParentFirst = items.get(0).getText();
@@ -41,7 +41,7 @@ public class UpdateWikiPage extends BasePage<UpdateWikiPage> {
         }
     }
 
-    final public boolean isChangeParent() {
+    public final boolean isChangeParent() {
         return inputParent.getText().equals(itemParentFirst);
     }
 }

@@ -10,14 +10,14 @@ import vn.asiantech.page.wiki.NewWikiPage;
 
 /**
  * @author at-anh.quach
- * NewPageDefinition
+ * NewWikiDefinition
  */
 
-public class NewPageDefinition extends DriverBase implements En {
+public class NewWikiDefinition extends DriverBase implements En {
     private WebDriver driver;
     private NewWikiPage newWikiPage;
 
-    public NewPageDefinition() {
+    public NewWikiDefinition() {
 
         try {
             driver = getDriver();

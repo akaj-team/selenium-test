@@ -8,11 +8,16 @@ import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.wiki.UpdateWikiPage;
 
-public class UpdatePageDefinition extends DriverBase implements En {
+/**
+ * @author at-anh.quach
+ * UpdateWikiDefinition
+ */
+
+public class UpdateWikiDefinition extends DriverBase implements En {
     private WebDriver driver;
     private UpdateWikiPage updateWikiPage;
 
-    public UpdatePageDefinition() {
+    public UpdateWikiDefinition() {
 
         try {
             driver = getDriver();
