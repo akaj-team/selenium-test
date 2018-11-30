@@ -52,7 +52,7 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
     public final boolean isSubmitEnable() {
         new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                 driver -> btnSubmit.isEnabled());
-        return btnSubmit.isEnabled();
+        return true;
     }
 
     public final void clickSubmit() {
