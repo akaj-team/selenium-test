@@ -41,7 +41,7 @@ public class NewWikiDefinition extends DriverBase implements En {
 
         When("^Click submit child page or update page button$", () -> newWikiPage.clickSubmit());
 
-        Then("^Submit button is disabled$", () -> Assert.assertFalse(newWikiPage.isSubmitEnable()));
+        Then("^Submit button is disabled$", () -> Assert.assertTrue(newWikiPage.isSubmitDisable()));
 
         Then("^Show message \"([^\"]*)\"$", (String text) -> Assert.assertTrue(newWikiPage.isShowMessageError(text)));
 

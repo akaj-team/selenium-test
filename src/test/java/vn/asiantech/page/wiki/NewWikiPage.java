@@ -55,6 +55,10 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
         return true;
     }
 
+    public final boolean isSubmitDisable() {
+        return !btnSubmit.isEnabled();
+    }
+
     public final void clickSubmit() {
         btnSubmit.click();
     }
