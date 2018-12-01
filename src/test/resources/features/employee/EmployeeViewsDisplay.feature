@@ -36,7 +36,7 @@ Feature: Check display views after click views
     Then Open successfully a group detail page
 
   Scenario: Open successfully edit employee page
-    When Click on edit action edit
+    When Click on edit action
     Then Open successfully update employee page
 
   Scenario: Open a dialog when click on promotion button
