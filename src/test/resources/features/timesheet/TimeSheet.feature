@@ -43,8 +43,7 @@ Feature: Check TimeSheet
     And Display button Save is disable
 
   Scenario: Display dialog timesheet and input value search
-    When Click on button timesheet
-    And Click first button add new timesheet
+    When Click first button add new timesheet
     Then Display dialog timesheet
     When Select first task on list task
     Then Display dialog task
