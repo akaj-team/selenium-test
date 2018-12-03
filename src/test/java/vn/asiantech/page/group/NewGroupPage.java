@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class NewGroupPage extends BasePage<NewGroupPage> {
 
+    private static final int WAITED_ELEMENT = 500;
     @FindBy(css = "input[formcontrolname=name]")
     private WebElement inputNameGroup;
     @FindBy(css = "input[formcontrolname=email]")
@@ -63,7 +64,7 @@ public class NewGroupPage extends BasePage<NewGroupPage> {
 
     public final void openDropDownLeader() {
         try {
-            Thread.sleep(500);
+            Thread.sleep(WAITED_ELEMENT);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
