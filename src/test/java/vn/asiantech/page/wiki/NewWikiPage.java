@@ -29,22 +29,36 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
     @FindBy(css = ".cke_inner.cke_reset")
     private WebElement inputContent;
 
+    @FindBy(id = "link-to-wiki")
+    private WebElement txtWiki;
+
+    @FindBy(id = "static-dialog-wrapper")
+    private WebElement dlgConfirm;
+
+    @FindBy(className = "btn-cancel")
+    private WebElement btnStayDialogConfirm;
+
+    @FindBy(css = ".btn.btn-sm.btn-warning.btn-submit.ng-star-inserted")
+    private WebElement btnLeaveDialogConfirm;
+
+    @FindBy(xpath = "//a[contains(@class,'fa-close')]")
+    private WebElement btnCloseDialogConfirm;
+
     @Override
     public final NewWikiPage navigateTo(final WebDriver webDriver) {
         return this;
     }
 
-    public final NewWikiPage enterTitle() {
-        inputTitle.sendKeys("Pikalong");
+    public final NewWikiPage enterTitle(String title) {
+        inputTitle.sendKeys(title);
         return this;
     }
 
     public final void enterContent() {
-        String message = "Is a great team Is a great team Is a great team Is a great team Is a great team Is a great "
-                + "team Is a great team Is a great team team Is a great team Is a great team";
-
         waitForElement(getDriver(), inputContent);
         getDriver().switchTo().frame(getDriver().findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
+        String message = "Is a great team Is a great team Is a great team Is a great team Is a great team Is a great "
+                + "team Is a great team Is a great team team Is a great team Is a great team";
         getDriver().findElement(By.tagName("body")).sendKeys(message);
         getDriver().switchTo().defaultContent();
     }
@@ -71,5 +85,30 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
 
     public final boolean isShowMessageError(final String text) {
         return txtMessageError.getText().equals(text);
+    }
+
+    public final void clickTxtWiki() {
+        txtWiki.click();
+    }
+
+    public final boolean isDisplayDialog() {
+        waitForElement(getDriver(), dlgConfirm);
+        return dlgConfirm.isDisplayed();
+    }
+
+    public final boolean isDismissDisplayDialog() {
+        return !dlgConfirm.isDisplayed();
+    }
+
+    public final void clickCloseDialog() {
+        btnCloseDialogConfirm.click();
+    }
+
+    public final void clickStayButtonDialog() {
+        btnStayDialogConfirm.click();
+    }
+
+    public final void clickLeaveButtonDialog() {
+        btnLeaveDialogConfirm.click();
     }
 }

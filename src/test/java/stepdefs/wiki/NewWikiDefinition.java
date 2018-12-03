@@ -31,13 +31,11 @@ public class NewWikiDefinition extends DriverBase implements En {
             waitForPageDisplayed(driver, Constant.CHILD_PAGE_URL, By.id("wiki-form-wrapper"));
         });
 
-        When("^I enter title$", () -> newWikiPage.enterTitle());
-
         And("^I enter content$", () -> newWikiPage.enterContent());
 
         Then("^Submit button is enabled$", () -> Assert.assertTrue(newWikiPage.isSubmitEnable()));
 
-        Given("^Enter title and content$", () -> newWikiPage.enterTitle().enterContent());
+        Given("^Enter title and content$", () -> newWikiPage.enterTitle("Pikalong").enterContent());
 
         When("^Click submit child page or update page button$", () -> newWikiPage.clickSubmit());
 
@@ -46,5 +44,19 @@ public class NewWikiDefinition extends DriverBase implements En {
         Then("^Show message \"([^\"]*)\"$", (String text) -> Assert.assertTrue(newWikiPage.isShowMessageError(text)));
 
         And("^I clear title$", () -> newWikiPage.clearTitle());
+
+        When("^I enter title \"([^\"]*)\"$", (String title) -> newWikiPage.enterTitle(title));
+
+        When("^I click wiki item on menu$", () -> newWikiPage.clickTxtWiki());
+
+        Then("^Display dialog confirm$", () -> Assert.assertTrue(newWikiPage.isDisplayDialog()));
+
+        When("^Click button close dialog$", () -> newWikiPage.clickCloseDialog());
+
+        Then("^Dismiss dialog confirm$", () -> Assert.assertFalse(newWikiPage.isDismissDisplayDialog()));
+
+        When("^Click button stay on dialog$", () -> newWikiPage.clickStayButtonDialog());
+
+        When("^Click button leave on dialog$", () -> newWikiPage.clickLeaveButtonDialog());
     }
 }
