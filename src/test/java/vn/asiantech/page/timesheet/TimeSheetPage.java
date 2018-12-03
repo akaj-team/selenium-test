@@ -479,7 +479,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         }
     }
 
-    public void addTimeSheetFullRecord() {
+    public final void addTimeSheetFullRecord() {
         try {
             Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
             clickFirstItemAddTimeSheet();
