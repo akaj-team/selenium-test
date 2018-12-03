@@ -49,7 +49,7 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
         return this;
     }
 
-    public final NewWikiPage enterTitle(String title) {
+    public final NewWikiPage enterTitle(final String title) {
         inputTitle.sendKeys(title);
         return this;
     }
