@@ -58,5 +58,10 @@ public class NewWikiDefinition extends DriverBase implements En {
         When("^Click button stay on dialog$", () -> newWikiPage.clickStayButtonDialog());
 
         When("^Click button leave on dialog$", () -> newWikiPage.clickLeaveButtonDialog());
+
+        Then("^Dismiss dialog confirm and save data$", () -> {
+            Assert.assertFalse(newWikiPage.isDismissDisplayDialog());
+            Assert.assertTrue(newWikiPage.isKeepData());
+        });
     }
 }

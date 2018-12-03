@@ -111,4 +111,8 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
     public final void clickLeaveButtonDialog() {
         btnLeaveDialogConfirm.click();
     }
+
+    public final boolean isKeepData() {
+        return inputTitle.getAttribute("value").equals("Pikalong");
+    }
 }

@@ -38,8 +38,7 @@ Feature: Check new page
     Then Dismiss dialog confirm
     Given I click wiki item on menu
     When Click button stay on dialog
-    Then Dismiss dialog confirm
+    Then Dismiss dialog confirm and save data
     Given I click wiki item on menu
     When Click button leave on dialog
-    Then Dismiss dialog confirm
-    And Redirect wiki detail page
+    Then Redirect wiki detail page
