@@ -79,7 +79,7 @@ public class TimeSheetDefinitions extends DriverBase implements En {
         Then("^Display Search result is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.displaySearchResult(content)));
         When("^Scroll edit timesheet$", myTimeSheet::scrollChangeItemTimeSheet);
         Then("^Change time sheet info is \"([^\"]*)\"$", (String content) -> Assert.assertTrue(myTimeSheet.isTimeSheetChange(content)));
-        When("^Click on first item add timesheet$", myTimeSheet::clickFirstItemTimeSheet);
+        When("^Click on first item add timesheet$", myTimeSheet::clickFirstItemAddTimeSheet);
         When("^I fill information for timeSheet$", myTimeSheet::fillInformationForTimeSheet);
         When("^Click button save on timeSheet dialog$", myTimeSheet::clickButtonSave);
         And("^Click button submit on timeSheet$", myTimeSheet::clickButtonSubmit);

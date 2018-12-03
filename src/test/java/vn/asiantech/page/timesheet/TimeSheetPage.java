@@ -4,6 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     @FindBy(className = "ui-dropdown-filter")
     private WebElement inputSearch;
     private WebDriver driver;
+    private int positionFirst;
 
     public TimeSheetPage(final WebDriver driver) {
         this.driver = driver;
@@ -136,38 +138,26 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         return false;
     }
 
-    public final void clickAddTimeSheets() {
-        Actions action = new Actions(driver);
-        waitForElement(driver, elementCalendarBody);
-        List<WebElement> elementCalendar = elementCalendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
-        for (WebElement anAvatar : elementCalendar) {
-            action.moveToElement(anAvatar).build().perform();
-        }
-        List<WebElement> listItems = elementCalendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
-        for (WebElement listItem : listItems) {
-            listItem.click();
-        }
-    }
-
     public final void clickFirstItemAddTimeSheet() {
         Actions action = new Actions(driver);
         waitForElement(driver, elementCalendarBody);
         List<WebElement> elementCalendar = elementCalendarBody.findElements(By.className("cell-content"));
-        System.out.println("xxxx = "+elementCalendar.size());
-        for (WebElement anAvatar : elementCalendar) {
-            action.moveToElement(anAvatar).build().perform();
+        for (int i = 0; i < elementCalendar.size(); i++) {
+            try {
+                if (elementCalendar.get(i).findElement(By.className("info")).isDisplayed()) {
+                    action.moveToElement(elementCalendar.get(i)).build().perform();
+                }
+            } catch (Exception e) {
+                positionFirst = i;
+                action.moveToElement(elementCalendar.get(positionFirst)).build().perform();
+                elementCalendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted")).get(positionFirst).click();
+                return;
+            }
         }
-        List<WebElement> listItems = elementCalendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
-        listItems.get(0).click();
-//        for (int i = 0; i < elementCalendar.size(); i++) {
-//            if (!elementCalendar.get(i).findElement(By.cssSelector(".task-record.leave-item.full.ng-star-inserted")).isEnabled()) {
-//                listItems.get(i).click();
-//            }
-//        }
     }
 
     public final Boolean isTimeSheetShowing() {
-        waitForElementDisplay(driver, dlgTimeSheet, 10);
+        waitForElementDisplay(driver, dlgTimeSheet, Constant.DEFAULT_TIME_OUT);
         return dlgTimeSheet.isDisplayed();
     }
 
@@ -326,9 +316,9 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     }
 
     public final void clickColumnsTimeSheet() {
-        waitForElementDisplay(driver, elementTimeSheetBody, 20);
+        waitForElementDisplay(driver, elementTimeSheetBody, Constant.MAXIMUM_TIME_OUT);
         List<WebElement> items = elementTimeSheetBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
-        WebElement element = items.get(0).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
+        WebElement element = items.get(positionFirst).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
         WebElement content = element.findElement(By.className("info-content"));
         content.click();
     }
@@ -431,7 +421,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         waitForElement(driver, elementCalendarBody);
         Actions actionResize = new Actions(driver);
         List<WebElement> items = elementCalendarBody.findElements(By.cssSelector(".timesheet-cell.ng-star-inserted"));
-        WebElement content = items.get(0).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
+        WebElement content = items.get(positionFirst).findElement(By.cssSelector(".task-record.saved.ng-star-inserted"));
         WebElement resize = content.findElement(By.className("resize-handle-icon"));
         actionResize.moveToElement(resize).clickAndHold().moveByOffset(1, HEIGHT_ITEM_RESIZE).release().perform();
         try {
@@ -443,8 +433,8 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
 
     public final Boolean isTimeSheetChange(final String content) {
         waitForElement(driver, elementCalendarBody);
-        List<WebElement> items = elementCalendarBody.findElements(By.className(".timesheet-cell.ng-star-inserted"));
-        WebElement item = items.get(0).findElement(By.className("task-record"));
+        List<WebElement> elementCalendar = elementCalendarBody.findElements(By.className("cell-content"));
+        WebElement item = elementCalendar.get(positionFirst).findElement(By.className("task-record"));
         WebElement timeInfo = item.findElement(By.className("item-date"));
         return timeInfo.getText().equals(content);
     }
@@ -461,23 +451,6 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
         waitForElement(driver, dlgTimeSheet);
         WebElement btnSaveConfirm = dlgTimeSheet.findElement(By.id("btn-save-task"));
         btnSaveConfirm.click();
-        try {
-            Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public final void clickFirstItemTimeSheet() {
-        waitForElement(driver, elementCalendarBody);
-        List<WebElement> elementCalendar = elementCalendarBody.findElements(By.className("cell-content"));
-        List<WebElement> listItems = elementCalendarBody.findElements(By.cssSelector(".task-record.create-task.ng-star-inserted"));
-        listItems.get(0).click();
-//        for (int i = 0; i < elementCalendar.size(); i++) {
-//            if (!elementCalendar.get(i).findElement(By.cssSelector(".task-record.leave-item.full.ng-star-inserted")).isEnabled()) {
-//                listItems.get(i).click();
-//            }
-//        }
         try {
             Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
         } catch (InterruptedException e) {
@@ -509,7 +482,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     public void addTimeSheetFullRecord() {
         try {
             Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
-            clickFirstItemTimeSheet();
+            clickFirstItemAddTimeSheet();
             fillInformationForTimeSheet();
             clickRepeatEveryDay();
             Thread.sleep(TIME_OUT_WAITED_ELEMENT_DISPLAY);
