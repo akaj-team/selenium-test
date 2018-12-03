@@ -1,3 +1,4 @@
+@NewGroup
 Feature:  Login my account to portal and open group page
   I want to check new group page
 
@@ -59,7 +60,7 @@ Feature:  Login my account to portal and open group page
     And I enter Group Folder of group in input value with "http://google.com" with first space is "0" and last space is "0"
     Then Button submit of new groups is display
 
-  Scenario: I fill all data is valid, button Submit is enable
+  Scenario: I fill all data is valid, and submit create new group
     When I enter correct name group with text is "Android english"
     And I open dropdown Leader
     And I select a item in employee list

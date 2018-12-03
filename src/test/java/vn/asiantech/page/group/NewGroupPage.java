@@ -14,16 +14,14 @@ import java.util.List;
  */
 public class NewGroupPage extends BasePage<NewGroupPage> {
 
-    @FindBy(xpath = "//input[contains(@formcontrolname,'name')]")
+    @FindBy(css = "input[formcontrolname=name]")
     private WebElement inputNameGroup;
-    @FindBy(xpath = "//input[contains(@formcontrolname,'email')]")
+    @FindBy(css = "input[formcontrolname=email]")
     private WebElement inputEmailGroup;
-    @FindBy(xpath = "//input[contains(@formcontrolname,'url')]")
+    @FindBy(css = "input[formcontrolname=url]")
     private WebElement inputGroupFolder;
     @FindBy(css = ".wrapper.wrapper-content")
-    private WebElement wapperContent;
-    @FindBy(id = "btn-create-group")
-    private WebElement btnNewGroup;
+    private WebElement wrapperContent;
     @FindBy(id = "group-form-wrapper")
     private WebElement formMainGroupPage;
     @FindBy(id = "btn-submit-group")
@@ -69,7 +67,7 @@ public class NewGroupPage extends BasePage<NewGroupPage> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        WebElement parentContainer = wapperContent.findElement(By.xpath("//label[contains(text(),'Leader')]/.."));
+        WebElement parentContainer = wrapperContent.findElement(By.xpath("//label[contains(text(),'Leader')]/.."));
         parentContainer.click();
         itemLeader = parentContainer.findElement(By.tagName("div")).findElement(By.className("ui-dropdown-panel"));
     }

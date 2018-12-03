@@ -2,6 +2,7 @@ package stepdefs.group;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
@@ -15,11 +16,17 @@ public class NewGroupDefinitions extends DriverBase implements En {
     private static final int NAME_POSITION = 0;
     private static final int EMAIL_POSITION = 3;
     private NewGroupPage newGroupPage;
+    private WebDriver driver;
 
     public NewGroupDefinitions() {
         newGroupPage = initPage(getDriver(), NewGroupPage.class);
+        try {
+            driver = getDriver();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Then("^Displayed new group page$", () -> {
-            getDriver().get(Constant.NEW_GROUP_URL);
+            driver.get(Constant.NEW_GROUP_URL);
             waitForPageDisplayed(getDriver(), Constant.NEW_GROUP_URL, By.id("page-wrapper"));
         });
         When("^I enter name of group field with text is \"([^\"]*)\" and first space is \"([^\"]*)\" and last space is \"([^\"]*)\"$", (String nameGroup, String firstSpace, String lastSpace) -> newGroupPage.validateInputNameOfGroup(nameGroup, Integer.valueOf(firstSpace), Integer.valueOf(lastSpace)));
