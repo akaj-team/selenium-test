@@ -61,8 +61,7 @@ public class ProjectPage extends BasePage<ProjectPage> {
     }
 
     public final boolean isEmptyMessageShowed() {
-        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
-                driver -> projectList.findElements(By.tagName("tr")).size() == 1);
+        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(it -> projectList.findElements(By.tagName("tr")).size() == 1);
         WebElement firstProject = projectList.findElement(By.tagName("tr"));
         return firstProject.findElement(By.tagName("td")).getAttribute("class").equals("ui-datatable-emptymessage");
     }

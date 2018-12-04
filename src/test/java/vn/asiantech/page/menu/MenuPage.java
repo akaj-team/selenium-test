@@ -37,7 +37,7 @@ public class MenuPage extends BasePage<MenuPage> {
         return accountName.getText().equals(inputName);
     }
 
-    public final void clickParentItem(String title) {
+    public final void clickParentItem(final String title) {
         WebElement parentItem = getDriver().findElement(By.xpath("//span[contains(text(),'" + title + "')]"));
         WebElement container = getDriver().findElement(By.xpath("//span[contains(text(),'" + title + "')]/../.."));
         if (!container.getAttribute("class").contains("active") && !title.equals("Home")) {
@@ -58,7 +58,7 @@ public class MenuPage extends BasePage<MenuPage> {
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
-    public final void clickChildItem(String title) {
+    public final void clickChildItem(final String title) {
         WebElement childItem = getDriver().findElement(By.xpath("//a[contains(text(),'" + title + "')]/.."));
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", childItem);
         childItem.click();

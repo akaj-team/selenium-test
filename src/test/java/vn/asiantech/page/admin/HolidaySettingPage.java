@@ -176,7 +176,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         edtName.sendKeys("            ");
     }
 
-    public final boolean isErrorMessageShowed(String message) {
+    public final boolean isErrorMessageShowed(final String message) {
         waitForElement(driver, calendarDialogItem);
         new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[contains(text(),'Name')]/../span")));
         WebElement errorMessage = calendarDialogItem.findElement(By.xpath("//label[contains(text(),'Name')]/../span"));
@@ -281,8 +281,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final void dismissDialogConfirmDelete() {
-        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
-                driver -> ExpectedConditions.invisibilityOfElementLocated(By.id("confirm-delete-panel-wrapper")));
+        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.invisibilityOfElementLocated(By.id("confirm-delete-panel-wrapper")));
     }
 
     public final void clickButtonConfirmDelete() {
