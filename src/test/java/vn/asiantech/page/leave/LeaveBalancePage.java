@@ -12,7 +12,7 @@ import vn.asiantech.base.Constant;
  */
 public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
 
-    @FindBy(className = "ui-multiselect-label")
+    @FindBy(id = "team-filter-wrapper")
     private WebElement allTeamsView;
 
     @FindBy(className = "ui-multiselect-panel")
@@ -157,14 +157,15 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return nameElement.getText();
     }
 
-    public final LeaveBalancePage filterItemClick(final int position) {
+    public final String filterItemClick(final int position) {
         WebElement filterList = filterElement.findElement(By.className("ui-multiselect-list"));
-        filterList.findElements(By.tagName("li")).get(position).click();
-        return this;
+        WebElement firstItem = filterList.findElements(By.tagName("li")).get(position);
+        firstItem.click();
+        return firstItem.findElement(By.tagName("label")).getText();
     }
 
     public final String getFilterLabel() {
-        return allTeamsView.getText();
+        return allTeamsView.findElement(By.tagName("label")).getText();
     }
 
     public final String getYear() {
