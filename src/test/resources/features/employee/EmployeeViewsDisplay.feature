@@ -1,5 +1,5 @@
 @EmployeesPage
-Feature: Check display views after click views
+Feature: Check display views after click views at employee page
   Click name, avatar, code, manager, team, group and edit
   Display a corresponding page
   Click promotion, award category and new employee

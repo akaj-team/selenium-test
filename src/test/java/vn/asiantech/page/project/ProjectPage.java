@@ -1,9 +1,11 @@
 package vn.asiantech.page.project;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
 import vn.asiantech.base.Constant;
 
@@ -11,9 +13,6 @@ import vn.asiantech.base.Constant;
  * @author at-vinhhuynh
  */
 public class ProjectPage extends BasePage<ProjectPage> {
-
-    @FindBy(className = "ui-datatable-scrollable-view")
-    private WebElement projectPageContainer;
 
     @FindBy(className = "ui-datatable-data")
     private WebElement projectList;
@@ -27,7 +26,7 @@ public class ProjectPage extends BasePage<ProjectPage> {
     @FindBy(className = "ui-dropdown-items-wrapper")
     private WebElement filterList;
 
-    @FindBy(className = "ui-multiselect-label")
+    @FindBy(css = ".ui-multiselect.ui-widget.ui-state-default.ui-corner-all")
     private WebElement tvTableOption;
 
     @FindBy(css = "div.ui-multiselect-panel.ui-widget.ui-widget-content.ui-corner-all.ui-shadow")
@@ -57,13 +56,15 @@ public class ProjectPage extends BasePage<ProjectPage> {
     public final ProjectPage searchWith(final String key) {
         waitForElementDisplay(driver, inputSearch, Constant.DEFAULT_TIME_OUT);
         inputSearch.sendKeys(key);
+        inputSearch.sendKeys(Keys.ENTER);
         return this;
     }
 
-    public final String getProjectName() {
-        waitForElementDisplay(driver, projectList, Constant.DEFAULT_TIME_OUT);
-        WebElement firstProject = projectList.findElements(By.tagName("tr")).get(0);
-        return firstProject.findElements(By.tagName("td")).get(1).findElement(By.tagName("strong")).getText();
+    public final boolean isEmptyMessageShowed() {
+        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
+                driver -> projectList.findElements(By.tagName("tr")).size() == 1);
+        WebElement firstProject = projectList.findElement(By.tagName("tr"));
+        return firstProject.findElement(By.tagName("td")).getAttribute("class").equals("ui-datatable-emptymessage");
     }
 
     public final ProjectPage projectNameClick() {

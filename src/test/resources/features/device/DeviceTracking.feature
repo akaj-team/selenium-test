@@ -1,5 +1,5 @@
 @DeviceTracking
-Feature: Check Device tracking
+Feature: Check device tracking
   I want to login my account and check device tracking page
 
   Background: User navigation to device tracking page

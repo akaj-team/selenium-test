@@ -1,5 +1,5 @@
 @AccessControlPage
-Feature: I login in AT Portal
+Feature: Check access control page
   As a team manager
   I want to check views in Access Control page
 

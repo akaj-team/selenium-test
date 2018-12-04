@@ -1,5 +1,5 @@
 @LeaveOtherPage
-Feature: Login AT Portal
+Feature: Check leave other page
   As leave other page
   I want to test leave other page
 

@@ -1,12 +1,16 @@
 package stepdefs.project;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
 import vn.asiantech.page.project.ProjectPage;
+
+import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 
 /**
  * @author at-vinhhuynh
@@ -37,7 +41,7 @@ public class ProjectsDefinitions extends DriverBase implements En {
         Then("^Should search with correct key is \"([^\"]*)\"$", (String key) -> new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                 webDriver -> !webDriver.getCurrentUrl().equals(Constant.PROJECT_PAGE_URL + ";status_eq=in_progress;name_cont=" + key)));
 
-        And("^Project name should be \"([^\"]*)\"$", (String projectName) -> Assert.assertEquals(projectName, projectPage.getProjectName()));
+        And("^Empty message is displayed$", () -> Assert.assertTrue(projectPage.isEmptyMessageShowed()));
 
         When("^I click on project name$", () -> projectPage.projectNameClick());
 

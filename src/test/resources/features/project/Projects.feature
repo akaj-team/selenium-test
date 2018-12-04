@@ -1,5 +1,5 @@
 @Projects
-Feature: Check all projects on asiantech
+Feature: Check all projects page
 
   Background: User navigates to leave planner page
     Given I am logged in as a team manager
@@ -12,27 +12,32 @@ Feature: Check all projects on asiantech
   Scenario: I want to check all project on asiantech
     Then List project should display
 
-  Scenario: I want to check status of portal project
-    When I search with "Monstar-ch (BGM)"
-    Then Should search with correct key is "Monstar-ch (BGM)"
-    And Project name should be "Monstar-ch (BGM)"
+  Scenario Outline: I want to search projects
+    When I search with "<name>"
+    Then Should search with correct key is "<name>"
+    And Empty message is displayed
+    Examples:
+      | name        |
+      | abc123!@#   |
+      | `123456789` |
+      | Not Project |
 
-  Scenario: I want to view project detail via project name
-    When I click on project name
-    Then should go to correct detail page
-
-  Scenario: I want to view project detail via project image
-    When I click on project avatar
-    Then should go to correct detail page
-
-  Scenario: I want to view project detail via project code
-    When I click on project code
-    Then should go to correct detail page
-
-  Scenario: I want to view all status of filter
-    When I click status
-    Then List status should display
-
-  Scenario: Check current status filter
-    When I click on item of filter list
-    Then Filter tex should display correct
+#  Scenario: I want to view project detail via project name
+#    When I click on project name
+#    Then should go to correct detail page
+#
+#  Scenario: I want to view project detail via project image
+#    When I click on project avatar
+#    Then should go to correct detail page
+#
+#  Scenario: I want to view project detail via project code
+#    When I click on project code
+#    Then should go to correct detail page
+#
+#  Scenario: I want to view all status of filter
+#    When I click status
+#    Then List status should display
+#
+#  Scenario: Check current status filter
+#    When I click on item of filter list
+#    Then Filter tex should display correct
