@@ -1,5 +1,5 @@
 @LeavePlanner
-Feature: Check display views and handle events
+Feature: Check display views and handle events at leave planner
   Login my account and open leave planners page
   Check display views and handle events
 

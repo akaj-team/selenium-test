@@ -1,5 +1,5 @@
 @NotificationElement
-Feature: Open Notification
+Feature: Check notifications
   I want to login my account and check my notification
 
   Background: User navigates to home page and notification is displayed

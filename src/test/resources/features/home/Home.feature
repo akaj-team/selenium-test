@@ -1,5 +1,5 @@
 @HomePage
-Feature: Open home page
+Feature: Check home page
   I want to Login Portal and check home page
 
   Background: User navigates to home page

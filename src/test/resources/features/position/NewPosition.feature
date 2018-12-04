@@ -1,5 +1,5 @@
 @NewPosition
-Feature:  Login my account to portal and open positions page
+Feature:  Check new position page
   I want to check new position page
 
   Background: User navigation to new position page

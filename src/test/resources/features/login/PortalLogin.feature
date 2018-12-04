@@ -1,5 +1,5 @@
 @LoginPage
-Feature: Login AT Portal
+Feature: Check Login AT Portal
   As an employee of the company
   I want to login my employee profile using my credentials
   In order to check my profile

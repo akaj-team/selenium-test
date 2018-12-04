@@ -1,5 +1,5 @@
 @EmployeesPage
-Feature: Filter employees with position, type and status
+Feature: Filter employees with position, type and status at employee page
   Choose position, type or status
   Display an employee list with that standard
 

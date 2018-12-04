@@ -1,5 +1,5 @@
 @NewGroup
-Feature:  Login my account to portal and open group page
+Feature: Check new group page
   I want to check new group page
 
   Background: User navigation to new group page

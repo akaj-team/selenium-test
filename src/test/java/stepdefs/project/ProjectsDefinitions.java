@@ -37,7 +37,7 @@ public class ProjectsDefinitions extends DriverBase implements En {
         Then("^Should search with correct key is \"([^\"]*)\"$", (String key) -> new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
                 webDriver -> !webDriver.getCurrentUrl().equals(Constant.PROJECT_PAGE_URL + ";status_eq=in_progress;name_cont=" + key)));
 
-        And("^Project name should be \"([^\"]*)\"$", (String projectName) -> Assert.assertEquals(projectName, projectPage.getProjectName()));
+        And("^Empty message is displayed$", () -> Assert.assertTrue(projectPage.isEmptyMessageShowed()));
 
         When("^I click on project name$", () -> projectPage.projectNameClick());
 

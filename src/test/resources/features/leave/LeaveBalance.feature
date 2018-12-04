@@ -42,9 +42,9 @@ Feature: Check leave balance of employee
   Scenario: I want to show all leave balance of android team
     Given I click on all team filter
     Given List filter should display
-    When I select item "Android"
-    Then Team will display "Android"
-    And Show list result of employ on Android team
+    When I select first item
+    Then Team will display correctly
+    And Show list result of employees
 
   Scenario: I want to check second page of list balance leave
     When I click on page number 2
