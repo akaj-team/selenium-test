@@ -18,6 +18,7 @@ public final class Constant {
     public static final String NEW_EMPLOYEE_PAGE_URL = PORTAL_URL + "/organisation/employees/new";
     public static final String POSITION_PAGE_URL = PORTAL_URL + "/organisation/positions";
 
+    public static final String TIME_SHEET_PAGE_URL = PORTAL_URL + "/timesheet/submission";
     public static final String HOLIDAY_SETTING_URL = PORTAL_URL + "/admin/public-holiday";
     public static final String DEVICE_TRACKING_URL = PORTAL_URL + "/equipments/tracking";
     public static final String AWARD_CATEGORY_PAGE_URL = PORTAL_URL + "/admin/award-category";
