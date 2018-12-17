@@ -88,6 +88,7 @@ public class MyTeamPage extends BasePage<MyTeamPage> {
     private WebDriver driver;
 
     public MyTeamPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

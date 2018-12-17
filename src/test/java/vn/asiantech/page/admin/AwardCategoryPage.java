@@ -52,6 +52,7 @@ public class AwardCategoryPage extends BasePage<AwardCategoryPage> {
     private WebDriver driver;
 
     public AwardCategoryPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

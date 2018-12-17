@@ -39,6 +39,7 @@ public class ProjectPage extends BasePage<ProjectPage> {
     private WebDriver driver;
 
     public ProjectPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
