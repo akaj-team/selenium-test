@@ -1,8 +1,6 @@
 package vn.asiantech.page.team;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
@@ -17,19 +15,22 @@ import static vn.asiantech.base.Constant.TEAM_PAGE_URL;
 public class TeamsPage extends BasePage<TeamsPage> {
     private static final int COLUMN_NAME = 0;
     private static final int COLUMN_MANAGER = 1;
-    private static final int COLUMN_ACTION = 3;
+    private static final int COLUMN_ACTION = 4;
 
-    @FindBy(id = "team-filter-wrapper")
-    private WebElement sectionToolBox;
+    @FindBy(name = "search")
+    private WebElement inputSearch;
 
     @FindBy(className = "ui-datatable-data")
     private WebElement tbBody;
 
-    @FindBy(className = "title-action")
-    private WebElement titleAction;
-
     @FindBy(className = "ui-overflow-hidden")
     private WebElement hiddenBody;
+
+    @FindBy(id = "btn-create-team")
+    private WebElement btnNewTeam;
+
+    @FindBy(className = "app-alert")
+    private WebElement alertMessage;
 
     private WebDriver driver;
 
@@ -44,14 +45,17 @@ public class TeamsPage extends BasePage<TeamsPage> {
     }
 
     public final void searchNameTeam(final String name) {
-        WebElement search = sectionToolBox.findElement(By.name("search"));
-        search.sendKeys(name);
+        waitForElement(driver, inputSearch);
+        inputSearch.sendKeys(name);
+        inputSearch.sendKeys(Keys.ENTER);
     }
 
     public final boolean isTeamListEmpty() {
-        waitForElement(driver, tbBody.findElement(By.tagName("tr")));
-        List<WebElement> rows = tbBody.findElements(By.tagName("tr"));
-        return rows.get(0).getAttribute("class").contains("ui-datatable-emptymessage-row");
+        try {
+            return tbBody.findElement(By.tagName("tr")).getAttribute("class").contains("ui-datatable-emptymessage-row");
+        } catch (StaleElementReferenceException e) {
+            return tbBody.findElement(By.tagName("tr")).getAttribute("class").contains("ui-datatable-emptymessage-row");
+        }
     }
 
     public final String showMessageEmptyTeam() {
@@ -60,31 +64,36 @@ public class TeamsPage extends BasePage<TeamsPage> {
     }
 
     public final String onClickAvatarTeam() {
+        waitForElement(driver, tbBody);
         return getViewContainerOfColumnName(By.className("avatar-sm"));
     }
 
     public final String onClickNameTeam() {
+        waitForElement(driver, tbBody);
         return getViewContainerOfColumnName(By.className("info-grouping-text"));
     }
 
     public final String onClickNameManager() {
+        waitForElement(driver, tbBody);
         WebElement columnName = getColumnIndex(COLUMN_MANAGER, 0);
         WebElement nameManager = columnName.findElement(By.tagName("a"));
         return onClickLinkAndReturnHref(nameManager);
     }
 
     public final String onClickNewTeam() {
-        WebElement newEmployee = titleAction.findElement(By.id("btn-create-team"));
-        return onClickLinkAndReturnHref(newEmployee);
+        waitForElement(driver, btnNewTeam);
+        return onClickLinkAndReturnHref(btnNewTeam);
     }
 
     public final String onClickUpdateTeam(final int position) {
+        waitForElement(driver, tbBody);
         WebElement columnAction = getColumnIndex(COLUMN_ACTION, position);
         WebElement updateTeamElement = columnAction.findElement(By.className("update"));
         return onClickLinkAndReturnHref(updateTeamElement);
     }
 
     public final String onClickDeleteTeam(final int position) {
+        waitForElement(driver, tbBody);
         WebElement columnAction = getColumnIndex(COLUMN_ACTION, position);
         columnAction.findElement(By.className("delete")).click();
         WebElement columnName = getColumnIndex(COLUMN_NAME, position);
@@ -105,6 +114,11 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     public final void onClickButtonDeleteInDialogDelete() {
         hiddenBody.findElement(By.className("btn-submit")).click();
+    }
+
+    public final boolean isShowAlertDeleteSuccess() {
+        waitForElement(driver, alertMessage);
+        return alertMessage.isDisplayed();
     }
 
     private String onClickLinkAndReturnHref(final WebElement element) {

@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
-import static vn.asiantech.base.Constant.MAXIMUM_TIME_OUT;
 
 public class DriverBase {
 
@@ -67,12 +66,19 @@ public class DriverBase {
     protected final void waitForPageDisplayed(final WebDriver driver, final String url, final By containerElement) {
         new WebDriverWait(driver, DEFAULT_TIME_OUT).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        waitVisibilityOfElement(driver, containerElement);
+        if (containerElement != null) {
+            waitVisibilityOfElement(driver, containerElement);
+        }
         Assert.assertEquals(url, driver.getCurrentUrl());
     }
 
+    protected final void waitRedirectToPage(final String destinationUrl) {
+        new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
+                webDriver -> webDriver.getCurrentUrl().equals(destinationUrl));
+    }
+
     protected final void waitForPageRedirected(final WebDriver driver, final String url, final By containerElement) {
-        new WebDriverWait(driver, MAXIMUM_TIME_OUT).until(ExpectedConditions.urlToBe(url));
+        new WebDriverWait(driver, DEFAULT_TIME_OUT).until(ExpectedConditions.urlToBe(url));
         waitVisibilityOfElement(driver, containerElement);
     }
 
