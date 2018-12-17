@@ -40,7 +40,8 @@ public class HomePage extends BasePage<HomePage> {
 
     private WebDriver driver;
 
-    public HomePage(WebDriver driver) {
+    public HomePage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

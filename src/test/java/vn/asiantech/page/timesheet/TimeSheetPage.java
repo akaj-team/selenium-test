@@ -64,6 +64,7 @@ public class TimeSheetPage extends BasePage<TimeSheetPage> {
     private int positionFirst;
 
     public TimeSheetPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

@@ -38,6 +38,7 @@ public class NewPositionPage extends BasePage<NewPositionPage> {
     private WebElement alertConfirmation;
 
     public NewPositionPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

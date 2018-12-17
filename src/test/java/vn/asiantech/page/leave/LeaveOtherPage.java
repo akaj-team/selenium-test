@@ -55,6 +55,7 @@ public class LeaveOtherPage extends BasePage<LeaveOtherPage> {
     private WebDriver driver;
 
     public LeaveOtherPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

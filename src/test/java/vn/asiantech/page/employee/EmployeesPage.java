@@ -91,6 +91,7 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private WebDriver driver;
 
     public EmployeesPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

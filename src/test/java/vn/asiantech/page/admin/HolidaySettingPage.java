@@ -63,6 +63,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     private WebDriver driver;
 
     public HolidaySettingPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
