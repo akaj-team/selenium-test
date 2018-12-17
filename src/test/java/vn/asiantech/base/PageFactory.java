@@ -37,5 +37,4 @@ class PageFactory<T> {
         }
         return null;
     }
-
 }

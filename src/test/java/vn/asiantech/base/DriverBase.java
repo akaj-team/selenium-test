@@ -96,7 +96,6 @@ public class DriverBase {
         for (Class proxyIn = page.getClass(); proxyIn != Object.class; proxyIn = proxyIn.getSuperclass()) {
             proxyFields(decorator, page, proxyIn);
         }
-
     }
 
     private static void proxyFields(final FieldDecorator decorator, final Object page, final Class<?> proxyIn) {
