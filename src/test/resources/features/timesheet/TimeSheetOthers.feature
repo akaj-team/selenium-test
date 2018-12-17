@@ -23,8 +23,8 @@ Feature: I want to see timeSheet of others members
 
   Scenario: Check Subordinator dropdown
     When I click on dropdown Subordinator
-    And I choose option "Member(s) of Android Team" in Subordinator
-    Then I see dropdown Subordinator change to "Android"
+    And I choose option "Member(s) of Ruby Team" in Subordinator
+    Then I see dropdown Subordinator change to "Ruby"
 
   Scenario: Check status button this week
     When I click on pre button

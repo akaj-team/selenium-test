@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
 import vn.asiantech.base.Constant;
 
@@ -12,7 +14,7 @@ import vn.asiantech.base.Constant;
  */
 public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
 
-    @FindBy(className = "ui-multiselect-label")
+    @FindBy(id = "team-filter-wrapper")
     private WebElement allTeamsView;
 
     @FindBy(className = "ui-multiselect-panel")
@@ -56,7 +58,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     }
 
     public final boolean filterElementDisplayed() {
-        waitForElementDisplay(driver, filterElement, Constant.DEFAULT_TIME_OUT);
+        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.className("ui-multiselect-panel")));
         return filterElement.isDisplayed();
     }
 
@@ -157,14 +159,15 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
         return nameElement.getText();
     }
 
-    public final LeaveBalancePage filterItemClick(final int position) {
+    public final String filterItemClick(final int position) {
         WebElement filterList = filterElement.findElement(By.className("ui-multiselect-list"));
-        filterList.findElements(By.tagName("li")).get(position).click();
-        return this;
+        WebElement firstItem = filterList.findElements(By.tagName("li")).get(position);
+        firstItem.click();
+        return firstItem.findElement(By.tagName("label")).getText();
     }
 
     public final String getFilterLabel() {
-        return allTeamsView.getText();
+        return allTeamsView.findElement(By.tagName("label")).getText();
     }
 
     public final String getYear() {

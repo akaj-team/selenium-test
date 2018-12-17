@@ -104,12 +104,6 @@ public class DeviceTrackingDefinitions extends DriverBase implements En {
         When("^Click button cancel on dialog confirm submit device tracking$", holidaySettingPage::clickButtonCancelDialogConfirmSubmit);
 
         Then("^Dismiss dialog confirm submit and keep state selected all$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmSubmitSaveState().toString()));
-
-        When("^Click button submit on dialog confirm submit device tracking$", holidaySettingPage::clickButtonSubmitDialogConfirmSubmit);
-
-        Then("^Dismiss dialog confirm and change state to submit device tracking$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmSubmitChangeStateSubmit().toString()));
-
-        And("^Display message success device tracking$", () -> Assert.assertTrue(true, holidaySettingPage.isMessageConfirmShowing().toString()));
     }
 
     private void redirectPageWhenClickChildItem(final String path) {

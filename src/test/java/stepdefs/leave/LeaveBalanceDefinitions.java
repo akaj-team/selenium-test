@@ -1,6 +1,7 @@
 package stepdefs.leave;
 
 import cucumber.api.java8.En;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -13,10 +14,9 @@ import vn.asiantech.page.leave.LeaveBalancePage;
  */
 public class LeaveBalanceDefinitions extends DriverBase implements En {
 
-    private static final int DEFAULT_PAGE_COUNT = 50;
-    private static final int ANDROID_TEAM_ID = 24;
     private WebDriver driver;
     private LeaveBalancePage leaveBalancePage;
+    private String selectedTeam;
 
     public LeaveBalanceDefinitions() {
         try {
@@ -63,14 +63,11 @@ public class LeaveBalanceDefinitions extends DriverBase implements En {
             Assert.assertEquals(leaveBalancePage.getCurrentEmployeeName(), employeeName);
         });
 
-        When("^I select item \"([^\"]*)\"$", (String leaveItem) -> leaveBalancePage.filterItemClick(2));
+        When("^I select first item$", () -> selectedTeam = leaveBalancePage.filterItemClick(0));
 
-        Then("^Team will display \"([^\"]*)\"$", (String teamName) -> Assert.assertEquals(leaveBalancePage.getFilterLabel(), teamName));
+        Then("^Team will display correctly$", () -> Assert.assertEquals(leaveBalancePage.getFilterLabel(), selectedTeam));
 
-        And("^Show list result of employ on Android team$", () -> {
-            waitRedirectToPage(Constant.LEAVE_BALANCE_PAGE_URL + ";team_id_eq=" + ANDROID_TEAM_ID);
-            Assert.assertEquals(DEFAULT_PAGE_COUNT, leaveBalancePage.getLeaveBalanceListCount());
-        });
+        And("^Show list result of employees$", () -> Assert.assertTrue(driver.findElement(By.className("ui-datatable-scrollable-view")).isDisplayed()));
 
         Then("^Year on this page should be \"([^\"]*)\"$", (String year) -> Assert.assertEquals(leaveBalancePage.getYear(), year));
         When("^I click on previous$", () -> leaveBalancePage.previous());

@@ -72,7 +72,7 @@ public class CompanyInformationDefinitions extends DriverBase implements En {
 
         And("^A red border of employee code input is displayed$", () -> Assert.assertTrue(companyInformationPage.isEmpCodeInvalid()));
 
-        Then("^Data in email input is correct with FirstName \"([^\"]*)\", LastName \"([^\"]*)\"$", (String firstName, String lastName) ->
+        Given("^Data in email input is correct with FirstName \"([^\"]*)\", LastName \"([^\"]*)\"$", (String firstName, String lastName) ->
                 Assert.assertTrue(companyInformationPage.isEmailCorrected(firstName, lastName)));
 
         When("^Fill email input with \"([^\"]*)\"$", (String data) -> companyInformationPage.fillEmailInput(data));

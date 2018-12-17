@@ -1,5 +1,5 @@
 @NewEmployeePersonalInformation
-Feature: Check display views and handle events with personal information
+Feature: Check display views and handle events with personal information at new employee page
   Login my account and open new employee page
   Check display views and handle events
 

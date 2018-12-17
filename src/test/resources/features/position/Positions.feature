@@ -1,5 +1,5 @@
 @Positions
-Feature: See, create, edit, search position
+Feature: Check position page
   Login my account to portal and open positions page
   I want to check display and edit position of members
 
