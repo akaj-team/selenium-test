@@ -1,5 +1,5 @@
 @NewEmployeeCompanyInformation
-Feature: Check display views and handle events with company information
+Feature: Check display views and handle events with company information at new employee page
   Login my account and open new employee page
   Check display views and handle events
 
@@ -52,7 +52,7 @@ Feature: Check display views and handle events with company information
       | Code with spaces at the head of data        | 1          | 0           |
 
   Scenario: Check display of email correctly
-    Then Data in email input is correct with FirstName "Abbey", LastName "Bly"
+    Given Data in email input is correct with FirstName "Abbey", LastName "Bly"
 
   Scenario Outline: Validate data of email input
     When Fill email input with "<email>"

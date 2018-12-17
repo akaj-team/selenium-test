@@ -2,7 +2,10 @@ package vn.asiantech.page.admin;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.base.Constant;
 
 import java.util.Calendar;
 import java.util.List;
@@ -42,7 +45,7 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     @FindBy(id = "btn-submit-holiday")
     private WebElement btnSave;
 
-    @FindBy(className = "form-control")
+    @FindBy(css = "input[formcontrolname=name]")
     private WebElement edtName;
 
     @FindBy(className = "ui-inputtext")
@@ -171,15 +174,14 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
     }
 
     public final void inputNameIsEmpty() {
-        edtName.clear();
-        edtName.sendKeys("s");
-        edtName.sendKeys(Keys.BACK_SPACE);
+        edtName.sendKeys("            ");
     }
 
-    public final String getMessageValidate() {
+    public final boolean isErrorMessageShowed(final String message) {
         waitForElement(driver, calendarDialogItem);
-        WebElement titleMessage = calendarDialogItem.findElement(By.className("help-block"));
-        return titleMessage.getText();
+        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[contains(text(),'Name')]/../span")));
+        WebElement errorMessage = calendarDialogItem.findElement(By.xpath("//label[contains(text(),'Name')]/../span"));
+        return errorMessage.getText().equals(message) && errorMessage.isDisplayed();
     }
 
     public final void inputNameValue(final String value) {
@@ -279,13 +281,8 @@ public class HolidaySettingPage extends BasePage<HolidaySettingPage> {
         return contentDialog.getText();
     }
 
-    public final Boolean isDismissDialogConfirmDelete() {
-        try {
-            waitForElement(driver, dlgDeleteConfirm);
-            return dlgDeleteConfirm.isDisplayed();
-        } catch (TimeoutException e) {
-            return false;
-        }
+    public final void dismissDialogConfirmDelete() {
+        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(ExpectedConditions.invisibilityOfElementLocated(By.id("confirm-delete-panel-wrapper")));
     }
 
     public final void clickButtonConfirmDelete() {

@@ -69,7 +69,7 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
 
         When("^Input Name is empty$", () -> holidaySettingPage.inputNameIsEmpty());
 
-        Then("^Show message error validate is \"([^\"]*)\"$", (String message) -> Assert.assertEquals(message, holidaySettingPage.getMessageValidate()));
+        Then("^Show message error validate is \"([^\"]*)\"$", (String message) -> Assert.assertTrue(holidaySettingPage.isErrorMessageShowed(message)));
 
         When("^Input name is \"([^\"]*)\"$", (String value) -> holidaySettingPage.inputNameValue(value));
 
@@ -101,7 +101,7 @@ public class HolidaySettingDefinitions extends DriverBase implements En {
 
         When("^Click button cancel on dialog confirm delete$", () -> holidaySettingPage.clickButtonConfirmCancel());
 
-        Then("^Dismiss dialog confirm delete$", () -> Assert.assertTrue(true, holidaySettingPage.isDismissDialogConfirmDelete().toString()));
+        Then("^Dismiss dialog confirm delete$", () -> holidaySettingPage.dismissDialogConfirmDelete());
 
         When("^Click button delete on dialog confirm delete$", () -> holidaySettingPage.clickButtonConfirmDelete());
 

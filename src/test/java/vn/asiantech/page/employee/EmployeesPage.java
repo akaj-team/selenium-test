@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
+import vn.asiantech.object.Employee;
 
 import java.util.List;
 
@@ -26,12 +27,16 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
     private static final int LAST_INDICATOR_CLICK = 3;
     private static final int EMPLOYEE_NAME_COLUMN_INDEX = 0;
     private static final int EMPLOYEE_CODE_COLUMN_INDEX = 1;
+    private static final int EMPLOYEE_EMAIL_COLUMN_INDEX = 2;
     private static final int EMPLOYEE_MANAGER_COLUMN_INDEX = 3;
     private static final int EMPLOYEE_TEAM_COLUMN_INDEX = 4;
     private static final int EMPLOYEE_GROUP_COLUMN_INDEX = 5;
     private static final int EMPLOYEE_ACTION_COLUMN_INDEX = 6;
     private static final int EMPLOYEE_TYPE_INDEX = 5;
     private static final int EMPLOYEE_STATUS_INDEX = 7;
+    private static final int MINIMUM_EMPLOYEE_TEAM_DISPLAY = 6;
+    private static final int EMPLOYEE_TEAM_JUMP = 2;
+    private static final int EMPLOYEE_TEAM_MOD = 2;
 
     @FindBy(className = "ui-datatable-data")
     @CacheLookup
@@ -105,6 +110,12 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         return employeeUrlProfile;
     }
 
+    public final String getEmployeeProfileLink() {
+        WebElement employee = getEmployeeInformation(EMPLOYEE_NAME_COLUMN_INDEX);
+        assert employee != null;
+        return employee.getAttribute("href");
+    }
+
     public final String clickAndGetEmployeeCode() {
         WebElement employee = getEmployeeInformation(EMPLOYEE_CODE_COLUMN_INDEX);
         assert employee != null;
@@ -152,6 +163,25 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         String updateEmployeeUrl = editEmployee.getAttribute("href");
         editEmployee.click();
         return updateEmployeeUrl;
+    }
+
+    public final Employee getEditEmployee() {
+        WebElement nameColumn = getEmployeeInformation(EMPLOYEE_NAME_COLUMN_INDEX);
+        assert nameColumn != null;
+        String employeeName = nameColumn.findElement(By.tagName("strong")).getText();
+
+        WebElement codeColumn = getEmployeeInformation(EMPLOYEE_CODE_COLUMN_INDEX);
+        assert codeColumn != null;
+        String employeeCode = codeColumn.getText();
+
+        WebElement emailColumn = getEmployeeInformation(EMPLOYEE_EMAIL_COLUMN_INDEX);
+        assert emailColumn != null;
+        String employeeEmail = emailColumn.getText();
+
+        List<WebElement> cells = tblBody.findElements(By.tagName("tr"));
+        String employeeManager = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_MANAGER_COLUMN_INDEX).findElement(By.tagName("a")).getText();
+
+        return new Employee(employeeName, employeeCode, employeeEmail, employeeManager, getMoreTeamOrGroup(true), getMoreTeamOrGroup(false));
     }
 
     public final void clickPromotionButton() {
@@ -391,5 +421,43 @@ public class EmployeesPage extends BasePage<EmployeesPage> {
         } catch (NoSuchElementException exception) {
             return false;
         }
+    }
+
+    private String getMoreTeamOrGroup(final boolean isTeam) {
+        List<WebElement> cells = tblBody.findElements(By.tagName("tr"));
+        WebElement column;
+        if (isTeam) {
+            column = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_TEAM_COLUMN_INDEX);
+        } else {
+            column = cells.get(0).findElements(By.tagName("td")).get(EMPLOYEE_GROUP_COLUMN_INDEX);
+        }
+        StringBuilder employeeTeamOrGroup;
+        try {
+            employeeTeamOrGroup = new StringBuilder(column.findElement(By.tagName("a")).getText());
+            try {
+                column.findElement(By.tagName("i")).click();
+                WebElement teamContainer = driver.findElement(By.id("org-panel-wrapper"));
+                waitForElement(driver, teamContainer);
+                int teamCount = teamContainer.findElements(By.cssSelector("span[class='ng-star-inserted']")).size();
+                if (teamCount < MINIMUM_EMPLOYEE_TEAM_DISPLAY) {
+                    employeeTeamOrGroup = new StringBuilder();
+                    for (int i = 0; i < teamCount; i = i + EMPLOYEE_TEAM_JUMP) {
+                        if (i != teamCount - 1) {
+                            employeeTeamOrGroup.append(teamContainer.findElements(By.tagName("span")).get(i).findElement(By.tagName("span")).getText()).append(", ");
+                        } else {
+                            employeeTeamOrGroup.append(teamContainer.findElements(By.tagName("span")).get(i).findElement(By.tagName("span")).getText());
+                        }
+                    }
+                } else {
+                    employeeTeamOrGroup = new StringBuilder(teamCount / EMPLOYEE_TEAM_MOD + 1 + " items selected");
+                }
+            } catch (NoSuchElementException exception) {
+                // no-opp
+            }
+
+        } catch (NoSuchElementException exception) {
+            employeeTeamOrGroup = new StringBuilder(column.findElement(By.cssSelector(".text-na")).getText());
+        }
+        return employeeTeamOrGroup.toString();
     }
 }

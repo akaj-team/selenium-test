@@ -61,7 +61,7 @@ public class EmployeesDefinitions extends DriverBase implements En {
 
         When("^Click on group name$", () -> groupUrl = employeesPage.clickAndGetGroupName());
 
-        When("^Click on edit action edit$", () -> editEmployeeUrl = employeesPage.clickEditButtonAndGetLink());
+        When("^Click on edit action$", () -> editEmployeeUrl = employeesPage.clickEditButtonAndGetLink());
 
         When("^Click on promotion button$", () -> employeesPage.clickPromotionButton());
 
