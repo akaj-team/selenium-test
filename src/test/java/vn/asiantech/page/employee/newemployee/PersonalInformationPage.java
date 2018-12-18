@@ -54,6 +54,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
     private WebDriver driver;
 
     public PersonalInformationPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
@@ -95,6 +96,7 @@ public class PersonalInformationPage extends BasePage<PersonalInformationPage> {
 
     public final void fillFirstName(final String firstName, final int aheadSpace, final int behindSpace) {
         WebElement inputFirstName = nameContainer.findElement(By.xpath("//input[contains(@name,'first_name')]"));
+        inputFirstName.clear();
         if (aheadSpace != 0 && behindSpace != 0) {
             inputFirstName.sendKeys(getNameWithSpace(firstName, aheadSpace, behindSpace));
         } else {

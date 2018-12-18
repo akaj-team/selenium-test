@@ -74,12 +74,10 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
     @FindBy(css = ".fa.fa-fw.fa-close")
     private WebElement btnCloseDialogConfirmSubmit;
 
-    @FindBy(css = ".app-alert.ng-star-inserted")
-    private WebElement tvMessageConfirm;
-
     private WebDriver driver;
 
     public DeviceTrackingPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
@@ -352,43 +350,11 @@ public class DeviceTrackingPage extends BasePage<DeviceTrackingPage> {
         return !dlgConfirmSubmit.isDisplayed() && isDisplayAllItemSelected();
     }
 
-    public final void clickButtonSubmitDialogConfirmSubmit() {
-        clickButtonSubmit();
-        waitForElement(driver, btnSubmitDialogConfirm);
-        btnSubmitDialogConfirm.click();
-    }
-
-    public final Boolean isDismissDialogConfirmSubmitChangeStateSubmit() {
-        waitForElement(driver, dlgConfirmSubmit);
-        return !dlgConfirmSubmit.isDisplayed() && isDisplayAllItemStateSubmit();
-    }
-
-    public final Boolean isMessageConfirmShowing() {
-        waitForElement(driver, tvMessageConfirm);
-        return tvMessageConfirm.isDisplayed();
-    }
-
     private String getBrowserHexValue(final int number) {
         StringBuilder builder = new StringBuilder(Integer.toHexString(number & MASK));
         while (builder.length() < 2) {
             builder.append("0");
         }
         return builder.toString().toUpperCase();
-    }
-
-    private Boolean isDisplayAllItemStateSubmit() {
-        waitForElement(driver, viewDeviceBody);
-        if (viewDeviceBody != null && viewDeviceBody.isEnabled()) {
-            List<WebElement> bodyItems = viewDeviceBody.findElements(By.className("timesheet-cell"));
-            for (int i = 1; i < bodyItems.size(); i++) {
-                WebElement content = bodyItems.get(i).findElement(By.cssSelector(".create-inspection.selected"));
-                String[] rgb = content.getCssValue("border-color").replaceAll("(rgba)|(rgb)|(\\()|(\\s)|(\\))", "").split(",");
-                String borderColor = String.format("#%s%s%s", getBrowserHexValue(Integer.parseInt(rgb[0])), getBrowserHexValue(Integer.parseInt(rgb[1])), getBrowserHexValue(Integer.parseInt(rgb[2])));
-                if (i == COLUMNS_HEADER_COUNT && borderColor.equals(DEVICE_ITEM_BORDER_COLOR)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }

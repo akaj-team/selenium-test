@@ -70,11 +70,9 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         When("^I click remove button$", () -> leaveRequestPage.clickRemoveButton(0));
 
-        Then("^Date request is removed$", () -> Assert.assertFalse(leaveRequestPage.isRemoveDateRequest()));
+        Then("^Date request is removed$", () -> Assert.assertTrue(leaveRequestPage.isRemoveDateRequest()));
 
         Given("^I chose type leave is \"([^\"]*)\"$", (String status) -> leaveRequestPage.setNonePaidInTypeOfLeave(status));
-
-        Given("^Enter full information$", () -> leaveRequestPage.enterFullInfo());
 
         When("^I click submit$", () -> leaveRequestPage.clickSubmit());
 
@@ -91,5 +89,7 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
         And("^I choose today in timeForm calendar$", () -> leaveRequestPage.chooseTime());
 
         And("^I choose today in timeTo calendar$", () -> leaveRequestPage.chooseTime());
+
+        Given("^Enter full information leave request$", () -> leaveRequestPage.enterFullInfo());
     }
 }

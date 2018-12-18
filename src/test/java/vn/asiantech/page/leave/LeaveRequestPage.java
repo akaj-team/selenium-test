@@ -26,7 +26,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     private static final int POS_TIME_FROM = 0;
     private static final int POS_TIME_TO = 1;
 
-    @FindBy(className = "fa-caret-down")
+    @FindBy(css = ".ui-clickable.fa.fa-fw.fa-caret-down")
     private WebElement inputTypeOfLeave;
 
     @FindBy(css = ".input-daterange.input-group")
@@ -55,6 +55,10 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
 
     @FindBy(id = "static-dialog-wrapper")
     private WebElement dialog;
+
+    public LeaveRequestPage(WebDriver driver) {
+        super(driver);
+    }
 
     @Override
 

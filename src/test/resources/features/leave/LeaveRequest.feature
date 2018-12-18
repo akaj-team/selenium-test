@@ -81,7 +81,7 @@ Feature: Create new my leave
     Then Submit button is enabled
 
   Scenario: Check show dialog
-    Given Enter full information
+    Given Enter full information leave request
     When I click submit
     Then Show dialog confirmation
 
