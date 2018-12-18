@@ -56,7 +56,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     @FindBy(id = "static-dialog-wrapper")
     private WebElement dialog;
 
-    public LeaveRequestPage(WebDriver driver) {
+    public LeaveRequestPage(final WebDriver driver) {
         super(driver);
     }
 
