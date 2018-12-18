@@ -1,4 +1,4 @@
-package stepdefs;
+package stepdefs.leave;
 
 import cucumber.api.java8.En;
 import org.openqa.selenium.By;
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
 import vn.asiantech.base.DriverBase;
-import vn.asiantech.page.LeaveRequestPage;
+import vn.asiantech.page.leave.LeaveRequestPage;
 
 /**
  * @author at-anh-quach
