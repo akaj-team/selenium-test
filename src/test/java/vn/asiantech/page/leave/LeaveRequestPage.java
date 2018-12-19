@@ -26,7 +26,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     private static final int POS_TIME_FROM = 0;
     private static final int POS_TIME_TO = 1;
 
-    @FindBy(css = ".ui-clickable.fa.fa-fw.fa-caret-down")
+    @FindBy(xpath = "//p-dropdown[contains(@formcontrolname,'leave_type_id')]")
     private WebElement inputTypeOfLeave;
 
     @FindBy(css = ".input-daterange.input-group")
@@ -116,6 +116,8 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         waitForElement(getDriver(), inputMessage);
 
         getDriver().switchTo().frame(getDriver().findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
+        waitForElement(getDriver(), getDriver().findElement(By.tagName("body")));
+
         getDriver().findElement(By.tagName("body")).sendKeys(message);
         getDriver().switchTo().defaultContent();
     }
