@@ -35,6 +35,7 @@ public class WikiPage extends BasePage<WikiPage> {
     private WebDriver driver;
 
     public WikiPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

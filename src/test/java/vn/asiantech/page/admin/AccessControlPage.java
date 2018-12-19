@@ -37,6 +37,7 @@ public class AccessControlPage extends BasePage<AccessControlPage> {
     private WebDriver driver;
 
     public AccessControlPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

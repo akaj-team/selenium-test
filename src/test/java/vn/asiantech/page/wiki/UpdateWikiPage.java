@@ -19,6 +19,10 @@ public class UpdateWikiPage extends BasePage<UpdateWikiPage> {
 
     private String itemParentFirst;
 
+    public UpdateWikiPage(final WebDriver driver) {
+        super(driver);
+    }
+
     @Override
     public final UpdateWikiPage navigateTo(final WebDriver webDriver) {
         return this;

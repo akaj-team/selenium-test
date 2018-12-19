@@ -1,5 +1,5 @@
 @MenuPage
-Feature: Login AT Portal
+Feature: Check displaying and handing menu
   As menu page
   I want to click item on menu
   In order to check status item on menu
@@ -11,123 +11,148 @@ Feature: Login AT Portal
     When I should see the welcome message
     Then Show name of account
     And Account name is "Tien Hoang N."
-    And Home item with color text is "#ffffff"
-
-  Scenario: Check account color
-    When I hover mouse to account name
+    And "Home" Item changes color to "#ffffff"
 
   Scenario: Test click Home
-    When I click Home item
-    Then Item home change color to "#ffffff"
+    When I click "Home" item
+    Then "Home" Item changes color to "#ffffff"
     And Should redirect to home page "/homepage"
 
   Scenario: Test click item TimeSheet
-    Given Item Timesheet close
-    When I click in Timesheet item
-    Then Open Child Timesheet item
+    Given "Timesheet" Item closes
+    When I click "Timesheet" item
+    Then Open Child "Timesheet" item
 
-  Scenario: Test click item My TimeSheet
-    Given I click in Timesheet item
-    When I click My TimeSheet
-    Then Item my TimeSheet change color to "#ffffff"
-    And Should redirect to "/timesheet/submission"
-    When I click TimeSheet Of Other
-    Then Item TimeSheet Of Other change color to "#ffffff"
-    And Should redirect to time sheet of other page "/timesheet/approval"
+  Scenario Outline: Test click item My TimeSheet
+    Given I click "Timesheet" item
+    When I click "<title>" child item
+    Then "<title>" child item changes color to "#ffffff"
+    And Should redirect to page "<path>"
+    Examples:
+      | title               | path                  |
+      | My Timesheet        | /timesheet/submission |
+      | Timesheet of Others | /timesheet/approval   |
 
   Scenario: Test item Leave
-    Given Item leave close
-    When I click item leave
-    Then Open child leave item
-    And Item leave change color to "#ffffff"
+    Given "Leave" Item closes
+    When I click "Leave" item
+    Then Open Child "Leave" item
+    Then "Leave" Item changes color to "#ffffff"
 
-  Scenario: Test click child Leave item
-    Given I click item leave
-    When I click my leave
-    Then Item my leave change color to "#ffffff"
-    And Should redirect to my leave page "/leave/my-leave"
-    When I click leave planners
-    Then Should redirect to leave planners page "/leave/planning"
-    When I click leave of others
-    Then Should redirect to leave of others page "/leave/tracking"
-    When I click leave balance
-    Then Should redirect to leave balance page "/leave/balance"
+  Scenario Outline: Test click child Leave item
+    Given I click "Leave" item
+    When I click "<title>" child item
+    Then "<title>" child item changes color to "#ffffff"
+    And Should redirect to page "<path>"
+    Examples:
+      | title           | path            |
+      | My Leave        | /leave/my-leave |
+      | Leave Planners  | /leave/planning |
+      | Leave of Others | /leave/tracking |
+      | Leave Balance   | /leave/balance  |
+      | Leave Cancel    | /leave/cancel   |
 
   Scenario: Test item organisation
-    Given Item organisation close
-    When I click item organisation
-    Then Open child organisation item
+    Given "Organisation" Item closes
+    When I click "Organisation" item
+    Then Open Child "Organisation" item
 
   Scenario Outline: Test click child item organisation
-    Given I click item organisation
-    When I click child item organisation with position "<position>"
-    Then if count child item is zero should redirect to page "<path>"
+    Given I click "Organisation" item
+    When I click "<title>" child item
+    Then "<title>" child item changes color to "#ffffff"
+    And Should redirect to page "<path>"
     Examples:
-      | position | path                         |
-      | 0        | /organisation/employees      |
-      | 1        | /organisation/teams          |
-      | 2        | /organisation/teams/26       |
-      | 3        | /organisation/positions      |
-      | 4        | /organisation/positions/tree |
-      | 5        | /organisation/groups         |
+      | title       | path                         |
+      | Employees   | /organisation/employees      |
+      | Teams       | /organisation/teams          |
+      | Positions   | /organisation/positions      |
+      | Career Path | /organisation/positions/tree |
+      | Groups      | /organisation/groups         |
+
+  Scenario: Test click child item my teams
+    Given I click "Organisation" item
+    When I click "My Teams" item
+    When I click "Ruby" child item
+    Then "Ruby" child item changes color to "#ffffff"
+    And Should redirect to page "/organisation/teams/21"
+    When I click "Android" child item
+    Then "Android" child item changes color to "#ffffff"
+    And Should redirect to page "/organisation/teams/24"
 
   Scenario Outline: Test click child item project management
-    Given I click item project management
-    When I click child item project management with position "<position>"
-    Then Should redirect to page "<path>"
+    Given I click "Project Management" item
+    When I click "<title>" child item
+    Then "<title>" child item changes color to "#ffffff"
+    And Should redirect to page "<path>"
     Examples:
-      | position | path                         |
-      | 0        | /project-management/projects |
+      | title    | path                         |
+      | Projects | /project-management/projects |
 
   Scenario: Test click item wiki
-    When I click item wiki
-    Then Should redirect to wiki page "/wiki/168"
+    When I click "Wiki" item
+    Then Should redirect to page "/wiki/168"
+
+  Scenario Outline: Test click item thanks message
+    Given I click "Thanks Message" item
+    When I click "<title>" child item
+    Then "<title>" child item changes color to "#ffffff"
+    And Should redirect to page "<path>"
+    Examples:
+      | title             | path                      |
+      | New Message       | /thanks-message/new       |
+      | Message Dashboard | /thanks-message/dashboard |
+      | Frames            | /thanks-message/frames    |
 
   Scenario Outline: Test click item administration
-    Given I click item administration
-    When I click child item administration with position "<position>"
-    Then Should redirect to page "<path>"
+    Given I click "Administration" item
+    When I click "<title>" child item
+    Then "<title>" child item changes color to "#ffffff"
+    And Should redirect to page "<path>"
     Examples:
-      | position | path                  |
-      | 0        | /admin/acl            |
-      | 1        | /admin/public-holiday |
-      | 2        | /admin/email-settings |
-      | 3        | /admin/award-category |
+      | title                | path                  |
+      | Access control       | /admin/acl            |
+      | Holidays Setting     | /admin/public-holiday |
+      | Email Configurations | /admin/email-settings |
+      | Award Category       | /admin/award-category |
 
   Scenario Outline: Test click item device
-    Given I click item device
-    When I click child item device with "<position>"
-    Then Should redirect to page "<path>"
+    Given I click "Device" item
+    When I click "<title>" child item
+    Then "<title>" child item changes color to "#ffffff"
+    And Should redirect to page "<path>"
     Examples:
-      | position | path                          |
-      | 0        | /equipments/tracking          |
-      | 1        | /equipments/tracking-approval |
-      | 2        | /equipments/dashboard         |
-      | 3        | /equipments                   |
-      | 4        | /equipments/assignments       |
-      | 5        | /equipments/categories        |
-      | 6        | /equipments/broken-status     |
-      | 7        | /equipments/my-equipment      |
+      | title                    | path                          |
+      | Device Tracking          | /equipments/tracking          |
+      | Device Tracking Approval | /equipments/tracking-approval |
+      | Device Dashboard         | /equipments/dashboard         |
+      | Device List              | /equipments                   |
+      | Device Assignment        | /equipments/assignments       |
+      | Device Category          | /equipments/categories        |
+      | Device Condition         | /equipments/broken-status     |
+      | My Device                | /equipments/my-equipment      |
 
   Scenario Outline: Test click item tools
-    Given I click item tools
-    When I click child item tools with "<position>"
-    Then Should redirect to page "<path>"
+    Given I click "Tools" item
+    When I click "<title>" child item
+    Then "<title>" child item changes color to "#ffffff"
+    And Should redirect to page "<path>"
     Examples:
-      | position | path                             |
-      | 0        | /tools/announcement              |
-      | 1        | /tools/email-signature           |
-      | 2        | /tools/attendance-record         |
-      | 3        | /tools/project-report            |
-      | 4        | /tools/timesheet-report          |
-      | 5        | /tools/equipment-report          |
-      | 6        | /tools/equipment-tracking-report |
+      | title                  | path                             |
+      | Announcements          | /tools/announcement              |
+      | Email Signature        | /tools/email-signature           |
+      | Attendance Record      | /tools/attendance-record         |
+      | Project Alloc. Report  | /tools/project-report            |
+      | Timesheet Report       | /tools/timesheet-report          |
+      | Device Report          | /tools/equipment-report          |
+      | Device Tracking Report | /tools/equipment-tracking-report |
 
   Scenario Outline: Test click item career
-    Given I click item career
-    When I click child item career with "<position>"
-    Then Should redirect to page "<path>"
+    Given I click "Career" item
+    When I click "<title>" child item
+    Then "<title>" child item changes color to "#ffffff"
+    And Should redirect to page "<path>"
     Examples:
-      | position | path                  |
-      | 0        | /goals/my-goal        |
-      | 1        | /goals/goal-of-others |
+      | title               | path                  |
+      | My Performance Plan | /goals/my-goal        |
+      | P.Plan of Others    | /goals/goal-of-others |

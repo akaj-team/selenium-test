@@ -1,5 +1,5 @@
 @EmployeesPage
-Feature: Check display views after search
+Feature: Check display views after search at employee page
   Fill the position
   Display corresponding employee list
 

@@ -44,7 +44,8 @@ public class LeavePlannerPage extends BasePage<LeavePlannerPage> {
 
     private WebDriver driver;
 
-    public LeavePlannerPage(WebDriver driver) {
+    public LeavePlannerPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

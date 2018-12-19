@@ -10,7 +10,7 @@ Feature: Check update page
 
   Scenario: Check update a child page
     When I clear title
-    Then I enter title
+    Then I enter title "Pikalong"
     When Click submit child page or update page button
     Then Redirect wiki detail page
 

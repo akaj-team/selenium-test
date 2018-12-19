@@ -40,6 +40,7 @@ public class PositionsPage extends BasePage<PositionsPage> {
     private WebDriver driver;
 
     public PositionsPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

@@ -44,6 +44,10 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
     @FindBy(xpath = "//a[contains(@class,'fa-close')]")
     private WebElement btnCloseDialogConfirm;
 
+    public NewWikiPage(final WebDriver driver) {
+        super(driver);
+    }
+
     @Override
     public final NewWikiPage navigateTo(final WebDriver webDriver) {
         return this;
