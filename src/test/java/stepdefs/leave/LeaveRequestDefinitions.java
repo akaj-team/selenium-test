@@ -70,8 +70,6 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         When("^I click remove button$", () -> leaveRequestPage.clickRemoveButton(0));
 
-        Then("^Date request is removed$", () -> Assert.assertTrue(leaveRequestPage.isRemoveDateRequest()));
-
         Given("^I chose type leave is \"([^\"]*)\"$", (String status) -> leaveRequestPage.setNonePaidInTypeOfLeave(status));
 
         When("^I click submit$", () -> leaveRequestPage.clickSubmit());

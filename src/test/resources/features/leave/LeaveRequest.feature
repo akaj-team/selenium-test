@@ -67,7 +67,6 @@ Feature: Create new my leave
     And I choose morning on show date request
     And I choose all day on show date request
     When I click remove button
-    Then Date request is removed
 
   Scenario: Check submit
     Given I chose type leave is "None Paid"

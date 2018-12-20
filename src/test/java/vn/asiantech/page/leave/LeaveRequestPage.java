@@ -157,15 +157,6 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
         clickItemMenuType(status);
     }
 
-    public final boolean isRemoveDateRequest() {
-        try {
-            tableDateRequest.isDisplayed();
-            return true;
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            return false;
-        }
-    }
-
     public final boolean chooseAfternoon() {
         findRadioButtonDateRequest(POS_AFTERNOON).click();
         return findRadioButtonDateRequest(POS_AFTERNOON).findElement(By.xpath("//div[contains(@class,'ui-state-active')]")).isDisplayed();
