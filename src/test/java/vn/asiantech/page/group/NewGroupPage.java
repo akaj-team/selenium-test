@@ -32,6 +32,7 @@ public class NewGroupPage extends BasePage<NewGroupPage> {
     private WebDriver driver;
 
     public NewGroupPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

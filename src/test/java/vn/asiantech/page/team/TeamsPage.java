@@ -34,7 +34,8 @@ public class TeamsPage extends BasePage<TeamsPage> {
 
     private WebDriver driver;
 
-    public TeamsPage(WebDriver driver) {
+    public TeamsPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

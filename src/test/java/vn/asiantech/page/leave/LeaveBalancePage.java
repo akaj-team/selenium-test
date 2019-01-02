@@ -42,6 +42,7 @@ public class LeaveBalancePage extends BasePage<LeaveBalancePage> {
     private WebDriver driver;
 
     public LeaveBalancePage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

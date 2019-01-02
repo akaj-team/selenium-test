@@ -48,6 +48,7 @@ public class EditEmployeePage extends BasePage<EditEmployeePage> {
     private WebDriver driver;
 
     public EditEmployeePage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

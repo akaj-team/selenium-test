@@ -36,6 +36,7 @@ public class NewTeamFormPage extends BasePage<NewTeamFormPage> {
     private WebDriver driver;
 
     public NewTeamFormPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

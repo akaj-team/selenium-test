@@ -28,6 +28,7 @@ public final class Constant {
     public static final String NEW_POSITION_URL = PORTAL_URL + "/organisation/positions/new";
     public static final String TIME_SHEET_OTHER_URL = PORTAL_URL + "/timesheet/approval";
     public static final String NEW_GROUP_URL = PORTAL_URL + "/organisation/groups/new";
+    public static final String URL_MYTEAM_PAGE = PORTAL_URL + "/organisation/teams/";
 
     public static final int DEFAULT_TIME_OUT = 10;
     public static final int MAXIMUM_TIME_OUT = 20;

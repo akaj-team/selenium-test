@@ -19,7 +19,8 @@ public class LoginPage extends BasePage<LoginPage> {
 
     private WebDriver driver;
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 

@@ -41,6 +41,7 @@ public class TimeSheetOthers extends BasePage<TimeSheetOthers> {
     private WebDriver driver;
 
     public TimeSheetOthers(final WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
