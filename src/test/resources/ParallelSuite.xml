@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Suite parallel" parallel="tests" verbose="1" configfailurepolicy="continue" thread-count="3">
 
-    <test name="FireFox Test">
+    <test name="FireFox Test" enabled="true">
         <parameter name="browserName" value="firefox"/>
         <parameter name="server" value=""/>
         <classes>
@@ -9,7 +9,7 @@
         </classes>
     </test>
 
-    <test name="Chrome Test">
+    <test name="Chrome Test" enabled="true">
         <parameter name="browserName" value="chrome"/>
         <parameter name="server" value=""/>
         <classes>
@@ -17,7 +17,7 @@
         </classes>
     </test>
 
-    <test name="Safari Test">
+    <test name="Safari Test" enabled="true">
         <parameter name="browserName" value="safari"/>
         <parameter name="server" value=""/>
         <classes>
