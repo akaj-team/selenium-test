@@ -1,5 +1,7 @@
 package vn.asiantech.base;
 
+import vn.asiantech.object.Account;
+
 /**
  * @author at-hangtran
  */
@@ -30,6 +32,25 @@ public final class Constant {
 
     public static final int DEFAULT_TIME_OUT = 10;
     public static final int MAXIMUM_TIME_OUT = 20;
+
+    // browser name
+    static final String BROWSER_CHROME = "chrome";
+    static final String BROWSER_FIREFOX = "firefox";
+    static final String BROWSER_SAFARI = "safari";
+    static final String BROWSER_IE = "ie";
+    static final String BROWSER_EDGE = "edge";
+    static final String BROWSER_OPERA = "opera";
+
+    //init Account
+    static final Account[] ACCOUNT_LOGIN = new Account[]{
+            new Account("stg.tien.hoang@asiantech.vn", "Abc123@@"),
+            new Account("stg.tu.le.2@asiantech.vn", "Abc123@@"),
+            new Account("stg.thien.dang2@asiantech.vn", "Abc123@@"),
+            new Account("stg.hang.nguyen@asiantech.vn", "Abc123@@"),
+            new Account("stg.lam.le2@asiantech.vn", "Abc123@@"),
+            new Account("automation-01@asiantech.vn", "Abc123@@"),
+            new Account("automation-02@asiantech.vn", "Abc123@@")
+    };
 
     private Constant() {
         // No-op
