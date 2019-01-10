@@ -53,7 +53,7 @@ Test cases are written such that, web elements on web pages are identified and t
  ```
 Element: <div class="gray-bg full-screen" id="wrapper">
 
-Find: driver.findElement(By.id("page-wrapper"));
+Find: driver.findElement(By.id("wrapper"));
 ```
 
 * **By name:**
@@ -67,9 +67,9 @@ Find: driver.findElement(By.name("description"));
 * **By class name:**
 
 ```
-Element: <div class="alert alert-danger alert-dismissible" role="alert">
+Element: <div class="alert" role="alert">
 
-Find: driver.findElement(By.className("alert alert-danger alert-dismissible"));
+Find: driver.findElement(By.className("alert"));
 ```
 
 * **By tag name:**
@@ -202,7 +202,7 @@ Element:
 Element: 
 <input formcontrolname="gender" type="radio" id="gender-male" class="ng-untouched ng-pristine ng-invalid">
 
-Find: driver.findElement(By.name("gender-male")).click();
+Find: driver.findElement(By.id("gender-male")).click();
 ```
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Check box
@@ -477,11 +477,18 @@ try {
 
 ### I. Operation
 
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cucumber is one such open source tool, which supports behavior driven development.
+ - Cucumber is one such open source tool, which supports behavior driven development. 
+ 
+ - Cucumber reads executable specifications written in plain text and validates that the software does what those specifications say.
  
  **Describe behaviour -> Write step definition -> Run and fail ->Write code to make step pass -> Run and pass**
 
-### II. Annotation
+### II. Gherkin
+  - Gherkin is a simple set of grammar rules that makes plain text structured enough for Cucumber to understand. 
+  
+  - Gherkin uses a set of special keywords to give structure and meaning to executable specifications. Each keyword is translated to many spoken languages
+  
+### III. Annotation
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Annotation is a predefined text, which holds a specific meaning. It lets the compiler/interpreter know, what should be done upon execution. Cucumber has got the following few annotations:
 
@@ -510,7 +517,7 @@ And I enter my "<password>"
 Then Login should be unsuccessful
 ```
 
-## III. Scenario
+## IV. Scenario
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every scenario starts with the keyword **Scenario:** and is followed by an optional scenario title which describe a behaviour.
 
@@ -547,7 +554,7 @@ Examples:
  | user3    | password3 |
 ```
 
-## IV. Feature
+## V. Feature
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The keyword to represent a feature under test in Gherkins is **Feature:**. A feature can be defined as a standalone unit or functionality of a project.
  
@@ -586,7 +593,7 @@ Feature: Login functionality for a AT-Portal site.
 - **When** − Specific condition which should match in order to execute the next step.
 - **Then** − What should happen if the condition mentioned in When is satisfied.
 
-## V.Tag
+## VI. Tag
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cucumber has already provided a way to organize your scenario execution by using tags in feature file. We can define each scenario with a useful tag. Tag starts with **@**. After **@** you can have any relevant text to define your tag.
 
@@ -619,7 +626,7 @@ Feature: Login functionality for a AT-Portal site.
    | user3    | password3 |
 ```
 
-## VI. Data table
+## VII. Data table
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data table is a set of input to be provided for a single tag. This tag can be **Given**, **When**, or **Then**. It is there any better way to manage such chunk of inputs.
 
@@ -649,7 +656,7 @@ When("^I enter invalid data on the page$", (DataTable dataTable) -> {
 ```
 
 
-## VII. Comments
+## VIII. Comments
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Comment is basically a piece of code meant for documentation purpose and not for execution. Be it a step definition file or a feature file, to make it more readable and understandable. To put comments, we just need to start the statement with **#** sign.
 
@@ -662,7 +669,7 @@ User navigates to AT-Portal
 Given I am on AT-Portal  login page
 ```
 
-## VIII. Implement steps
+## IX. Implement steps
 
  | Expression reference | Description                                   |
  |:--------------------:|-----------------------------------------------|
