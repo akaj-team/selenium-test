@@ -191,7 +191,7 @@ Element:
 - We can also retrieve text from a text box using the **getAttribute("value")** command.
 
 ```
- Find:  driver.findElement(By.name("first_name")).getAttribute("value);
+ Find:  driver.findElement(By.name("first_name")).getAttribute("value");
 ```
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. Radio button
@@ -284,6 +284,10 @@ driver.manage().timeouts().implicitlyWait(TimeOut, TimeUnit.SECONDS);
 - visibilityOfAllElements()
 - visibilityOfAllElementsLocatedBy()
 - visibilityOfElementLocated()
+```
+**Example:**
+```
+ new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(element));
 ```
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Fluent waits
@@ -519,7 +523,7 @@ Then Login should be unsuccessful
 
 ## IV. Scenario
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every scenario starts with the keyword **Scenario:** and is followed by an optional scenario title which describe a behaviour.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every scenario starts with the keyword **"Scenario:"** and is followed by an optional scenario title which describe a behaviour.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Example**
 
@@ -556,7 +560,7 @@ Examples:
 
 ## V. Feature
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The keyword to represent a feature under test in Gherkins is **Feature:**. A feature can be defined as a standalone unit or functionality of a project.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The keyword to represent a feature under test in Gherkins is "**Feature:**". A feature can be defined as a standalone unit or functionality of a project.
  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A feature usually contains a list of scenarios to be tested for that feature.
 
@@ -597,7 +601,7 @@ Feature: Login functionality for a AT-Portal site.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cucumber has already provided a way to organize your scenario execution by using tags in feature file. We can define each scenario with a useful tag. Tag starts with **@**. After **@** you can have any relevant text to define your tag.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then to target these tagged scenarios just specify the tags names in the CucumberOptions as **tags = {"@SmokeTests"}**.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then to target these tagged scenarios just specify the tags names in the CucumberOptions as **tags = {"@Ignore"}**.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Example:**
 
@@ -650,11 +654,11 @@ Feature: Login functionality for a AT-Portal site.
 
 ``` 
 When("^I enter invalid data on the page$", (DataTable dataTable) -> {
-          dataTable.get(<row>).get(<column>)
-          // TODO
+          // dataTable.get(<row>).get(<column>)
+          String firstName = dataTable.get(0).get(1) // firstName = Hang
+          String lastName = dataTable.get(1).get(1) // lastName = Tran
        });
 ```
-
 
 ## VIII. Comments
 
