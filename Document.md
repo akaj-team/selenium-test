@@ -1,5 +1,6 @@
 # Automation Test Document
 ***
+**Version: 1.0**
 ## SELENIUM
 
 ### I. Web driver
