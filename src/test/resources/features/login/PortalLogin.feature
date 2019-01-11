@@ -9,7 +9,6 @@ Feature: Check Login AT Portal
     Given I open login page
     Then Browser should redirect to "/auth/login"
 
-
   Scenario: Login success with correct account
     When I enter my username
     And I fill in password
