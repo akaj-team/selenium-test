@@ -1,9 +1,8 @@
 @LoginPage
-Feature: Check Login AT Portallll
+Feature: Check Login AT
   As an employee of the company
   I want to login my employee profile using my credentials
   In order to check my profile
-
 
   Background: User navigates to Company home page
     Given I open login page
