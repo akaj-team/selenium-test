@@ -4,32 +4,30 @@ pipeline {
     stages {
         stage("Setup") {
             steps {
-                sh "mkdir -p target"
-                sh "cd target"
-                sh "touch CucumberTestReport.json"
+                echo 'set up'
             }
         }
         stage('Build') {
             steps {
-                echo 'test'
+                sh 'mvn clean test'
             }
         }
     }
 
     post {
         always {
-            archiveArtifacts artifacts: 'target/**'
+//            archiveArtifacts artifacts: 'target/**'
         }
 
         success {
             echo "Test succeeded"
             script {
-                cucumber fileIncludePattern: 'target/CucumberTestReport.json', sortingMethod: 'ALPHABETICAL'
+//                cucumber fileIncludePattern: 'target/CucumberTestReport.json', sortingMethod: 'ALPHABETICAL'
             }
         }
         failure {
             echo "Test failed"
-            cucumber fileIncludePattern: 'target/CucumberTestReport.json', sortingMethod: 'ALPHABETICAL'
+//            cucumber fileIncludePattern: 'target/CucumberTestReport.json', sortingMethod: 'ALPHABETICAL'
         }
     }
 }
