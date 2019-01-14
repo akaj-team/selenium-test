@@ -20,4 +20,16 @@ pipeline {
                         ]
             }
     }
+    post {
+            success {
+             echo "Test succeeded"
+                script {
+                  cucumber fileIncludePattern: '**/java-calculator/target/cucumber-report.json', sortingMethod: 'ALPHABETICAL'
+                }
+            }
+            failure {
+                echo "Test failed"
+                cucumber fileIncludePattern: '**/java-calculator/target/cucumber-report.json', sortingMethod: 'ALPHABETICAL'
+            }
+        }
 }
