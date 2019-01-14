@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+        stage("Setup") {
+            steps {
+                sh "mkdir -p target"
+                sh "cd target"
+                sh "touch CucumberTestReport.json"
+            }
+        }
         stage('Build') {
             steps {
                 echo 'test'
@@ -11,18 +18,18 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'target/cucumber-reports/**'
+            archiveArtifacts artifacts: 'target/**'
         }
 
         success {
             echo "Test succeeded"
             script {
-                cucumber fileIncludePattern: 'target/cucumber-reports/CucumberTestReport.json', sortingMethod: 'ALPHABETICAL'
+                cucumber fileIncludePattern: 'target/CucumberTestReport.json', sortingMethod: 'ALPHABETICAL'
             }
         }
         failure {
             echo "Test failed"
-            cucumber fileIncludePattern: 'target/cucumber-reports/CucumberTestReport.json', sortingMethod: 'ALPHABETICAL'
+            cucumber fileIncludePattern: 'target/CucumberTestReport.json', sortingMethod: 'ALPHABETICAL'
         }
     }
 }
