@@ -12,18 +12,18 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'target/**'
+            archiveArtifacts artifacts: 'target/cucumber-reports/**'
         }
 
         success {
             echo "Test succeeded"
             script {
-                cucumber fileIncludePattern: 'target/cucumber-report.json', sortingMethod: 'ALPHABETICAL'
+                cucumber fileIncludePattern: 'target/cucumber-reports/CucumberTestReport.json', sortingMethod: 'ALPHABETICAL'
             }
         }
         failure {
             echo "Test failed"
-            cucumber fileIncludePattern: 'target/cucumber-report.json', sortingMethod: 'ALPHABETICAL'
+            cucumber fileIncludePattern: 'target/cucumber-reports/CucumberTestReport.json', sortingMethod: 'ALPHABETICAL'
         }
     }
 }
