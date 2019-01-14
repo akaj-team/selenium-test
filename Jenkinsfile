@@ -7,19 +7,17 @@ pipeline {
                 sh 'mvn clean test'
             }
         }
-    }
 
-    node {
-        stage('Generate HTML report') {
-            cucumber buildStatus: 'UNSTABLE',
-                    fileIncludePattern: '**/*.json',
-                    trendsLimit: 10,
-                    classifications: [
-                        [
-                            'key': 'Browser',
-                            'value': 'Firefox'
-                        ]
-                    ]
+        stage('Test') {
+            parallel linux: {
+                node('linux') {
+                  dir("../builds/${BUILD_NUMBER}/") {
+                          sh "cp -r cucumber-html-reports $WORKSPACE"
+                      }
+
+                  archive "cucumber-html-reports/*"
+                }
+            }
         }
     }
 }
