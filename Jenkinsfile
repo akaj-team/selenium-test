@@ -3,7 +3,7 @@ pipeline {
 
     stages {
         stage('Build') {
-            sh 'mvn clean test'
+            echo 'Hello'
         }
         stage('Generate HTML report') {
             cucumber buildStatus: 'UNSTABLE',
