@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'test'
+                sh 'mvn clean test -Dbrowser=chrome'
             }
         }
     }
