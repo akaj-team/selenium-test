@@ -9,7 +9,21 @@ pipeline {
                 sh 'mvn -version'
             }
         }
+        
+        stage('Generate HTML report') {
+            cucumber buildStatus: 'UNSTABLE',
+                    fileIncludePattern: '**/*.json',
+                    trendsLimit: 10,
+                    classifications: [
+                        [
+                            'key': 'Browser',
+                            'value': 'Firefox'
+                        ]
+                    ]
+        }
     }
+    
+    
 
 //    post {
 //        always {
