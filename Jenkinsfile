@@ -6,6 +6,7 @@ pipeline {
             steps {
                // sh 'mvn clean test'
                 echo 'test'
+                sh 'mvn -version'
             }
         }
     }
