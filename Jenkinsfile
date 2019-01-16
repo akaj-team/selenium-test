@@ -8,9 +8,9 @@ pipeline {
                 sh 'mvn -verion'
             }
         }
-    }
-    stage('Generate HTML report') {
-            step {
+
+        stage('Generate HTML report') {
+            steps {
                 cucumber buildStatus: 'UNSTABLE',
                     fileIncludePattern: '**/*.json',
                     trendsLimit: 10,
@@ -22,4 +22,5 @@ pipeline {
                     ]
             }
         }
+    }
 }
