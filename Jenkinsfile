@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                //  sh 'mvn clean test -Dbrowser=chrome'
+                //  sh 'mvn clean test'
                 echo 'build stage'
             }
         }
@@ -18,12 +18,12 @@ pipeline {
         success {
             echo "Test succeeded"
             script {
-                cucumber fileIncludePattern: 'testtarget/cucumber-report.json', sortingMethod: 'ALPHABETICAL'
+                cucumber fileIncludePattern: 'testtarget/*.json', sortingMethod: 'ALPHABETICAL'
             }
         }
         failure {
             echo "Test failed"
-            cucumber fileIncludePattern: 'testtarget/cucumber-report.json', sortingMethod: 'ALPHABETICAL'
+            cucumber fileIncludePattern: 'testtarget/*.json', sortingMethod: 'ALPHABETICAL'
         }
     }
 }
