@@ -129,7 +129,7 @@
                             <forkCount>3</forkCount>
                             <reuseForks>true</reuseForks>
                             <suiteXmlFiles>
-                                <suiteXmlFile>src/test/resources/ParallelSuite.xml</suiteXmlFile>
+                                <suiteXmlFile>src/test/resources/DefaultSuite.xml</suiteXmlFile>
                             </suiteXmlFiles>
                             <systemPropertyVariables>
                                 <test.test1>Bla ble</test.test1>
