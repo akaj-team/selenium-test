@@ -9,20 +9,20 @@ pipeline {
         }
     }
 
-//    post {
-//        always {
-//            archiveArtifacts artifacts: 'testtarget/**'
-//        }
-//
-//        success {
-//            echo "Test succeeded"
-//            script {
-//                cucumber fileIncludePattern: 'testtarget/*.json', sortingMethod: 'ALPHABETICAL'
-//            }
-//        }
-//        failure {
-//            echo "Test failed"
-//            cucumber fileIncludePattern: 'testtarget/*.json', sortingMethod: 'ALPHABETICAL'
-//        }
-//    }
+    post {
+        always {
+            archiveArtifacts artifacts: 'target/**'
+        }
+
+        success {
+            echo "Test succeeded"
+            script {
+                cucumber fileIncludePattern: 'target/*.json', sortingMethod: 'ALPHABETICAL'
+            }
+        }
+        failure {
+            echo "Test failed"
+            cucumber fileIncludePattern: 'target/*.json', sortingMethod: 'ALPHABETICAL'
+        }
+    }
 }
