@@ -3,7 +3,7 @@ import org.testng.annotations.Test;
 import vn.asiantech.base.CucumberRunnerBase;
 
 @CucumberOptions(
-        features = "src/test/resources/features",
+        features = "src/test/resources/features/wiki",
         glue = {"stepdefs"},
         tags = {"not @Ignore"},
         plugin = {
