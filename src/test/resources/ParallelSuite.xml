@@ -17,7 +17,7 @@
         </classes>
     </test>
 
-    <test name="Safari Test" enabled="true">
+    <test name="Safari Test" enabled="false">
         <parameter name="browserName" value="safari"/>
         <parameter name="server" value=""/>
         <classes>

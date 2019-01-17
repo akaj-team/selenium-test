@@ -31,18 +31,18 @@ public class DriverFactory {
 
     public static DriverFactory instance = new DriverFactory();
     private ThreadLocal<RemoteWebDriver> driverFactoryThread = new ThreadLocal<>();
+    private ThreadLocal<Account> accountThread = new ThreadLocal<>();
     private static List<Integer> busyAccounts = new ArrayList<>();
-    private Account accountCanUse;
 
     public Account getAccountCanUse() {
-        return accountCanUse;
+        return accountThread.get();
     }
 
     private void initSessionAccounts() {
         for (Account account : Constant.ACCOUNT_LOGIN) {
             if (!busyAccounts.contains(account.hashCode())) {
                 busyAccounts.add(account.hashCode());
-                accountCanUse = account;
+                accountThread.set(account);
                 System.out.println("Using first login account: " + account.email);
                 break;
             }
