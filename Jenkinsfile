@@ -3,18 +3,26 @@ pipeline {
 
     stages {
         stage('Build') {
-            sh 'mvn clean test'
+            steps {
+                sh 'mvn clean test'
+            }
         }
-        stage('Generate HTML report') {
-            cucumber buildStatus: 'UNSTABLE',
-                    fileIncludePattern: '**/*.json',
-                    trendsLimit: 10,
-                    classifications: [
-                            [
-                                    'key'  : 'Browser',
-                                    'value': 'Firefox'
-                            ]
-                    ]
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'target/cucumber-reports/**'
+        }
+
+        success {
+            echo "Test succeeded"
+            script {
+                cucumber fileIncludePattern: 'target/cucumber-reports/*.json', sortingMethod: 'ALPHABETICAL'
+            }
+        }
+        failure {
+            echo "Test failed"
+            cucumber fileIncludePattern: 'target/cucumber-reports/*.json', sortingMethod: 'ALPHABETICAL'
         }
     }
 }
