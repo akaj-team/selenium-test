@@ -31,7 +31,7 @@ services:
     ports:
       - "5555:4444"
     deploy:
-      replicas: 1
+      replicas: 2
     networks:
       - selenium_net
 
@@ -48,7 +48,7 @@ services:
     ports:
       - "5556:4444"
     deploy:
-      replicas: 1
+      replicas: 2
     networks:
       - selenium_net
 
