@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'docker stack deploy -c docker-compose-selenium.yml hub'
                 sh 'mvn clean test'
             }
         }
@@ -17,7 +18,7 @@ pipeline {
         success {
             echo "Test succeeded"
             script {
-                cucumber fileIncludePattern: 'target/*.json', sortingMethod: 'ALPHABETICAL'
+                cucumber fileIncludePattern: 'target/cucum*.json', sortingMethod: 'ALPHABETICAL'
             }
         }
         failure {
