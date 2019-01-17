@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.opera.OperaDriver;
@@ -23,7 +24,10 @@ public enum DriverType implements DriverSetup {
     FIREFOX {
         public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
             WebDriverManager.firefoxdriver().setup();
-            return new FirefoxDriver();
+            FirefoxOptions options = new FirefoxOptions();
+            options.merge(capabilities);
+            options.setHeadless(HEADLESS);
+            return new FirefoxDriver(options);
         }
     },
     CHROME {

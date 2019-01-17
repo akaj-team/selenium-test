@@ -7,7 +7,7 @@ import org.testng.annotations.*;
 @Listeners(ScreenShotListener.class)
 public class CucumberRunnerBase extends AbstractTestNGCucumberTests {
 
-    @DataProvider
+    @DataProvider()
     public Object[][] features() {
         return super.scenarios();
     }

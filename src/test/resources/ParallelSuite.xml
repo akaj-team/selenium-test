@@ -1,5 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Suite parallel" parallel="tests" verbose="1" configfailurepolicy="continue" thread-count="3">
+<suite name="Suite parallel" parallel="tests" verbose="1" configfailurepolicy="continue" thread-count="3"
+       data-provider-thread-count="3">
 
     <test name="FireFox Test" enabled="true">
         <parameter name="browserName" value="firefox"/>
