@@ -4,23 +4,26 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Hello'
-                sh 'mvn -verion'
+                // sh 'docker stack deploy -c docker-compose-selenium.yml hub'
+                sh 'mvn clean test'
             }
         }
+    }
 
-        stage('Generate HTML report') {
-            steps {
-                cucumber buildStatus: 'UNSTABLE',
-                    fileIncludePattern: '**/*.json',
-                    trendsLimit: 10,
-                    classifications: [
-                            [
-                                    'key'  : 'Browser',
-                                    'value': 'Firefox'
-                            ]
-                    ]
+    post {
+        always {
+            archiveArtifacts artifacts: 'target/cucumber-reports/**'
+        }
+
+        success {
+            echo "Test succeeded"
+            script {
+                cucumber fileIncludePattern: 'target/cucumber-reports/*.json', sortingMethod: 'ALPHABETICAL'
             }
+        }
+        failure {
+            echo "Test failed"
+            cucumber fileIncludePattern: 'target/cucumber-reports/*.json', sortingMethod: 'ALPHABETICAL'
         }
     }
 }
