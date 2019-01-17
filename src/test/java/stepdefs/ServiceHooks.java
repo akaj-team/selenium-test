@@ -3,8 +3,7 @@ package stepdefs;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-
-import static vn.asiantech.base.DriverBase.closeDriverObjects;
+import vn.asiantech.base.DriverFactory;
 
 public class ServiceHooks {
     private static boolean isFirstStep = true;
@@ -26,7 +25,7 @@ public class ServiceHooks {
     }
 
     private void afterAll() {
-        closeDriverObjects();
+        DriverFactory.instance.quitDriver();
     }
 
     private void beforeAll() {

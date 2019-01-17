@@ -16,13 +16,16 @@ public class CucumberRunnerBase extends AbstractTestNGCucumberTests {
 
     @BeforeClass(alwaysRun = true)
     public void setUpClass(final ITestContext context) {
-        DriverBase.instantiateDriverObject(context.getCurrentXmlTest());
         testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
+        DriverFactory.instance.startDriver(context.getCurrentXmlTest());
     }
 
     @AfterClass(alwaysRun = true)
     public void tearDownClass() {
         System.out.println("tearDownClass");
-        DriverBase.closeDriverObjects();
+        if (this.testNGCucumberRunner != null) {
+            this.testNGCucumberRunner.finish();
+        }
+        DriverFactory.instance.quitDriver();
     }
 }

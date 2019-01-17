@@ -9,7 +9,9 @@ import vn.asiantech.object.Account;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
@@ -18,7 +20,7 @@ import static vn.asiantech.base.DriverType.*;
 /**
  * DriverFactory
  */
-class DriverFactory {
+public class DriverFactory {
 
     private final String operatingSystem = System.getProperty("os.name").toUpperCase();
     private final String systemArchitecture = System.getProperty("os.arch");
@@ -26,12 +28,13 @@ class DriverFactory {
     private final String proxyHostname = System.getProperty("proxyHost");
     private final Integer proxyPort = Integer.getInteger("proxyPort");
     private final String proxyDetails = String.format("%s:%d", proxyHostname, proxyPort);
-    private RemoteWebDriver driver;
 
+    public static DriverFactory instance = new DriverFactory();
+    private ThreadLocal<RemoteWebDriver> driverFactoryThread = new ThreadLocal<>();
     private static List<Integer> busyAccounts = new ArrayList<>();
     private Account accountCanUse;
 
-    final Account getAccountCanUse() {
+    public final Account getAccountCanUse() {
         return accountCanUse;
     }
 
@@ -45,7 +48,24 @@ class DriverFactory {
         }
     }
 
-    DriverFactory(final XmlTest xmlTest) {
+    public synchronized RemoteWebDriver getDriver() {
+        if (driverFactoryThread.get() == null) {
+            XmlTest xmlTest = new XmlTest();
+            xmlTest.setParameters(defaultParam());
+            startDriver(xmlTest);
+        }
+        return driverFactoryThread.get();
+    }
+
+    private static Map<String, String> defaultParam() {
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("browserName", Constant.BROWSER_CHROME);
+        parameters.put("server", "");
+        return parameters;
+    }
+
+    public void startDriver(final XmlTest xmlTest) {
+        busyAccounts.clear();
         initSessionAccounts();
         //get param suite
         String browserName = xmlTest.getParameter("browserName");
@@ -53,13 +73,9 @@ class DriverFactory {
 
         DriverType driverType = getDriverType(browserName);
         String browser = System.getProperty("browser", driverType.toString()).toUpperCase();
+        driverType = DriverType.valueOf(browser);
         try {
-            driverType = DriverType.valueOf(browser);
             instantiateWebDriver(driverType, server);
-        } catch (IllegalArgumentException ignored) {
-            System.err.println("Unknown driver specified, defaulting to '" + driverType + "'...");
-        } catch (NullPointerException ignored) {
-            System.err.println("No driver specified, defaulting to '" + driverType + "'...");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -92,15 +108,9 @@ class DriverFactory {
         return driverType;
     }
 
-    RemoteWebDriver getDriver() {
-        return driver;
-    }
-
-    void quitDriver() {
-        if (null != driver) {
-            busyAccounts.clear();
-            driver.quit();
-            driver = null;
+    public void quitDriver() {
+        if (driverFactoryThread.get() != null) {
+            driverFactoryThread.get().quit();
         }
     }
 
@@ -113,6 +123,7 @@ class DriverFactory {
         System.out.println("Selected server: " + server);
         System.out.println(" ");
 
+        RemoteWebDriver driver;
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
         if (proxyEnabled) {
@@ -125,21 +136,12 @@ class DriverFactory {
 
         if (server != null && !server.isEmpty()) {
             URL seleniumGridURL = new URL(server);
-//            String desiredBrowserVersion = System.getProperty("desiredBrowserVersion");
-//            String desiredPlatform = System.getProperty("desiredPlatform");
-//
-//            if (null != desiredPlatform && !desiredPlatform.isEmpty()) {
-//                desiredCapabilities.setPlatform(Platform.valueOf(desiredPlatform.toUpperCase()));
-//            }
-//
-//            if (null != desiredBrowserVersion && !desiredBrowserVersion.isEmpty()) {
-//                desiredCapabilities.setVersion(desiredBrowserVersion);
-//            }
-
             desiredCapabilities.setBrowserName(driverType.toString());
             driver = new RemoteWebDriver(seleniumGridURL, desiredCapabilities);
         } else {
             driver = driverType.getWebDriverObject(desiredCapabilities);
         }
+
+        driverFactoryThread.set(driver);
     }
 }

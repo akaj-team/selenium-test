@@ -12,55 +12,29 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.xml.XmlTest;
 import vn.asiantech.object.Account;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.lang.reflect.Field;
 
 import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 
 public class DriverBase {
 
-    private static ThreadLocal<DriverFactory> driverFactoryThread = new ThreadLocal<>();
-
-    static synchronized void instantiateDriverObject(final XmlTest xmlTest) {
-        DriverFactory driverFactory = new DriverFactory(xmlTest);
-        driverFactoryThread.set(driverFactory);
-    }
-
-    public static synchronized RemoteWebDriver getDriver() {
-        if (driverFactoryThread.get() == null) {
-            XmlTest xmlTest = new XmlTest();
-            xmlTest.setParameters(defaultParam());
-            instantiateDriverObject(xmlTest);
-        }
-        return driverFactoryThread.get().getDriver();
-    }
-
-    private static Map<String, String> defaultParam() {
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("browserName", Constant.BROWSER_CHROME);
-        parameters.put("server", "");
-        return parameters;
+    protected RemoteWebDriver getDriver() {
+        return DriverFactory.instance.getDriver();
     }
 
     protected final Account getAccount() {
-        return driverFactoryThread.get().getAccountCanUse();
+        return DriverFactory.instance.getAccountCanUse();
     }
 
     @AfterMethod(alwaysRun = true)
     public static void clearCookies() {
         try {
-            driverFactoryThread.get().getDriver().manage().deleteAllCookies();
+            DriverFactory.instance.getDriver().manage().deleteAllCookies();
         } catch (Exception ignored) {
             System.out.println("Unable to clear cookies, driver object is not viable...");
         }
-    }
-
-    public static void closeDriverObjects() {
-        driverFactoryThread.get().quitDriver();
     }
 
     protected <T> T initPage(WebDriver driver, Class<T> clazz) {
