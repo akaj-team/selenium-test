@@ -34,7 +34,7 @@ public class DriverFactory {
     private static List<Integer> busyAccounts = new ArrayList<>();
     private Account accountCanUse;
 
-    public final Account getAccountCanUse() {
+    public Account getAccountCanUse() {
         return accountCanUse;
     }
 
@@ -43,6 +43,7 @@ public class DriverFactory {
             if (!busyAccounts.contains(account.hashCode())) {
                 busyAccounts.add(account.hashCode());
                 accountCanUse = account;
+                System.out.println("Using first login account: " + account.email);
                 break;
             }
         }
@@ -64,8 +65,7 @@ public class DriverFactory {
         return parameters;
     }
 
-    public void startDriver(final XmlTest xmlTest) {
-        busyAccounts.clear();
+    public synchronized void startDriver(final XmlTest xmlTest) {
         initSessionAccounts();
         //get param suite
         String browserName = xmlTest.getParameter("browserName");
@@ -110,6 +110,7 @@ public class DriverFactory {
 
     public void quitDriver() {
         if (driverFactoryThread.get() != null) {
+            busyAccounts.clear();
             driverFactoryThread.get().quit();
         }
     }
