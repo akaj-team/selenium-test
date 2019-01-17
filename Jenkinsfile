@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'docker stack deploy -c docker-compose-selenium.yml hub'
                 sh 'mvn clean test'
             }
         }
