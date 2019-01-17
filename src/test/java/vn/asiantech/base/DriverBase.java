@@ -24,9 +24,10 @@ import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 public class DriverBase {
 
     private static ThreadLocal<DriverFactory> driverFactoryThread = new ThreadLocal<>();
+    private static DriverFactory driverFactory;
 
     static synchronized void instantiateDriverObject(final XmlTest xmlTest) {
-        DriverFactory driverFactory = new DriverFactory(xmlTest);
+        driverFactory = new DriverFactory(xmlTest);
         driverFactoryThread.set(driverFactory);
     }
 
@@ -42,7 +43,7 @@ public class DriverBase {
     private static Map<String, String> defaultParam() {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("browserName", Constant.BROWSER_CHROME);
-        parameters.put("server", "");
+        parameters.put("server", "http://localhost:4444/wd/hub");
         return parameters;
     }
 
@@ -60,7 +61,7 @@ public class DriverBase {
     }
 
     public static void closeDriverObjects() {
-        driverFactoryThread.get().quitDriver();
+        driverFactory.quitDriver();
     }
 
     protected <T> T initPage(WebDriver driver, Class<T> clazz) {
