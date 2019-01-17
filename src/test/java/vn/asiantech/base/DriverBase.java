@@ -24,10 +24,9 @@ import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 public class DriverBase {
 
     private static ThreadLocal<DriverFactory> driverFactoryThread = new ThreadLocal<>();
-    private static DriverFactory driverFactory;
 
     static synchronized void instantiateDriverObject(final XmlTest xmlTest) {
-        driverFactory = new DriverFactory(xmlTest);
+        DriverFactory driverFactory = new DriverFactory(xmlTest);
         driverFactoryThread.set(driverFactory);
     }
 
@@ -61,7 +60,7 @@ public class DriverBase {
     }
 
     public static void closeDriverObjects() {
-        driverFactory.quitDriver();
+        driverFactoryThread.get().quitDriver();
     }
 
     protected <T> T initPage(WebDriver driver, Class<T> clazz) {
