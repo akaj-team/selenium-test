@@ -9,10 +9,10 @@ import vn.asiantech.base.CucumberRunnerBase;
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports/cucumber-pretty",
-                "json:target/cucumber-reports/CucumberTestReport.json",
+                "json:target/cucumber-reports/CucumberTestReportChrome.json",
                 "rerun:target/cucumber-reports/rerun.txt"
         })
 @Test
-public class TestRunner extends CucumberRunnerBase {
+public class TestRunnerChrome extends CucumberRunnerBase {
 
 }
