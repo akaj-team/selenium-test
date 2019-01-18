@@ -11,8 +11,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static vn.asiantech.base.DriverBase.getDriver;
-
 public class ScreenShotListener extends TestListenerAdapter {
 
     private boolean createFile(File screenShot) {
@@ -48,7 +46,7 @@ public class ScreenShotListener extends TestListenerAdapter {
     @Override
     public void onTestFailure(ITestResult failingTest) {
         try {
-            WebDriver driver = getDriver();
+            WebDriver driver = DriverFactory.instance.getDriver();
             String screenShotDirectory = System.getProperty("screenShotDirectory", "target/screenshots");
             String screenShotAbsolutePath = screenShotDirectory + File.separator + System.currentTimeMillis() + "_" + failingTest.getName() + ".png";
             File screenShot = new File(screenShotAbsolutePath);

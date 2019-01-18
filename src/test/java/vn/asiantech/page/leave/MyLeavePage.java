@@ -9,8 +9,6 @@ import vn.asiantech.base.BasePage;
 
 import java.util.List;
 
-import static vn.asiantech.base.DriverBase.getDriver;
-
 /**
  * @author at-anh.quach
  */
@@ -49,9 +47,11 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     private WebElement toolTip;
 
     private String sysId;
+    private WebDriver driver;
 
     public MyLeavePage(final WebDriver driver) {
         super(driver);
+        this.driver = driver;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final void clickMenuStatus() {
-        waitForElement(getDriver(), inputStatus);
+        waitForElement(driver, inputStatus);
         inputStatus.click();
     }
 
@@ -83,7 +83,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final boolean checkTextStatusMenu(final String status) {
-        waitForElement(getDriver(), inputStatus);
+        waitForElement(driver, inputStatus);
         return inputStatus.findElement(By.tagName("label")).getText().equals(status);
     }
 
@@ -124,7 +124,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final void clickNameManager() {
-        waitForElement(getDriver(), inputStatus);
+        waitForElement(driver, inputStatus);
         findDataLeave(POS_MANAGER).click();
     }
 
@@ -133,7 +133,7 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final void setSysId() {
-        waitForElement(getDriver(), inputStatus);
+        waitForElement(driver, inputStatus);
         sysId = findDataLeave(POS_SYSID).getText();
     }
 
@@ -142,13 +142,13 @@ public class MyLeavePage extends BasePage<MyLeavePage> {
     }
 
     public final void clickBtnLeaveRequest() {
-        waitForElement(getDriver(), inputStatus);
+        waitForElement(driver, inputStatus);
         btnLeaveRequest.click();
     }
 
     public final void hoverMouseToStatus() {
-        waitForElement(getDriver(), tableLeave);
-        Actions builder = new Actions(getDriver());
+        waitForElement(driver, tableLeave);
+        Actions builder = new Actions(driver);
         builder.moveToElement(findDataLeave(POS_STATUS)).build().perform();
     }
 
