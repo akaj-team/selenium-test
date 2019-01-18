@@ -20,7 +20,7 @@ import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 
 public class DriverBase {
 
-    protected RemoteWebDriver getDriver() {
+    protected final RemoteWebDriver getDriver() {
         return DriverFactory.instance.getDriver();
     }
 

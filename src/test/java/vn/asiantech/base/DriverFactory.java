@@ -34,7 +34,7 @@ public class DriverFactory {
     private ThreadLocal<Account> accountThread = new ThreadLocal<>();
     private static List<Integer> busyAccounts = new ArrayList<>();
 
-    public Account getAccountCanUse() {
+    public final Account getAccountCanUse() {
         return accountThread.get();
     }
 
@@ -49,7 +49,7 @@ public class DriverFactory {
         }
     }
 
-    public synchronized RemoteWebDriver getDriver() {
+    public final synchronized RemoteWebDriver getDriver() {
         if (driverFactoryThread.get() == null) {
             XmlTest xmlTest = new XmlTest();
             xmlTest.setParameters(defaultParam());
@@ -65,7 +65,7 @@ public class DriverFactory {
         return parameters;
     }
 
-    public synchronized void startDriver(final XmlTest xmlTest) {
+    public final synchronized void startDriver(final XmlTest xmlTest) {
         initSessionAccounts();
         //get param suite
         String browserName = xmlTest.getParameter("browserName");
@@ -108,7 +108,7 @@ public class DriverFactory {
         return driverType;
     }
 
-    public void quitDriver() {
+    public final void quitDriver() {
         if (driverFactoryThread.get() != null) {
             busyAccounts.clear();
             driverFactoryThread.get().quit();
