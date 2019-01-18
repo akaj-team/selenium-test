@@ -128,7 +128,7 @@
                             <testFailureIgnore>true</testFailureIgnore>
                             <reuseForks>true</reuseForks>
                             <suiteXmlFiles>
-                                <suiteXmlFile>src/test/resources/ParallelSuite.xml</suiteXmlFile>
+                                <suiteXmlFile>src/test/resources/GridParallelSuite.xml</suiteXmlFile>
                             </suiteXmlFiles>
                             <systemPropertyVariables>
                                 <test.test1>Bla ble</test.test1>
