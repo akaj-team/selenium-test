@@ -61,7 +61,7 @@ public class DriverFactory {
     private static Map<String, String> defaultParam() {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("browserName", Constant.BROWSER_CHROME);
-        parameters.put("server", "");
+        parameters.put("server", "http://127.0.0.1:4444/wd/hub");
         return parameters;
     }
 
