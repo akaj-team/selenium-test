@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo 'aaa'
                 sh 'mvn clean test'
             }
         }
@@ -11,18 +12,18 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'target/cucumber-reports/**'
+            archiveArtifacts artifacts: 'target/**'
         }
 
         success {
             echo "Test succeeded"
             script {
-                cucumber fileIncludePattern: 'target/cucumber-reports/*.json', sortingMethod: 'ALPHABETICAL'
+                cucumber fileIncludePattern: 'target/cucumber-parallel/*.json', sortingMethod: 'ALPHABETICAL'
             }
         }
         failure {
             echo "Test failed"
-            cucumber fileIncludePattern: 'target/cucumber-reports/*.json', sortingMethod: 'ALPHABETICAL'
+            cucumber fileIncludePattern: 'target/cucumber-parallel/*.json', sortingMethod: 'ALPHABETICAL'
         }
     }
 }
