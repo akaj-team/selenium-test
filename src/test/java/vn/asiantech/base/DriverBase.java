@@ -43,7 +43,7 @@ public class DriverBase {
     private static Map<String, String> defaultParam() {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("browserName", Constant.BROWSER_CHROME);
-        parameters.put("server", "http://192.168.99.1:4444/wd/hub");
+        parameters.put("server", "http://172.18.28.206:4444/wd/hub");
         return parameters;
     }
 
