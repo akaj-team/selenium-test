@@ -2,8 +2,11 @@ import cucumber.api.CucumberOptions;
 import org.testng.annotations.Test;
 import vn.asiantech.base.CucumberRunnerBase;
 
+/**
+ * FirefoxTestRunner
+ */
 @CucumberOptions(
-        features = "src/test/resources/features/wiki",
+        features = "src/test/resources/features",
         glue = {"stepdefs"},
         tags = {"not @Ignore"},
         plugin = {

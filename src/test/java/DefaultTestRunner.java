@@ -2,6 +2,9 @@ import cucumber.api.CucumberOptions;
 import org.testng.annotations.Test;
 import vn.asiantech.base.CucumberRunnerBase;
 
+/**
+ * DefaultTestRunner
+ */
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"stepdefs"},
