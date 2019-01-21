@@ -8,8 +8,6 @@ import vn.asiantech.base.BasePage;
 
 import java.util.List;
 
-import static vn.asiantech.base.DriverBase.getDriver;
-
 /**
  * @author at-anh-quach
  */
@@ -56,8 +54,11 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     @FindBy(id = "static-dialog-wrapper")
     private WebElement dialog;
 
+    private WebDriver driver;
+
     public LeaveRequestPage(final WebDriver driver) {
         super(driver);
+        this.driver = driver;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final boolean checkTextAnnualLeave(final String annualLeave) {
-        waitForElement(getDriver(), tableLeaveBalance);
+        waitForElement(driver, tableLeaveBalance);
         return findLeaveBalance(ANNUAL_LEAVE).getText().equals(annualLeave);
     }
 
@@ -92,7 +93,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final void clickItemMenuType(final String status) {
-        waitForElement(getDriver(), menuTypeOfLeave);
+        waitForElement(driver, menuTypeOfLeave);
         List<WebElement> items = menuTypeOfLeave.findElement(By.tagName("ul")).findElements(By.tagName("li"));
         WebElement itemStatus = items.get(ANNUAL_LEAVE);
 
@@ -113,13 +114,13 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
 
     public final void withMessage() {
         String message = "Gui A Tien";
-        waitForElement(getDriver(), inputMessage);
+        waitForElement(driver, inputMessage);
 
-        getDriver().switchTo().frame(getDriver().findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
-        waitForElement(getDriver(), getDriver().findElement(By.tagName("body")));
+        driver.switchTo().frame(driver.findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
+        waitForElement(driver, driver.findElement(By.tagName("body")));
 
-        getDriver().findElement(By.tagName("body")).sendKeys(message);
-        getDriver().switchTo().defaultContent();
+        driver.findElement(By.tagName("body")).sendKeys(message);
+        driver.switchTo().defaultContent();
     }
 
     public final boolean isEnableSubmitButton() {
@@ -148,7 +149,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     public final boolean isDateRequestShow() {
-        waitForElement(getDriver(), tableDateRequest);
+        waitForElement(driver, tableDateRequest);
         return true;
     }
 
@@ -254,7 +255,7 @@ public class LeaveRequestPage extends BasePage<LeaveRequestPage> {
     }
 
     private WebElement findRadioButtonDateRequest(final int col) {
-        waitForElement(getDriver(), tableDateRequest);
+        waitForElement(driver, tableDateRequest);
         WebElement data = tableDateRequest.findElement(By.tagName("tbody"));
         List<WebElement> rows = data.findElements(By.tagName("tr"));
         List<WebElement> columns = rows.get(0).findElements(By.cssSelector(".ui-radiobutton.ui-widget"));

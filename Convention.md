@@ -1,5 +1,7 @@
 # Automation Test Conventions
 
+**Version : 1.0**
+
 > **INFOR**
  - `GOOD` --> Recommended
   

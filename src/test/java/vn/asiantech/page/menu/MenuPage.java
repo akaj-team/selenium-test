@@ -8,8 +8,6 @@ import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.FindBy;
 import vn.asiantech.base.BasePage;
 
-import static vn.asiantech.base.DriverBase.getDriver;
-
 /**
  * @author at-hanhnguyen
  */
@@ -19,9 +17,11 @@ public class MenuPage extends BasePage<MenuPage> {
 
     @FindBy(className = "font-bold")
     private WebElement accountName;
+    private WebDriver driver;
 
     public MenuPage(final WebDriver driver) {
         super(driver);
+        this.driver = driver;
     }
 
     @Override
@@ -38,10 +38,10 @@ public class MenuPage extends BasePage<MenuPage> {
     }
 
     public final void clickParentItem(final String title) {
-        WebElement parentItem = getDriver().findElement(By.xpath("//span[contains(text(),'" + title + "')]"));
-        WebElement container = getDriver().findElement(By.xpath("//span[contains(text(),'" + title + "')]/../.."));
+        WebElement parentItem = driver.findElement(By.xpath("//span[contains(text(),'" + title + "')]"));
+        WebElement container = driver.findElement(By.xpath("//span[contains(text(),'" + title + "')]/../.."));
         if (!container.getAttribute("class").contains("active") && !title.equals("Home")) {
-            ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", parentItem);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", parentItem);
             parentItem.click();
         }
         try {
@@ -52,15 +52,15 @@ public class MenuPage extends BasePage<MenuPage> {
     }
 
     public final boolean checkColorParentItemIsWhite(final String title, final String whiteColor) {
-        WebElement item = getDriver().findElement(By.xpath("//span[contains(text(),'" + title + "')]/.."));
+        WebElement item = driver.findElement(By.xpath("//span[contains(text(),'" + title + "')]/.."));
         String color = item.getCssValue("color");
         String actualColor = getColorString(color);
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
     public final void clickChildItem(final String title) {
-        WebElement childItem = getDriver().findElement(By.xpath("//a[contains(text(),'" + title + "')]/.."));
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", childItem);
+        WebElement childItem = driver.findElement(By.xpath("//a[contains(text(),'" + title + "')]/.."));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", childItem);
         childItem.click();
         try {
             Thread.sleep(TIME_SLEEP);
@@ -70,14 +70,14 @@ public class MenuPage extends BasePage<MenuPage> {
     }
 
     public final boolean checkColorChildItemIsWhite(final String title, final String whiteColor) {
-        WebElement item = getDriver().findElement(By.xpath("//a[contains(text(),'" + title + "')]"));
+        WebElement item = driver.findElement(By.xpath("//a[contains(text(),'" + title + "')]"));
         String color = item.getCssValue("color");
         String actualColor = getColorString(color);
         return Color.fromString(whiteColor).asRgba().equals(actualColor);
     }
 
     public final boolean checkMenuItemClose(final String title) {
-        WebElement menuItem = getDriver().findElement(By.xpath("//span[contains(text(),'" + title + "')]/../.."));
+        WebElement menuItem = driver.findElement(By.xpath("//span[contains(text(),'" + title + "')]/../.."));
         return menuItem.getAttribute("class").equals("");
     }
 

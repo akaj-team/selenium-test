@@ -1,5 +1,7 @@
 package vn.asiantech.base;
 
+import vn.asiantech.object.Account;
+
 /**
  * @author at-hangtran
  */
@@ -22,6 +24,8 @@ public final class Constant {
     public static final String TIME_SHEET_PAGE_URL = PORTAL_URL + "/timesheet/submission";
     public static final String HOLIDAY_SETTING_URL = PORTAL_URL + "/admin/public-holiday";
     public static final String DEVICE_TRACKING_URL = PORTAL_URL + "/equipments/tracking";
+    public static final String CHILD_PAGE_URL = PORTAL_URL + "/wiki/168/new";
+    public static final String UPDATE_PAGE_URL = PORTAL_URL + "/wiki/190/update";
     public static final String NEW_POSITION_URL = PORTAL_URL + "/organisation/positions/new";
     public static final String TIME_SHEET_OTHER_URL = PORTAL_URL + "/timesheet/approval";
     public static final String NEW_GROUP_URL = PORTAL_URL + "/organisation/groups/new";
@@ -29,6 +33,25 @@ public final class Constant {
 
     public static final int DEFAULT_TIME_OUT = 10;
     public static final int MAXIMUM_TIME_OUT = 20;
+
+    // browser name
+    static final String BROWSER_CHROME = "chrome";
+    static final String BROWSER_FIREFOX = "firefox";
+    static final String BROWSER_SAFARI = "safari";
+    static final String BROWSER_IE = "ie";
+    static final String BROWSER_EDGE = "edge";
+    static final String BROWSER_OPERA = "opera";
+
+    //init Account
+    static final Account[] ACCOUNT_LOGIN = new Account[]{
+            new Account("stg.tien.hoang@asiantech.vn", "Abc123@@"),
+            new Account("stg.tu.le.2@asiantech.vn", "Abc123@@"),
+            new Account("stg.thien.dang2@asiantech.vn", "Abc123@@"),
+            new Account("stg.hang.nguyen@asiantech.vn", "Abc123@@"),
+            new Account("stg.lam.le2@asiantech.vn", "Abc123@@"),
+            new Account("automation-01@asiantech.vn", "Abc123@@"),
+            new Account("automation-02@asiantech.vn", "Abc123@@")
+    };
 
     private Constant() {
         // No-op

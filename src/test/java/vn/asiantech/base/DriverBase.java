@@ -12,46 +12,28 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import vn.asiantech.object.Account;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 
 public class DriverBase {
 
-    private static List<DriverFactory> webDriverThreadPool = Collections.synchronizedList(new ArrayList<>());
-    private static ThreadLocal<DriverFactory> driverFactoryThread;
-
-    static void instantiateDriverObject() {
-        driverFactoryThread = ThreadLocal.withInitial(() -> {
-            DriverFactory driverFactory = new DriverFactory();
-            webDriverThreadPool.add(driverFactory);
-            return driverFactory;
-        });
+    protected final RemoteWebDriver getDriver() {
+        return DriverFactory.instance.getDriver();
     }
 
-    public static RemoteWebDriver getDriver() {
-        if (driverFactoryThread == null) {
-            instantiateDriverObject();
-        }
-        return driverFactoryThread.get().getDriver();
+    protected final Account getAccount() {
+        return DriverFactory.instance.getAccountCanUse();
     }
 
     @AfterMethod(alwaysRun = true)
     public static void clearCookies() {
         try {
-            driverFactoryThread.get().getStoredDriver().manage().deleteAllCookies();
+            DriverFactory.instance.getDriver().manage().deleteAllCookies();
         } catch (Exception ignored) {
             System.out.println("Unable to clear cookies, driver object is not viable...");
-        }
-    }
-
-    public static void closeDriverObjects() {
-        for (DriverFactory driverFactory : webDriverThreadPool) {
-            driverFactory.quitDriver();
         }
     }
 

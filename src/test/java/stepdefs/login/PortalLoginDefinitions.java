@@ -35,6 +35,14 @@ public class PortalLoginDefinitions extends DriverBase implements En {
             loginPage = initPage(getDriver(), LoginPage.class);
         });
 
+        Given("^I enter my username$", () -> {
+            if (loginPage.hasEmail()) {
+                loginPage.withUsername(getAccount().email);
+            }
+        });
+
+        And("^I fill in password$", () -> loginPage.withPassword(getAccount().password));
+
         Given("^I enter my username with \"([^\"]*)\"$", (String email) -> {
             if (loginPage.hasEmail()) {
                 loginPage.withUsername(email);
