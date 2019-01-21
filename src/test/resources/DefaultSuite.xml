@@ -5,7 +5,7 @@
         <parameter name="browserName" value="chrome"/>
         <parameter name="server" value=""/>
         <classes>
-            <class name="TestRunner"/>
+            <class name="DefaultTestRunner"/>
         </classes>
     </test>
 </suite>
