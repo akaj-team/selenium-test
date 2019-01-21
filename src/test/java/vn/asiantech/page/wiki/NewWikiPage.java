@@ -9,8 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import vn.asiantech.base.BasePage;
 import vn.asiantech.base.Constant;
 
-import static vn.asiantech.base.DriverBase.getDriver;
-
 /**
  * @author at-anh.quach
  * NewPage page
@@ -44,8 +42,11 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
     @FindBy(xpath = "//a[contains(@class,'fa-close')]")
     private WebElement btnCloseDialogConfirm;
 
+    private WebDriver driver;
+
     public NewWikiPage(final WebDriver driver) {
         super(driver);
+        this.driver = driver;
     }
 
     @Override
@@ -59,16 +60,16 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
     }
 
     public final void enterContent() {
-        waitForElement(getDriver(), inputContent);
-        getDriver().switchTo().frame(getDriver().findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
+        waitForElement(driver, inputContent);
+        driver.switchTo().frame(driver.findElement(By.cssSelector(".cke_wysiwyg_frame.cke_reset")));
         String message = "Is a great team Is a great team Is a great team Is a great team Is a great team Is a great "
                 + "team Is a great team Is a great team team Is a great team Is a great team";
-        getDriver().findElement(By.tagName("body")).sendKeys(message);
-        getDriver().switchTo().defaultContent();
+        driver.findElement(By.tagName("body")).sendKeys(message);
+        driver.switchTo().defaultContent();
     }
 
     public final boolean isSubmitEnable() {
-        new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
+        new WebDriverWait(driver, Constant.DEFAULT_TIME_OUT).until(
                 driver -> btnSubmit.isEnabled());
         return true;
     }
@@ -96,7 +97,7 @@ public class NewWikiPage extends BasePage<NewWikiPage> {
     }
 
     public final boolean isDisplayDialog() {
-        waitForElement(getDriver(), dlgConfirm);
+        waitForElement(driver, dlgConfirm);
         return dlgConfirm.isDisplayed();
     }
 

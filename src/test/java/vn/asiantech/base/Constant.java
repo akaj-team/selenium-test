@@ -15,17 +15,17 @@ public final class Constant {
     public static final String NEW_TEAM_PAGE_URL = PORTAL_URL + "/organisation/teams/new";
     public static final String EMPLOYEE_PAGE_URL = PORTAL_URL + "/organisation/employees";
     public static final String LEAVE_PLANNER_PAGE_URL = PORTAL_URL + "/leave/planning";
+    public static final String LEAVE_REQUEST_PAGE_URL = PORTAL_URL + "/leave/request";
+    public static final String AWARD_CATEGORY_PAGE_URL = PORTAL_URL + "/admin/award-category";
     public static final String LEAVE_TRACKING_PAGE_URL = PORTAL_URL + "/leave/tracking";
     public static final String ACCESS_CONTROL_PAGE_URL = PORTAL_URL + "/admin/acl";
     public static final String NEW_EMPLOYEE_PAGE_URL = PORTAL_URL + "/organisation/employees/new";
     public static final String POSITION_PAGE_URL = PORTAL_URL + "/organisation/positions";
-
     public static final String TIME_SHEET_PAGE_URL = PORTAL_URL + "/timesheet/submission";
     public static final String HOLIDAY_SETTING_URL = PORTAL_URL + "/admin/public-holiday";
     public static final String DEVICE_TRACKING_URL = PORTAL_URL + "/equipments/tracking";
     public static final String CHILD_PAGE_URL = PORTAL_URL + "/wiki/168/new";
     public static final String UPDATE_PAGE_URL = PORTAL_URL + "/wiki/190/update";
-    public static final String AWARD_CATEGORY_PAGE_URL = PORTAL_URL + "/admin/award-category";
     public static final String NEW_POSITION_URL = PORTAL_URL + "/organisation/positions/new";
     public static final String TIME_SHEET_OTHER_URL = PORTAL_URL + "/timesheet/approval";
     public static final String NEW_GROUP_URL = PORTAL_URL + "/organisation/groups/new";

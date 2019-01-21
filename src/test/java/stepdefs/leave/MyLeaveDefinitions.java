@@ -60,14 +60,6 @@ public class MyLeaveDefinitions extends DriverBase implements En {
 
         And("^Manager is \"([^\"]*)\"$", (String manager) -> Assert.assertTrue(myLeavePage.checkTextManager(manager)));
 
-        And("^Annual Leave is \"([^\"]*)\"$", (String annualLeave) -> Assert.assertTrue(myLeavePage.checkTextAnnualLeave(annualLeave)));
-
-        And("^Marriage Leave is \"([^\"]*)\"$", (String marriage) -> Assert.assertTrue(myLeavePage.checkTextMarriageLeave(marriage)));
-
-        And("^Overtime Leave is \"([^\"]*)\"$", (String overtime) -> Assert.assertTrue(myLeavePage.checkTextOvertimeLeave(overtime)));
-
-        And("^Paternal Leave is \"([^\"]*)\"$", (String paternal) -> Assert.assertTrue(myLeavePage.checkTextPaternalLeave(paternal)));
-
         Then("^Menu status drop down$", () -> Assert.assertTrue(myLeavePage.checkMenuStatusDropDown()));
 
         When("^I click on SYSID \"([^\"]*)\"$", (String sysid) -> myLeavePage.clickSYSID());
