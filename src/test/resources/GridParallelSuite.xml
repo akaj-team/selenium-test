@@ -1,8 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Suite" parallel="tests" thread-count="2" verbose="1" configfailurepolicy="continue"
-       data-provider-thread-count="2">
+<suite name="Suite" parallel="tests" thread-count="2">
 
-    <test name="Chrome 1" thread-count="1" parallel="methods">
+    <test name="Chrome 1">
         <parameter name="browserName" value="chrome"/>
         <parameter name="server" value="http://127.0.0.1:4444/wd/hub"/>
         <classes>
@@ -10,7 +9,7 @@
         </classes>
     </test>
 
-    <test name="Chrome 2" thread-count="1" parallel="methods">
+    <test name="Chrome 2">
         <parameter name="browserName" value="chrome"/>
         <parameter name="server" value="http://127.0.0.1:4444/wd/hub"/>
         <classes>
