@@ -4,7 +4,7 @@
 
     <test name="Chrome 1" thread-count="1" parallel="methods">
         <parameter name="browserName" value="chrome"/>
-        <parameter name="server" value="http://localhost:4444/wd/hub"/>
+        <parameter name="server" value="http://172.18.28.144:4444/wd/hub"/>
         <classes>
             <class name="ChromeTestRunner"/>
         </classes>
@@ -12,7 +12,7 @@
 
     <test name="Chrome 2" thread-count="1" parallel="methods">
         <parameter name="browserName" value="chrome"/>
-        <parameter name="server" value="http://localhost:4444/wd/hub"/>
+        <parameter name="server" value="http://172.18.28.144:4444/wd/hub"/>
         <classes>
             <class name="ChromeTestRunner"/>
         </classes>
