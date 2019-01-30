@@ -6,7 +6,7 @@ import vn.asiantech.base.CucumberRunnerBase;
  * FirefoxTestRunner
  */
 @CucumberOptions(
-        features = "src/test/resources/features",
+        features = "src/test/resources/features/home",
         glue = {"stepdefs"},
         tags = {"not @Ignore"},
         plugin = {

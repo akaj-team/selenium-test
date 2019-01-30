@@ -150,9 +150,9 @@
                                 <configuration>
                                     <projectName>AT-Portal</projectName>  <!-- Replace with project name -->
                                     <outputDirectory>target/cucumber-reports/advanced-reports</outputDirectory>
-                                    <cucumberOutput>target/cucumber-reports/CucumberTestReport.json</cucumberOutput>
+                                    <cucumberOutput>target/cucumber-reports/ChromeCucumberTestReport.json</cucumberOutput>
                                     <buildNumber>1</buildNumber>
-                                    <parallelTesting>false</parallelTesting>
+                                    <parallelTesting>true</parallelTesting>
                                 </configuration>
                             </execution>
                         </executions>

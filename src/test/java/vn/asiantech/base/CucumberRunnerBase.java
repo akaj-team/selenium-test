@@ -5,7 +5,7 @@ import org.testng.ITestContext;
 import org.testng.annotations.*;
 
 @Listeners(ScreenShotListener.class)
-public class CucumberRunnerBase extends AbstractTestNGCucumberTests {
+public class CucumberRunnerBase extends TestNG {
 
     @DataProvider
     public Object[][] features() {
@@ -13,12 +13,14 @@ public class CucumberRunnerBase extends AbstractTestNGCucumberTests {
     }
 
     @BeforeClass(alwaysRun = true)
-    public void setUpClass(final ITestContext context) throws Exception {
+    public synchronized void setUpClass(final ITestContext context) throws Exception {
         super.setUpClass();
         DriverFactory.instance.startDriver(context.getCurrentXmlTest());
     }
 
     @AfterClass(alwaysRun = true)
+
+
     public void tearDownClass() throws Exception {
         super.tearDownClass();
         System.out.println("tearDownClass");

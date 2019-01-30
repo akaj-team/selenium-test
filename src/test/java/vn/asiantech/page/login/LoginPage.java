@@ -1,5 +1,7 @@
 package vn.asiantech.page.login;
 
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -36,12 +38,26 @@ public class LoginPage extends BasePage<LoginPage> {
     }
 
     public final LoginPage withUsername(final String username) {
+        usernameInput.sendKeys(Keys.BACK_SPACE);
+        System.out.println("username:" + username);
         usernameInput.sendKeys(username);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 
     public final LoginPage withPassword(final String password) {
+        passwordInput.sendKeys(Keys.BACK_SPACE);
+        System.out.println("password:" + password);
         passwordInput.sendKeys(password);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 

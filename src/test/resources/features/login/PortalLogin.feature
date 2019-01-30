@@ -7,12 +7,12 @@ Feature: Check Login AT Portal
   Background: User navigates to Company home page
     Given I open login page
     Then Browser should redirect to "/auth/login"
-
-  Scenario: Login success with correct account
-    When I enter my username
-    And I fill in password
-    And I click on login button
-    Then I should see the welcome message
+#
+#  Scenario: Login success with correct account
+#    When I enter my username
+#    And I fill in password
+#    And I click on login button
+#    Then I should see the welcome message
 
   Scenario Outline: Login button is disabled when not validated
     When I enter my username with "<username>"

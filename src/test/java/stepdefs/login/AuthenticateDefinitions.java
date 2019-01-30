@@ -20,7 +20,7 @@ public class AuthenticateDefinitions extends DriverBase implements En {
             if (!isButtonLogoutDisplayed()) {
                 getDriver().get(Constant.LOGIN_PAGE_URL);
                 loginPage.waitForLoginButton();
-                loginPage.withUsername(getAccount().email).withPassword(getAccount().password).login();
+                loginPage.withUsername("stg.tien.hoang@asiantech.vn").withPassword("Abc123@@").login();
 
                 homePage.waitForWelcomeMessage();
                 Assert.assertTrue(homePage.welcomeTestIsDisplayed());

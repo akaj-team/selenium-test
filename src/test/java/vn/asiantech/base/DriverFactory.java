@@ -1,5 +1,6 @@
 package vn.asiantech.base;
 
+import com.sun.corba.se.impl.orbutil.concurrent.Sync;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -8,10 +9,7 @@ import vn.asiantech.object.Account;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
@@ -32,24 +30,24 @@ public class DriverFactory {
     public static DriverFactory instance = new DriverFactory();
     private ThreadLocal<RemoteWebDriver> driverFactoryThread = new ThreadLocal<>();
     private ThreadLocal<Account> accountThread = new ThreadLocal<>();
-    private static List<Integer> busyAccounts = new ArrayList<>();
+    // private static List<Integer> busyAccounts = new ArrayList<>();
 
     public final Account getAccountCanUse() {
         return accountThread.get();
     }
 
     private void initSessionAccounts() {
-        for (Account account : Constant.ACCOUNT_LOGIN) {
-            if (!busyAccounts.contains(account.hashCode())) {
-                busyAccounts.add(account.hashCode());
-                accountThread.set(account);
-                System.out.println("Using first login account: " + account.email);
-                break;
-            }
-        }
+//        for (Account account : Constant.ACCOUNT_LOGIN) {
+//            if (!busyAccounts.contains(account.hashCode())) {
+        //    busyAccounts.add(Constant.ACCOUNT_LOGIN[0].hashCode());
+        accountThread.set(Constant.ACCOUNT_LOGIN[0]);
+        System.out.println("Using first login account: " + Constant.ACCOUNT_LOGIN[0].email);
+//                break;
+//            }
+//        }
     }
 
-    public final synchronized RemoteWebDriver getDriver() {
+    public final RemoteWebDriver getDriver() {
         if (driverFactoryThread.get() == null) {
             XmlTest xmlTest = new XmlTest();
             xmlTest.setParameters(defaultParam());
@@ -110,12 +108,12 @@ public class DriverFactory {
 
     public final void quitDriver() {
         if (driverFactoryThread.get() != null) {
-            busyAccounts.clear();
+            //  busyAccounts.clear();
             driverFactoryThread.get().quit();
         }
     }
 
-    private void instantiateWebDriver(final DriverType driverType, final String server) throws MalformedURLException {
+    private synchronized void instantiateWebDriver(final DriverType driverType, final String server) throws MalformedURLException {
         //TODO add in a real logger instead of System.out
         System.out.println(" ");
         System.out.println("Local Operating System: " + operatingSystem);
