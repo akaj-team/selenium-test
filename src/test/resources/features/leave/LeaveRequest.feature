@@ -77,7 +77,7 @@ Feature: Create new my leave
     Then Calendar timeTo display
     And I choose today in timeTo calendar
     When I enter the message
-    Then Submit button is enabled
+    Then Submit button of leave is enabled
 
   Scenario: Check show dialog
     Given Enter full information leave request

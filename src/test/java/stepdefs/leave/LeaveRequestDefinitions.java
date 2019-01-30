@@ -52,7 +52,7 @@ public class LeaveRequestDefinitions extends DriverBase implements En {
 
         When("^I choose morning on show date request$", () -> Assert.assertTrue(leaveRequestPage.chooseMorning()));
 
-        Then("^Submit button is enabled$", () -> Assert.assertTrue(leaveRequestPage.isEnableSubmitButton()));
+        Then("^Submit button of leave is enabled$", () -> Assert.assertTrue(leaveRequestPage.isEnableSubmitButton()));
 
         Then("^Submit button still disabled$", () -> Assert.assertFalse(leaveRequestPage.isEnableSubmitButton()));
 
