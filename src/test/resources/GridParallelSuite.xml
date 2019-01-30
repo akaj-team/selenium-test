@@ -3,7 +3,7 @@
 
     <test name="Chrome 1">
         <parameter name="browserName" value="chrome"/>
-        <parameter name="server" value="http://127.0.0.1:4444/wd/hub"/>
+        <parameter name="server" value="http://172.18.28.144:4444/wd/hub"/>
         <classes>
             <class name="ChromeTestRunner"/>
         </classes>
@@ -11,7 +11,7 @@
 
     <test name="Chrome 2">
         <parameter name="browserName" value="chrome"/>
-        <parameter name="server" value="http://127.0.0.1:4444/wd/hub"/>
+        <parameter name="server" value="http://172.18.28.144:4444/wd/hub"/>
         <classes>
             <class name="ChromeTestRunner"/>
         </classes>
