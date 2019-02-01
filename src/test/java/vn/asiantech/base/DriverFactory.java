@@ -1,6 +1,5 @@
 package vn.asiantech.base;
 
-import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.xml.XmlTest;
@@ -13,8 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
-import static org.openqa.selenium.remote.CapabilityType.PROXY;
 import static vn.asiantech.base.DriverType.*;
 
 /**
@@ -24,10 +21,6 @@ public class DriverFactory {
 
     private final String operatingSystem = System.getProperty("os.name").toUpperCase();
     private final String systemArchitecture = System.getProperty("os.arch");
-    private final boolean proxyEnabled = Boolean.getBoolean("proxyEnabled");
-    private final String proxyHostname = System.getProperty("proxyHost");
-    private final Integer proxyPort = Integer.getInteger("proxyPort");
-    private final String proxyDetails = String.format("%s:%d", proxyHostname, proxyPort);
 
     public static DriverFactory instance = new DriverFactory();
     private ThreadLocal<RemoteWebDriver> driverFactoryThread = new ThreadLocal<>();
@@ -72,8 +65,6 @@ public class DriverFactory {
         String server = xmlTest.getParameter("server");
 
         DriverType driverType = getDriverType(browserName);
-        String browser = System.getProperty("browser", driverType.toString()).toUpperCase();
-        driverType = DriverType.valueOf(browser);
         try {
             instantiateWebDriver(driverType, server);
         } catch (MalformedURLException e) {
@@ -127,14 +118,6 @@ public class DriverFactory {
         RemoteWebDriver driver;
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
-        if (proxyEnabled) {
-            Proxy proxy = new Proxy();
-            proxy.setProxyType(MANUAL);
-            proxy.setHttpProxy(proxyDetails);
-            proxy.setSslProxy(proxyDetails);
-            desiredCapabilities.setCapability(PROXY, proxy);
-        }
-
         if (server != null && !server.isEmpty()) {
             URL seleniumGridURL = new URL(server);
             desiredCapabilities.setBrowserName(driverType.toString());
@@ -143,6 +126,11 @@ public class DriverFactory {
             driver = driverType.getWebDriverObject(desiredCapabilities);
         }
 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         driverFactoryThread.set(driver);
     }
 }
