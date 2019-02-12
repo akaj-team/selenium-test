@@ -1,6 +1,7 @@
 package vn.asiantech.base;
 
 import cucumber.api.testng.*;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -12,7 +13,9 @@ import java.util.List;
 public abstract class TestNG {
     private TestNGCucumberRunner testNGCucumberRunner;
     private static int browserCount;
+    private static int cc = 0;
     private static final int BROWSER_INSTANCE_SUM = 2;
+    static String dd = "";
 
     public TestNG() {
     }
@@ -20,9 +23,12 @@ public abstract class TestNG {
     @BeforeClass(
             alwaysRun = true
     )
-    public void setUpClass() {
+    public void setUpClass(final ITestContext context) throws Exception {
+        dd += "--plugin json:target/" + cc++ + ".json";
+        System.setProperty("cucumber.options", dd);
         this.testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
     }
+
 
     @Test(
             groups = {"cucumber"},
@@ -43,6 +49,7 @@ public abstract class TestNG {
                 runScenarios.add(scenarios[i]);
             }
             System.out.println("aaaa1:" + runScenarios.size());
+
         } else {
             int startIndex = number * (BROWSER_INSTANCE_SUM - 1);
             for (int i = startIndex; i < scenarios.length; i++) {
@@ -63,5 +70,3 @@ public abstract class TestNG {
         }
     }
 }
-
-

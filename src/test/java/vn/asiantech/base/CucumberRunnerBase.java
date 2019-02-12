@@ -1,6 +1,5 @@
 package vn.asiantech.base;
 
-import cucumber.api.testng.AbstractTestNGCucumberTests;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
@@ -13,18 +12,19 @@ public class CucumberRunnerBase extends TestNG {
     }
 
     @BeforeClass(alwaysRun = true)
-    public synchronized void setUpClass(final ITestContext context) throws Exception {
-        System.setProperty("cucumber.options", "--plugin json:target/+" + System.currentTimeMillis() + "+.json --plugin json:target/+" + System.currentTimeMillis() + ".json");
-        super.setUpClass();
+    @Override
+    public void setUpClass(final ITestContext context) throws Exception {
+        super.setUpClass(context);
+        System.out.println("setUpClass");
         DriverFactory.instance.startDriver(context.getCurrentXmlTest());
     }
 
     @AfterClass(alwaysRun = true)
-
-
+    @Override
     public void tearDownClass() throws Exception {
         super.tearDownClass();
         System.out.println("tearDownClass");
         DriverFactory.instance.quitDriver();
     }
 }
+
