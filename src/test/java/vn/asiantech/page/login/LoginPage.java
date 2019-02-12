@@ -39,7 +39,6 @@ public class LoginPage extends BasePage<LoginPage> {
 
     public final LoginPage withUsername(final String username) {
         usernameInput.sendKeys(Keys.BACK_SPACE);
-        System.out.println("username:" + username);
         usernameInput.sendKeys(username);
         try {
             Thread.sleep(1000);
@@ -51,7 +50,6 @@ public class LoginPage extends BasePage<LoginPage> {
 
     public final LoginPage withPassword(final String password) {
         passwordInput.sendKeys(Keys.BACK_SPACE);
-        System.out.println("password:" + password);
         passwordInput.sendKeys(password);
         try {
             Thread.sleep(1000);
