@@ -1,0 +1,217 @@
+<html>
+<head><style type="text/css">h1 {background-color:#9999CC}
+h2 {background-color:#BBBBCC}
+h3 {background-color:#DDDDFF}
+th {border:1px solid black;background-color:#CCCCDD;}
+td{border:1px solid black;}
+table {border:1px solid black;border-collapse: collapse;}
+.chart {border:0px none black;border-collapse: collapse;background-color: none;}
+.passed {background-color:lightgreen;font-weight:bold;color:darkgreen}
+.skipped {background-color:silver;font-weight:bold;color:darkgray}
+.failed {background-color:tomato;font-weight:bold;color:darkred}
+.undefined {background-color:gold;font-weight:bold;color:goldenrod}
+.known {background-color:goldenrod;font-weight:bold;color:darkred}
+
+div.header {
+    display: block; text-align: center;
+    position: running(header);
+}
+div.footer {
+    display: block; text-align: center;
+    position: running(footer);
+}
+div.content {page-break-after: always;}
+@page {
+	 size: auto;
+     @top-center {
+     	content: "Results Overview Report";
+	    color: silver;
+	    font-size: 14px;
+     }
+     @top-right {
+     	content: date("dd MMM, yyyy hh:mm");
+	    color: silver;
+	    font-size: 8px;
+     }
+    @bottom-right {
+    	content: "Page " counter(page) " of " counter(pages) ;
+	    color: silver;
+	    font-size: 8px;
+    }
+}
+</style>
+<title>Results Overview Report</title>
+<meta charset="UTF-8" />
+</head>
+  <body>
+    <div class='header'></div>
+    <div class='footer'></div>
+  <h1>Overview Chart</h1>
+	<table class="chart">
+	<tr>
+	<th class="chart">Features Status</th><th class="chart">Scenario Status</th>
+	</tr>
+	<tr class="chart">
+    <td class="chart">
+<div id="feature_status" style="width: 400px; height: 300px;">
+    <div style="position: relative;">
+        <div dir="ltr"
+            style="position: relative; width: 400px; height: 300px;">
+            <div aria-label="A chart."
+                style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;">
+                <svg aria-label="A chart." style="overflow: hidden;" height="300"
+                    width="450">
+                    <defs id="defs"></defs>
+			            <text x="280"
+			            	 y="67.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">N/A% (0) Passed</text>
+			           <circle cx="270"
+			            cy="62.5"
+			             r="5" stroke="darkgreen" stroke-width="1" fill="green" />
+			            <text x="280"
+			            	 y="97.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">N/A% (0) Failed</text>
+			           <circle cx="270"
+			            cy="92.5"
+			             r="5" stroke="darkred" stroke-width="1" fill="red" />
+			            <text x="280"
+			            	 y="127.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">N/A% (0) Undefined</text>
+			           <circle cx="270"
+			            cy="122.5"
+			             r="5" stroke="darkgray" stroke-width="1" fill="silver" />
+			            <text x="280"
+			            	 y="157.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">N/A% (0) Known</text>
+			           <circle cx="270"
+			            cy="152.5"
+			             r="5" stroke="goldenrod" stroke-width="1" fill="gold" />
+                    </svg>
+            </div>
+        </div>
+    </div>
+</div>
+	</td>
+    <td class="chart">
+<div id="scenario_status" style="width: 400px; height: 300px;">
+    <div style="position: relative;">
+        <div dir="ltr"
+            style="position: relative; width: 400px; height: 300px;">
+            <div aria-label="A chart."
+                style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;">
+                <svg aria-label="A chart." style="overflow: hidden;" height="300"
+                    width="450">
+                    <defs id="defs"></defs>
+			            <text x="280"
+			            	 y="67.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">N/A% (0) Passed</text>
+			           <circle cx="270"
+			            cy="62.5"
+			             r="5" stroke="darkgreen" stroke-width="1" fill="green" />
+			            <text x="280"
+			            	 y="97.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">N/A% (0) Failed</text>
+			           <circle cx="270"
+			            cy="92.5"
+			             r="5" stroke="darkred" stroke-width="1" fill="red" />
+			            <text x="280"
+			            	 y="127.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">N/A% (0) Undefined</text>
+			           <circle cx="270"
+			            cy="122.5"
+			             r="5" stroke="darkgray" stroke-width="1" fill="silver" />
+			            <text x="280"
+			            	 y="157.5"
+			            	 font-weight = "bold"
+			            	 font-size = "14">N/A% (0) Known</text>
+			           <circle cx="270"
+			            cy="152.5"
+			             r="5" stroke="goldenrod" stroke-width="1" fill="gold" />
+                    </svg>
+            </div>
+        </div>
+    </div>
+</div>
+	</td>
+	</tr>
+	</table>
+
+<h1>Summary</h1>
+
+
+<table>
+	<tr><th></th><th>Passed</th><th>Failed</th><th>Known</th><th>Undefined</th><th>Total</th><th>%Passed</th></tr>
+	<tr><th>Features</th>
+		<td class="passed" id="features_passed">0</td>
+		<td class="failed" id="features_failed">0</td>
+		<td class="known" id="features_known">0</td>
+		<td class="undefined" id="features_undefined">0</td>
+		<td id="features_total">0</td>
+		<td id="features_rate">
+			NaN
+		</td>
+	</tr>
+	<tr><th>Scenarios</th>
+		<td class="passed" id="scenarios_passed">0</td>
+		<td class="failed" id="scenarios_failed">0</td>
+		<td class="known" id="scenarios_known">0</td>
+		<td class="undefined" id="scenarios_undefined">0</td>
+		<td id="scenarios_total">0</td>
+		<td id="scenarios_rate">
+			NaN
+		</td>
+	</tr>
+	<tr><th>Steps</th>
+		<td class="passed" id="steps_passed">0</td>
+		<td class="failed" id="steps_failed">0</td>
+		<td class="known" id="steps_known">0</td>
+		<td class="undefined" id="steps_undefined">0</td>
+		<td id="steps_total">0</td>
+		<td id="steps_rate">
+			NaN
+		</td>
+	</tr>
+</table>
+<div><b>Overall Duration: 0h 00m 00s</b></div>
+	
+<h1>Features Status</h1>
+	
+<table>
+	<tr>
+		<th>Feature Name</th>
+		<th>Status</th>
+		<th>Passed</th>
+		<th>Failed</th>
+		<th>Known</th>
+		<th>Undefined</th>
+		<th>Total</th>
+		<th>Duration</th>
+	</tr>
+
+</table>
+	
+<h1>Scenario Status</h1>
+
+<table>
+	<tr>
+		<th>Feature Name</th>
+		<th>Scenario</th>
+		<th>Status</th>
+		<th>Passed</th>
+		<th>Failed</th>
+		<th>Known</th>
+		<th>Undefined</th>
+		<th>Total</th>
+		<th>Retries</th>
+		<th>Duration</th>
+	</tr>
+</table>	
+	</body>
+</html>

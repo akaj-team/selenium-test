@@ -14,6 +14,7 @@ public class CucumberRunnerBase extends TestNG {
 
     @BeforeClass(alwaysRun = true)
     public synchronized void setUpClass(final ITestContext context) throws Exception {
+        System.setProperty("cucumber.options", "--plugin json:target/+" + System.currentTimeMillis() + "+.json --plugin json:target/+" + System.currentTimeMillis() + ".json");
         super.setUpClass();
         DriverFactory.instance.startDriver(context.getCurrentXmlTest());
     }
