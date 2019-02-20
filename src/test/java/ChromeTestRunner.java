@@ -6,7 +6,7 @@ import vn.asiantech.base.CucumberRunnerBase;
  * ChromeTestRunner
  */
 @CucumberOptions(
-        features = "src/test/resources/features/login",
+        features = "src/test/resources/features",
         glue = {"stepdefs"},
         tags = {"not @Ignore"},
         plugin = {
