@@ -22,17 +22,23 @@ import static vn.asiantech.base.DriverType.*;
  */
 public class DriverFactory {
 
+    public static DriverFactory instance = new DriverFactory();
+    private static List<Integer> busyAccounts = new ArrayList<>();
     private final String operatingSystem = System.getProperty("os.name").toUpperCase();
     private final String systemArchitecture = System.getProperty("os.arch");
     private final boolean proxyEnabled = Boolean.getBoolean("proxyEnabled");
     private final String proxyHostname = System.getProperty("proxyHost");
     private final Integer proxyPort = Integer.getInteger("proxyPort");
     private final String proxyDetails = String.format("%s:%d", proxyHostname, proxyPort);
-
-    public static DriverFactory instance = new DriverFactory();
     private ThreadLocal<RemoteWebDriver> driverFactoryThread = new ThreadLocal<>();
     private ThreadLocal<Account> accountThread = new ThreadLocal<>();
-    private static List<Integer> busyAccounts = new ArrayList<>();
+
+    private static Map<String, String> defaultParam() {
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("browserName", Constant.BROWSER_CHROME);
+        parameters.put("server", "http://localhost:4444/wd/hub");
+        return parameters;
+    }
 
     public final Account getAccountCanUse() {
         return accountThread.get();
@@ -56,13 +62,6 @@ public class DriverFactory {
             startDriver(xmlTest);
         }
         return driverFactoryThread.get();
-    }
-
-    private static Map<String, String> defaultParam() {
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("browserName", Constant.BROWSER_CHROME);
-        parameters.put("server", "http://localhost/wd/hub");
-        return parameters;
     }
 
     public final synchronized void startDriver(final XmlTest xmlTest) {
