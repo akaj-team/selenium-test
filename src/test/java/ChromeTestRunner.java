@@ -12,7 +12,7 @@ import vn.asiantech.base.CucumberRunnerBase;
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports/cucumber-pretty",
-                "json:target/cucumber-reports/ChromeCucumberTestReport.json",
+                "json:target/cucumber-reports/CucumberTestReport.json",
                 "rerun:target/cucumber-reports/rerun.txt"
         })
 @Test
