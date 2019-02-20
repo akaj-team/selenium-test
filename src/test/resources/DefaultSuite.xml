@@ -3,6 +3,7 @@
 
     <test name="Chrome Test">
         <parameter name="browserName" value="chrome"/>
+        <parameter name="headless" value="false"/>
         <parameter name="server" value=""/>
         <classes>
             <class name="DefaultTestRunner"/>

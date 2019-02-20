@@ -22,17 +22,23 @@ import static vn.asiantech.base.DriverType.*;
  */
 public class DriverFactory {
 
+    public static DriverFactory instance = new DriverFactory();
+    private static List<Integer> busyAccounts = new ArrayList<>();
     private final String operatingSystem = System.getProperty("os.name").toUpperCase();
     private final String systemArchitecture = System.getProperty("os.arch");
     private final boolean proxyEnabled = Boolean.getBoolean("proxyEnabled");
     private final String proxyHostname = System.getProperty("proxyHost");
     private final Integer proxyPort = Integer.getInteger("proxyPort");
     private final String proxyDetails = String.format("%s:%d", proxyHostname, proxyPort);
-
-    public static DriverFactory instance = new DriverFactory();
     private ThreadLocal<RemoteWebDriver> driverFactoryThread = new ThreadLocal<>();
     private ThreadLocal<Account> accountThread = new ThreadLocal<>();
-    private static List<Integer> busyAccounts = new ArrayList<>();
+
+    private static Map<String, String> defaultParam() {
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("browserName", Constant.BROWSER_CHROME);
+        parameters.put("server", "http://localhost:4444/wd/hub");
+        return parameters;
+    }
 
     public final Account getAccountCanUse() {
         return accountThread.get();
@@ -58,24 +64,18 @@ public class DriverFactory {
         return driverFactoryThread.get();
     }
 
-    private static Map<String, String> defaultParam() {
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("browserName", Constant.BROWSER_CHROME);
-        parameters.put("server", "http://localhost:4444/wd/hub");
-        return parameters;
-    }
-
     public final synchronized void startDriver(final XmlTest xmlTest) {
         initSessionAccounts();
         //get param suite
         String browserName = xmlTest.getParameter("browserName");
         String server = xmlTest.getParameter("server");
+        String headLess = xmlTest.getParameter("headless");
 
         DriverType driverType = getDriverType(browserName);
         String browser = System.getProperty("browser", driverType.toString()).toUpperCase();
         driverType = DriverType.valueOf(browser);
         try {
-            instantiateWebDriver(driverType, server);
+            instantiateWebDriver(driverType, server, Boolean.parseBoolean(headLess));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -115,7 +115,7 @@ public class DriverFactory {
         }
     }
 
-    private void instantiateWebDriver(final DriverType driverType, final String server) throws MalformedURLException {
+    private void instantiateWebDriver(final DriverType driverType, final String server, final boolean isHeadLess) throws MalformedURLException {
         //TODO add in a real logger instead of System.out
         System.out.println(" ");
         System.out.println("Local Operating System: " + operatingSystem);
@@ -140,7 +140,7 @@ public class DriverFactory {
             desiredCapabilities.setBrowserName(driverType.toString());
             driver = new RemoteWebDriver(seleniumGridURL, desiredCapabilities);
         } else {
-            driver = driverType.getWebDriverObject(desiredCapabilities);
+            driver = driverType.getWebDriverObject(desiredCapabilities, isHeadLess);
         }
 
         driverFactoryThread.set(driver);
