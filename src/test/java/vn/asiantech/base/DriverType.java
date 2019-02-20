@@ -22,16 +22,20 @@ import java.util.HashMap;
 public enum DriverType implements DriverSetup {
 
     FIREFOX {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities, boolean isHeadLess) {
             WebDriverManager.firefoxdriver().setup();
             FirefoxOptions options = new FirefoxOptions();
             options.merge(capabilities);
             options.setHeadless(HEADLESS);
+            if (isHeadLess) {
+                options.addArguments("--headless");
+                options.addArguments("--window-size=1920,1080");
+            }
             return new FirefoxDriver(options);
         }
     },
     CHROME {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities, boolean isHeadLess) {
             WebDriverManager.chromedriver().setup();
             HashMap<String, Object> chromePreferences = new HashMap<>();
             chromePreferences.put("profile.password_manager_enabled", false);
@@ -40,20 +44,23 @@ public enum DriverType implements DriverSetup {
             options.merge(capabilities);
             options.setHeadless(HEADLESS);
             options.addArguments("--no-default-browser-check");
+            if (isHeadLess) {
+                options.addArguments("--headless");
+                options.addArguments("--window-size=1920,1080");
+            }
             options.setExperimentalOption("prefs", chromePreferences);
 
             return new ChromeDriver(options);
         }
     },
     IE {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities, boolean isHeadLess) {
             WebDriverManager.iedriver().setup();
             InternetExplorerOptions options = new InternetExplorerOptions();
             options.merge(capabilities);
             options.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
             options.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, true);
             options.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, true);
-
             return new InternetExplorerDriver(options);
         }
 
@@ -63,28 +70,29 @@ public enum DriverType implements DriverSetup {
         }
     },
     EDGE {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities, boolean isHeadLess) {
             WebDriverManager.edgedriver().setup();
             EdgeOptions options = new EdgeOptions();
             options.merge(capabilities);
-
             return new EdgeDriver(options);
         }
     },
     SAFARI {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities, boolean isHeadLess) {
             SafariOptions options = new SafariOptions();
             options.merge(capabilities);
-
             return new SafariDriver(options);
         }
     },
     OPERA {
-        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities) {
+        public RemoteWebDriver getWebDriverObject(DesiredCapabilities capabilities, boolean isHeadLess) {
             WebDriverManager.operadriver().setup();
             OperaOptions options = new OperaOptions();
             options.merge(capabilities);
-
+            if (isHeadLess) {
+                options.addArguments("--headless");
+                options.addArguments("--window-size=1920,1080");
+            }
             return new OperaDriver(options);
         }
     };
