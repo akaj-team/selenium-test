@@ -11,7 +11,7 @@
 
     <test name="Chrome Test">
         <parameter name="browserName" value="chrome"/>
-        <parameter name="server" value="http://172.16.110.169:4444/wd/hub"/>
+        <parameter name="server" value="http://localhost:4444/wd/hub"/>
         <classes>
             <class name="ChromeTestRunner"/>
         </classes>
