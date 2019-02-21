@@ -11,7 +11,7 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'target/cucumber-reports/**'
+            archiveArtifacts artifacts: 'target/**'
         }
 
         success {

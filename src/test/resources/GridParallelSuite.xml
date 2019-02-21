@@ -4,7 +4,7 @@
         <parameter name="browserName" value="chrome"/>
         <parameter name="server" value="http://hub:4444/wd/hub"/>
         <classes>
-            <class name="ChromeTestRunner"/>
+            <class name="ChromeTestRunner1"/>
         </classes>
     </test>
 
@@ -12,7 +12,7 @@
         <parameter name="browserName" value="chrome"/>
         <parameter name="server" value="http://hub:4444/wd/hub"/>
         <classes>
-            <class name="ChromeTestRunner"/>
+            <class name="ChromeTestRunner2"/>
         </classes>
     </test>
 
@@ -20,7 +20,7 @@
         <parameter name="browserName" value="chrome"/>
         <parameter name="server" value="http://hub:4444/wd/hub"/>
         <classes>
-            <class name="ChromeTestRunner"/>
+            <class name="ChromeTestRunner3"/>
         </classes>
     </test>
 
@@ -28,7 +28,7 @@
         <parameter name="browserName" value="chrome"/>
         <parameter name="server" value="http://hub:4444/wd/hub"/>
         <classes>
-            <class name="ChromeTestRunner"/>
+            <class name="ChromeTestRunner4"/>
         </classes>
     </test>
 
@@ -36,7 +36,7 @@
         <parameter name="browserName" value="chrome"/>
         <parameter name="server" value="http://hub:4444/wd/hub"/>
         <classes>
-            <class name="ChromeTestRunner"/>
+            <class name="ChromeTestRunner5"/>
         </classes>
     </test>
 </suite>
