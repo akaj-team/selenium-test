@@ -1,4 +1,4 @@
-package vn.asiantech.base;
+package vn.asiantech.core;
 
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;

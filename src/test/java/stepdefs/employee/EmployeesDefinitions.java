@@ -4,7 +4,7 @@ import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.employee.EmployeesPage;
 
 import static vn.asiantech.base.Constant.EMPLOYEE_PAGE_URL;
@@ -13,7 +13,7 @@ import static vn.asiantech.page.employee.EmployeesPage.MAXIMUM_CELL;
 /**
  * @author at-hangtran
  */
-public class EmployeesDefinitions extends DriverBase implements En {
+public class EmployeesDefinitions extends BaseDefinitions implements En {
 
     private WebDriver driver;
     private EmployeesPage employeesPage;

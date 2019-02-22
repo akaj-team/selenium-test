@@ -1,6 +1,6 @@
 import cucumber.api.CucumberOptions;
 import org.testng.annotations.Test;
-import vn.asiantech.base.CucumberRunnerBase;
+import vn.asiantech.core.CucumberRunnerBase;
 
 /**
  * FirefoxTestRunner

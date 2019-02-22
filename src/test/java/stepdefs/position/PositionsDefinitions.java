@@ -6,13 +6,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.position.PositionsPage;
 
 /**
  * @author at-trungnguyen
  */
-public class PositionsDefinitions extends DriverBase implements En {
+public class PositionsDefinitions extends BaseDefinitions implements En {
 
     private WebDriver driver;
     private PositionsPage positionsPage;

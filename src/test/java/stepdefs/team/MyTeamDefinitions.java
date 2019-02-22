@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.team.MyTeamPage;
 
 import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
@@ -15,7 +15,7 @@ import static vn.asiantech.base.Constant.URL_MYTEAM_PAGE;
 /**
  * @author at-huethai
  */
-public class MyTeamDefinitions extends DriverBase implements En {
+public class MyTeamDefinitions extends BaseDefinitions implements En {
     private static final int TEAM_CODE = 24;
     private static final int TEAM_MEMBER_COUNT = 44;
 

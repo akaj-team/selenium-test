@@ -1,4 +1,4 @@
-package vn.asiantech.base;
+package vn.asiantech.core;
 
 import org.openqa.selenium.WebDriver;
 
@@ -8,17 +8,17 @@ import java.util.Map;
 /**
  * @author tien.hoang
  */
-class PageFactory<T> {
+public class PageFactory<T> {
     private static Map<String, Object> pages = new HashMap<>();
     private Class<T> clazz;
     private WebDriver driver;
 
-    PageFactory(final WebDriver driver, final Class<T> clazz) {
+    public PageFactory(final WebDriver driver, final Class<T> clazz) {
         this.clazz = clazz;
         this.driver = driver;
     }
 
-    T create() {
+    public T create() {
         try {
             Class<?> newClazz = Class.forName(clazz.getName());
             String classHash = DriverFactory.instance.getDriver().hashCode() + newClazz.getName();

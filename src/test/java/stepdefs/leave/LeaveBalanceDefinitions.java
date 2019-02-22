@@ -6,13 +6,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.leave.LeaveBalancePage;
 
 /**
  * @author at-vinhhuynh
  */
-public class LeaveBalanceDefinitions extends DriverBase implements En {
+public class LeaveBalanceDefinitions extends BaseDefinitions implements En {
 
     private WebDriver driver;
     private LeaveBalancePage leaveBalancePage;

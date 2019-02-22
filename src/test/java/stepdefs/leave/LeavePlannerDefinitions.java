@@ -4,7 +4,7 @@ import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.leave.LeavePlannerPage;
 
 import static vn.asiantech.base.Constant.LEAVE_PLANNER_PAGE_URL;
@@ -12,7 +12,7 @@ import static vn.asiantech.base.Constant.LEAVE_PLANNER_PAGE_URL;
 /**
  * @author at-hangtran
  */
-public class LeavePlannerDefinitions extends DriverBase implements En {
+public class LeavePlannerDefinitions extends BaseDefinitions implements En {
 
     private LeavePlannerPage leavePlanerPage;
     private WebDriver driver;

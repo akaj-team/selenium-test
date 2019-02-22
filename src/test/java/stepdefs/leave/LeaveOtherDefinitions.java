@@ -6,13 +6,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.leave.LeaveOtherPage;
 
 /**
  * @author at-hanhnguyen
  */
-public class LeaveOtherDefinitions extends DriverBase implements En {
+public class LeaveOtherDefinitions extends BaseDefinitions implements En {
     private LeaveOtherPage leaveOtherPage;
     private WebDriver webDriver;
 

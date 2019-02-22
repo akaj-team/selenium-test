@@ -3,7 +3,7 @@ package stepdefs;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import vn.asiantech.base.DriverFactory;
+import vn.asiantech.core.DriverFactory;
 
 public class ServiceHooks {
     private static boolean isFirstStep = true;

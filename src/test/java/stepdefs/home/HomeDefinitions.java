@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.home.HomePage;
 
 import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
@@ -15,7 +15,7 @@ import static vn.asiantech.base.Constant.HOME_PAGE_URL;
  * Copyright © 2018 Asian Tech Co., Ltd.
  * Created by at-vietphan on 02/09.
  */
-public class HomeDefinitions extends DriverBase implements En {
+public class HomeDefinitions extends BaseDefinitions implements En {
     private WebDriver driver;
     private HomePage homePage;
 
