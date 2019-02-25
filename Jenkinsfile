@@ -2,6 +2,20 @@ pipeline {
     agent any
 
     stages {
+         stage("Parallel") {
+             steps {
+                 parallel (
+                     "firstTask" : {
+                         echo "First task"
+                         sh 'mvn clean test'
+                     },
+                     "secondTask" : {
+                         echo "Second task"
+                         sh 'mvn clean test'
+                     }
+                 )
+             }
+         }
         stage('Build') {
             steps {
                 sh 'mvn clean test'
