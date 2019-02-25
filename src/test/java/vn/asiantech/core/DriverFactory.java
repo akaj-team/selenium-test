@@ -70,6 +70,8 @@ public class DriverFactory {
                 officialName = "MicrosoftEdge";
                 break;
             case BROWSER_OPERA:
+                officialName = "operablink";
+                break;
             case BROWSER_CHROME:
             case BROWSER_FIREFOX:
             case BROWSER_SAFARI:
