@@ -4,7 +4,7 @@ import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.team.NewTeamFormPage;
 import vn.asiantech.page.team.TeamsPage;
 
@@ -15,7 +15,7 @@ import static vn.asiantech.base.Constant.TEAM_PAGE_URL;
  * Copyright © 2018 Asian Tech Co., Ltd.
  * Created by at-vietphan on 9/21/18.
  */
-public class NewTeamFormDefinitions extends DriverBase implements En {
+public class NewTeamFormDefinitions extends BaseDefinitions implements En {
     private WebDriver driver;
     private NewTeamFormPage newTeamFormPage;
     private TeamsPage teamsPage;

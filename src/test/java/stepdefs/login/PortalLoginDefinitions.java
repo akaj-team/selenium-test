@@ -6,14 +6,14 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.home.HomePage;
 import vn.asiantech.page.login.LoginPage;
 
 import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 import static vn.asiantech.base.Constant.LOGIN_PAGE_URL;
 
-public class PortalLoginDefinitions extends DriverBase implements En {
+public class PortalLoginDefinitions extends BaseDefinitions implements En {
     private LoginPage loginPage;
     private HomePage homePage;
 

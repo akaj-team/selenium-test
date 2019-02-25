@@ -1,11 +1,13 @@
-package vn.asiantech.base;
+package vn.asiantech.core;
 
-import cucumber.api.testng.AbstractTestNGCucumberTests;
 import org.testng.ITestContext;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 
 @Listeners(ScreenShotListener.class)
-public class CucumberRunnerBase extends AbstractTestNGCucumberTests {
+public class CucumberRunnerBase extends CustomAbstractTestNGCucumberTests {
 
     @DataProvider
     public Object[][] features() {

@@ -4,7 +4,7 @@ import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.team.TeamsPage;
 
 import static vn.asiantech.base.Constant.TEAM_PAGE_URL;
@@ -13,7 +13,7 @@ import static vn.asiantech.base.Constant.TEAM_PAGE_URL;
  * Copyright © 2018 Asian Tech Co., Ltd.
  * Created by at-vietphan on 9/18/18.
  */
-public class TeamsDefinitions extends DriverBase implements En {
+public class TeamsDefinitions extends BaseDefinitions implements En {
     private WebDriver driver;
     private TeamsPage teamsPage;
     private String updateTeamUrl;

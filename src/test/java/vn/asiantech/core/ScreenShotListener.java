@@ -1,4 +1,4 @@
-package vn.asiantech.base;
+package vn.asiantech.core;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;

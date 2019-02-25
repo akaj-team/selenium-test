@@ -5,13 +5,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.group.NewGroupPage;
 
 /**
  * @author at-phuongdang
  */
-public class NewGroupDefinitions extends DriverBase implements En {
+public class NewGroupDefinitions extends BaseDefinitions implements En {
 
     private static final int NAME_POSITION = 0;
     private static final int EMAIL_POSITION = 3;

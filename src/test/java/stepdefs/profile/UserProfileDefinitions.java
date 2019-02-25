@@ -7,9 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 
-public class UserProfileDefinitions extends DriverBase implements En {
+public class UserProfileDefinitions extends BaseDefinitions implements En {
 
     private WebDriver driver;
 

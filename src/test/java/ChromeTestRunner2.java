@@ -3,7 +3,7 @@ import org.testng.annotations.Test;
 import vn.asiantech.core.CucumberRunnerBase;
 
 /**
- * FirefoxTestRunner
+ * ChromeTestRunner2
  */
 @CucumberOptions(
         features = "src/test/resources/features",
@@ -12,10 +12,10 @@ import vn.asiantech.core.CucumberRunnerBase;
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports/cucumber-pretty",
-                "json:target/cucumber-reports/FirefoxCucumberTestReport.json",
+                "json:target/cucumber-reports/ChromeTestReport2.json",
                 "rerun:target/cucumber-reports/rerun.txt"
         })
 @Test
-public class FirefoxTestRunner extends CucumberRunnerBase {
+public class ChromeTestRunner2 extends CucumberRunnerBase {
 
 }

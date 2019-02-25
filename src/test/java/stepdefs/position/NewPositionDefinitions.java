@@ -4,13 +4,13 @@ import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.position.NewPositionPage;
 
 /**
  * @author hanhnguyenm.
  */
-public class NewPositionDefinitions extends DriverBase implements En {
+public class NewPositionDefinitions extends BaseDefinitions implements En {
 
     private static final int POS_LONG_NAME_ERROR = 0;
     private static final int POS_SHORT_NAME_ERROR = 1;

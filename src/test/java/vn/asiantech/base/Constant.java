@@ -34,16 +34,8 @@ public final class Constant {
     public static final int DEFAULT_TIME_OUT = 10;
     public static final int MAXIMUM_TIME_OUT = 20;
 
-    // browser name
-    static final String BROWSER_CHROME = "chrome";
-    static final String BROWSER_FIREFOX = "firefox";
-    static final String BROWSER_SAFARI = "safari";
-    static final String BROWSER_IE = "ie";
-    static final String BROWSER_EDGE = "edge";
-    static final String BROWSER_OPERA = "opera";
-
     //init Account
-    static final Account[] ACCOUNT_LOGIN = new Account[]{
+    public static final Account[] ACCOUNT_LOGIN = new Account[]{
             new Account("stg.tien.hoang@asiantech.vn", "Abc123@@"),
             new Account("stg.tu.le.2@asiantech.vn", "Abc123@@"),
             new Account("stg.thien.dang2@asiantech.vn", "Abc123@@"),

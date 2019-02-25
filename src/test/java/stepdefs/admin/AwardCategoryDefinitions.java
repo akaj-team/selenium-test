@@ -5,14 +5,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.admin.AwardCategoryPage;
 
 /**
  * @author at-anh.quach
  * AwardCategoryPage
  */
-public class AwardCategoryDefinitions extends DriverBase implements En {
+public class AwardCategoryDefinitions extends BaseDefinitions implements En {
     private AwardCategoryPage awardCategoryPage;
     private WebDriver driver;
 

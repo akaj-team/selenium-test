@@ -4,7 +4,7 @@ import cucumber.api.java8.En;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.object.Employee;
 import vn.asiantech.page.employee.EmployeesPage;
 import vn.asiantech.page.employee.editemployee.EditEmployeePage;
@@ -12,7 +12,7 @@ import vn.asiantech.page.employee.editemployee.EditEmployeePage;
 /**
  * @author at-hangtran
  */
-public class EditEmployeeDefinitions extends DriverBase implements En {
+public class EditEmployeeDefinitions extends BaseDefinitions implements En {
 
     private WebDriver driver;
     private Employee employee;

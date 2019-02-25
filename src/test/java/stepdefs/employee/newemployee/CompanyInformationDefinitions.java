@@ -3,14 +3,14 @@ package stepdefs.employee.newemployee;
 import cucumber.api.java8.En;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.employee.newemployee.CompanyInformationPage;
 import vn.asiantech.page.employee.newemployee.PersonalInformationPage;
 
 /**
  * @author at-hangtran
  */
-public class CompanyInformationDefinitions extends DriverBase implements En {
+public class CompanyInformationDefinitions extends BaseDefinitions implements En {
 
     private WebDriver driver;
     private PersonalInformationPage personalInformationPage;

@@ -1,4 +1,4 @@
-package vn.asiantech.base;
+package vn.asiantech.core;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -62,11 +62,6 @@ public enum DriverType implements DriverSetup {
             options.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, true);
             options.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, true);
             return new InternetExplorerDriver(options);
-        }
-
-        @Override
-        public String toString() {
-            return "internet explorer";
         }
     },
     EDGE {

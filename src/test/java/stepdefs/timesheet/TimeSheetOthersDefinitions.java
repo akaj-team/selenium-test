@@ -5,13 +5,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.timesheet.TimeSheetOthers;
 
 /**
  * @author at-trungnguyen
  */
-public class TimeSheetOthersDefinitions extends DriverBase implements En {
+public class TimeSheetOthersDefinitions extends BaseDefinitions implements En {
     private TimeSheetOthers timeSheetOthers;
     private WebDriver driver;
     private String employeeDetailUrl;

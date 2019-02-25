@@ -5,14 +5,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.leave.MyLeavePage;
 
 /**
  * @author at-anh.quach
  */
 
-public class MyLeaveDefinitions extends DriverBase implements En {
+public class MyLeaveDefinitions extends BaseDefinitions implements En {
     private WebDriver driver;
     private MyLeavePage myLeavePage;
 

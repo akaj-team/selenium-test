@@ -6,13 +6,13 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.menu.MenuPage;
 
 /**
  * @author at-hanhnguyen
  */
-public class MenuDefinitions extends DriverBase implements En {
+public class MenuDefinitions extends BaseDefinitions implements En {
 
     private MenuPage menuPage;
 

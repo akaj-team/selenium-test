@@ -7,14 +7,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.admin.AccessControlPage;
 
 /**
  * Copyright © 2018 Asian Tech Co., Ltd.
  * Created by at-vietphan on 9/27/18.
  */
-public class AccessControlDefinitions extends DriverBase implements En {
+public class AccessControlDefinitions extends BaseDefinitions implements En {
 
     private WebDriver driver;
     private AccessControlPage accessControlPage;

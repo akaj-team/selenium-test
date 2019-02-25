@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.wiki.WikiPage;
 
 /**
@@ -13,7 +13,7 @@ import vn.asiantech.page.wiki.WikiPage;
  * WikiDefinitions
  */
 
-public class WikiDefinitions extends DriverBase implements En {
+public class WikiDefinitions extends BaseDefinitions implements En {
     private static final int NUMBER_HOMEPAGE = 168;
     private static final int NUMBER_AT_LIBRARY = 190;
 

@@ -12,21 +12,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import vn.asiantech.core.DriverFactory;
+import vn.asiantech.core.PageFactory;
 import vn.asiantech.object.Account;
 
 import java.lang.reflect.Field;
 
 import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
 
-public class DriverBase {
-
-    protected final RemoteWebDriver getDriver() {
-        return DriverFactory.instance.getDriver();
-    }
-
-    protected final Account getAccount() {
-        return DriverFactory.instance.getAccountCanUse();
-    }
+public class BaseDefinitions {
 
     @AfterMethod(alwaysRun = true)
     public static void clearCookies() {
@@ -35,35 +29,6 @@ public class DriverBase {
         } catch (Exception ignored) {
             System.out.println("Unable to clear cookies, driver object is not viable...");
         }
-    }
-
-    protected <T> T initPage(WebDriver driver, Class<T> clazz) {
-        T page = new PageFactory<>(driver, clazz).create();
-        initElements(driver, page);
-        return page;
-    }
-
-    protected final void waitForPageDisplayed(final WebDriver driver, final String url, final By containerElement) {
-        new WebDriverWait(driver, DEFAULT_TIME_OUT).until(
-                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        if (containerElement != null) {
-            waitVisibilityOfElement(driver, containerElement);
-        }
-        Assert.assertEquals(url, driver.getCurrentUrl());
-    }
-
-    protected final void waitRedirectToPage(final String destinationUrl) {
-        new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
-                webDriver -> webDriver.getCurrentUrl().equals(destinationUrl));
-    }
-
-    protected final void waitForPageRedirected(final WebDriver driver, final String url, final By containerElement) {
-        new WebDriverWait(driver, DEFAULT_TIME_OUT).until(ExpectedConditions.urlToBe(url));
-        waitVisibilityOfElement(driver, containerElement);
-    }
-
-    protected final void waitVisibilityOfElement(final WebDriver driver, final By element) {
-        new WebDriverWait(driver, DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 
     private static void initElements(final WebDriver driver, final Object page) {
@@ -93,5 +58,42 @@ public class DriverBase {
                 }
             }
         }
+    }
+
+    protected final RemoteWebDriver getDriver() {
+        return DriverFactory.instance.getDriver();
+    }
+
+    protected final Account getAccount() {
+        return DriverFactory.instance.getAccountCanUse();
+    }
+
+    protected <T> T initPage(WebDriver driver, Class<T> clazz) {
+        T page = new PageFactory<>(driver, clazz).create();
+        initElements(driver, page);
+        return page;
+    }
+
+    protected final void waitForPageDisplayed(final WebDriver driver, final String url, final By containerElement) {
+        new WebDriverWait(driver, DEFAULT_TIME_OUT).until(
+                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+        if (containerElement != null) {
+            waitVisibilityOfElement(driver, containerElement);
+        }
+        Assert.assertEquals(url, driver.getCurrentUrl());
+    }
+
+    protected final void waitRedirectToPage(final String destinationUrl) {
+        new WebDriverWait(getDriver(), Constant.DEFAULT_TIME_OUT).until(
+                webDriver -> webDriver.getCurrentUrl().equals(destinationUrl));
+    }
+
+    protected final void waitForPageRedirected(final WebDriver driver, final String url, final By containerElement) {
+        new WebDriverWait(driver, DEFAULT_TIME_OUT).until(ExpectedConditions.urlToBe(url));
+        waitVisibilityOfElement(driver, containerElement);
+    }
+
+    protected final void waitVisibilityOfElement(final WebDriver driver, final By element) {
+        new WebDriverWait(driver, DEFAULT_TIME_OUT).until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 }

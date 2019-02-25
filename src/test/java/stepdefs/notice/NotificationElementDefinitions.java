@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import vn.asiantech.base.Constant;
-import vn.asiantech.base.DriverBase;
+import vn.asiantech.base.BaseDefinitions;
 import vn.asiantech.page.notice.NotificationMenuElement;
 
 import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
@@ -16,7 +16,7 @@ import static vn.asiantech.base.Constant.DEFAULT_TIME_OUT;
  *
  * @author at-vinh.huynh
  */
-public class NotificationElementDefinitions extends DriverBase implements En {
+public class NotificationElementDefinitions extends BaseDefinitions implements En {
     private static final int NOTIFICATION_PER_PAGE = 10;
 
     private NotificationMenuElement notificationMenuElement;
