@@ -149,10 +149,8 @@
                                     <goal>generate</goal>
                                 </goals>
                                 <configuration>
-                                        <projectName>aaaa</projectName>
-                                        <projectName>bbbbb</projectName>
+                                    <projectNames>AT-Portal</projectNames>  <!-- Replace with project name -->
                                     <outputDirectory>${project.build.directory}</outputDirectory>
-                                    <!--<cucumberOutput>target/cucumber-reports/ChromeCucumberTestReport1.json</cucumberOutput>-->
                                     <jsonFiles>**/*.json</jsonFiles>
                                     <classificationFiles>**/browser.properties</classificationFiles>
                                     <parallelTesting>false</parallelTesting>

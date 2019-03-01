@@ -3,11 +3,10 @@ Feature: Check update page
   Background: User navigates to update page
     Given I am logged in as a team manager
     And Update Page page displayed
-  @Only
+
   Scenario: Check submit is enabled
     Then Submit button is enabled
 
-  @Only
   Scenario: Check update a child page
     When I clear title
     Then I enter title "Pikalong"

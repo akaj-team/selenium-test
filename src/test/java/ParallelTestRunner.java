@@ -5,7 +5,7 @@ import vn.asiantech.core.ParallelCucumberRunnerBase;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"stepdefs"},
-        tags = {"@Only"},
+        tags = {"not @Ignore"},
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports/cucumber-pretty",

@@ -2,17 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Run Chrome Test') {
+        stage('Build') {
             steps {
-                sh 'run-test.sh chrome 3'
-            }
-
-            steps {
-                sh 'run-test.sh firefox 3'
-            }
-
-            steps {
-                sh 'run-test.sh ie 3'
+                sh 'mvn clean test'
             }
         }
     }

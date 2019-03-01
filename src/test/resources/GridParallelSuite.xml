@@ -1,1 +1,9 @@
-<suite name="Suite"><parameter name="server" value="http://localhost:4444/wd/hub" /><parameter name="browserName" value="chrome" /><test name="Chrome Test" parallel="methods" thread-count="1"><classes><class name="generate.ParallelChromeTestRunnerGenerate1" /></classes></test></suite>
+<suite name="Suite">
+    <parameter name="server" value="http://localhost:4444/wd/hub"/>
+    <parameter name="browserName" value="chrome"/>
+    <test name="Chrome Test" parallel="methods" thread-count="1">
+        <classes>
+            <class name="ParallelTestRunner"/>
+        </classes>
+    </test>
+</suite>

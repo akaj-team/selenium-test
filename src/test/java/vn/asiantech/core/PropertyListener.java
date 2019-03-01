@@ -1,5 +1,6 @@
 package vn.asiantech.core;
 
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.TestListenerAdapter;
@@ -17,10 +18,11 @@ public class PropertyListener extends TestListenerAdapter {
         try {
             RemoteWebDriver driver = (RemoteWebDriver) context.getAttribute("webDriver");
             Properties prop = new Properties();
+            Capabilities capabilities = driver.getCapabilities();
             OutputStream output = new FileOutputStream("target/browser.properties");
-            prop.setProperty("BrowserName", driver.getCapabilities().getBrowserName());
-            prop.setProperty("BrowserVersion", driver.getCapabilities().getVersion());
-            prop.setProperty("Platform", driver.getCapabilities().getPlatform().name());
+            prop.setProperty("BrowserName", capabilities.getBrowserName());
+            prop.setProperty("BrowserVersion", capabilities.getVersion());
+            prop.setProperty("Platform", capabilities.getPlatform().name());
             prop.setProperty("Platform", context.getCurrentXmlTest().getSuite().getParameter("server"));
             prop.store(output, null);
             output.close();
