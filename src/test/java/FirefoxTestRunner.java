@@ -1,6 +1,6 @@
 import cucumber.api.CucumberOptions;
 import org.testng.annotations.Test;
-import vn.asiantech.core.ParallelCucumberRunnerBase;
+import vn.asiantech.core.DefaultCucumberRunnerBase;
 
 /**
  * FirefoxTestRunner
@@ -16,6 +16,6 @@ import vn.asiantech.core.ParallelCucumberRunnerBase;
                 "rerun:target/cucumber-reports/rerun.txt"
         })
 @Test
-public class FirefoxTestRunner extends ParallelCucumberRunnerBase {
+public class FirefoxTestRunner extends DefaultCucumberRunnerBase {
 
 }
