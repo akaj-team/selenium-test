@@ -1,10 +1,8 @@
+package generate;
 import cucumber.api.CucumberOptions;
 import org.testng.annotations.Test;
-import vn.asiantech.core.CucumberRunnerBase;
+import vn.asiantech.core.ParallelCucumberRunnerBase;
 
-/**
- * ChromeTestRunner2
- */
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"stepdefs"},
@@ -12,10 +10,9 @@ import vn.asiantech.core.CucumberRunnerBase;
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports/cucumber-pretty",
-                "json:target/cucumber-reports/ChromeTestReport3.json",
+                "json:target/cucumber-reports/CucumberTestReport1.json",
                 "rerun:target/cucumber-reports/rerun.txt"
         })
 @Test
-public class ChromeTestRunner3 extends CucumberRunnerBase {
-
+class ParallelTestRunnerGenerate1 extends ParallelCucumberRunnerBase {
 }

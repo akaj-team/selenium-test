@@ -1,6 +1,6 @@
 import cucumber.api.CucumberOptions;
 import org.testng.annotations.Test;
-import vn.asiantech.core.CucumberRunnerBase;
+import vn.asiantech.core.ParallelCucumberRunnerBase;
 
 /**
  * DefaultTestRunner
@@ -16,6 +16,6 @@ import vn.asiantech.core.CucumberRunnerBase;
                 "rerun:target/cucumber-reports/rerun.txt"
         })
 @Test
-public class DefaultTestRunner extends CucumberRunnerBase {
+public class DefaultTestRunner extends ParallelCucumberRunnerBase {
 
 }

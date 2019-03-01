@@ -6,7 +6,7 @@
         <parameter name="headless" value="false"/>
         <parameter name="server" value=""/>
         <classes>
-            <class name="DefaultTestRunner"/>
+            <class name="Pa"/>
         </classes>
     </test>
 </suite>

@@ -3,6 +3,7 @@ package vn.asiantech.core;
 import cucumber.api.testng.CucumberFeatureWrapper;
 import cucumber.api.testng.PickleEventWrapper;
 import cucumber.api.testng.TestNGCucumberRunner;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -12,18 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CustomAbstractTestNGCucumberTests {
-    private static final int BROWSER_INSTANCE_SUM = 5;
     private static int browserCount;
     private TestNGCucumberRunner testNGCucumberRunner;
+    private int threadCount;
 
     public CustomAbstractTestNGCucumberTests() {
     }
 
     @BeforeClass(alwaysRun = true)
-    public void setUpClass() throws Exception {
+    public void setUpClass(ITestContext context) throws Exception {
+        threadCount = context.getCurrentXmlTest().getSuite().getTests().get(0).getThreadCount();
         this.testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
     }
-
 
     @Test(groups = {"cucumber"},
             description = "Runs Cucumber Scenarios",
@@ -37,15 +38,15 @@ public abstract class CustomAbstractTestNGCucumberTests {
     public Object[][] scenarios() {
         Object[][] scenarios = this.testNGCucumberRunner.provideScenarios();
         List<Object[]> runScenarios = new ArrayList();
-        int number = scenarios.length / BROWSER_INSTANCE_SUM;
-        if (browserCount != (BROWSER_INSTANCE_SUM - 1)) {
+        int number = scenarios.length / threadCount;
+        if (browserCount != (threadCount - 1)) {
             for (int i = browserCount * number; i < number * (browserCount + 1); i++) {
                 runScenarios.add(scenarios[i]);
             }
             System.out.println("Thread " + browserCount + " run " + runScenarios.size() + " scenarios");
 
         } else {
-            int startIndex = number * (BROWSER_INSTANCE_SUM - 1);
+            int startIndex = number * (threadCount - 1);
             for (int i = startIndex; i < scenarios.length; i++) {
                 runScenarios.add(scenarios[i]);
             }
