@@ -3,6 +3,7 @@ package vn.asiantech.core;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.ITestContext;
 import org.testng.xml.XmlTest;
 import vn.asiantech.base.Constant;
 import vn.asiantech.object.Account;
@@ -41,6 +42,7 @@ public class DriverFactory {
     private final String proxyDetails = String.format("%s:%d", proxyHostname, proxyPort);
     private ThreadLocal<RemoteWebDriver> driverFactoryThread = new ThreadLocal<>();
     private ThreadLocal<Account> accountThread = new ThreadLocal<>();
+    private ITestContext context;
 
     private static Map<String, String> defaultParam() {
         Map<String, String> parameters = new HashMap<>();
@@ -108,7 +110,7 @@ public class DriverFactory {
         return driverType;
     }
 
-    private void instantiateWebDriver(final DriverType driverType, final String server, final boolean isHeadLess) throws MalformedURLException {
+    private void instantiateWebDriver(final ITestContext context, final DriverType driverType, final String server, final boolean isHeadLess) throws MalformedURLException {
         System.out.println(" ");
         System.out.println("Local Operating System: " + operatingSystem);
         System.out.println("Local Architecture: " + systemArchitecture);
@@ -136,6 +138,7 @@ public class DriverFactory {
         }
 
         driverFactoryThread.set(driver);
+        context.setAttribute("webDriver", driver);
     }
 
     public final Account getAccountCanUse() {
@@ -144,14 +147,15 @@ public class DriverFactory {
 
     public final synchronized RemoteWebDriver getDriver() {
         if (driverFactoryThread.get() == null) {
-            XmlTest xmlTest = new XmlTest();
-            xmlTest.setParameters(defaultParam());
-            startDriver(xmlTest);
+            context.getCurrentXmlTest().setParameters(defaultParam());
+            startDriver(context);
         }
         return driverFactoryThread.get();
     }
 
-    public synchronized void startDriver(final XmlTest xmlTest) {
+    public synchronized void startDriver(final ITestContext context) {
+        this.context = context;
+        XmlTest xmlTest = context.getCurrentXmlTest();
         initSessionAccounts();
         //get param suite
         String browserName = xmlTest.getParameter("browserName");
@@ -160,7 +164,7 @@ public class DriverFactory {
 
         DriverType driverType = getDriverType(browserName);
         try {
-            instantiateWebDriver(driverType, server, Boolean.parseBoolean(headLess));
+            instantiateWebDriver(context, driverType, server, Boolean.parseBoolean(headLess));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

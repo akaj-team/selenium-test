@@ -136,10 +136,11 @@
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
+
                     <plugin>
                         <groupId>net.masterthought</groupId>
                         <artifactId>maven-cucumber-reporting</artifactId>
-                        <version>3.8.0</version>
+                        <version>3.19.0</version>
                         <executions>
                             <execution>
                                 <id>execution</id>
@@ -148,11 +149,14 @@
                                     <goal>generate</goal>
                                 </goals>
                                 <configuration>
-                                    <projectName>AT-Portal</projectName>  <!-- Replace with project name -->
-                                    <outputDirectory>target/cucumber-reports/advanced-reports</outputDirectory>
-                                    <cucumberOutput>target/cucumber-reports/CucumberTestReport.json</cucumberOutput>
-                                    <buildNumber>1</buildNumber>
+                                        <projectName>aaaa</projectName>
+                                        <projectName>bbbbb</projectName>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <!--<cucumberOutput>target/cucumber-reports/ChromeCucumberTestReport1.json</cucumberOutput>-->
+                                    <jsonFiles>**/*.json</jsonFiles>
+                                    <classificationFiles>**/browser.properties</classificationFiles>
                                     <parallelTesting>false</parallelTesting>
+                                    <buildNumber>3</buildNumber>
                                 </configuration>
                             </execution>
                         </executions>

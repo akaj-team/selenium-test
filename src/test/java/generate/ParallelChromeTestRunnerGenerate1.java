@@ -6,13 +6,13 @@ import vn.asiantech.core.ParallelCucumberRunnerBase;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"stepdefs"},
-        tags = {"not @Ignore"},
+        tags = {"@Only"},
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports/cucumber-pretty",
-                "json:target/cucumber-reports/CucumberTestReport1.json",
+                "json:target/cucumber-reports/ChromeCucumberTestReport1.json",
                 "rerun:target/cucumber-reports/rerun.txt"
         })
 @Test
-class ParallelTestRunnerGenerate1 extends ParallelCucumberRunnerBase {
+class ParallelChromeTestRunnerGenerate1 extends ParallelCucumberRunnerBase {
 }

@@ -6,7 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 
-@Listeners(ScreenShotListener.class)
+@Listeners({ScreenShotListener.class, PropertyListener.class})
 public class ParallelCucumberRunnerBase extends CustomAbstractTestNGCucumberTests {
 
     @DataProvider
@@ -17,7 +17,7 @@ public class ParallelCucumberRunnerBase extends CustomAbstractTestNGCucumberTest
     @BeforeClass(alwaysRun = true)
     public void setUpClass(final ITestContext context) throws Exception {
         super.setUpClass(context);
-        DriverFactory.instance.startDriver(context.getCurrentXmlTest());
+        DriverFactory.instance.startDriver(context);
     }
 
     @AfterClass(alwaysRun = true)

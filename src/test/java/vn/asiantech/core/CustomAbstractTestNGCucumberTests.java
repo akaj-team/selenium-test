@@ -38,22 +38,26 @@ public abstract class CustomAbstractTestNGCucumberTests {
     public Object[][] scenarios() {
         Object[][] scenarios = this.testNGCucumberRunner.provideScenarios();
         List<Object[]> runScenarios = new ArrayList();
-        int number = scenarios.length / threadCount;
-        if (browserCount != (threadCount - 1)) {
-            for (int i = browserCount * number; i < number * (browserCount + 1); i++) {
-                runScenarios.add(scenarios[i]);
-            }
-            System.out.println("Thread " + browserCount + " run " + runScenarios.size() + " scenarios");
+        if (scenarios.length != 0 && scenarios.length > threadCount) {
+            int number = scenarios.length / threadCount;
+            if (browserCount != (threadCount - 1)) {
+                for (int i = browserCount * number; i < number * (browserCount + 1); i++) {
+                    runScenarios.add(scenarios[i]);
+                }
+                System.out.println("Thread " + browserCount + " run " + runScenarios.size() + " scenarios");
 
-        } else {
-            int startIndex = number * (threadCount - 1);
-            for (int i = startIndex; i < scenarios.length; i++) {
-                runScenarios.add(scenarios[i]);
+            } else {
+                int startIndex = number * (threadCount - 1);
+                for (int i = startIndex; i < scenarios.length; i++) {
+                    runScenarios.add(scenarios[i]);
+                }
+                System.out.println("Thread " + browserCount + " run " + runScenarios.size() + " scenarios");
             }
-            System.out.println("Thread " + browserCount + " run " + runScenarios.size() + " scenarios");
+            browserCount++;
+            return this.testNGCucumberRunner == null ? new Object[0][0] : runScenarios.toArray(new Object[0][]);
+        } else {
+            return this.testNGCucumberRunner == null ? new Object[0][0] : this.testNGCucumberRunner.provideScenarios();
         }
-        browserCount++;
-        return this.testNGCucumberRunner == null ? new Object[0][0] : runScenarios.toArray(new Object[0][]);
     }
 
     @AfterClass(

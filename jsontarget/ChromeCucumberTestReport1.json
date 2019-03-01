@@ -1,0 +1,219 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "line": 3,
+        "name": "User navigates to update page",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 5982052540,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "I am logged in as a team manager",
+            "match": {
+              "location": "AuthenticateDefinitions.java:19"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 3946802581,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "Update Page page displayed",
+            "match": {
+              "location": "UpdateWikiDefinition.java:29"
+            },
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 1695761,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ServiceHooks.initializeTest()"
+            }
+          }
+        ],
+        "line": 7,
+        "name": "Check submit is enabled",
+        "description": "",
+        "id": "check-update-page;check-submit-is-enabled",
+        "after": [
+          {
+            "result": {
+              "duration": 112220,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ServiceHooks.embedScreenShot(Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 64560277,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Submit button is enabled",
+            "match": {
+              "location": "NewWikiDefinition.java:36"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@Only"
+          }
+        ]
+      },
+      {
+        "line": 3,
+        "name": "User navigates to update page",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "duration": 91889868,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "I am logged in as a team manager",
+            "match": {
+              "location": "AuthenticateDefinitions.java:19"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 3245973427,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "Update Page page displayed",
+            "match": {
+              "location": "UpdateWikiDefinition.java:29"
+            },
+            "keyword": "And "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 70835,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ServiceHooks.initializeTest()"
+            }
+          }
+        ],
+        "line": 11,
+        "name": "Check update a child page",
+        "description": "",
+        "id": "check-update-page;check-update-a-child-page",
+        "after": [
+          {
+            "result": {
+              "duration": 58826,
+              "status": "passed"
+            },
+            "match": {
+              "location": "ServiceHooks.embedScreenShot(Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 347843788,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "I clear title",
+            "match": {
+              "location": "NewWikiDefinition.java:46"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 234032888,
+              "status": "passed"
+            },
+            "line": 13,
+            "name": "I enter title \"Pikalong\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Pikalong",
+                  "offset": 15
+                }
+              ],
+              "location": "NewWikiDefinition.java:48"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 139129446,
+              "status": "passed"
+            },
+            "line": 14,
+            "name": "Click submit child page or update page button",
+            "match": {
+              "location": "NewWikiDefinition.java:40"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 2973813020,
+              "status": "passed"
+            },
+            "line": 15,
+            "name": "Redirect wiki detail page",
+            "match": {
+              "location": "WikiDefinitions.java:46"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@Only"
+          }
+        ]
+      }
+    ],
+    "name": "Check update page",
+    "description": "",
+    "id": "check-update-page",
+    "keyword": "Feature",
+    "uri": "src/test/resources/features/wiki/UpdateWiki.feature",
+    "tags": []
+  }
+]

@@ -18,7 +18,7 @@ public class DefaultCucumberRunnerBase extends AbstractTestNGCucumberTests {
     @BeforeClass(alwaysRun = true)
     public void setUpClass(final ITestContext context) throws Exception {
         super.setUpClass();
-        DriverFactory.instance.startDriver(context.getCurrentXmlTest());
+        DriverFactory.instance.startDriver(context);
     }
 
     @AfterClass(alwaysRun = true)
