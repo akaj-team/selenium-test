@@ -155,9 +155,8 @@
   | Frame        | fr           | frLanguage           |
   | TabStrip     | tab          | tabOption            |
   | Text Area    | txa          | txaDescription       |
-  | Text box     | txt          | txtName              |
+  | Text         | txt          | txtName              |
   | Image        | img          | imgLogo              |
-  | Label        | lb           | lbUserName           |
   | List box     | list         | listCountry          |
   | Menu         | menu         | menuEmployee         |
   | Message      | msg          | msgError             |
