@@ -158,6 +158,7 @@
   | Text         | txt          | txtName              |
   | Image        | img          | imgLogo              |
   | List box     | list         | listCountry          |
+  | Label        | lb           | lbEmail              |
   | Menu         | menu         | menuEmployee         |
   | Message      | msg          | msgError             |
   | Radio        | rd           | rdGender             |
